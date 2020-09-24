@@ -1,35 +1,37 @@
-class Block {
-  int blockSize = 128;
-  int posX = 2000;
+//Main class for the blocks
+public class Block {
+  int blockSize;
+  int posX;
   int posY;
+  int assetFill;
 
-  Block(int tempPosY) {
+  Block() {
+    posX = 1980;
+    blockSize = 128;
+  }
+
+  void update(int tempPosY) {
+    posX = posX - 1;
     posY = tempPosY;
   }
 
-  void blockCreation() {
-    posX = posX - 1;
+  void draw() {
     rectMode(CORNER);
     rect(posX, posY, blockSize, blockSize);
+    fill(assetFill);
   }
 }
 
+//Softblock class based on block for breakable blocks
 class SoftBlock extends Block {
-  SoftBlock(int tempPosY) {
-    super(tempPosY);
+  SoftBlock() {
+    assetFill = color(255);
   };
-
-  void blockColor() {
-    fill(255);
-  }
 }
 
+//Hardblock class based on block for non breakable blocks
 class HardBlock extends Block {
-  HardBlock(int tempPosY) {
-    super(tempPosY);
+  HardBlock() {
+    assetFill = color(200);
   };
-
-  void blockColor() {
-    fill(200);
-  }
 }
