@@ -1,9 +1,11 @@
 public class LevelGeneration {
+  PVector[] pos;
   int[] placement;
   boolean placeBlock;
   int yes;
 
   LevelGeneration() {
+    pos = new PVector[]
     placement = new int[8];
     yes = 1;
     placeBlock = false;
@@ -15,7 +17,7 @@ public class LevelGeneration {
 
   void update() {
     
-    //fills array with -1 or 1 at random (for loop wilt niet?)
+    //fills array with -1 or 1 at random
     for (int i = 0; i < 8; i++) {
       placement[i] = randomMinOrOne();
     }
