@@ -1,5 +1,6 @@
 LevelGeneration levelGeneration;
 HardBlock myHardBlock;
+Player player;
 
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
@@ -10,6 +11,7 @@ void setup() {
   fullScreen();
   frameRate(60);
   
+  player = new Player();
   levelGeneration = new LevelGeneration();
   myHardBlock = new HardBlock();
 }
@@ -17,13 +19,16 @@ void setup() {
 void updateGame() {
   levelGeneration.update();
   myHardBlock.update(64);
+  player.update();
 }
 
 void drawGame() {
   background(128);
   
   levelGeneration.draw();
+  player.draw();
   //myHardBlock.draw();
+  
 }
 
 //-------------------------------------------------------------- 
