@@ -1,5 +1,4 @@
 LevelGeneration levelGeneration;
-HardBlock myHardBlock;
 Player player;
 
   startMenu startMenu = new startMenu();
@@ -11,23 +10,23 @@ Player player;
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 
+int x, y, w, h;
 int stage;
+
 
 void setup() {
   fullScreen();
   frameRate(60);
-  
-  stage = 0;
+
 
   player = new Player();
-  levelGeneration = new LevelGeneration();
-  myHardBlock = new HardBlock();
-
+  levelGeneration = new LevelGeneration(128, width, height);
+  stage = 0;
 }
 
 void updateGame() {
   levelGeneration.update();
-  myHardBlock.update(64);
+  //myHardBlock.update(64);
   player.update();
 }
 

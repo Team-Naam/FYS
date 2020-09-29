@@ -7,8 +7,9 @@ public class Player {
   Player() {
     posX = 500;
     posY = 500;
-    playerWidth = 100;
-    playerHeight = 100;
+
+    playerWidth = 64;
+    playerHeight = 64;
     speedX = 0;
     speedY = 0;
   }
