@@ -1,0 +1,12 @@
+// auteur : Jordy Post
+
+class Collisions {
+  //werkt alleen als de objecten van de corner getekent worden
+  //word teruggegeven als boolean
+
+  boolean update(float firstX, float firstY, float firstSizeX, float firstSizeY, float otherX, float otherY, float otherSizeX, float otherSizeY) {
+    boolean collide = false;
+    if (((otherX >= firstX && otherX <= firstX + firstSizeX) && (otherY >= firstY && otherY <= firstY + firstSizeY)) || ((otherX + otherSizeX >= firstX && otherX + otherSizeX <= firstX + firstSizeX) && (otherY + otherSizeY >= firstY && otherY + otherSizeY <= firstY + firstSizeY))) collide = true;
+    return collide;
+  }
+}
