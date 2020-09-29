@@ -1,6 +1,7 @@
 LevelGeneration levelGeneration;
 HardBlock myHardBlock;
 Player player;
+Collisions collision;
 
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
@@ -14,6 +15,7 @@ void setup() {
   player = new Player();
   levelGeneration = new LevelGeneration();
   myHardBlock = new HardBlock();
+  collision = new Collisions();
 }
 
 void updateGame() {
