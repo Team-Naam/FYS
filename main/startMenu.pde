@@ -1,12 +1,12 @@
-class startMenu
-{
+class startMenu {
   int highlightPosition = 0;
+  final InputHandler inputHandler;
 
-  startMenu()
-  {
+  startMenu(InputHandler inputHandler) {
+    this.inputHandler = inputHandler;
   }
-  void menu()
-  {
+
+  void menu() {
     background(0);
 
     rectMode(CENTER);
@@ -33,8 +33,7 @@ class startMenu
     textSize(20);
     text("Exit", width/2, height-100);
 
-    switch(highlightPosition)
-    {
+    switch(highlightPosition) {
     case 0:
       stroke(255, 0, 0);
       strokeWeight(5);
@@ -43,7 +42,7 @@ class startMenu
 
       if (keyPressed)
       {
-        if (key == 'a')
+        if (inputHandler.aa)
         {
           stage = 1;
         }
