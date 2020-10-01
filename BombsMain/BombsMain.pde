@@ -5,7 +5,7 @@ final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 
 void setup() {
-  fullScreen();
+  fullScreen(P2D);
   frameRate(60);
   game = new Game();
 }

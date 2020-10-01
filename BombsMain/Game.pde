@@ -1,8 +1,8 @@
 //Alles game gerelateerd
 
 class Game {
-  
-  
+
+
   void update() {
   }
 
