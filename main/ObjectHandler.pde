@@ -13,8 +13,8 @@ class ObjectHandler {
   }
 
   void addWall(int x, int y, int w, int h) {
-
-    entities.add();
+    Wall wall = new Wall(x, y, w, h, this);
+    entities.add(wall);
   }
 
   //void addGhost(int x, int y, int w, int h) {
@@ -63,5 +63,5 @@ class ObjectHandler {
 }
 
 enum ObjectID {
-  PLAYER, BLOCK
+  PLAYER, WALL
 }

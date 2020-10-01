@@ -1,10 +1,10 @@
 LevelGeneration levelGeneration;
-Player player;
-startMenu startMenu;
-inGame inGame;
-howToPlay howToPlay;
-highScores highScores;
-gameOver gameOver;
+//Player player;
+//startMenu startMenu;
+//inGame inGame;
+//howToPlay howToPlay;
+//highScores highScores;
+//gameOver gameOver;
 InputHandler inputHandler;
 
 final int KEY_LIMIT = 1024;
@@ -24,22 +24,22 @@ void setup() {
   //highScores = new highScores();
   //gameOver = new gameOver();
 
-  player = new Player();
+  //  player = new Player();
   levelGeneration = new LevelGeneration(128, width, height);
-  stage = 0;
+  //stage = 0;
 }
 
 void updateGame() {
   levelGeneration.update();
 
-  player.update();
+  //  player.update();
 }
 
 void drawGame() {
   background(128);
 
   levelGeneration.draw();
-  player.draw();
+  //  player.draw();
 }
 
 //-------------------------------------------------------------- 
