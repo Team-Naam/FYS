@@ -1,7 +1,4 @@
-//Alles game gerelateerd
-
-class Game {
-
+class Wall {
 
   void update() {
     
