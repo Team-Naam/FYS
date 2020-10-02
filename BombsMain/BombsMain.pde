@@ -15,13 +15,11 @@ void setup() {
 //-----------------------------Draw & Key functies---------------------------------
 
 void updateGame() {
-  //game.update();
-  player.update();
+  game.update();
 }
 
 void drawGame() {
-  //game.draw();
-  player.draw();
+  game.draw();
 }
 
 void keyPressed() {  
