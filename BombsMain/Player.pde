@@ -40,7 +40,7 @@ public class Player {
 
   void draw() {
     rectMode(CENTER);
+    fill(200);
     rect(posX, posY, playerWidth, playerHeight);
-    fill(0);
   }
 }
