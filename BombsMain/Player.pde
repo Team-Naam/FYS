@@ -2,18 +2,19 @@ public class Player {
   float posX, posY;
   float playerWidth, playerHeight;
   float speedX, speedY;
-  
-  
+  int playerHP;
+
+
   Player() {
     posX = 500;
     posY = 500;
-    
     playerWidth = 64;
     playerHeight = 64;
     speedX = 0;
     speedY = 0;
+    playerHP = 3;
   }
-  
+
   void update() {
     if (keyPressed == true && keyCode == UP) {
       speedY = -1;
@@ -35,11 +36,11 @@ public class Player {
     posX = posX + speedX;
     posY = posY + speedY;
   }
-  
-  
+
+
   void draw() {
     rectMode(CENTER);
-    rect(posX,posY,playerWidth,playerHeight);
-    fill(0);
+    fill(200);
+    rect(posX, posY, playerWidth, playerHeight);
   }
 }

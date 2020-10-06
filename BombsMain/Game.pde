@@ -17,6 +17,7 @@ class Game {
   }
 
   void update() {
+    player.update();
     objectHandler.update();
   }
 
