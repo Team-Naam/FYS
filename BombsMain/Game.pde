@@ -4,11 +4,11 @@ class Game {
 
 
   void update() {
-    
+    player.update();
   }
 
   void draw() {
-    fill(200);
-    rect(100, 100, 100, 100);
+    background(255);
+    player.draw();   
   }
 }
