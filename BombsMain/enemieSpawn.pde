@@ -1,10 +1,12 @@
 class EnemieSpawn {
   ArrayList<Enemies> enemies;
-  int spawnTimer;
+  int spawnTimer, spawnTime, spawnSec;
 
   EnemieSpawn() {
     enemies = new ArrayList<Enemies>();
+    spawnSec = 10;
     spawnTimer = 0;
+    spawnTime = spawnSec * 60;
   }
 
   void newEnemie() {
@@ -13,13 +15,14 @@ class EnemieSpawn {
 
   void update() {
     spawnTimer++;
-    if (spawnTimer == 300) {
+    if (spawnTimer == spawnTime) {
       newEnemie();
       spawnTimer = 0;
     }
     for (int i = enemies.size() - 1; i >= 0; i--) {
       Enemies enemie = enemies.get(i);
       enemie.update();
+      enemie.blockCollision();
 
       if (enemie.HP <= 0) {
         enemies.remove(i);
