@@ -27,7 +27,7 @@ class Enemies {
 
     hitTimer++;
 
-    if (collision.corner(bomberman.posX, bomberman.posY, bomberman.playerWidth, bomberman.playerHeight, posX, posY, sizeX, sizeY)) {
+    if (collision(bomberman.posX, bomberman.posY, bomberman.playerWidth, bomberman.playerHeight, posX, posY, sizeX, sizeY)) {
       speedY = 0;
       speedX = 0;
       if (hitTimer > 60) {
@@ -45,5 +45,12 @@ class Enemies {
     fill(255);
     rectMode(CORNER);
     rect(posX, posY, sizeX, sizeY);
+  }
+  
+  
+  boolean collision(float firstX, float firstY, float firstSizeX, float firstSizeY, float otherX, float otherY, float otherSizeX, float otherSizeY) {
+    boolean collide = false;
+    if ((((firstX >= otherX && firstX <= (otherX + otherSizeX)) || ((firstX + firstSizeX >= otherX) && (firstX + firstSizeX) <= (otherX + otherSizeX))) && ((firstY >= otherY && firstY <= otherY + otherSizeY) || ((firstY + firstSizeY >= otherY) && (firstY + firstSizeY) <= (otherY + otherSizeY))))) collide = true;
+    return collide;
   }
 }
