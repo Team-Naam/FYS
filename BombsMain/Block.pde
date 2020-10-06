@@ -1,3 +1,4 @@
+//Classes for de muren en breekbare blokken
 abstract class Block {
   int x, y, w, h;
   ObjectID objectId;
@@ -19,6 +20,7 @@ abstract class Block {
   abstract void draw();
 }
 
+//Muren, moet nog collision op
 class Wall extends Block {
   Wall(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, ObjectID.WALL, objectHandler, sprites);
@@ -27,11 +29,13 @@ class Wall extends Block {
   void update() {
   }
 
+  //Inladen van de texture voor de muur en plaatsing
   void draw() {
     image(sprites.getWall(), x, y);
   }
 }
 
+//Breekbare blocks, alles moet nog 
 class BreakableBlocks extends Block {
   BreakableBlocks(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, ObjectID.BBLOCKS, objectHandler, sprites);
