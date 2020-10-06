@@ -1,0 +1,3 @@
+enum ObjectID {
+  WALL, BBLOCKS
+}
