@@ -14,11 +14,8 @@ void setup() {
 
 //-----------------------------Draw & Key functies---------------------------------
 
-void updateGame() {
+void draw() {
   game.update();
-}
-
-void drawGame() {
   game.draw();
 }
 

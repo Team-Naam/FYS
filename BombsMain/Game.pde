@@ -8,6 +8,7 @@ class Game {
   }
 
   void draw() {
-    
+    fill(200);
+    rect(100, 100, 100, 100);
   }
 }
