@@ -1,26 +1,27 @@
 class EnemieSpawn {
   ArrayList<Enemies> enemies;
-  int spawnTimer;
 
   EnemieSpawn() {
     enemies = new ArrayList<Enemies>();
-    spawnTimer = 0;
   }
 
-  void newEnemie() {
-    enemies.add(new Enemies());
+//spawnt een nieuwe enemie op de gegeven locatie
+  void newEnemie(float posX, float posY) {
+    enemies.add(new Enemies(posX, posY));
   }
 
   void update() {
-    spawnTimer++;
-    if (spawnTimer == 300) {
-      newEnemie();
-      spawnTimer = 0;
-    }
     for (int i = enemies.size() - 1; i >= 0; i--) {
       Enemies enemie = enemies.get(i);
       enemie.update();
-
+      
+      //geeft enemies mee voor de enemie/enemie collision
+      for (int j = enemies.size() - 1; j >= 0; j--){
+        if (i != j){
+          enemie.enemieCollision(enemies.get(j));
+        }
+      }
+      //enemies verdwijnen als ze dood zijn
       if (enemie.HP <= 0) {
         enemies.remove(i);
       }
@@ -32,7 +33,7 @@ class EnemieSpawn {
       enemies.get(i).draw();
     }
   }
-
+//haalt hp van de enemies af
   void enemieHit(int enemie, int dmg) {
     enemies.get(enemie).HP -= dmg;
   }
