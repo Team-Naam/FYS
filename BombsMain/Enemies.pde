@@ -1,6 +1,7 @@
 class Enemies {
   float posX, posY;
   float speedX, speedY;
+  float bSpeedX, bSpeedY;
   float sizeX, sizeY;
   int HP;
   int hitTimer;
@@ -10,8 +11,10 @@ class Enemies {
     //beginwaarden
     this.posX = posX;
     this.posY = posY;
-    speedX = 0.8;  //0.8 * bombermanspeed
-    speedY = 0.8;
+    bSpeedX = 0.8;  //0.8 * bombermanspeed
+    bSpeedY = 0.8;
+    speedX = bSpeedX;
+    speedY = bSpeedY;
     sizeX = 50;
     sizeY = 100;
     HP = (int)random(2, 4);
@@ -19,51 +22,9 @@ class Enemies {
     collision = 0;
   }
 
-  void update() {
-    // kijkt waar bomberman is en gaat naar die locatie is ook een deel voor de collision tussen enemies
-    switch(collision) {
-    case 0:
-      moveX();
-      moveY();
-      break;
-      
-    case 1:
-      if (player.posX < posX) posX -= speedX;
-      moveY();
-      break;
-      
-    case 2:
-      if (player.posX < posX);
-      else posX += speedX;
-      moveY();
-      break;
-      
-    case 3:
-      moveX();
-      if (player.posY < posY) posY -= speedY;
-      break;
-      
-    case 4:
-      moveX();
-      if (player.posY < posY);
-      else posY += speedY;
-      break;
-    }
-
-    hitTimer++;
-
-    //kijkt of er collision is met bomberman, zo ja haalt hij iedere seconde hp van bomberman eraf
-    if (collision(player.posX, player.posY, player.playerWidth, player.playerHeight, posX, posY, sizeX, sizeY)) {
-      speedY = 0;
-      speedX = 0;
-      if (hitTimer > 60) {
-        //haal hp van bomberman eraf
-        hitTimer = 0;
-      }
-    } else {
-      speedY = 0.8;
-      speedX = 0.8;
-    }
+  void update() {  
+    move();
+    hitPlayer();
   }
 
   void draw() {
@@ -112,6 +73,55 @@ class Enemies {
     if (player.posY < posY)
       posY -= speedY;
     else posY += speedY;
+  }
+  
+  void move() {
+    // kijkt waar bomberman is en gaat naar die locatie is ook een deel voor de collision tussen enemies
+    switch(collision) {
+    case 0:
+      moveX();
+      moveY();
+      break;
+      
+    case 1:
+      if (player.posX < posX) posX -= speedX;
+      moveY();
+      break;
+      
+    case 2:
+      if (player.posX < posX);
+      else posX += speedX;
+      moveY();
+      break;
+      
+    case 3:
+      moveX();
+      if (player.posY < posY) posY -= speedY;
+      break;
+      
+    case 4:
+      moveX();
+      if (player.posY < posY);
+      else posY += speedY;
+      break;
+    }
+  }
+  
+  void hitPlayer(){
+    hitTimer++;
+
+    //kijkt of er collision is met bomberman, zo ja haalt hij iedere seconde hp van bomberman eraf
+    if (collision(player.posX, player.posY, player.playerWidth, player.playerHeight, posX, posY, sizeX, sizeY)) {
+      speedY = 0;
+      speedX = 0;
+      if (hitTimer > 60) {
+        //haal hp van bomberman eraf
+        hitTimer = 0;
+      }
+    } else {
+      speedX = bSpeedX;
+      speedY = bSpeedY;
+    }
   }
 
 //om te kijken of er collision is tussen 2 rechthoeken
