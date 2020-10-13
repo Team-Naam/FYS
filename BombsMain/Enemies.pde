@@ -1,6 +1,7 @@
 class Enemies {
   float posX, posY;
   float speedX, speedY;
+  float bSpeedX, bSpeedY;
   float sizeX, sizeY;
   int HP;
   int hitTimer;
@@ -10,8 +11,10 @@ class Enemies {
     //beginwaarden
     this.posX = posX;
     this.posY = posY;
-    speedX = 0.8;  //0.8 * bombermanspeed
-    speedY = 0.8;
+    bSpeedX = 0.8;  //0.8 * bombermanspeed
+    bSpeedY = 0.8;
+    speedX = bSpeedX;
+    speedY = bSpeedY;
     sizeX = 50;
     sizeY = 100;
     HP = (int)random(2, 4);
@@ -61,8 +64,8 @@ class Enemies {
         hitTimer = 0;
       }
     } else {
-      speedY = 0.8;
-      speedX = 0.8;
+      speedY = bSpeedY;
+      speedX = bSpeedX;
     }
   }
 
