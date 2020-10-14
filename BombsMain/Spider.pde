@@ -28,7 +28,7 @@ class Spider extends Enemies {
     hitTimer++;
 
     //kijkt of er collision is met bomberman, zo ja haalt hij iedere seconde hp van bomberman eraf
-    if (collision(player.posX, player.posY, player.playerWidth, player.playerHeight, posX, posY, sizeX, sizeY)) {
+    if (collision(player.x, player.y, player.w, player.h, x, y, sizeX, sizeY)) {
       speedY = 0;
       speedX = 0;
       if (hitTimer > 60) {
