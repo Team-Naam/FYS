@@ -14,6 +14,10 @@ class Sprites {
     return sprites[0][0];
   }
 
+  PImage getPlayer() {
+    return sprites[1][1];
+  }
+
   //functie voor het inladen van de verschillende textures in de array
   PImage[][] loadSprites(String path, int tileSize) {
     PImage spriteBlock = loadImage(path);

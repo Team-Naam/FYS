@@ -1,4 +1,6 @@
 class Enemies {
+  Player player;
+  
   float posX, posY;
   float speedX, speedY;
   float sizeX, sizeY;
@@ -18,16 +20,16 @@ class Enemies {
 
   void update() {
     // kijkt waar bomberman is en gaat naar die locatie
-    if (player.posX < posX)
+    if (player.x < posX)
       posX -= speedX;
     else posX += speedX;
-    if (player.posY < posY)
+    if (player.y < posY)
       posY -= speedY;
     else posY += speedY;
 
     hitTimer++;
 
-    if (collision(player.posX, player.posY, player.playerWidth, player.playerHeight, posX, posY, sizeX, sizeY)) {
+    if (collision(player.x, player.y, player.w, player.h, posX, posY, sizeX, sizeY)) {
       speedY = 0;
       speedX = 0;
       if (hitTimer > 60) {

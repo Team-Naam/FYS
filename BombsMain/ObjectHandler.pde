@@ -2,7 +2,7 @@
 class ObjectHandler {
 
   //Opzetten van object array voor muren en breekbare blocks
-  ArrayList<Block> blocks = new ArrayList<Block>();
+  ArrayList<Object> entries = new ArrayList<Object>();
 
   Sprites sprites;
 
@@ -13,17 +13,24 @@ class ObjectHandler {
   //Method voor het creëren van de muren, input lijkt me vanzelf sprekend
   void addWall(int x, int y, int w, int h) {
     Wall wall = new Wall(x, y + 28, w, h, this, sprites);
-    blocks.add(wall);
+    entries.add(wall);
+  }
+
+  //Method voor voegen van de player aan de gameobjecten
+  void addPlayer() {
+    Player player = new Player(0, 156, 64, 64, this, sprites);
+    entries.add(player);
+    println("spawned");
   }
 
   //Method van verwijderen objecten uit array (not used atm) 
-  void removeBlock(Block block) {
-    blocks.remove(block);
+  void removeBlock(Object entry) {
+    entries.remove(entry);
   }
 
-  //stopt het inladen wanneer hij alles heeft pretty much
+  //Updates elke list entry
   void update() {
-    ArrayList<Block> objects = blocks;
+    ArrayList<Object> objects = entries;
     for (int i = 0; i < objects.size(); i++) {
       if (i >= objects.size()) {
         break;
@@ -34,7 +41,7 @@ class ObjectHandler {
 
   //Draw method voor elk onderdeel in de list
   void draw() {
-    ArrayList<Block> objects = blocks;
+    ArrayList<Object> objects = entries;
     for (int i = 0; i < objects.size(); i++) {
       if (i >= objects.size()) {
         break;

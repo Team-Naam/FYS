@@ -3,6 +3,7 @@
 class Game {
   ObjectHandler objectHandler;
   Sprites sprites;
+  Player player;
 
   final int width, height;
 
@@ -14,19 +15,19 @@ class Game {
     sprites = new Sprites("data/text/textures.png", tileSize);
     objectHandler = new ObjectHandler(this.sprites);
     PImage map = loadImage("data/maps/map1.png");
+    objectHandler.addPlayer();
     map.loadPixels();
     loadMap(map.pixels, map.width, map.height, tileSize, tileSize, this.objectHandler);
   }
 
   //Oproepen van objecten in de game zodat ze worden getekend
   void update() {
-    player.update();
     objectHandler.update();
   }
 
   void draw() {
+    background(128);
     objectHandler.draw();
-    player.draw();
   }
 }
 
