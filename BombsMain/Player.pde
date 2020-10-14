@@ -1,46 +1,48 @@
-public class Player {
-  float posX, posY;
-  float playerWidth, playerHeight;
-  float speedX, speedY;
-  int playerHP;
+class Player extends Object {
+
+  int speedX = 0;
+  int speedY = 0;
+  int velX = 2;
+  int velY = 2;
+  int playerHP = 3;
 
 
-  Player() {
-    posX = 500;
-    posY = 500;
-    playerWidth = 64;
-    playerHeight = 64;
-    speedX = 0;
-    speedY = 0;
-    playerHP = 3;
+  Player(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+    super(x, y, w, h, ObjectID.PLAYER, objectHandler, sprites);
   }
 
   void update() {
+
     if (keyPressed == true && keyCode == UP) {
-      speedY = -1;
+      speedY = velY * -1;
     } else if (keyPressed == true && keyCode == DOWN) {
-      speedY = 1;
+      speedY = velY;
     } else if (keyPressed == true && keyCode == LEFT) {
-      speedX = -1;
+      speedX = velX * -1;
     } else if (keyPressed == true && keyCode == RIGHT) {
-      speedX = 1;
+      speedX = velX;
     } else if (keyPressed == false) {
       speedY = 0;
       speedX = 0;
     }
+
     if (speedX != 0) {
       speedY = 0;
     } else if (speedY != 0) {
       speedX = 0;
     }
-    posX = posX + speedX;
-    posY = posY + speedY;
+
+    if (collisionDetection()) {
+      speedX = speedX * -1;
+      speedY = speedY * -1;
+    }
+
+    x = x + speedX;
+    y = y + speedY;
   }
 
-
   void draw() {
-    rectMode(CENTER);
-    fill(200);
-    rect(posX, posY, playerWidth, playerHeight);
+    //rect(x, y, w, h);
+    image(sprites.getPlayer(), x, y);
   }
 }

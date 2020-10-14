@@ -1,4 +1,6 @@
 class Enemies {
+  Player player;
+  
   float posX, posY;
   float speedX, speedY;
   float bSpeedX, bSpeedY;
@@ -110,8 +112,12 @@ class Enemies {
   void hitPlayer(){
     hitTimer++;
 
+
+    
+
     //kijkt of er collision is met bomberman, zo ja haalt hij iedere seconde hp van bomberman eraf
-    if (collision(player.posX, player.posY, player.playerWidth, player.playerHeight, posX, posY, sizeX, sizeY)) {
+    if (collision(player.x, player.y, player.w, player.h, posX, posY, sizeX, sizeY)) {
+
       speedY = 0;
       speedX = 0;
       if (hitTimer > 60) {
