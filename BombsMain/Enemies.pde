@@ -1,7 +1,7 @@
 class Enemies {
   Player player;
   
-  float posX, posY;
+  float x, y;
   float speedX, speedY;
   float bSpeedX, bSpeedY;
   float sizeX, sizeY;
@@ -11,8 +11,8 @@ class Enemies {
 
   Enemies(float posX, float posY) {
     //beginwaarden
-    this.posX = posX;
-    this.posY = posY;
+    this.x = posX;
+    this.y = posY;
     bSpeedX = 0.8;  //0.8 * bombermanspeed
     bSpeedY = 0.8;
     speedX = bSpeedX;
@@ -33,29 +33,29 @@ class Enemies {
     //tekent de enemie
     fill(255);
     rectMode(CORNER);
-    rect(posX, posY, sizeX, sizeY);
+    rect(x, y, sizeX, sizeY);
   }
 
   void enemieCollision(Enemies other) {
     // kijkt of er collision is met een andere enemie en slaat dat op
-    if (collision(posX, posY, sizeX, sizeY, other.posX, other.posY, other.sizeX, other.sizeY)) {
-      if (posX + sizeX <= other.posX +2) {
-        posX = other.posX - sizeX;
+    if (collision(x, y, sizeX, sizeY, other.x, other.y, other.sizeX, other.sizeY)) {
+      if (x + sizeX <= other.x +2) {
+        x = other.x - sizeX;
         collision = 1;
       }
 
-      if (posX >= other.posX + other.sizeX -2) {
-        posX = other.posX + other.sizeX;
+      if (x >= other.x + other.sizeX -2) {
+        x = other.x + other.sizeX;
         collision = 2;
       }
 
-      if (posY + sizeY <= other.posY +2) {
-        posY = other.posY - sizeY;
+      if (y + sizeY <= other.y +2) {
+        y = other.y - sizeY;
         collision = 3;
       }
 
-      if (posY >= other.posY + other.sizeY -2) {
-        posY = other.posY + other.sizeY;
+      if (y >= other.y + other.sizeY -2) {
+        y = other.y + other.sizeY;
         collision = 4;
       }
     } else {
@@ -66,15 +66,15 @@ class Enemies {
 
 //kijkt waar de player is en gaat daar naartoe
   void moveX() {
-    if (player.posX < posX)
-      posX -= speedX;
-    else posX += speedX;
+    if (player.x < x)
+      x -= speedX;
+    else x += speedX;
   }
 
   void moveY() {
-    if (player.posY < posY)
-      posY -= speedY;
-    else posY += speedY;
+    if (player.y < y)
+      y -= speedY;
+    else y += speedY;
   }
   
   void move() {
@@ -86,25 +86,25 @@ class Enemies {
       break;
       
     case 1:
-      if (player.posX < posX) posX -= speedX;
+      if (player.x < x) x -= speedX;
       moveY();
       break;
       
     case 2:
-      if (player.posX < posX);
-      else posX += speedX;
+      if (player.x < x);
+      else x += speedX;
       moveY();
       break;
       
     case 3:
       moveX();
-      if (player.posY < posY) posY -= speedY;
+      if (player.y < y) y -= speedY;
       break;
       
     case 4:
       moveX();
-      if (player.posY < posY);
-      else posY += speedY;
+      if (player.y < y);
+      else y += speedY;
       break;
     }
   }
@@ -116,7 +116,7 @@ class Enemies {
     
 
     //kijkt of er collision is met bomberman, zo ja haalt hij iedere seconde hp van bomberman eraf
-    if (collision(player.x, player.y, player.w, player.h, posX, posY, sizeX, sizeY)) {
+    if (collision(player.x, player.y, player.w, player.h, x, y, sizeX, sizeY)) {
 
       speedY = 0;
       speedX = 0;
