@@ -37,22 +37,22 @@ class Enemies {
   void enemieCollision(Enemies other) {
     // kijkt of er collision is met een andere enemie en slaat dat op
     if (collision(posX, posY, sizeX, sizeY, other.posX, other.posY, other.sizeX, other.sizeY)) {
-      if (posX + sizeX <= other.posX +1) {
+      if (posX + sizeX <= other.posX +2) {
         posX = other.posX - sizeX;
         collision = 1;
       }
 
-      if (posX >= other.posX + other.sizeX -1) {
+      if (posX >= other.posX + other.sizeX -2) {
         posX = other.posX + other.sizeX;
         collision = 2;
       }
 
-      if (posY + sizeY <= other.posY +1) {
+      if (posY + sizeY <= other.posY +2) {
         posY = other.posY - sizeY;
         collision = 3;
       }
 
-      if (posY >= other.posY + other.sizeY -1) {
+      if (posY >= other.posY + other.sizeY -2) {
         posY = other.posY + other.sizeY;
         collision = 4;
       }
@@ -116,6 +116,7 @@ class Enemies {
       speedX = 0;
       if (hitTimer > 60) {
         //haal hp van bomberman eraf
+        player.playerHP -= 1;
         hitTimer = 0;
       }
     } else {

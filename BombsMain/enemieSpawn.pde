@@ -5,8 +5,16 @@ class EnemieSpawn {
     enemies = new ArrayList<Enemies>();
   }
 
-//spawnt een nieuwe enemie op de gegeven locatie
-  void newEnemie(float posX, float posY) {
+//spawnt een nieuwe spider op de gegeven locatie
+  void newSpider(float posX, float posY) {
+    enemies.add(new Spider(posX, posY));
+  }
+  //spawnt een nieuwe mummie op de gegeven locatie
+  void newMummie(float posX, float posY) {
+    enemies.add(new Mummie(posX, posY));
+  }
+  //spawnt een nieuwe geest op de gegeven locatie
+  void newGhost(float posX, float posY) {
     enemies.add(new Enemies(posX, posY));
   }
 
