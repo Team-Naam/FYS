@@ -22,6 +22,14 @@ class ObjectHandler {
     entries.add(player);
     println("spawned");
   }
+  
+  //Method voor het toevoegen van een enemie
+  void addEnemie() {
+    EnemieSpawn enemies = new EnemieSpawn();
+    enemies.newMummie(1580, 780, 50, 100, this, sprites, entries.get(0));
+    for (int i = 0; i < enemies.enemies.size(); i++)
+      entries.add(enemies.enemies.get(i));
+  }
 
   //Method van verwijderen objecten uit array (not used atm) 
   void removeBlock(Object entry) {

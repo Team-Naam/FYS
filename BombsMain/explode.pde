@@ -11,7 +11,7 @@ class Explode
     this.x = x;
     this.y = y;
     this.size = size;
-    
+
     for ( int i = 0; i < particles.length; i++)
     {
       particles[i] = new Particle();
