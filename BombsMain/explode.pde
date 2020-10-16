@@ -1,4 +1,4 @@
-class explode
+class Explode
 {
   float x;
   float y;
@@ -6,7 +6,7 @@ class explode
 
   Particle[] particles = new Particle[250];
 
-  explode(float x, float y, float size)
+  Explode(float x, float y, float size)
   {
     this.x = x;
     this.y = y;
@@ -17,11 +17,4 @@ class explode
       particles[i] = new Particle();
     }
   }
-}
-
-void drawParticle()
-{
-  fill(255,0,0);
-  ellipse(x,y,size/2,size/2);
-  noFill();
 }
