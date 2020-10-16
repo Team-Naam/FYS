@@ -4,6 +4,7 @@ class Game {
   ObjectHandler objectHandler;
   Sprites sprites;
   Player player;
+  EnemieSpawn enemies;
 
   final int width, height;
 
@@ -16,6 +17,7 @@ class Game {
     objectHandler = new ObjectHandler(this.sprites);
     PImage map = loadImage("data/maps/map1.png");
     objectHandler.addPlayer();
+    objectHandler.addEnemie();
     map.loadPixels();
     loadMap(map.pixels, map.width, map.height, tileSize, tileSize, this.objectHandler);
   }

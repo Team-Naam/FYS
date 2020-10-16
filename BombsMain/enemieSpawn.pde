@@ -3,19 +3,20 @@ class EnemieSpawn {
 
   EnemieSpawn() {
     enemies = new ArrayList<Enemies>();
+    
   }
 
 //spawnt een nieuwe spider op de gegeven locatie
-  void newSpider(float posX, float posY) {
-    enemies.add(new Spider(posX, posY));
+  void newSpider(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites, Object player) {
+    enemies.add(new Spider(x, y, w, h, objectHandler, sprites, player));
   }
   //spawnt een nieuwe mummie op de gegeven locatie
-  void newMummie(float posX, float posY) {
-    enemies.add(new Mummie(posX, posY));
+  void newMummie(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites, Object player) {
+    enemies.add(new Mummie(x, y, w, h, objectHandler, sprites, player));
   }
   //spawnt een nieuwe geest op de gegeven locatie
-  void newGhost(float posX, float posY) {
-    enemies.add(new Enemies(posX, posY));
+  void newGhost(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites, Object player) {
+    enemies.add(new Ghosts(x, y, w, h, objectHandler, sprites, player));
   }
 
   void update() {
