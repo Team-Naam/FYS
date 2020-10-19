@@ -1,68 +1,101 @@
-//class Bombs
-//{
-//  int[][] pose= new int[10][10];
-//  boolean m;
-//  int locX = 50;
-//  int locY = 50;
-//  int size = 100;
+class Bomb extends Object {
 
-//  Explode[] explode;
+  int bombTimer = 5000;
+  int bombOpacity = 255;
+  int startTime;
+  int explosionOpacity = 255;
+  int explosionRadius = 0;
 
-//  void setup() 
-//  {
-//    size(1600, 900);
 
-//    explode = new Explode[10];
-//    for (int i = 0; i < explode.length; i ++)
-//    {
-//      explode[i] = new Explode(locX, locY, size);
-//    }
-//  }
+  Bomb(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+    super (x, y, w, h, ObjectID.BOMB, objectHandler, sprites);
+    startTime = millis();
+  }
 
+  void ifTouching(Object crate) {
+  }
+
+  void update() {
+    if ( bombExploded()) {
+      if (explosionRadius < 400) explosionRadius += 25;
+      if (explosionRadius >= 200){
+        explosionOpacity -=5;
+        bombOpacity = 0;
+      }
+      if (explosionOpacity <= 0) objectHandler.removeEntry(this);
+    }
+  }
+
+  void draw() {
+
+    fill(0, bombOpacity);
+    if(bombOpacity == 0) noStroke();
+    rect(x, y, 32, 32);
+    fill(235, 109, 30, explosionOpacity);
+    noStroke();
+    circle(x + w, y + h, explosionRadius);
+    stroke(1);
+  }
+
+  boolean bombExploded() {
+    if ( millis() > startTime + bombTimer) return true;
+    return false;
+  }
+
+  //void bombes() 
+  //{
+
+  //  for (int i=0; i<10; i++)
+  //  {
+  //    if (pose[i][0]==1) 
+  //    {
+  //      ellipseMode(CENTER);
+  //      ellipse(pose[i][1], pose[i][2], 50, 50);
+  //    }
+  //  }
+  //}
+
+  //void location() 
+  //{
+  //  if (input.xDown()) {
+  //    int i=0;
+  //    while (pose[i][0]==1)
+  //    {
+  //      i++;
+  //    }
+
+  //    pose[i][0]=1;
+  //    pose[i][1]=playerPosX;
+  //    pose[i][2]=playerPosY;
+  //    pose[i][3]=millis() + 5000;
+  //  }
+  //}
+
+  //void explosion()
+  //{
+  //  for (int i=0; i<10; i++)
+  //  {
+  //    if (pose[i][3]<(millis()) && pose[i][0]!=0) 
+  //    {
+  //      for (int j=0; j<4; j++) 
+  //      {
+  //        pose[i][j]=0;
+  //        background(255);
+  //      }
+  //    }
+  //  }
+  //}
+}
 //  void draw() 
 //  {
-//    background(0);
-//    noFill();
-//    stroke(255);
-//    strokeWeight(5);
-//    rectMode(CENTER);
-//    rect(locX, locY, size, size);
-//    noStroke();
-//    fill(255);
 //    bombes();
 //    location();
 //    explosion();
 //  }
 
-//  void bombes() 
-//  {
 
-//    for (int i=0; i<10; i++)
-//    {
-//      if (pose[i][0]==1) 
-//      {
-//        ellipseMode(CENTER);
-//        ellipse(pose[i][1], pose[i][2], 50, 50);
-//      }
-//    }
-//  }
 
-//  void location() 
-//  {
-//    if (clic()==true)
-//    {
-//      int i=0;
-//      while (pose[i][0]==1)
-//      {
-//        i++;
-//      }
 
-//      pose[i][0]=1;
-//      pose[i][1]=locX;
-//      pose[i][2]=locY;
-//      pose[i][3]=millis() + 5000;
-//    }
-//  }
 
 //  boolean clic() 
 //  {
@@ -80,18 +113,5 @@
 //    }
 //  }
 
-//  void explosion()
-//  {
-//    for (int i=0; i<10; i++)
-//    {
-//      if (pose[i][3]<(millis()) && pose[i][0]!=0) 
-//      {
-//        for (int j=0; j<4; j++) 
-//        {
-//          pose[i][j]=0;
-//          background(255);
-//        }
-//      }
-//    }
-//  }
+
 //}

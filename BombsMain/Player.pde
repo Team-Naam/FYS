@@ -8,7 +8,7 @@ class Player extends Object {
   int velY = 2;
   int health = 3;
   int oldX, oldY;
-
+  int bombCooldown = 0;
 
   Player(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, ObjectID.PLAYER, objectHandler, sprites);
@@ -33,6 +33,8 @@ class Player extends Object {
 
     oldX = x;
     oldY = y;
+    
+    if(bombCooldown > 0) bombCooldown--;
   }
 
   void playerControls() {
@@ -50,6 +52,10 @@ class Player extends Object {
     if (input.downDown() && y < height) {
       speedY += velY;
     }
+    if (input.zDown() && bombCooldown == 0){
+      objectHandler.addBomb(x + w / 4, y + h / 4, 32, 32);
+      bombCooldown = 60;
+    }    
   }
 
   void ifTouching(Object crate) {
