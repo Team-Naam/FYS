@@ -1,30 +1,42 @@
+//Code credit Jordy Post, Winand Metz, Ruben Verheul, Ole Neuman
+
+//Main Enemy class voor Ghost, Spider, Mummy
 class Enemy extends Object {
 
+  int roamingTimer;
   int speedX = 0;
   int speedY = 0;
-  int velX = 1;
-  int velY = 1;
-  int roamingTimer = 2000;
+  int velX;
+  int velY;
   int savedTime;
+  int oldX, oldY;
 
   Enemy(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, ObjectID.ENEMY, objectHandler, sprites);
     savedTime = millis();
   }
 
+  //Nieuw collision system waarbij hij terug wordt gezet naar de oude positie
   void update() {
+    //println(randomSignum());
     movement();
-
-    if (collisionDetection()) {
-      speedX = speedX * -1;
-      speedY = speedY * -1;
-    }
 
     x = x + speedX;
     y = y + speedY;
+
+    if (collisionDetection()) {
+      x = oldX;
+      y = oldY;
+    }
+
+    oldX = x;
+    oldY = y;
   }
 
   void movement() {
+    //Timer voor basic willekeurig ronddwalen over speelveld elke twe seconden gaat hij andere kant op
+    //Zodra hij binnen 400 pixels van de player komt gaat hij achter de player aan
+    //Moet nog in dat hij om muren heen navigeert ipv tegenaanstoot en stil staat
     int passedTime = millis() - savedTime;
     if (dist(getPlayerX(), getPlayerY(), x, y) < 400) {
       hunt();
@@ -37,6 +49,8 @@ class Enemy extends Object {
     }
   }
 
+  //Method voor basic volgen van de player
+  //Moet nog in dat hij om muren heen navigeert (of je niet ziet achter de muren?)
   void hunt() {
     if (getPlayerX() > x && getPlayerY() > y) {
       speedX = velX;
@@ -56,15 +70,12 @@ class Enemy extends Object {
     }
   }
 
-  int randomSignum() {
-    return (int) random(3) * 2 - 2;
-  }
-
   void draw() {
     fill(20);
     rect(x, y, w, h);
   }
 
+  //Moet nog, method om interactie te krijgen wanneer hij ander object aanraakt
   void ifTouching(Object crate) {
   }
 }

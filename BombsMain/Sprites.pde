@@ -1,3 +1,5 @@
+//Code credit Winand Metz
+
 //Inladen en tijdelijk opslaan textures
 class Sprites {
 

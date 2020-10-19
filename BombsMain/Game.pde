@@ -1,3 +1,5 @@
+//Code credit Winand Metz
+
 //Alles game gerelateerd
 class Game {
   ObjectHandler objectHandler;
@@ -35,18 +37,26 @@ void loadMap(int[] pixels, int w, int h, int tw, int th, ObjectHandler objectHan
     for (int y = 0; y < h; y++ ) {
       int loc = x + y * w;
       float c = pixels[loc];
+      //Hexcode = 7f0622
       if (c == 0xFF7F0622) {
         objectHandler.addWall(x * tw, y * th, tw, th);
       }
-      if (c == 0xFF00A0C8) {
-        objectHandler.addEnemy(x * tw, y * th, tw, th);
+      //Hexode = 000000
+      if (c == 0xFF000000) {
+        objectHandler.addSpider(x * tw, y * th, tw, th);
       }
-      //if (c == 0xFF7F0622) {
-      //  objectHandler.addGhost(x * tw, y * th, tw, th);
-      //}
-      //if (c == 0xFF7F0622) {
-      //  objectHandler.addMummy(x * tw, y * th, tw, th);
-      //}
+      //Hexode = 00a0c8
+      if (c == 0xFF00a0c8) {
+        objectHandler.addGhost(x * tw, y * th, tw, th);
+      }
+      //Hexcode = ffdf8f
+      if (c == 0xFFffdf8f) {
+        objectHandler.addMummy(x * tw, y * th, tw, th);
+      }
+      //Hexcode = 515151
+      if (c == 0xFF515151) {
+        objectHandler.addRock(x * tw, y * th, tw, th);
+      }
     }
   }
 }
