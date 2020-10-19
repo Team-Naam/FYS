@@ -1,3 +1,5 @@
+//Code credit Ruben Verheul, Winand Metz
+
 class Player extends Object {
 
   int speedX = 0;
@@ -5,6 +7,7 @@ class Player extends Object {
   int velX = 2;
   int velY = 2;
   int health = 3;
+  int oldX, oldY;
 
 
   Player(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
@@ -12,7 +15,6 @@ class Player extends Object {
   }
 
   void update() {
-
     playerControls();
 
     if (speedX != 0) {
@@ -21,22 +23,33 @@ class Player extends Object {
       speedX = 0;
     }
 
-    if (collisionDetection()) {
-      speedX = speedX * -1;
-      speedY = speedY * -1;
-    }
-
     x = x + speedX;
     y = y + speedY;
+
+    if (collisionDetection()) {
+      x = oldX;
+      y = oldY;
+    }
+
+    oldX = x;
+    oldY = y;
   }
 
   void playerControls() {
     speedX = 0;
     speedY = 0;
-    if (input.leftDown() && x > 0) speedX += -velX;
-    if (input.rightDown() && x < width) speedX += velX;
-    if (input.upDown() && y > 0) speedY += -velY;
-    if (input.downDown() && y < height) speedY += velY;
+    if (input.leftDown() && x > 0) {
+      speedX += -velX;
+    }
+    if (input.rightDown() && x < width) {
+      speedX += velX;
+    }
+    if (input.upDown() && y > 0) {
+      speedY += -velY;
+    }
+    if (input.downDown() && y < height) {
+      speedY += velY;
+    }
   }
 
   void ifTouching(Object crate) {

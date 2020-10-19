@@ -1,3 +1,5 @@
+//Code credit Winand Metz
+
 //Class voor het creëren en opslaan van de objecten
 class ObjectHandler {
 
@@ -13,23 +15,42 @@ class ObjectHandler {
 
   //Method voor het creëren van de muren, input lijkt me vanzelf sprekend
   void addWall(int x, int y, int w, int h) {
-    Wall wall = new Wall(x, y + 28, w, h, this, sprites);
+    Wall wall = new Wall(x, y - 100, w, h, this, sprites);
     entries.add(wall);
   }
 
-  //Method voor voegen van de player aan de gameobjecten
+  //Method voor de rockwall onder- en bovenkant van het scherm 
+  void addRock(int x, int y, int w, int h) {
+    Rock rock = new Rock(x, y - 100, w, h, this, sprites);
+    entries.add(rock);
+  }
+
+  //Method voor plaatsen van de player
   void addPlayer() {
     Player player = new Player(0, 156, 64, 64, this, sprites);
     entries.add(player);
     println("spawned");
   }
 
-  void addEnemy(int x, int y, int w, int h) {
-    Enemy enemy = new Enemy(x, y, w / 2, h / 2, this, sprites);
-    entries.add(enemy);
+  //Method voor plaatsen Ghosts
+  void addGhost(int x, int y, int w, int h) {
+    Ghost ghost = new Ghost(x, y - 100, w / 2, h / 2, this, sprites);
+    entries.add(ghost);
   }
 
-  //Method van verwijderen objecten uit array (not used atm) 
+  //Method voor plaatsen Mummies
+  void addMummy(int x, int y, int w, int h) {
+    Mummy mummy = new Mummy(x, y - 100, w / 2, h / 2, this, sprites);
+    entries.add(mummy);
+  }
+
+  //Method voor plaatsen van Spiders
+  void addSpider(int x, int y, int w, int h) {
+    Spider spider = new Spider(x, y - 100, w / 2, h / 2, this, sprites);
+    entries.add(spider);
+  }
+
+  //Method van verwijderen objecten uit array (not used , can be called in object child classes) 
   void removeEntry(Object entry) {
     entries.remove(entry);
   }

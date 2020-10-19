@@ -1,5 +1,9 @@
-//Voor main menu etc
+//Porject FYS Winand Metz 500851135, Ole Neuman 500827044, 
+//Ruben Verheul 500855129, Jordy Post 500846919, Alex Tarnòki 500798826
 
+//Code credit Winand Metz, Ole Neuman
+
+//Voor main menu etc
 Game game;
 InputHandler input;
 
