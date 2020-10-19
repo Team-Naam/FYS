@@ -4,8 +4,8 @@
 class Enemy extends Object {
 
   int roamingTimer;
-  int speedX = 0;
-  int speedY = 0;
+  int speedX;
+  int speedY;
   int velX;
   int velY;
   int savedTime;
