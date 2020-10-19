@@ -1,4 +1,5 @@
 //Voor main menu etc
+
 Game game;
 InputHandler input;
 
@@ -10,7 +11,6 @@ void setup() {
   frameRate(60);
   game = new Game(128, width, height);
   input = new InputHandler();
-  
 }
 
 //-----------------------------Draw & Key functies---------------------------------

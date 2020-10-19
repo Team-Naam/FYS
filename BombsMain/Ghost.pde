@@ -1,7 +1,7 @@
-//class Spider extends Enemy {
+//class Ghost extends Enemy {
 
 //  void draw() {
-//    fill(32);
+//    fill(225);
 //    rect(x, y, w, h);
 //  }
 //}

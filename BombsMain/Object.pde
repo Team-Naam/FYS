@@ -19,6 +19,32 @@ abstract class Object {
 
   abstract void draw();
 
+  abstract void ifTouching(Object crate);
+
+  int getPlayerX() {
+    int pX = 0;
+    ArrayList<Object> objects = this.objectHandler.entries;
+    for (int i = 0; i < objects.size(); i++) {
+      Object gameObject = objects.get(i);
+      if (gameObject.objectId == ObjectID.PLAYER) {
+        pX = gameObject.x;
+      }
+    }
+    return pX;
+  }
+
+  int getPlayerY() {
+    int pY = 0;
+    ArrayList<Object> objects = this.objectHandler.entries;
+    for (int i = 0; i < objects.size(); i++) {
+      Object gameObject = objects.get(i);
+      if (gameObject.objectId == ObjectID.PLAYER) {
+        pY = gameObject.y;
+      }
+    }
+    return pY;
+  }
+
   boolean intersection(Object other) {
     return other.w > 0 && other.h > 0 && w > 0 && h > 0
       && other.x < x + w && other.x + other.w > x

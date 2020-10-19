@@ -3,6 +3,9 @@ class Wall extends Object {
   Wall(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, ObjectID.WALL, objectHandler, sprites);
   }
+  
+  void ifTouching(Object crate) {
+  }
 
   void update() {
   }
@@ -17,6 +20,9 @@ class Wall extends Object {
 class BreakableBlocks extends Object {
   BreakableBlocks(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, ObjectID.BBLOCKS, objectHandler, sprites);
+  }
+  
+  void ifTouching(Object crate) {
   }
 
   void update() {

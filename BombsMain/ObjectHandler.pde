@@ -3,6 +3,7 @@ class ObjectHandler {
 
   //Opzetten van object array voor muren en breekbare blocks
   ArrayList<Object> entries = new ArrayList<Object>();
+  Player player = null;
 
   Sprites sprites;
 
@@ -22,17 +23,14 @@ class ObjectHandler {
     entries.add(player);
     println("spawned");
   }
-  
-  //Method voor het toevoegen van een enemie
-  void addEnemie() {
-    EnemieSpawn enemies = new EnemieSpawn();
-    enemies.newMummie(1580, 780, 50, 100, this, sprites, entries.get(0));
-    for (int i = 0; i < enemies.enemies.size(); i++)
-      entries.add(enemies.enemies.get(i));
+
+  void addEnemy(int x, int y, int w, int h) {
+    Enemy enemy = new Enemy(x, y, w / 2, h / 2, this, sprites);
+    entries.add(enemy);
   }
 
   //Method van verwijderen objecten uit array (not used atm) 
-  void removeBlock(Object entry) {
+  void removeEntry(Object entry) {
     entries.remove(entry);
   }
 
