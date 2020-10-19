@@ -3,13 +3,16 @@
 //Main Enemy class voor Ghost, Spider, Mummy
 class Enemy extends Object {
 
+  int health;
   int roamingTimer;
-  int speedX = 0;
-  int speedY = 0;
+  int speedX;
+  int speedY;
   int velX;
   int velY;
   int savedTime;
   int oldX, oldY;
+
+  boolean touching = false;
 
   Enemy(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, ObjectID.ENEMY, objectHandler, sprites);
@@ -18,7 +21,6 @@ class Enemy extends Object {
 
   //Nieuw collision system waarbij hij terug wordt gezet naar de oude positie
   void update() {
-    //println(randomSignum());
     movement();
 
     x = x + speedX;
@@ -70,12 +72,19 @@ class Enemy extends Object {
     }
   }
 
+  void bombDamage() {
+    if (goesBoom()) {
+      health -= 5;
+    }
+  }
+
+  void ifTouching(Object crate) {
+  }
+
   void draw() {
     fill(20);
     rect(x, y, w, h);
   }
 
-  //Moet nog, method om interactie te krijgen wanneer hij ander object aanraakt
-  void ifTouching(Object crate) {
-  }
+  //Damage method
 }
