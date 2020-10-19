@@ -33,8 +33,8 @@ class Player extends Object {
 
     oldX = x;
     oldY = y;
-    
-    if(bombCooldown > 0) bombCooldown--;
+
+    if (bombCooldown > 0) bombCooldown--;
   }
 
   void playerControls() {
@@ -52,10 +52,10 @@ class Player extends Object {
     if (input.downDown() && y < height) {
       speedY += velY;
     }
-    if (input.zDown() && bombCooldown == 0){
+    if (input.zDown() && bombCooldown == 0) {
       objectHandler.addBomb(x + w / 4, y + h / 4, 32, 32);
       bombCooldown = 60;
-    }    
+    }
   }
 
   void ifTouching(Object crate) {

@@ -57,13 +57,24 @@ abstract class Object {
       && other.y < y + h && other.y + other.h > y;
   }
 
-//Gebruikt bovenstaande methode om te kijken of objecten elkaar doorkruizen
-//Zal kijken of ik nog een kan schrijven die ook de objectID's erbij betrekt, zodat je specifieke collision kan vinden
+  //Gebruikt bovenstaande methode om te kijken of objecten elkaar doorkruizen
+  //Zal kijken of ik nog een kan schrijven die ook de objectID's erbij betrekt, zodat je specifieke collision kan vinden
   boolean collisionDetection() {
     ArrayList<Object> objects = this.objectHandler.entries;
     for (int i = 0; i < objects.size(); i++) {
       Object gameObject = objects.get(i);
-      if (!gameObject.equals(this) && intersection(gameObject)) {
+      if (!gameObject.equals(this) && intersection(gameObject) && gameObject.objectId != ObjectID.BOMB) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  boolean goesBoom() {
+    ArrayList<Object> objects = this.objectHandler.entries;
+    for (int i = 0; i < objects.size(); i++) {
+      Object gameObject = objects.get(i);
+      if (!gameObject.equals(this) && intersection(gameObject) && gameObject.objectId == ObjectID.BOMB) {
         return true;
       }
     }

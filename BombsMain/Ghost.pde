@@ -2,6 +2,7 @@
 
 class Ghost extends Enemy {
 
+  int health = 4;
   int roamingTimer = 3000;
   int velX = 2;
   int velY = 2;
@@ -12,6 +13,11 @@ class Ghost extends Enemy {
   }
 
   void update() {
+    bombDamage();
+    if (health >= 0) {
+      objectHandler.removeEntry(this);
+    }
+
     movement();
 
     x = x + speedX;
