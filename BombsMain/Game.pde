@@ -1,10 +1,7 @@
 //Alles game gerelateerd
-
 class Game {
   ObjectHandler objectHandler;
   Sprites sprites;
-  Player player;
-  EnemieSpawn enemies;
 
   final int width, height;
 
@@ -17,7 +14,6 @@ class Game {
     objectHandler = new ObjectHandler(this.sprites);
     PImage map = loadImage("data/maps/map1.png");
     objectHandler.addPlayer();
-    objectHandler.addEnemie();
     map.loadPixels();
     loadMap(map.pixels, map.width, map.height, tileSize, tileSize, this.objectHandler);
   }
@@ -42,6 +38,15 @@ void loadMap(int[] pixels, int w, int h, int tw, int th, ObjectHandler objectHan
       if (c == 0xFF7F0622) {
         objectHandler.addWall(x * tw, y * th, tw, th);
       }
+      if (c == 0xFF00A0C8) {
+        objectHandler.addEnemy(x * tw, y * th, tw, th);
+      }
+      //if (c == 0xFF7F0622) {
+      //  objectHandler.addGhost(x * tw, y * th, tw, th);
+      //}
+      //if (c == 0xFF7F0622) {
+      //  objectHandler.addMummy(x * tw, y * th, tw, th);
+      //}
     }
   }
 }
