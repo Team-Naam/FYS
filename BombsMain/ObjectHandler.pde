@@ -50,6 +50,11 @@ class ObjectHandler {
     entries.add(spider);
   }
 
+  //Method voor plaatsen van een Bomb
+  void addBomb(int x, int y, int w, int h){
+   Bomb bomb = new Bomb(x, y, w / 2, h / 2, this, sprites);
+   entries.add(bomb);
+  }
   //Method van verwijderen objecten uit array (not used , can be called in object child classes) 
   void removeEntry(Object entry) {
     entries.remove(entry);
