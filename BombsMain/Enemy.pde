@@ -3,7 +3,7 @@
 //Main Enemy class voor Ghost, Spider, Mummy
 class Enemy extends Object {
 
-  int health;
+  int health = 1;
   int roamingTimer;
   int speedX;
   int speedY;
@@ -12,6 +12,7 @@ class Enemy extends Object {
   int savedTime;
   int oldX, oldY;
 
+  boolean insideExplosion = false;
   boolean touching = false;
 
   Enemy(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
@@ -73,9 +74,12 @@ class Enemy extends Object {
   }
 
   void bombDamage() {
-    if (goesBoom()) {
+    
+    if (insideExplosion) {
       health -= 5;
+      insideExplosion = false;
     }
+    if(health <= 0) objectHandler.removeEntry(this);
   }
 
   void ifTouching(Object crate) {

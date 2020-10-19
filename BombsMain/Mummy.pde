@@ -13,6 +13,7 @@ class Mummy extends Enemy {
 
   void update() {
     movement();
+    bombDamage();
 
     x = x + speedX;
     y = y + speedY;
