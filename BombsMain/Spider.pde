@@ -2,6 +2,7 @@
 
 class Spider extends Enemy {
 
+  int health = 1;
   int roamingTimer = 1000;
   int velX = 3;
   int velY = 3;
@@ -24,6 +25,17 @@ class Spider extends Enemy {
 
     oldX = x;
     oldY = y;
+  }
+
+  //Method voor destruction
+  void bombDamage() {
+    if (insideExplosion) {
+      health -= 2;
+      insideExplosion = false;
+    }
+    if (health <= 0) {
+      objectHandler.removeEntry(this);
+    }
   }
 
   void movement() {

@@ -2,6 +2,7 @@
 
 class Mummy extends Enemy {
 
+  int health = 3;
   int roamingTimer = 2000;
   int velX = 1;
   int velY = 1;
@@ -43,6 +44,17 @@ class Mummy extends Enemy {
     }
   }
 
+  //Method voor destruction
+  void bombDamage() {
+    if (insideExplosion) {
+      health -= 2;
+      insideExplosion = false;
+    }
+    if (health <= 0) {
+      objectHandler.removeEntry(this);
+    }
+  }
+
   void hunt() {
     if (getPlayerX() > x && getPlayerY() > y) {
       speedX = velX;
@@ -63,6 +75,7 @@ class Mummy extends Enemy {
   }
 
   void draw() {
+    println(health);
     fill(128);
     rect(x, y, w, h);
   }
