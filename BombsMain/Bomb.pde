@@ -21,7 +21,7 @@ class Bomb extends Object {
       if (explosionRadius < 400) {
         explosionRadius += 25;
       }
-      if (explosionRadius >= 200) {
+      if (explosionRadius >= 400) {
         explosionOpacity -=5;
         bombOpacity = 0;
       }
@@ -41,6 +41,34 @@ class Bomb extends Object {
     stroke(1);
   }
 
+  void enemyDetection() {
+
+    for (Object enemy : objectHandler.entries) {
+      if ( !enemy.equals(this) && enemy.objectId == ObjectID.ENEMY) {
+        if (circleRectangleOverlap(enemy.x, enemy.y, enemy.w, enemy.h)) {
+          ((Enemy)enemy).insideExplosion = true;
+        }
+      }
+    }
+  }
+
+  boolean circleRectangleOverlap(float rectX, float rectY, int rectW, int rectH) {
+    println("bombX = " + x + ", bombY = " + y + ", explosionRadius = " + explosionRadius);
+    println("enemyX = " + rectX + "enemyY = " + rectY);
+    float distanceX = abs(x - rectX - rectW / 4);
+    float distanceY = abs(y - rectY - rectH / 4);
+
+    if (distanceX > rectW / 2 + explosionRadius/2) return false; 
+    if (distanceY > rectH / 2 + explosionRadius/2) return false; 
+
+    if (distanceX <= rectW / 2) return true;  
+    if (distanceY <= rectH / 2) return true; 
+
+    float dx = distanceX-rectW / 2;
+    float dy = distanceY-rectH / 2;
+    return (dx*dx+dy*dy<=((explosionRadius/2)*(explosionRadius/2)));
+  }
+  
   boolean bombExploded() {
     if ( millis() > startTime + bombTimer) return true;
     return false;

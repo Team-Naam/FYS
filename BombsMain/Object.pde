@@ -70,14 +70,14 @@ abstract class Object {
     return false;
   }
 
-  boolean goesBoom() {
-    ArrayList<Object> objects = this.objectHandler.entries;
-    for (int i = 0; i < objects.size(); i++) {
-      Object gameObject = objects.get(i);
-      if (!gameObject.equals(this) && intersection(gameObject) && gameObject.objectId == ObjectID.BOMB) {
-        return true;
-      }
-    }
-    return false;
-  }
+  //boolean goesBoom() {
+  //  ArrayList<Object> objects = this.objectHandler.entries;
+  //  for (int i = 0; i < objects.size(); i++) {
+  //    Object gameObject = objects.get(i);
+  //    if (!gameObject.equals(this) && intersection(gameObject) && gameObject.objectId == ObjectID.BOMB) {
+  //      return true;
+  //    }
+  //  }
+  //  return false;
+  //}
 }
