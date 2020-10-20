@@ -1,5 +1,8 @@
-//Porject FYS Winand Metz 500851135, Ole Neuman 500827044, 
-//Ruben Verheul 500855129, Jordy Post 500846919, Alex Tarnòki 500798826
+/*  Project FYS Winand Metz 500851135, Ole Neuman 500827044, 
+ Ruben Verheul 500855129, Jordy Post 500846919, Alex Tarnòki 500798826
+ 
+ Controls: pijltjes toetsen voor lopen, z voor plaatsen dynamiet en esc voor exit */
+
 
 //Code credit Winand Metz, Ole Neuman
 
