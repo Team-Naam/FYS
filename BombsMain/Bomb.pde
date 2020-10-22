@@ -2,12 +2,11 @@
 
 class Bomb extends Object {
 
-  int bombTimer = 5000;
-  int bombOpacity = 255;
+  int bombTimer = EXPLOSION_TIMER;
+  int bombOpacity = BOMB_START_OPACITY;
   int startTime;
-  int explosionOpacity = 255;
-  int explosionRadius = 0;
-  int damage = 5;
+  int explosionOpacity = EXPLOSION_START_OPACITY;
+  int explosionRadius = EXPLOSION_START_RADIUS;
 
 
   Bomb(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {

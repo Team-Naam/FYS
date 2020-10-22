@@ -15,8 +15,8 @@ boolean[] keysPressed = new boolean[KEY_LIMIT];
 
 void setup() {
   fullScreen(P2D);
-  frameRate(60);
-  game = new Game(128, width, height);
+  frameRate(FRAMERATE);
+  game = new Game(TILE_SIZE, width, height);
   input = new InputHandler();
 }
 

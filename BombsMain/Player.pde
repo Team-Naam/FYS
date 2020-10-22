@@ -1,12 +1,11 @@
-//Code credit Ruben Verheul, Winand Metz
+//Code credit Ruben Verheul, Winand Metz, Ole Neuman
 
 class Player extends Object {
 
-  int speedX = 0;
-  int speedY = 0;
-  int velX = 2;
-  int velY = 2;
-  int health = 3;
+  int speedX, speedY;
+  int velX = PLAYER_SPEED;
+  int velY = PLAYER_SPEED;
+  int health = PLAYER_HEALTH;
   int oldX, oldY;
   int bombCooldown = 0;
 
@@ -53,8 +52,8 @@ class Player extends Object {
       speedY += velY;
     }
     if (input.zDown() && bombCooldown == 0) {
-      objectHandler.addBomb(x + w / 4, y + h / 4, 32, 32);
-      bombCooldown = 60;
+      objectHandler.addBomb(x + w / 4, y + h / 4, BOMB_SIZE, BOMB_SIZE);
+      bombCooldown = BOMB_COOLDOWN_TIME;
     }
   }
 

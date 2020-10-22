@@ -45,8 +45,8 @@ class Enemy extends Object {
       hunt();
     } else {
       if (passedTime > roamingTimer) {
-        speedX = velX * randomSignum();
-        speedY = velY * randomSignum();
+        speedX = velX * randomOnes();
+        speedY = velY * randomOnes();
         savedTime = millis();
       }
     }
@@ -77,7 +77,7 @@ class Enemy extends Object {
   }
 
   void draw() {
-    fill(20);
-    rect(x, y, w, h);
+    //fill(20);
+    //rect(x, y, w, h);
   }
 }

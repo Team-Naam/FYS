@@ -2,10 +2,10 @@
 
 class Mummy extends Enemy {
 
-  int health = 3;
-  int roamingTimer = 2000;
-  int velX = 1;
-  int velY = 1;
+  int health = MUMMY_HEALTH;
+  int roamingTimer = MUMMY_ROAMING;
+  int velX = MUMMY_MOVEMENT_SPEED;
+  int velY = MUMMY_MOVEMENT_SPEED;
 
   Mummy(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, objectHandler, sprites);
@@ -37,8 +37,8 @@ class Mummy extends Enemy {
       hunt();
     } else {
       if (passedTime > roamingTimer) {
-        speedX = velX * randomSignum();
-        speedY = velY * randomSignum();
+        speedX = velX * randomOnes();
+        speedY = velY * randomOnes();
         savedTime = millis();
       }
     }
@@ -47,7 +47,7 @@ class Mummy extends Enemy {
   //Method voor destruction
   void bombDamage() {
     if (insideExplosion) {
-      health -= 2;
+      health -= BOMB_DAMAGE;
       insideExplosion = false;
     }
     if (health <= 0) {

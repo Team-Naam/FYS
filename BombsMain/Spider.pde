@@ -2,10 +2,10 @@
 
 class Spider extends Enemy {
 
-  int health = 1;
-  int roamingTimer = 1000;
-  int velX = 3;
-  int velY = 3;
+  int health = SPIDER_HEALTH;
+  int roamingTimer = SPIDER_ROAMING;
+  int velX = SPIDER_MOVEMENT_SPEED ;
+  int velY = SPIDER_MOVEMENT_SPEED ;
 
   Spider(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, objectHandler, sprites);
@@ -30,7 +30,7 @@ class Spider extends Enemy {
   //Method voor destruction
   void bombDamage() {
     if (insideExplosion) {
-      health -= 2;
+      health -= BOMB_DAMAGE;
       insideExplosion = false;
     }
     if (health <= 0) {
@@ -47,8 +47,8 @@ class Spider extends Enemy {
       hunt();
     } else {
       if (passedTime > roamingTimer) {
-        speedX = velX * randomSignum();
-        speedY = velY * randomSignum();
+        speedX = velX * randomOnes();
+        speedY = velY * randomOnes();
         savedTime = millis();
       }
     }
