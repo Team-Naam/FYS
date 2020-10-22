@@ -47,6 +47,6 @@ class Rock extends Object {
   }
 
   void draw() {
-    image(sprites.getWall(), x, y);
+    image(sprites.getRock(), x, y);
   }
 }

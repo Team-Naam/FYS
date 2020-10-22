@@ -9,6 +9,7 @@ class Mummy extends Enemy {
 
   Mummy(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, objectHandler, sprites);
+    this.objectId = ObjectID.MUMMY;
     savedTime = millis();
   }
 
@@ -75,7 +76,7 @@ class Mummy extends Enemy {
   }
 
   void draw() {
-    println(health);
+    //println(health);
     fill(128);
     rect(x, y, w, h);
   }

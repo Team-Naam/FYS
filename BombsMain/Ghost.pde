@@ -9,6 +9,7 @@ class Ghost extends Enemy {
 
   Ghost(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, objectHandler, sprites);
+    this.objectId = ObjectID.GHOST;
     savedTime = millis();
   }
 
@@ -18,6 +19,14 @@ class Ghost extends Enemy {
 
     x = x + speedX;
     y = y + speedY;
+
+    if (rockCollisionDetection()) {
+      x = oldX;
+      y = oldY;
+    }
+
+    oldX = x;
+    oldY = y;
   }
 
   void movement() {

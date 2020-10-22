@@ -48,7 +48,10 @@ class Bomb extends Object {
   //Kijkt of object een enemy is
   void enemyDetection() {
     for (Object enemy : objectHandler.entries) {
-      if ( !enemy.equals(this) && enemy.objectId == ObjectID.ENEMY) {
+      if ( !enemy.equals(this) && enemy.objectId == ObjectID.ENEMY 
+        || enemy.objectId == ObjectID.GHOST 
+        || enemy.objectId == ObjectID.MUMMY 
+        || enemy.objectId == ObjectID.SPIDER) {
         if (circleRectangleOverlap(enemy.x, enemy.y, enemy.w, enemy.h)) {
           ((Enemy)enemy).insideExplosion = true;
         }
