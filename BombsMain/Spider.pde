@@ -9,6 +9,7 @@ class Spider extends Enemy {
 
   Spider(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, objectHandler, sprites);
+    this.objectId = ObjectID.SPIDER;
     savedTime = millis();
   }
 

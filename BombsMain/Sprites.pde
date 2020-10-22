@@ -20,6 +20,10 @@ class Sprites {
     return sprites[1][1];
   }
 
+  PImage getRock() {
+    return sprites[1][0];
+  }
+
   //functie voor het inladen van de verschillende textures in de array
   PImage[][] loadSprites(String path, int tileSize) {
     PImage spriteBlock = loadImage(path);
