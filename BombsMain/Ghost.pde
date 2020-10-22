@@ -2,10 +2,10 @@
 
 class Ghost extends Enemy {
 
-  int health = 20;
-  int roamingTimer = 3000;
-  int velX = 2;
-  int velY = 2;
+  int health = GHOST_HEALTH;
+  int roamingTimer = GHOST_ROAMING;
+  int velX = GHOST_MOVEMENT_SPEED;
+  int velY = GHOST_MOVEMENT_SPEED;
 
   Ghost(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, objectHandler, sprites);
@@ -29,8 +29,8 @@ class Ghost extends Enemy {
       hunt();
     } else {
       if (passedTime > roamingTimer) {
-        speedX = velX * randomSignum();
-        speedY = velY * randomSignum();
+        speedX = velX * randomOnes();
+        speedY = velY * randomOnes();
         savedTime = millis();
       }
     }
@@ -39,7 +39,7 @@ class Ghost extends Enemy {
   //Method voor destruction
   void bombDamage() {
     if (insideExplosion) {
-      health -= 2;
+      health -= BOMB_DAMAGE;
       insideExplosion = false;
     }
     if (health <= 0) {

@@ -15,38 +15,38 @@ class ObjectHandler {
 
   //Method voor het creëren van de muren, input lijkt me vanzelf sprekend
   void addWall(int x, int y, int w, int h) {
-    Wall wall = new Wall(x, y - 100, w, h, this, sprites);
+    Wall wall = new Wall(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
     entries.add(wall);
   }
 
   //Method voor de rockwall onder- en bovenkant van het scherm 
   void addRock(int x, int y, int w, int h) {
-    Rock rock = new Rock(x, y - 100, w, h, this, sprites);
+    Rock rock = new Rock(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
     entries.add(rock);
   }
 
   //Method voor plaatsen van de player
   void addPlayer() {
-    Player player = new Player(0, 156, 64, 64, this, sprites);
+    Player player = new Player(PLAYER_X_SPAWN, PLAYER_Y_SPAWN, PLAYER_SIZE, PLAYER_SIZE, this, sprites);
     entries.add(player);
     println("spawned");
   }
 
   //Method voor plaatsen Ghosts
   void addGhost(int x, int y, int w, int h) {
-    Ghost ghost = new Ghost(x, y - 100, w / 2, h / 2, this, sprites);
+    Ghost ghost = new Ghost(x, y - OBJECT_Y_OFFSET, w / 2, h / 2, this, sprites);
     entries.add(ghost);
   }
 
   //Method voor plaatsen Mummies
   void addMummy(int x, int y, int w, int h) {
-    Mummy mummy = new Mummy(x, y - 100, w / 2, h / 2, this, sprites);
+    Mummy mummy = new Mummy(x, y - OBJECT_Y_OFFSET, w / 2, h / 2, this, sprites);
     entries.add(mummy);
   }
 
   //Method voor plaatsen van Spiders
   void addSpider(int x, int y, int w, int h) {
-    Spider spider = new Spider(x, y - 100, w / 2, h / 2, this, sprites);
+    Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / 2, h / 2, this, sprites);
     entries.add(spider);
   }
 
