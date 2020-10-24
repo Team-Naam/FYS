@@ -8,7 +8,7 @@ class Bomb extends Object {
   int damage = 5;
 
 
-  Bomb(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Bomb(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super (x, y, w, h, ObjectID.BOMB, objectHandler, sprites);
     startTime = millis();
   }
@@ -53,8 +53,6 @@ class Bomb extends Object {
   }
 
   boolean circleRectangleOverlap(float rectX, float rectY, int rectW, int rectH) {
-    println("bombX = " + x + ", bombY = " + y + ", explosionRadius = " + explosionRadius);
-    println("enemyX = " + rectX + "enemyY = " + rectY);
     float distanceX = abs(x - rectX - rectW / 4);
     float distanceY = abs(y - rectY - rectH / 4);
 

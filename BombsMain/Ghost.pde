@@ -7,7 +7,7 @@ class Ghost extends Enemy {
   int velX = 2;
   int velY = 2;
 
-  Ghost(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Ghost(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, objectHandler, sprites);
     savedTime = millis();
   }

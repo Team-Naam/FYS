@@ -2,7 +2,7 @@
 
 //Muren, moet nog collision op
 class Wall extends Object {
-  Wall(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Wall(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, ObjectID.WALL, objectHandler, sprites);
   }
 
@@ -10,6 +10,7 @@ class Wall extends Object {
   }
 
   void update() {
+    if(x < 0 - w) objectHandler.removeEntry(this);
   }
 
   //Inladen van de texture voor de muur en plaatsing
@@ -20,7 +21,7 @@ class Wall extends Object {
 
 //Breekbare blocks, alles moet nog 
 class BreakableBlocks extends Object {
-  BreakableBlocks(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  BreakableBlocks(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, ObjectID.BBLOCKS, objectHandler, sprites);
   }
 
@@ -36,7 +37,7 @@ class BreakableBlocks extends Object {
 
 //Onder en boven muren
 class Rock extends Object {
-  Rock(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Rock(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, ObjectID.ROCK, objectHandler, sprites);
   }
 

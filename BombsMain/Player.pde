@@ -7,10 +7,10 @@ class Player extends Object {
   int velX = 2;
   int velY = 2;
   int health = 3;
-  int oldX, oldY;
+  float oldX, oldY;
   int bombCooldown = 0;
 
-  Player(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Player(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, ObjectID.PLAYER, objectHandler, sprites);
   }
 

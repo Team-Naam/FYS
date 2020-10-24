@@ -6,7 +6,7 @@ class Spider extends Enemy {
   int velX = 3;
   int velY = 3;
 
-  Spider(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Spider(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, objectHandler, sprites);
     savedTime = millis();
   }

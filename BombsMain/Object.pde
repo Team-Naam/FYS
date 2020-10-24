@@ -2,7 +2,8 @@
 
 //Basis class voor alle gameobjecten
 abstract class Object {
-  int x, y, w, h;
+  float x, y;
+  int w, h;
   ObjectID objectId;
   ObjectHandler objectHandler;
   Sprites sprites;

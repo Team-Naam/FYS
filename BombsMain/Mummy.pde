@@ -6,7 +6,7 @@ class Mummy extends Enemy {
   int velX = 1;
   int velY = 1;
 
-  Mummy(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Mummy(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, objectHandler, sprites);
     savedTime = millis();
   }

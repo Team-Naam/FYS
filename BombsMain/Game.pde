@@ -14,10 +14,9 @@ class Game {
     this.height = height;
     sprites = new Sprites("data/text/textures.png", tileSize);
     objectHandler = new ObjectHandler(this.sprites);
-    PImage map = loadImage("data/maps/map1.png");
+    mapHandler = new MapHandler(tileSize);
     objectHandler.addPlayer();
-    map.loadPixels();
-    loadMap(map.pixels, map.width, map.height, tileSize, tileSize, this.objectHandler);
+    mapHandler.generateMap(this.objectHandler);
   }
 
   //Oproepen van objecten in de game zodat ze worden getekend
