@@ -3,6 +3,7 @@
 //Alles game gerelateerd
 class Game {
   ObjectHandler objectHandler;
+  MapHandler mapHandler;
   Sprites sprites;
 
   final int width, height;
@@ -14,10 +15,8 @@ class Game {
     this.height = height;
     sprites = new Sprites("data/text/textures.png", tileSize);
     objectHandler = new ObjectHandler(this.sprites);
-    PImage map = loadImage("data/maps/map1.png");
+    mapHandler = new MapHandler(tileSize);
     objectHandler.addPlayer();
-    map.loadPixels();
-    loadMap(map.pixels, map.width, map.height, tileSize, tileSize, this.objectHandler);
   }
 
   //Oproepen van objecten in de game zodat ze worden getekend
@@ -32,30 +31,30 @@ class Game {
 }
 
 //Het bepalen van de plaatsing van objecten in het level dmv aflezen pixel colorcodes(android graphics color) en dit omzetten in een grid van 15 bij 8
-void loadMap(int[] pixels, int w, int h, int tw, int th, ObjectHandler objectHandler) {
+void loadMap(int[] pixels, int w, int h, int tw, int th, ObjectHandler objectHandler, float offSet) {
   for (int x = 0; x < w; x++) {
     for (int y = 0; y < h; y++ ) {
       int loc = x + y * w;
       float c = pixels[loc];
       //Hexcode = 7f0622
       if (c == 0xFF7F0622) {
-        objectHandler.addWall(x * tw, y * th, tw, th);
+        objectHandler.addWall(x * tw + offSet, y * th, tw, th);
       }
       //Hexode = 000000
       if (c == 0xFF000000) {
-        objectHandler.addSpider(x * tw, y * th, tw, th);
+        objectHandler.addSpider(x * tw + offSet, y * th, tw, th);
       }
       //Hexode = 00a0c8
       if (c == 0xFF00a0c8) {
-        objectHandler.addGhost(x * tw, y * th, tw, th);
+        objectHandler.addGhost(x * tw + offSet, y * th, tw, th);
       }
       //Hexcode = ffdf8f
       if (c == 0xFFffdf8f) {
-        objectHandler.addMummy(x * tw, y * th, tw, th);
+        objectHandler.addMummy(x * tw + offSet, y * th, tw, th);
       }
       //Hexcode = 515151
       if (c == 0xFF515151) {
-        objectHandler.addRock(x * tw, y * th, tw, th);
+        objectHandler.addRock(x * tw + offSet, y * th, tw, th);
       }
     }
   }

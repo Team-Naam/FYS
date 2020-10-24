@@ -7,7 +7,7 @@ class Mummy extends Enemy {
   int velX = MUMMY_MOVEMENT_SPEED;
   int velY = MUMMY_MOVEMENT_SPEED;
 
-  Mummy(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Mummy(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.objectId = ObjectID.MUMMY;
     savedTime = millis();

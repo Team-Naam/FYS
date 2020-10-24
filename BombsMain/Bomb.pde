@@ -9,7 +9,7 @@ class Bomb extends Object {
   int explosionRadius = EXPLOSION_START_RADIUS;
 
 
-  Bomb(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Bomb(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super (x, y, w, h, ObjectID.BOMB, objectHandler, sprites);
     startTime = millis();
   }
