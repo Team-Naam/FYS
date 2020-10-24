@@ -21,6 +21,7 @@ class Game {
 
   //Oproepen van objecten in de game zodat ze worden getekend
   void update() {
+    mapHandler.update();
     objectHandler.update();
   }
 
