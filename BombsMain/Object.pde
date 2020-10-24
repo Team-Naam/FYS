@@ -2,12 +2,13 @@
 
 //Basis class voor alle gameobjecten
 abstract class Object {
-  int x, y, w, h;
+  float x, y;
+  int w, h;
   ObjectID objectId;
   ObjectHandler objectHandler;
   Sprites sprites;
 
-  Object(int x, int y, int w, int h, ObjectID objectId, ObjectHandler objectHandler, Sprites sprites) {
+  Object(float x, float y, int w, int h, ObjectID objectId, ObjectHandler objectHandler, Sprites sprites) {
     this.x = x;
     this.y = y;
     this.w = w;
@@ -18,6 +19,10 @@ abstract class Object {
   }
 
   abstract void update();
+  
+  void deletion(){
+   if(x < 0 - w - 200) objectHandler.removeEntry(this); 
+  }
 
   abstract void draw();
 
@@ -25,8 +30,8 @@ abstract class Object {
 
   //Position crawler voor de player X
   //Gaat door de objecthandler z'n list heen en zoekt naar object met het ID player om vervolgens x op te vragen
-  int getPlayerX() {
-    int pX = 0;
+  float getPlayerX() {
+    float pX = 0;
     ArrayList<Object> objects = this.objectHandler.entries;
     for (int i = 0; i < objects.size(); i++) {
       Object gameObject = objects.get(i);
@@ -38,8 +43,8 @@ abstract class Object {
   }
 
   //Position crawler voor de player Y
-  int getPlayerY() {
-    int pY = 0;
+  float getPlayerY() {
+    float pY = 0;
     ArrayList<Object> objects = this.objectHandler.entries;
     for (int i = 0; i < objects.size(); i++) {
       Object gameObject = objects.get(i);

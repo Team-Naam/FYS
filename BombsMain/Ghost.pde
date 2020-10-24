@@ -7,7 +7,7 @@ class Ghost extends Enemy {
   int velX = GHOST_MOVEMENT_SPEED;
   int velY = GHOST_MOVEMENT_SPEED;
 
-  Ghost(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Ghost(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.objectId = ObjectID.GHOST;
     savedTime = millis();

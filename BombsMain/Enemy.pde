@@ -10,12 +10,12 @@ class Enemy extends Object {
   int velX;
   int velY;
   int savedTime;
-  int oldX, oldY;
+  float oldX, oldY;
 
   boolean insideExplosion = false;
   boolean touching = false;
 
-  Enemy(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Enemy(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, ObjectID.ENEMY, objectHandler, sprites);
     savedTime = millis();
   }
