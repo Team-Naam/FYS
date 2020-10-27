@@ -37,6 +37,12 @@ class ObjectHandler {
     Ghost ghost = new Ghost(x, y - OBJECT_Y_OFFSET, w / 2, h / 2, this, sprites);
     entries.add(ghost);
   }
+  
+  //Method voor plaatsen Poltergeists
+  void addPoltergeist(float x, float y, int w, int h) {
+    Poltergeist poltergeist = new Poltergeist(x, y - OBJECT_Y_OFFSET, w / 2, h / 2, this, sprites);
+    entries.add(poltergeist);
+  }
 
   //Method voor plaatsen Mummies
   void addMummy(float x, float y, int w, int h) {

@@ -53,6 +53,10 @@ void loadMap(int[] pixels, int w, int h, int tw, int th, ObjectHandler objectHan
       if (c == 0xFFffdf8f) {
         objectHandler.addMummy(x * tw + offSet, y * th, tw, th);
       }
+      //Hexcode = E4B6AD
+      if (c == 0xFFE4B6AD) {
+        objectHandler.addPoltergeist(x * tw + offSet, y * th, tw, th);
+      }
       //Hexcode = 515151
       if (c == 0xFF515151) {
         objectHandler.addRock(x * tw + offSet, y * th, tw, th);
