@@ -1,7 +1,7 @@
 //Code credit Jordy Post, Winand Metz, Ruben Verheul, Ole Neuman
 
 //Main Enemy class voor Ghost, Spider, Mummy
-class Enemy extends Object {
+class Entity extends Object {
 
   int health;
   int roamingTimer;
@@ -15,7 +15,7 @@ class Enemy extends Object {
   boolean insideExplosion = false;
   boolean touching = false;
 
-  Enemy(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Entity(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, ObjectID.ENEMY, objectHandler, sprites);
     savedTime = millis();
   }
@@ -28,7 +28,7 @@ class Enemy extends Object {
     y = y + speedY;
 
     if (collisionDetection()) {
-      x = oldX;
+      x = oldX - MAP_SCROLL_SPEED;
       y = oldY;
     }
 

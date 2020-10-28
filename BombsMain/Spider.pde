@@ -1,6 +1,6 @@
 //Code credit Jordy Post, Winand Metz, Ruben Verheul, Ole Neuman
 
-class Spider extends Enemy {
+class Spider extends Entity {
 
   int health = SPIDER_HEALTH;
   int roamingTimer = SPIDER_ROAMING;
@@ -20,7 +20,7 @@ class Spider extends Enemy {
     y = y + speedY;
 
     if (collisionDetection()) {
-      x = oldX;
+      x = oldX - MAP_SCROLL_SPEED;
       y = oldY;
     }
 
@@ -44,7 +44,7 @@ class Spider extends Enemy {
     //Zodra hij binnen 400 pixels van de player komt gaat hij achter de player aan
     //Moet nog in dat hij om muren heen navigeert ipv tegenaanstoot en stil staat
     int passedTime = millis() - savedTime;
-    if (dist(getPlayerX(), getPlayerY(), x, y) < 400) {
+    if (dist(getPlayerX(), getPlayerY(), x, y) < PLAYER_DETECTION_DISTANCE) {
       hunt();
     } else {
       if (passedTime > roamingTimer) {

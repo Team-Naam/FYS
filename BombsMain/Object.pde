@@ -19,10 +19,6 @@ abstract class Object {
   }
 
   abstract void update();
-  
-  void deletion(){
-   if(x < 0 - w - 200) objectHandler.removeEntry(this); 
-  }
 
   abstract void draw();
 
@@ -68,7 +64,7 @@ abstract class Object {
     ArrayList<Object> objects = this.objectHandler.entries;
     for (int i = 0; i < objects.size(); i++) {
       Object gameObject = objects.get(i);
-      if (!gameObject.equals(this) && intersection(gameObject) && gameObject.objectId != ObjectID.BOMB && gameObject.objectId != ObjectID.GHOST && gameObject.objectId != ObjectID.POLTERGEIST) {
+      if (!gameObject.equals(this) && intersection(gameObject) && gameObject.objectId != ObjectID.BOMB && gameObject.objectId != ObjectID.GHOST) {
         return true;
       }
     }
