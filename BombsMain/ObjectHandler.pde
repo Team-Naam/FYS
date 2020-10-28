@@ -16,13 +16,13 @@ class ObjectHandler {
   }
 
   //Method voor het creëren van de muren, input lijkt me vanzelf sprekend
-  void addWall(int x, int y, int w, int h) {
+  void addWall(float x, float y, int w, int h) {
     Wall wall = new Wall(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
     entries.add(wall);
   }
 
   //Method voor de rockwall onder- en bovenkant van het scherm 
-  void addRock(int x, int y, int w, int h) {
+  void addRock(float x, float y, int w, int h) {
     Rock rock = new Rock(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
     entries.add(rock);
   }
@@ -35,31 +35,31 @@ class ObjectHandler {
   }
 
   //Method voor plaatsen Ghosts
-  void addGhost(int x, int y, int w, int h) {
+  void addGhost(float x, float y, int w, int h) {
     Ghost ghost = new Ghost(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
     entries.add(ghost);
   }
 
   //Method voor plaatsen Poltergeists
-  void addPoltergeist(int x, int y, int w, int h) {
+  void addPoltergeist(float x, float y, int w, int h) {
     Poltergeist poltergeist = new Poltergeist(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
     entries.add(poltergeist);
   }
 
   //Method voor plaatsen Mummies
-  void addMummy(int x, int y, int w, int h) {
+  void addMummy(float x, float y, int w, int h) {
     Mummy mummy = new Mummy(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
     entries.add(mummy);
   }
 
   //Method voor plaatsen SMummies
-  void addSMummy(int x, int y, int w, int h) {
+  void addSMummy(float x, float y, int w, int h) {
     SMummy sMummy = new SMummy(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
     entries.add(sMummy);
   }
 
   //Method voor plaatsen van Spiders
-  void addSpider(int x, int y, int w, int h) {
+  void addSpider(float x, float y, int w, int h) {
     Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
     entries.add(spider);
   }

@@ -43,7 +43,7 @@ class MapHandler {
   void moveMap(Object object) { 
     object.x -= mapScrollSpeed; 
   } 
-} 
+}
 
 //Code credit Winand Metz
 //Het bepalen van de plaatsing van objecten in het level dmv aflezen pixel colorcodes(android graphics color) en dit omzetten in een grid van 15 bij 8
