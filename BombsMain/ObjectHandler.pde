@@ -3,6 +3,8 @@
 //Class voor het creëren en opslaan van de objecten
 class ObjectHandler {
 
+  int eSD = ENTITY_SIZE_DIVIDER;
+
   //Opzetten van object array voor muren en breekbare blocks
   ArrayList<Object> entries = new ArrayList<Object>();
   Player player = null;
@@ -14,13 +16,13 @@ class ObjectHandler {
   }
 
   //Method voor het creëren van de muren, input lijkt me vanzelf sprekend
-  void addWall(float x, float y, int w, int h) {
+  void addWall(int x, int y, int w, int h) {
     Wall wall = new Wall(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
     entries.add(wall);
   }
 
   //Method voor de rockwall onder- en bovenkant van het scherm 
-  void addRock(float x, float y, int w, int h) {
+  void addRock(int x, int y, int w, int h) {
     Rock rock = new Rock(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
     entries.add(rock);
   }
@@ -33,40 +35,41 @@ class ObjectHandler {
   }
 
   //Method voor plaatsen Ghosts
-  void addGhost(float x, float y, int w, int h) {
-    Ghost ghost = new Ghost(x, y - OBJECT_Y_OFFSET, w / 2, h / 2, this, sprites);
+  void addGhost(int x, int y, int w, int h) {
+    Ghost ghost = new Ghost(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
     entries.add(ghost);
   }
-  
+
   //Method voor plaatsen Poltergeists
-  void addPoltergeist(float x, float y, int w, int h) {
-    Poltergeist poltergeist = new Poltergeist(x, y - OBJECT_Y_OFFSET, w / 2, h / 2, this, sprites);
+  void addPoltergeist(int x, int y, int w, int h) {
+    Poltergeist poltergeist = new Poltergeist(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
     entries.add(poltergeist);
   }
 
   //Method voor plaatsen Mummies
-  void addMummy(float x, float y, int w, int h) {
-    Mummy mummy = new Mummy(x, y - OBJECT_Y_OFFSET, w / 2, h / 2, this, sprites);
+  void addMummy(int x, int y, int w, int h) {
+    Mummy mummy = new Mummy(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
     entries.add(mummy);
   }
-  
+
   //Method voor plaatsen SMummies
   void addSMummy(int x, int y, int w, int h) {
-    SMummy sMummy = new SMummy(x, y - OBJECT_Y_OFFSET, w / 2, h / 2, this, sprites);
+    SMummy sMummy = new SMummy(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
     entries.add(sMummy);
   }
 
   //Method voor plaatsen van Spiders
-  void addSpider(float x, float y, int w, int h) {
-    Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / 2, h / 2, this, sprites);
+  void addSpider(int x, int y, int w, int h) {
+    Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
     entries.add(spider);
   }
 
   //Method voor plaatsen van een Bomb
-  void addBomb(float x, float y, int w, int h){
-   Bomb bomb = new Bomb(x, y, w / 2, h / 2, this, sprites);
-   entries.add(bomb);
+  void addBomb(float x, float y, int w, int h) {
+    Bomb bomb = new Bomb(x, y, w / eSD, h / eSD, this, sprites);
+    entries.add(bomb);
   }
+
   //Method van verwijderen objecten uit array (not used , can be called in object child classes) 
   void removeEntry(Object entry) {
     entries.remove(entry);
@@ -79,7 +82,6 @@ class ObjectHandler {
       if (i >= objects.size()) {
         break;
       }
-      game.mapHandler.moveMap(objects.get(i));
       objects.get(i).update();
     }
   }

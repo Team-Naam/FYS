@@ -10,7 +10,7 @@ class Bomb extends Object {
 
 
   Bomb(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
-    super (x, y, w, h, ObjectID.BOMB, objectHandler, sprites);
+    super(x, y, w, h, ObjectID.BOMB, objectHandler, sprites);
     startTime = millis();
   }
 
@@ -38,7 +38,7 @@ class Bomb extends Object {
   void draw() {
     fill(0, bombOpacity);
     if (bombOpacity == 0) noStroke();
-    rect(x, y, 32, 32);
+    rect(x, y, w, h);
     fill(235, 109, 30, explosionOpacity);
     noStroke();
     circle(x + w, y + h, explosionRadius);
@@ -56,7 +56,7 @@ class Bomb extends Object {
         || enemy.objectId == ObjectID.SMUMMY
         || enemy.objectId == ObjectID.SPIDER) {
         if (circleRectangleOverlap(enemy.x, enemy.y, enemy.w, enemy.h)) {
-          ((Enemy)enemy).insideExplosion = true;
+          ((Entity)enemy).insideExplosion = true;
         }
       }
     }

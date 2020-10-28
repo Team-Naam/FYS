@@ -26,7 +26,7 @@ class Player extends Object {
     y = y + speedY;
 
     if (collisionDetection()) {
-      x = oldX;
+      x = oldX - MAP_SCROLL_SPEED;
       y = oldY;
     }
 

@@ -18,22 +18,6 @@ class Wall extends Object {
   }
 }
 
-//Breekbare blocks, alles moet nog 
-class BreakableBlocks extends Object {
-  BreakableBlocks(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
-    super(x, y, w, h, ObjectID.BBLOCKS, objectHandler, sprites);
-  }
-
-  void ifTouching(Object crate) {
-  }
-
-  void update() {
-  }
-
-  void draw() {
-  }
-}
-
 //Onder en boven muren
 class Rock extends Object {
   Rock(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {

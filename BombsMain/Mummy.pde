@@ -1,13 +1,13 @@
 //Code credit Jordy Post, Winand Metz, Ruben Verheul, Ole Neuman
 
-class Mummy extends Enemy {
+class Mummy extends Entity {
 
   int health = MUMMY_HEALTH;
   int roamingTimer = MUMMY_ROAMING;
   int velX = MUMMY_MOVEMENT_SPEED;
   int velY = MUMMY_MOVEMENT_SPEED;
 
-  Mummy(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Mummy(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.objectId = ObjectID.MUMMY;
     savedTime = millis();
@@ -21,7 +21,7 @@ class Mummy extends Enemy {
     y = y + speedY;
 
     if (collisionDetection()) {
-      x = oldX;
+      x = oldX - MAP_SCROLL_SPEED;
       y = oldY;
     }
 
@@ -34,7 +34,7 @@ class Mummy extends Enemy {
     //Zodra hij binnen 400 pixels van de player komt gaat hij achter de player aan
     //Moet nog in dat hij om muren heen navigeert ipv tegenaanstoot en stil staat
     int passedTime = millis() - savedTime;
-    if (dist(getPlayerX(), getPlayerY(), x, y) < 400) {
+    if (dist(getPlayerX(), getPlayerY(), x, y) < PLAYER_DETECTION_DISTANCE) {
       hunt();
     } else {
       if (passedTime > roamingTimer) {
@@ -78,6 +78,41 @@ class Mummy extends Enemy {
   void draw() {
     //println(health);
     fill(128);
+    rect(x, y, w, h);
+  }
+}
+
+//Code credit Jordy Post
+class SMummy extends Mummy {
+
+  int shield;
+
+  SMummy(int x, int y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+    super(x, y, w, h, objectHandler, sprites);
+    this.objectId = ObjectID.SMUMMY;
+    savedTime = millis();
+    shield = SMUMMY_SHIELD;
+  }
+
+  //Method voor destruction
+  void bombDamage() {
+    if (insideExplosion) {
+      println(insideExplosion);
+      if (shield <= 0) {
+        health -= BOMB_DAMAGE;
+        insideExplosion = false;
+      } else {
+        shield -= BOMB_DAMAGE;
+        insideExplosion = false;
+      }
+    }
+    if (health <= 0) {
+      objectHandler.removeEntry(this);
+    }
+  }
+
+  void draw() {
+    fill(158);
     rect(x, y, w, h);
   }
 }
