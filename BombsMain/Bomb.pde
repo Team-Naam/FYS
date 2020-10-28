@@ -52,7 +52,9 @@ class Bomb extends Object {
         || enemy.objectId == ObjectID.GHOST 
         || enemy.objectId == ObjectID.MUMMY 
         || enemy.objectId == ObjectID.SPIDER
-        || enemy.objectId == ObjectID.POLTERGEIST){
+        || enemy.objectId == ObjectID.POLTERGEIST
+        || enemy.objectId == ObjectID.SMUMMY
+        || enemy.objectId == ObjectID.SPIDER) {
         if (circleRectangleOverlap(enemy.x, enemy.y, enemy.w, enemy.h)) {
           ((Enemy)enemy).insideExplosion = true;
         }

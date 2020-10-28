@@ -49,6 +49,12 @@ class ObjectHandler {
     Mummy mummy = new Mummy(x, y - OBJECT_Y_OFFSET, w / 2, h / 2, this, sprites);
     entries.add(mummy);
   }
+  
+  //Method voor plaatsen SMummies
+  void addSMummy(int x, int y, int w, int h) {
+    SMummy sMummy = new SMummy(x, y - OBJECT_Y_OFFSET, w / 2, h / 2, this, sprites);
+    entries.add(sMummy);
+  }
 
   //Method voor plaatsen van Spiders
   void addSpider(float x, float y, int w, int h) {
