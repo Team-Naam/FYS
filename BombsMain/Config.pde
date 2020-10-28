@@ -30,6 +30,11 @@ final int GHOST_HEALTH = 4;
 final int GHOST_ROAMING = 3000;
 final int GHOST_MOVEMENT_SPEED = 2;
 
+//Poltergeist
+final int POLTERGEIST_HEALTH = 4;
+final int POLTERGEIST_ROAMING = 3000;
+final int POLTERGEIST_MOVEMENT_SPEED = 2;
+
 //Mummy
 final int MUMMY_HEALTH = 3;
 final int MUMMY_ROAMING = 2000;

@@ -51,6 +51,8 @@ class Bomb extends Object {
       if ( !enemy.equals(this) && enemy.objectId == ObjectID.ENEMY 
         || enemy.objectId == ObjectID.GHOST 
         || enemy.objectId == ObjectID.MUMMY 
+        || enemy.objectId == ObjectID.SPIDER
+        || enemy.objectId == ObjectID.POLTERGEIST
         || enemy.objectId == ObjectID.SMUMMY
         || enemy.objectId == ObjectID.SPIDER) {
         if (circleRectangleOverlap(enemy.x, enemy.y, enemy.w, enemy.h)) {
