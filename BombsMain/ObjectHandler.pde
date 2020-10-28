@@ -82,6 +82,7 @@ class ObjectHandler {
       if (i >= objects.size()) {
         break;
       }
+      game.mapHandler.moveMap(objects.get(i));
       objects.get(i).update();
     }
   }
