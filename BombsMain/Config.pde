@@ -35,6 +35,12 @@ final int MUMMY_HEALTH = 3;
 final int MUMMY_ROAMING = 2000;
 final int MUMMY_MOVEMENT_SPEED = 1;
 
+//SMummy
+final int SMUMMY_HEALTH = 3;
+final int SMUMMY_ROAMING = 2000;
+final int SMUMMY_MOVEMENT_SPEED = 1;
+final int SMUMMY_SHIELD = 1;
+
 //Spider
 final int SPIDER_HEALTH = 1;
 final int SPIDER_ROAMING = 1000;
