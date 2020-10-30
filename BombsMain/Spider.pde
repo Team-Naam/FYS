@@ -79,3 +79,80 @@ class Spider extends Entity {
     rect(x, y, w, h);
   }
 }
+
+
+class ExplosiveSpider extends Entity{
+  
+  int health = EXPLOSIVE_SPIDER_HEALTH;
+  int roamingTimer = EXPLOSIVE_SPIDER_ROAMING;
+  int velX = EXPLOSIVE_SPIDER_MOVEMENT_SPEED;
+  int velY = EXPLOSIVE_SPIDER_MOVEMENT_SPEED;
+  
+  ExplosiveSpider(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+    super(x, y, w, h, objectHandler, sprites);
+    this.objectId = ObjectID.EXPLOSIVE_SPIDER;
+    savedTime = millis();
+  }
+  
+  void update() {
+    movement();
+    bombDamage();
+    x = x + speedX;
+    y = y + speedY;
+    
+    if (collisionDetection()) {
+      x = oldX - MAP_SCROLL_SPEED;
+      y = oldY;
+    }
+    
+    oldX = x;
+    oldY = y;
+  }
+  
+  void bombDamage() {
+    if (insideExplosion) {
+      health -= BOMB_DAMAGE;
+      insideExplosion = false;
+    }
+    if (health <= 0) {
+      objectHandler.removeEntry(this);
+    }
+  }
+  
+  void movement() {
+    int passedTime = millis() - savedTime;
+    if (dist(getPlayerX(), getPlayerY(), x, y) < PLAYER_DETECTION_DISTANCE) {
+      hunt();
+    } else {
+      if (passedTime > roamingTimer) {
+        speedX = velX * randomOnes();
+        speedY = velY * randomOnes();
+        savedTime = millis();
+      }
+    }
+  }
+  
+  void hunt() {
+    if (getPlayerX() > x && getPlayerY() > y) {
+      speedX = velX;
+      speedY = velY;
+    }
+    if (getPlayerX() < x && getPlayerY() < y) {
+      speedX = -velX;
+      speedY = -velY;
+    }
+    if (getPlayerX() > x && getPlayerY() < y) {
+      speedX = velX;
+      speedY = velY;
+    }
+    if (getPlayerX() < x && getPlayerY() > y) {
+      speedX = -velX;
+      speedY = velY;
+    }
+  }
+  
+  void draw() {
+    fill(174);
+    rect(x, y, w, h);
+  }
+}

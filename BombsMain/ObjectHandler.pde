@@ -63,6 +63,12 @@ class ObjectHandler {
     Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
     entries.add(spider);
   }
+  
+  //Method voor plaatsen Explosive_Spiders
+  void addExplosiveSpider(float x, float y, int w, int h) {
+    ExplosiveSpider explosiveSpider = new ExplosiveSpider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+    entries.add(explosiveSpider);
+  }
 
   //Method voor plaatsen van een Bomb
   void addBomb(float x, float y, int w, int h) {
