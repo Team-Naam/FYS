@@ -55,6 +55,14 @@ class Player extends Object {
       objectHandler.addBomb(x + w / 4, y + h / 4, BOMB_SIZE, BOMB_SIZE);
       bombCooldown = BOMB_COOLDOWN_TIME;
     }
+    if (input.sDown()&& bombCooldown == 0) {
+      objectHandler.addC4(x + w / 4, y + h / 4, BOMB_SIZE, BOMB_SIZE);
+      bombCooldown = BOMB_COOLDOWN_TIME;
+    }
+    if (input.aDown()&& bombCooldown == 0) {
+      objectHandler.addLandmine(x + w / 4, y + h / 4, BOMB_SIZE, BOMB_SIZE);
+      bombCooldown = BOMB_COOLDOWN_TIME;
+    }
   }
 
   void ifTouching(Object crate) {

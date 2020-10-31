@@ -69,6 +69,16 @@ class ObjectHandler {
     Bomb bomb = new Bomb(x, y, w / eSD, h / eSD, this, sprites);
     entries.add(bomb);
   }
+  
+  void addC4(float x, float y, int w, int h) {
+    C4 c4 = new C4(x, y, w / eSD, h / eSD, this, sprites);
+    entries.add(c4);
+  }
+  
+  void addLandmine(float x, float y, int w, int h) {
+    Landmine landmine = new Landmine(x, y, w / eSD, h / eSD, this, sprites);
+    entries.add(landmine);
+  }
 
   //Method van verwijderen objecten uit array (not used , can be called in object child classes) 
   void removeEntry(Object entry) {
