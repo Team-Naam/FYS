@@ -1,0 +1,24 @@
+class HighScore{
+ int score, timeScore;
+ int timer, time;
+  
+  HighScore(){
+   score = 0;
+   timeScore = TIME_SCORE;
+   timer = FRAMERATE * TIME_SCORE_TIMER;
+   time = 0;
+ }
+ 
+ void update(){
+   time += 1;
+   if (time == timer) {
+     score += timeScore;
+     time = 0;
+   }
+ }
+ 
+ void addScore(int amount){
+   score += amount;
+ }
+  
+}
