@@ -9,6 +9,7 @@ class HighScore{
    time = 0;
  }
  
+ //iedere sec komt er score bij
  void update(){
    time += 1;
    if (time == timer) {
@@ -16,7 +17,7 @@ class HighScore{
      time = 0;
    }
  }
- 
+ //als je buiten deze class score wilt toevoegen
  void addScore(int amount){
    score += amount;
  }
