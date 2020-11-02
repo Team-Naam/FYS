@@ -8,6 +8,10 @@ final int LEVELS = 3;
 final int TILE_SIZE = 128;
 final int OBJECT_Y_OFFSET = 100;
 
+//HighScores
+final int TIME_SCORE = 10;
+final int TIME_SCORE_TIMER = 1;  //in sec
+
 //Graphics
 final int FRAMERATE = 60;
 
