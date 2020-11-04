@@ -76,6 +76,16 @@ class ObjectHandler {
     entries.add(bomb);
   }
   
+  void addC4(float x, float y, int w, int h) {
+    C4 c4 = new C4(x, y, w / eSD, h / eSD, this, sprites);
+    entries.add(c4);
+  }
+  
+  void addLandmine(float x, float y, int w, int h) {
+    Landmine landmine = new Landmine(x, y, w / eSD, h / eSD, this, sprites);
+    entries.add(landmine);
+  }
+
   //Method voor plaatsen van een SpiderBomb
   void addSpiderBomb(float x, float y, int w, int h) {
     SpiderBomb spiderBomb = new SpiderBomb(x, y, w / eSD, h / eSD, this, sprites);
