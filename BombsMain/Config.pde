@@ -60,3 +60,8 @@ final int SMUMMY_SHIELD = 1;
 final int SPIDER_HEALTH = 1;
 final int SPIDER_ROAMING = 1000;
 final int SPIDER_MOVEMENT_SPEED = 3;
+
+//ExplosiveSpider
+final int EXPLOSIVE_SPIDER_HEALTH = 1;
+final int EXPLOSIVE_SPIDER_ROAMING = 1000;
+final int EXPLOSIVE_SPIDER_MOVEMENT_SPEED = 3;
