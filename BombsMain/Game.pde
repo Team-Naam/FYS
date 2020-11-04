@@ -31,6 +31,8 @@ class Game {
   }
 }
 
+//-----------------------------Highscore---------------------------------
+
 class HighScore{
  int score, timeScore;
  int timer, time;

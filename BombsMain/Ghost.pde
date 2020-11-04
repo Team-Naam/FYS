@@ -81,6 +81,8 @@ class Ghost extends Entity {
   }
 }
 
+//-----------------------------Special ghost---------------------------------
+
 //Code credit Ruben Verheul
 class Poltergeist extends Entity {
   int heath = POLTERGEIST_HEALTH;

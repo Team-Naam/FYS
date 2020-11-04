@@ -18,6 +18,8 @@ class Wall extends Object {
   }
 }
 
+//-----------------------------Rock top & bottom---------------------------------
+
 //Onder en boven muren
 class Rock extends Object {
   Rock(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
@@ -34,6 +36,8 @@ class Rock extends Object {
     image(sprites.getRock(), x, y);
   }
 }
+
+//-----------------------------Breakable blocks---------------------------------
 
 class BreakableBlock extends Entity {
 

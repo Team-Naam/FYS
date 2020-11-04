@@ -88,6 +88,8 @@ class Bomb extends Object {
   }
 }
 
+//-----------------------------C4 bomb---------------------------------
+
 class C4 extends Bomb
 {
   boolean bombActivated;
@@ -126,6 +128,8 @@ class C4 extends Bomb
     }
   }
 }
+
+//-----------------------------Landmine---------------------------------
 
 class Landmine extends Bomb
 {
@@ -194,6 +198,8 @@ class Landmine extends Bomb
     return false;
   }
 }
+
+//-----------------------------Spiderbombs---------------------------------
 
 //class voor de Bomb die de ExplosiveSpider maakt
 //code credit Alex Tarnoki, Ole Neuman, Ruben Verheul
