@@ -1,6 +1,5 @@
 //Code credit Jordy Post, Winand Metz, Ruben Verheul, Ole Neuman
 
-//Main Enemy class voor Ghost, Spider, Mummy
 class Entity extends Object {
 
   int health;
