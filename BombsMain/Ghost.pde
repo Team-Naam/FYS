@@ -7,7 +7,7 @@ class Ghost extends Entity {
   int velX = GHOST_MOVEMENT_SPEED;
   int velY = GHOST_MOVEMENT_SPEED;
 
-  Ghost(float x,float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Ghost(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.objectId = ObjectID.GHOST;
     savedTime = millis();
@@ -81,26 +81,28 @@ class Ghost extends Entity {
   }
 }
 
+//-----------------------------Special ghost---------------------------------
+
 //Code credit Ruben Verheul
 class Poltergeist extends Entity {
   int heath = POLTERGEIST_HEALTH;
   int roamingTimer = POLTERGEIST_ROAMING;
   int velX = POLTERGEIST_MOVEMENT_SPEED;
   int velY = POLTERGEIST_MOVEMENT_SPEED;
-  
-  Poltergeist(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites){
+
+  Poltergeist(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.objectId = ObjectID.POLTERGEIST;
     savedTime = millis();
   }
-  
+
   void update() {
     bombDamage();
     movement();
-    
+
     x = x + speedX;
     y = y + speedY;
-    
+
     if (rockCollisionDetection()) {
       x = oldX - MAP_SCROLL_SPEED;
       y = oldY;
@@ -108,9 +110,9 @@ class Poltergeist extends Entity {
     oldX = x;
     oldY = y;
   }
-  
+
   void movement() {
-    
+
     int passedTime = millis() - savedTime;
     if (dist(getPlayerX(), getPlayerY(), x, y) < PLAYER_DETECTION_DISTANCE) {
       hunt();
@@ -122,7 +124,7 @@ class Poltergeist extends Entity {
       }
     }
   }
-  
+
   void bombDamage() {
     if (insideExplosion) {
       health -= BOMB_DAMAGE;
@@ -132,7 +134,7 @@ class Poltergeist extends Entity {
       objectHandler.removeEntry(this);
     }
   }
-  
+
   void hunt() {
     if (getPlayerX() > x && getPlayerY() > y) {
       speedX = velX;

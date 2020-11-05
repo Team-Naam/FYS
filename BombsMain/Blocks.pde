@@ -2,6 +2,9 @@
 
 //Muren, moet nog collision op
 class Wall extends Object {
+
+  PVector lb, rb, ro, lo;
+
   Wall(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, ObjectID.WALL, objectHandler, sprites);
   }
@@ -10,6 +13,10 @@ class Wall extends Object {
   }
 
   void update() {
+    lb = new PVector(x, y);
+    rb = new PVector(x + w, y);
+    ro = new PVector(x + w, y + h);
+    lo = new PVector(x, y + h);
   }
 
   //Inladen van de texture voor de muur en plaatsing
@@ -18,8 +25,13 @@ class Wall extends Object {
   }
 }
 
+//-----------------------------Rock top & bottom---------------------------------
+
 //Onder en boven muren
 class Rock extends Object {
+
+  PVector lb, rb, ro, lo;
+
   Rock(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
     super(x, y, w, h, ObjectID.ROCK, objectHandler, sprites);
   }
@@ -28,9 +40,50 @@ class Rock extends Object {
   }
 
   void update() {
+    lb = new PVector(x, y);
+    rb = new PVector(x + w, y);
+    ro = new PVector(x + w, y + h);
+    lo = new PVector(x, y + h);
+  }
+  
+  void draw() {
+    image(sprites.getRock(), x, y);
+  }
+}
+
+//-----------------------------Breakable blocks---------------------------------
+
+class BreakableBlock extends Entity {
+
+  int health = BBLOCK_HEALTH;
+
+  //PVector lb, rb, ro, lo;
+
+  BreakableBlock(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+    super(x, y, w, h, objectHandler, sprites);
+    this.objectId = ObjectID.BBLOCK;
+  }
+
+  void update() {
+    bombDamage();
+
+    //lb = new PVector(x, y);
+    //rb = new PVector(x + w, y);
+    //ro = new PVector(x + w, y + h);
+    //lo = new PVector(x, y + h);
+  }
+
+  void bombDamage() {
+    if (insideExplosion) {
+      health -= BOMB_DAMAGE;
+      insideExplosion = false;
+    }
+    if (health <= 0) {
+      objectHandler.removeEntry(this);
+    }
   }
 
   void draw() {
-    image(sprites.getRock(), x, y);
+    rect(x, y, w, h);
   }
 }

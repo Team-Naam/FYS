@@ -82,6 +82,8 @@ class Mummy extends Entity {
   }
 }
 
+//-----------------------------Special mummy---------------------------------
+
 //Code credit Jordy Post
 class SMummy extends Mummy {
 

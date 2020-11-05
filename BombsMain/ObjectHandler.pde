@@ -5,8 +5,9 @@ class ObjectHandler {
 
   int eSD = ENTITY_SIZE_DIVIDER;
 
-  //Opzetten van object array voor muren en breekbare blocks
   ArrayList<Object> entries = new ArrayList<Object>();
+
+  //Opzetten van object array voor muren en breekbare blocks
   Player player = null;
 
   Sprites sprites;
@@ -63,7 +64,7 @@ class ObjectHandler {
     Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
     entries.add(spider);
   }
-  
+
   //Method voor plaatsen Explosive_Spiders
   void addExplosiveSpider(float x, float y, int w, int h) {
     ExplosiveSpider explosiveSpider = new ExplosiveSpider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
@@ -75,12 +76,12 @@ class ObjectHandler {
     Bomb bomb = new Bomb(x, y, w / eSD, h / eSD, this, sprites);
     entries.add(bomb);
   }
-  
+
   void addC4(float x, float y, int w, int h) {
     C4 c4 = new C4(x, y, w / eSD, h / eSD, this, sprites);
     entries.add(c4);
   }
-  
+
   void addLandmine(float x, float y, int w, int h) {
     Landmine landmine = new Landmine(x, y, w / eSD, h / eSD, this, sprites);
     entries.add(landmine);
@@ -92,7 +93,7 @@ class ObjectHandler {
     entries.add(spiderBomb);
   }
 
-  //Method van verwijderen objecten uit array (not used , can be called in object child classes) 
+  //Method van verwijderen objecten uit array
   void removeEntry(Object entry) {
     entries.remove(entry);
   }
@@ -104,9 +105,10 @@ class ObjectHandler {
       if (i >= objects.size()) {
         break;
       }
-      game.mapHandler.moveMap(objects.get(i));
+      objects.get(i).moveMap();
       objects.get(i).update();
-    }
+      objects.get(i).getVector();
+    }    
   }
 
   //Draw method voor elk onderdeel in de list

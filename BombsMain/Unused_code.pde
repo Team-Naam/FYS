@@ -24,3 +24,55 @@
 //if (c == 0xFF) {
 //  objectHandler.addEnemy(x * tw, y * th, tw, th);
 //}
+
+//Graphics engine compiling code
+//      lightMap.beginDraw();
+//      lightMap.clear();
+//      lightMap.background(0);
+//      lightMap.shape(emitterPlayer.getShape(255));
+//      lightMap.endDraw();
+
+//      lightMapOutput.beginDraw();
+//      lightMapOutput.clear();
+//      lightMapOutput.background(0);
+//      lightMapOutput.imageMode(CENTER);
+//      lightMapOutput.image(invLight, playerPos.x, playerPos.y);
+//      lightMapOutput.endDraw();
+
+//      lightMap.mask(lightMapOutput);
+
+//      shadowMask.beginDraw();
+//      shadowMask.clear();
+//      shadowMask.background(0);
+//      shadowMask.image(lightMap, 0, 0);
+//      shadowMask.endDraw();
+
+//      shadowMap.mask(shadowMask);
+
+//      lightMask.beginDraw();
+//      lightMask.clear();
+//      lightMask.background(240);
+//      lightMask.image(shadowMap, 0, 0);
+//      lightMask.endDraw();
+
+//      shadowMapTwo.mask(lightMask);
+
+//      invLightMap.beginDraw();
+//      invLightMap.clear();
+//      invLightMap.background(0);
+//      invLightMap.imageMode(CENTER);
+//      invLightMap.image(invLight, playerPos.x, playerPos.y);
+//      invLightMap.endDraw();
+
+//      invLightMap.mask(lightMask);
+      
+//      shadowMapThree.mask(invLightMap);
+
+//      //image(lightMap, 0, 0);
+//      //image(lightMapOutput, 0, 0);
+//      //image(shadowMask, 0, 0);
+//      //image(shadowMap, 0, 0);
+//      //image(lightMask, 0, 0);
+//      image(shadowMapTwo, 0, 0);
+//      //image(invLightMap, 0, 0);
+//      //image(shadowMapThree, 0, 0);

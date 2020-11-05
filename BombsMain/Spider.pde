@@ -80,6 +80,7 @@ class Spider extends Entity {
   }
 }
 
+//-----------------------------Special spider---------------------------------
 
 class ExplosiveSpider extends Entity{
   

@@ -39,10 +39,6 @@ class MapHandler {
     newMap = loadImage("data/maps/map" + mapFileNumber + ".png"); 
     newMap.loadPixels(); 
   } 
- 
-  void moveMap(Object object) { 
-    object.x -= mapScrollSpeed; 
-  } 
 }
 
 //Code credit Winand Metz

@@ -1,19 +1,19 @@
 //Code credit Winand Metz
 
 //Game
-final float MAP_SCROLL_SPEED = 0;
+final float MAP_SCROLL_SPEED = 1;
 final float MAP_OFFSET = 0;
 final int LEVELS = 3;
 //!NIET VERANDEREN!
 final int TILE_SIZE = 128;
 final int OBJECT_Y_OFFSET = 100;
 
+//Graphics
+final int FRAMERATE = 60;
+
 //HighScores
 final int TIME_SCORE = 10;
 final int TIME_SCORE_TIMER = 1;  //in sec
-
-//Graphics
-final int FRAMERATE = 60;
 
 //Player
 final int PLAYER_X_SPAWN = 0;
