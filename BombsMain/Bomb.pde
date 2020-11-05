@@ -29,20 +29,22 @@ class Bomb extends Object {
         explosionOpacity -=5;
         bombOpacity = 0;
       }
-      if (explosionOpacity <= 0) {
-        objectHandler.removeEntry(this);
-      }
     }
   }
 
   void draw() {
     fill(0, bombOpacity);
-    if (bombOpacity == 0) noStroke();
+    if (bombOpacity == 0) {
+      noStroke();
+    }
     rect(x, y, w, h);
     fill(235, 109, 30, explosionOpacity);
     noStroke();
     circle(x + w, y + h, explosionRadius);
     stroke(1);
+    if (explosionOpacity <= 0) {
+      objectHandler.removeEntry(this);
+    }
   }
 
   //Kijkt of object een enemy is
@@ -107,7 +109,11 @@ class C4 extends Bomb
     noStroke();
     circle(x + w, y + h, explosionRadius);
     stroke(1);
+    if (explosionOpacity <= 0) {
+      objectHandler.removeEntry(this);
+    }
   }
+
   void update() {
     if ( bombActivated) {
       enemyDetection();
@@ -117,9 +123,6 @@ class C4 extends Bomb
       if (explosionRadius >= 400) {
         explosionOpacity -=5;
         bombOpacity = 0;
-      }
-      if (explosionOpacity <= 0) {
-        objectHandler.removeEntry(this);
       }
     }
     if (input.xDown())
@@ -148,6 +151,9 @@ class Landmine extends Bomb
     noStroke();
     circle(x + w, y + h, explosionRadius);
     stroke(1);
+    if (explosionOpacity <= 0) {
+      objectHandler.removeEntry(this);
+    }
   }
   void update() {
     if (enemyOverlaps == false)
@@ -162,9 +168,6 @@ class Landmine extends Bomb
       if (explosionRadius >= 400) {
         explosionOpacity -=5;
         bombOpacity = 0;
-      }
-      if (explosionOpacity <= 0) {
-        objectHandler.removeEntry(this);
       }
     }
   }
@@ -232,9 +235,6 @@ class SpiderBomb extends Object {
         explosionOpacity -=5;
         bombOpacity = 0;
       }
-      if (explosionOpacity <= 0) {
-        objectHandler.removeEntry(this);
-      }
     }
   }
 
@@ -246,6 +246,9 @@ class SpiderBomb extends Object {
     noStroke();
     circle(x + w, y + h, explosionRadius);
     stroke(1);
+    if (explosionOpacity <= 0) {
+      objectHandler.removeEntry(this);
+    }
   }
 
   //Kijkt of object een player is
