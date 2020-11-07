@@ -4,11 +4,11 @@ class Entity extends Object {
 
   int health;
   int roamingTimer;
+  int savedTime;
   int speedX;
   int speedY;
   int velX;
   int velY;
-  int savedTime;
   float oldX, oldY;
 
   boolean insideExplosion = false;
@@ -46,7 +46,7 @@ class Entity extends Object {
       if (passedTime > roamingTimer) {
         speedX = velX * randomOnes();
         speedY = velY * randomOnes();
-        savedTime = millis();
+        savedTime= millis();
       }
     }
   }

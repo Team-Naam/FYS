@@ -10,6 +10,9 @@ final int OBJECT_Y_OFFSET = 100;
 
 //Graphics
 final int FRAMERATE = 60;
+final int FLOOR_SHADOW_STRENGTH = 230; //Normaliter ligt de waarde van deze en ENVIROMENT_SHADOW_STRENGHT dicht bij elkaar
+final int ENVIROMENT_SHADOW_STRENGHT = 230;
+final int RAY_DISTANCE = 500;
 
 //HighScores
 final int TIME_SCORE = 10;

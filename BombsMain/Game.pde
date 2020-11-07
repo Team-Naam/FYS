@@ -49,8 +49,8 @@ class Game {
     PGraphics floorInvShadowMap;
     PGraphics floorShadowMap;
 
+    PGraphics wallLightMask;
     PGraphics wallLightMap;
-    PGraphics wallInvShadowMap;
 
     PImage invLight;
     PImage shadowLight;
@@ -68,8 +68,8 @@ class Game {
       floorTorchLight = createGraphics(1920, 1080, P2D);
       floorShadowMask = createGraphics(1920, 1080, P2D);
       floorInvShadowMask = createGraphics(1920, 1080, P2D);
+      wallLightMask = createGraphics(1920, 1080, P2D);
       wallLightMap = createGraphics(1920, 1080, P2D);
-      wallInvShadowMap = createGraphics(1920, 1080, P2D);
     }
 
     void update() {
@@ -82,13 +82,16 @@ class Game {
       emitterPlayer.cast(objectHandler.entries);
     }
 
+    //Tekent de bewegende shaduwen op de vloer
     void drawFloorLighting() {
+      //Bepaald hoe het licht op de vloer valt op basis van een variant van path tracing
       floorLightMap.beginDraw();
       floorLightMap.clear();
       floorLightMap.background(0);
       floorLightMap.shape(emitterPlayer.getShape(255));
       floorLightMap.endDraw();
 
+      //Bepaald de grote van het fakkel licht van de player dmv een png
       floorTorchLight.beginDraw();
       floorTorchLight.clear();
       floorTorchLight.background(0);
@@ -96,34 +99,42 @@ class Game {
       floorTorchLight.image(invLight, playerPos.x, playerPos.y);
       floorTorchLight.endDraw();
 
+      //Zorgt ervoor dat path tracing alleen voordoet binnen het fakkel licht
       floorLightMap.mask(floorTorchLight);
 
+      //Maakt een mask van de floorLightMap die inverted is, oftwel de inverted shadow mask
       floorInvShadowMask.beginDraw();
       floorInvShadowMask.clear();
       floorInvShadowMask.background(0);
       floorInvShadowMask.image(floorLightMap, 0, 0);
       floorInvShadowMask.endDraw();
 
+      //Basis layer voor de inverted shadow map
       floorInvShadowMap.beginDraw();
       floorInvShadowMap.clear();
       floorInvShadowMap.background(0);
       floorInvShadowMap.endDraw();
 
+      //Zet de inverted shadow mask om in de inverted shadow map
       floorInvShadowMap.mask(floorInvShadowMask);
 
+      //Tekend de shadow mask, dit bepaald waar de schaduwen komen en hoe sterk ze zijn
       floorShadowMask.beginDraw();
       floorShadowMask.clear();
-      floorShadowMask.background(230);
+      floorShadowMask.background(FLOOR_SHADOW_STRENGTH);
       floorShadowMask.image(floorInvShadowMap, 0, 0);
       floorShadowMask.endDraw();
 
+      //Tekend de shadow map, dit is wat uiteindelijk te zien is op het scherm
       floorShadowMap.beginDraw();
       floorShadowMap.clear();
       floorShadowMap.background(0);
       floorShadowMap.endDraw();
 
+      //Zet de shadow mask om in de shadow map die geprojecteerd wordt
       floorShadowMap.mask(floorShadowMask);
 
+      //Aantal check functies
       //image(lightMap, 0, 0);
       //image(lightMapOutput, 0, 0);
       //image(shadowMask, 0, 0);
@@ -133,22 +144,26 @@ class Game {
     }
 
     void draw() {
+      //Dit is de light mask voor de muren en entities, laad de grote van het fakkel licht en de sterkte van de schaduwen in en zet dit om in een mask
+      wallLightMask.beginDraw();
+      wallLightMask.clear();
+      wallLightMask.background(ENVIROMENT_SHADOW_STRENGHT);
+      wallLightMask.imageMode(CENTER);
+      wallLightMask.image(shadowLight, playerPos.x, playerPos.y);
+      wallLightMask.endDraw();
+
+      //De uiteindelijke light map die te zien is op het scherm
       wallLightMap.beginDraw();
       wallLightMap.clear();
-      wallLightMap.background(230);
-      wallLightMap.imageMode(CENTER);
-      wallLightMap.image(shadowLight, playerPos.x, playerPos.y);
+      wallLightMap.background(0);
       wallLightMap.endDraw();
-      
-      wallInvShadowMap.beginDraw();
-      wallInvShadowMap.clear();
-      wallInvShadowMap.background(0);
-      wallInvShadowMap.endDraw();
-      
-      wallInvShadowMap.mask(wallLightMap);
 
+      //Zet de mask om in een light map
+      wallLightMap.mask(wallLightMask);
+
+      //Check functie
       //image(wallLightMap, 0, 0);
-      image(wallInvShadowMap, 0 ,0);
+      image(wallLightMap, 0, 0);
     }
   }
 }

@@ -7,7 +7,6 @@ class ObjectHandler {
 
   ArrayList<Object> entries = new ArrayList<Object>();
 
-  //Opzetten van object array voor muren en breekbare blocks
   Player player = null;
 
   Sprites sprites;
