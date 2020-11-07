@@ -1,3 +1,5 @@
+//Code credit Winand Metz & Ole Neuman
+//Class for moving shadow emitter
 class Emitter {
 
   ObjectHandler objectHandler;
@@ -16,10 +18,14 @@ class Emitter {
   }
 
   void update(float x, float y) {
+    //Bepaald de plek van de emitter
     this.pos.set(x + 10, y + 10);
+    /*Zoekt van de Wall en Rock objecten alle hoekpunten op
+     Schiet hier een ray naar toe met elk twee extra rays die net zijonder en zijboven zitten van de orginele ray
+     Dit helpt met de vloeiendheid wanneer de emitter beweegt en de schaduwen van plek veranderen*/
     for (Object object : objectHandler.entries) {
       if (object.objectId == ObjectID.WALL || object.objectId == ObjectID.ROCK) {
-        if (dist(pos.x, pos.y, object.x, object.y) < 500) {
+        if (dist(pos.x, pos.y, object.x, object.y) < RAY_DISTANCE) { //checkt alleen rays voor objecten binnen RAY_DISTANCE pixels van de emitter
           rays.add(new Ray(pos, object.lb.x, object.lb.y));
           rays.add(new Ray(pos, object.rb.x, object.rb.y));
           rays.add(new Ray(pos, object.ro.x, object.ro.y));
@@ -39,21 +45,22 @@ class Emitter {
     }
   }
 
+  //Method voor bepalen van waar de rays een ander object doorkruizen
   void cast(ArrayList<Object> entries) {
     for (Ray ray : rays) {
       PVector closest = null;
-      float record = width;
+      float record = width; //Voor optimization redenen staat deze op width, bepaald hoe ver de ray max mag komen
       for (Object object : entries) {
-        if (object.objectId == ObjectID.WALL || object.objectId == ObjectID.ROCK) {
-          PVector intUp = ray.getIntersection(object.lb, object.rb);
-          PVector intRight = ray.getIntersection(object.rb, object.ro);
-          PVector intDown = ray.getIntersection(object.ro, object.lo);
-          PVector intLeft = ray.getIntersection(object.lo, object.lb);
-          if (intUp != null ) {
-            float d = PVector.dist(this.pos, intUp);
-            if (d < record) {
+        if (object.objectId == ObjectID.WALL || object.objectId == ObjectID.ROCK) { //Safe wall dat hij alleen de waardes pakt van Wall en Rock
+          PVector intUp = ray.getIntersection(object.lb, object.rb); //Checkt intersectie met bovenkant
+          PVector intRight = ray.getIntersection(object.rb, object.ro); //Checkt intersectie met rechterkant
+          PVector intDown = ray.getIntersection(object.ro, object.lo); //Checkt intersectie met onderkant
+          PVector intLeft = ray.getIntersection(object.lo, object.lb); //Checkt intersectie met linkerkant
+          if (intUp != null ) { //Als er een intersectie plaatsvind bij bovenkant ga verder
+            float d = PVector.dist(this.pos, intUp); //Afstand tussen de emitter en intersectie
+            if (d < record) { //Als afstand kleiner is dan de width ga verder
               record = d;
-              closest = intUp;
+              closest = intUp; //Closest is uitkomst van intersectie punt
             }
           }  
           if (intRight != null ) {
@@ -79,11 +86,14 @@ class Emitter {
           }
         }
       }
-      if (closest != null) {
+      //Safe wall voor toevoegen closest aan de list met vertices
+      if (closest != null) { 
         lightVertices.add(closest);
       }
     }
+    //Schoon de rays arraylist
     rays.clear();
+    //Sorteer alle punten op hoek tegenover de emitter
     sortList();
   }
 
@@ -146,6 +156,7 @@ class Emitter {
     return trueRadiansBetweenEmitterAndVertex;
   }
 
+  //Maken van de lightpoly op basis van de sorted light vertices, neemt de grijswaarde in
   PShape getShape(int col) {
     lightPoly = createShape();
     lightPoly.beginShape();
@@ -162,8 +173,6 @@ class Emitter {
   }
 }
 
-
-
 class Ray {
 
   PVector pos, dir;
@@ -173,52 +182,44 @@ class Ray {
     dir = new PVector(dirX, dirY);
   }
 
+  //Method die checkt of de ray een andere lijn snijd, input is beginpunt en eindpunt van een een lijn
+  //Orginele bron, afgeleid van: https://ncase.me/sight-and-light/
   PVector getIntersection(PVector wall_a, PVector wall_b) {
-    // RAY in parametric: Point + Delta*T1
+    //Ray in parametric: Point + Delta*T1
     float r_px = pos.x;
     float r_py = pos.y;
     float r_dx = dir.x - pos.x;
-    //println(r_dx);
-    float r_dy = dir.y- pos.y;
-    //println(r_dy);
+    float r_dy = dir.y - pos.y;
 
-    // SEGMENT in parametric: Point + Delta*T2
+    //Wall in parametric: Point + Delta*T2
     float s_px = wall_a.x;
     float s_py = wall_a.y;
     float s_dx = wall_b.x - wall_a.x;
     float s_dy = wall_b.y - wall_a.y;
 
-    // Are they parallel? If so, no intersect
+    //Check if they are parrellel, if not, return null
     double r_mag = Math.sqrt(r_dx*r_dx+r_dy*r_dy);
-    //println(r_mag);
     double s_mag = Math.sqrt(s_dx*s_dx+s_dy*s_dy);
-    //println(s_mag);
-
-    if (r_dx/r_mag==s_dx/s_mag && r_dy/r_mag==s_dy/s_mag) {
-      // Unit vectors are the same.
+    if (r_dx / r_mag == s_dx / s_mag && r_dy / r_mag == s_dy / s_mag) {
       return null;
     }
 
-    // SOLVE FOR T1 & T2
-    float T2 = (r_dx*(s_py-r_py) + r_dy*(r_px-s_px))/(s_dx*r_dy - s_dy*r_dx);
-    //println(T2);
-    float T1 = (s_px+s_dx*T2-r_px)/r_dx;
-    //println(T1);
+    //Check if the ray intersects the wall, T2 & T1 are the line's gradients (Slopes) 
+    float T2 = (r_dx * (s_py - r_py) + r_dy * (r_px - s_px)) / (s_dx * r_dy - s_dy * r_dx);
+    float T1 = (s_px + s_dx * T2-r_px) / r_dx;
 
-    // Must be within parametic whatevers for RAY/SEGMENT
-    if (T1<0) { 
+    //Must be within the parametic whatevers for ray/wall
+    if (T1 < 0) { 
       return null;
     }
-    if (T2<0 || T2>1) {
+    if (T2 < 0 || T2 > 1) {
       return null;
     } else {
-      // Return the POINT OF INTERSECTION
+      // Return the point of intersection
       PVector pt = new PVector();
-      pt.x = r_px+r_dx*T1;
-      pt.y = r_py+r_dy*T1;
-      pt.z = T1;
-
-      //println(pt);
+      pt.x = r_px+r_dx * T1;
+      pt.y = r_py+r_dy * T1;
+      //pt.z = T1;
 
       return pt;
     }

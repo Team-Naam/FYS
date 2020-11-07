@@ -3,7 +3,7 @@
 //Inladen en tijdelijk opslaan textures
 class Sprites {
 
-  //array voor x en y positie in grid
+  //Array voor x en y positie in grid
   final PImage[][] sprites;
 
   //Class neemt filepath in en de groote van de gridtegels
@@ -24,7 +24,7 @@ class Sprites {
     return sprites[1][0];
   }
 
-  //functie voor het inladen van de verschillende textures in de array
+  //Functie voor het inladen van de verschillende textures in de array
   PImage[][] loadSprites(String path, int tileSize) {
     PImage spriteBlock = loadImage(path);
     PImage[][] sprites = new PImage[spriteBlock.width / tileSize][spriteBlock.height / tileSize];
