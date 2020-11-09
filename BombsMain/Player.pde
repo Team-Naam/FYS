@@ -2,6 +2,8 @@
 
 class Player extends Object {
 
+  boolean torchLightBonus = false;
+
   int speedX, speedY;
   int velX = PLAYER_SPEED;
   int velY = PLAYER_SPEED;
@@ -15,6 +17,7 @@ class Player extends Object {
 
   void update() {
     playerControls();
+    powerUpDetection();
 
     if (speedX != 0) {
       speedY = 0;
@@ -64,8 +67,17 @@ class Player extends Object {
       bombCooldown = BOMB_COOLDOWN_TIME;
     }
   }
-
   void ifTouching(Object crate) {
+  }
+
+  void powerUpDetection() {
+    ArrayList<Object> objects = objectHandler.entries;
+    for (int i = 0; i < objects.size(); i++) {
+      Object gameObject = objects.get(i);
+      if (!gameObject.equals(this) && intersection(gameObject) && gameObject.objectId == ObjectID.OILB) {
+        torchLightBonus = true;
+      }
+    }
   }
 
   void draw() {

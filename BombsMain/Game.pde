@@ -52,16 +52,16 @@ class Game {
     PGraphics wallLightMask;
     PGraphics wallLightMap;
 
-    PImage invLight;
-    PImage shadowLight;
+    PImage torchLight;
+    PImage invTorchLight;
 
     PVector playerPos;
 
     GraphicsEngine() {
       emitterPlayer = new Emitter(objectHandler);
       playerPos = new PVector();
-      invLight = loadImage("data/lightmaps/invlightmap_test.png");
-      shadowLight = loadImage("data/lightmaps/shadowmap_test.png");
+      torchLight = loadImage("data/lightmaps/torch.png");
+      invTorchLight = loadImage("data/lightmaps/inv_torch.png");
       floorInvShadowMap = createGraphics(1920, 1080, P2D);
       floorShadowMap = createGraphics(1920, 1080, P2D);
       floorLightMap = createGraphics(1920, 1080, P2D);
@@ -96,7 +96,7 @@ class Game {
       floorTorchLight.clear();
       floorTorchLight.background(0);
       floorTorchLight.imageMode(CENTER);
-      floorTorchLight.image(invLight, playerPos.x, playerPos.y);
+      floorTorchLight.image(torchLight, playerPos.x, playerPos.y);
       floorTorchLight.endDraw();
 
       //Zorgt ervoor dat path tracing alleen voordoet binnen het fakkel licht
@@ -149,7 +149,7 @@ class Game {
       wallLightMask.clear();
       wallLightMask.background(ENVIROMENT_SHADOW_STRENGHT);
       wallLightMask.imageMode(CENTER);
-      wallLightMask.image(shadowLight, playerPos.x, playerPos.y);
+      wallLightMask.image(invTorchLight, playerPos.x, playerPos.y);
       wallLightMask.endDraw();
 
       //De uiteindelijke light map die te zien is op het scherm
