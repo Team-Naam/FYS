@@ -7,6 +7,7 @@ class Game {
   Sprites sprites;
   Player player;
   GraphicsEngine graphicsEngine;
+  Highscore highscore;
 
   final int width, height;
 
@@ -20,6 +21,7 @@ class Game {
     mapHandler = new MapHandler(tileSize);
     objectHandler.addPlayer();
     graphicsEngine = new GraphicsEngine();
+    highscore = new Highscore();
   }
 
   //Oproepen van objecten in de game zodat ze worden getekend
@@ -27,6 +29,7 @@ class Game {
     mapHandler.update();
     objectHandler.update();
     graphicsEngine.update();
+    highscore.update();
   }
 
   void draw() {
@@ -170,25 +173,79 @@ class Game {
 
 //-----------------------------Highscore---------------------------------
 
-class HighScore {
+class Highscore {
   int score, timeScore;
   int timer, time;
+  boolean tempGameOver;
+  int[] highscoreList;
+  boolean scoreAdded;
 
-  HighScore() {
+  Highscore() {
     score = 0;
+    highscoreList = new int[HIGHSCORE_LIST_LENGTH];
     timeScore = TIME_SCORE;
     timer = FRAMERATE * TIME_SCORE_TIMER;
     time = 0;
+    for (int i = 0; i < highscoreList.length; i++) {
+      highscoreList[i] = 0;
+    }
+    tempGameOver = false;
+    scoreAdded = false;
   }
 
   //iedere sec komt er score bij
   void update() {
-    time += 1;
-    if (time == timer) {
-      score += timeScore;
-      time = 0;
+    if (tempGameOver == false) {
+      time += 1;
+      if (time == timer) {
+        score += timeScore;
+        time = 0;
+      }
+      //om te kunnen testen zonder een echte gameover te hebben
+      if (score >= 200) {
+        tempGameOver = true;
+      }
+    } else {
+      // als gameover true is en de highscores nog niet geupdate zijn worden de scores geupdate
+      if (scoreAdded == false) {
+        updateHighscores();
+      }
     }
   }
+  
+  void printHighscores() {
+    //print de highscores in de console
+    for (int i = 0; i < highscoreList.length; i++) {
+      println(i+1 + " " + highscoreList[i]);
+    }
+  }
+  //update de highscorelist
+  void updateHighscores() {
+    //als het een nieuwe hoogste score is
+    if (score > highscoreList[0]) {
+      for (int j = highscoreList.length -1; j >= 1; j--) {
+        highscoreList[j] = highscoreList[j -1];
+      }
+      
+      highscoreList[0] = score;
+      scoreAdded = true;
+      score = 0;
+    }
+    
+    for (int i = 1; i < highscoreList.length; i++) {
+      if (score > highscoreList[i] && score <= highscoreList[i -1]) {
+        for (int j = highscoreList.length -1; j > i; j--) {
+          highscoreList[j] = highscoreList[j -1];
+        }
+
+        highscoreList[i] = score;
+        scoreAdded = true;
+        score = 0;
+      }
+    }
+    printHighscores();
+  }
+  
   //als je buiten deze class score wilt toevoegen
   void addScore(int amount) {
     score += amount;
