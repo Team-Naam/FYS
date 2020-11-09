@@ -62,7 +62,8 @@ void loadMap(int[] pixels, int w, int h, int tw, int th, ObjectHandler objectHan
       }
       //Hexcode = ffdf8f
       if (c == 0xFFffdf8f) {
-        objectHandler.addMummy(x * tw + offSet, y * th, tw, th);
+        //objectHandler.addMummy(x * tw + offSet, y * th, tw, th);
+        objectHandler.addBreakableWall(x * tw + offSet, y * th, tw, th);
       }
       //Hexcode = E4B6AD
       if (c == 0xFFE4B6AD) {

@@ -22,7 +22,7 @@ final int TIME_SCORE_TIMER = 1;  //in sec
 final int PLAYER_X_SPAWN = 0;
 final int PLAYER_Y_SPAWN = 156;
 final int PLAYER_HEALTH = 3;
-final int PLAYER_SPEED = 3;
+final int PLAYER_SPEED = 4;
 //!NIET VERANDEREN!
 final int PLAYER_SIZE = TILE_SIZE / 2;
 

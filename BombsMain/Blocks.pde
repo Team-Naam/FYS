@@ -67,10 +67,6 @@ class BreakableBlock extends Entity {
   void update() {
     bombDamage();
 
-    //lb = new PVector(x, y);
-    //rb = new PVector(x + w, y);
-    //ro = new PVector(x + w, y + h);
-    //lo = new PVector(x, y + h);
   }
 
   void bombDamage() {
@@ -80,10 +76,12 @@ class BreakableBlock extends Entity {
     }
     if (health <= 0) {
       objectHandler.removeEntry(this);
+      objectHandler.addOilBottle(x, y, 64, 64);
     }
   }
 
   void draw() {
+    fill(128, 24, 78);
     rect(x, y, w, h);
   }
 }

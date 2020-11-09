@@ -27,6 +27,11 @@ class ObjectHandler {
     entries.add(rock);
   }
 
+  void addBreakableWall(float x, float y, int w, int h) {
+    BreakableBlock breakableBlock = new BreakableBlock(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
+    entries.add(breakableBlock);
+  }
+
   //Method voor plaatsen van de player
   void addPlayer() {
     Player player = new Player(PLAYER_X_SPAWN, PLAYER_Y_SPAWN, PLAYER_SIZE, PLAYER_SIZE, this, sprites);
@@ -92,6 +97,11 @@ class ObjectHandler {
     entries.add(spiderBomb);
   }
 
+  void addOilBottle(float x, float y, int w, int h) {
+    OilBottle oilBottle = new OilBottle(x, y, w / eSD, h / eSD, this, sprites);
+    entries.add(oilBottle);
+  }
+
   //Method van verwijderen objecten uit array
   void removeEntry(Object entry) {
     entries.remove(entry);
@@ -107,7 +117,7 @@ class ObjectHandler {
       objects.get(i).moveMap();
       objects.get(i).update();
       objects.get(i).getVector();
-    }    
+    }
   }
 
   //Draw method voor elk onderdeel in de list
