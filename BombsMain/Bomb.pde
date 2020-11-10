@@ -43,13 +43,13 @@ class Bomb extends Object {
     circle(x + w, y + h, explosionRadius);
     stroke(1);
     if (explosionOpacity <= 0) {
-      objectHandler.removeEntry(this);
+      objectHandler.removeEntity(this);
     }
   }
 
   //Kijkt of object een enemy is
   void enemyDetection() {
-    for (Object enemy : objectHandler.entries) {
+    for (Object enemy : objectHandler.entities) {
       if ( !enemy.equals(this) && enemy.objectId == ObjectID.ENEMY 
         || enemy.objectId == ObjectID.GHOST 
         || enemy.objectId == ObjectID.MUMMY 
@@ -111,7 +111,7 @@ class C4 extends Bomb
     circle(x + w, y + h, explosionRadius);
     stroke(1);
     if (explosionOpacity <= 0) {
-      objectHandler.removeEntry(this);
+      objectHandler.removeEntity(this);
     }
   }
 
@@ -153,7 +153,7 @@ class Landmine extends Bomb
     circle(x + w, y + h, explosionRadius);
     stroke(1);
     if (explosionOpacity <= 0) {
-      objectHandler.removeEntry(this);
+      objectHandler.removeEntity(this);
     }
   }
   void update() {
@@ -174,7 +174,7 @@ class Landmine extends Bomb
   }
 
   void enemyOverlapsLandmine() {
-    for (Object enemy : objectHandler.entries) {
+    for (Object enemy : objectHandler.entities) {
       if ( !enemy.equals(this) && enemy.objectId == ObjectID.ENEMY 
         || enemy.objectId == ObjectID.GHOST 
         || enemy.objectId == ObjectID.MUMMY 
@@ -248,13 +248,13 @@ class SpiderBomb extends Object {
     circle(x + w, y + h, explosionRadius);
     stroke(1);
     if (explosionOpacity <= 0) {
-      objectHandler.removeEntry(this);
+      objectHandler.removeEntity(this);
     }
   }
 
   //Kijkt of object een player is
   void playerDetection() {
-    for (Object player : objectHandler.entries) {
+    for (Object player : objectHandler.entities) {
       if ( !player.equals(this) && player.objectId == ObjectID.PLAYER ) {
         if (circleRectangleOverlap(player.x, player.y, player.w, player.h)) {
           ((Entity)player).insideExplosion = true;

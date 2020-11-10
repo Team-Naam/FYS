@@ -23,7 +23,7 @@ class Emitter {
     /*Zoekt van de Wall en Rock objecten alle hoekpunten op
      Schiet hier een ray naar toe met elk twee extra rays die net zijonder en zijboven zitten van de orginele ray
      Dit helpt met de vloeiendheid wanneer de emitter beweegt en de schaduwen van plek veranderen*/
-    for (Object object : objectHandler.entries) {
+    for (Object object : objectHandler.walls) {
       if (object.objectId == ObjectID.WALL || object.objectId == ObjectID.ROCK) {
         if (dist(pos.x, pos.y, object.x, object.y) < RAY_DISTANCE) { //checkt alleen rays voor objecten binnen RAY_DISTANCE pixels van de emitter
           rays.add(new Ray(pos, object.lb.x, object.lb.y));

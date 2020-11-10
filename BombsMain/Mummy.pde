@@ -52,7 +52,7 @@ class Mummy extends Entity {
       insideExplosion = false;
     }
     if (health <= 0) {
-      objectHandler.removeEntry(this);
+      objectHandler.removeEntity(this);
     }
   }
 
@@ -109,7 +109,7 @@ class SMummy extends Mummy {
       }
     }
     if (health <= 0) {
-      objectHandler.removeEntry(this);
+      objectHandler.removeEntity(this);
     }
   }
 

@@ -75,7 +75,7 @@ class BreakableBlock extends Entity {
       insideExplosion = false;
     }
     if (health <= 0) {
-      objectHandler.removeEntry(this);
+      objectHandler.removeWall(this);
       objectHandler.addOilBottle(x, y, 64, 64);
     }
   }

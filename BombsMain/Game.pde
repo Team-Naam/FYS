@@ -17,8 +17,8 @@ class Game {
     this.height = height;
     sprites = new Sprites("data/text/textures.png", tileSize);
     objectHandler = new ObjectHandler(this.sprites);
-    mapHandler = new MapHandler(tileSize);
     objectHandler.addPlayer();
+    mapHandler = new MapHandler(tileSize);
     graphicsEngine = new GraphicsEngine();
   }
 
@@ -73,13 +73,11 @@ class Game {
     }
 
     void update() {
-      for (Object object : objectHandler.entries) {
-        if (object.objectId == ObjectID.PLAYER) {
-          playerPos.set(object.x, object.y);
-        }
-      }
+      ArrayList<Object> entityObjects = objectHandler.entities;
+      Object playerEntity = entityObjects.get(0);
+      playerPos.set(playerEntity.x, playerEntity.y);
       emitterPlayer.update(playerPos.x, playerPos.y);
-      emitterPlayer.cast(objectHandler.entries);
+      emitterPlayer.cast(objectHandler.walls);
     }
 
     //Tekent de bewegende shaduwen op de vloer
