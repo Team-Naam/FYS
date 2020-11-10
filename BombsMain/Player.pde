@@ -71,7 +71,7 @@ class Player extends Object {
   }
 
   void powerUpDetection() {
-    ArrayList<Object> objects = objectHandler.entries;
+    ArrayList<Object> objects = objectHandler.entities;
     for (int i = 0; i < objects.size(); i++) {
       Object gameObject = objects.get(i);
       if (!gameObject.equals(this) && intersection(gameObject) && gameObject.objectId == ObjectID.OILB) {

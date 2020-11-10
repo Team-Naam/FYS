@@ -35,7 +35,7 @@ class Spider extends Entity {
       insideExplosion = false;
     }
     if (health <= 0) {
-      objectHandler.removeEntry(this);
+      objectHandler.removeEntity(this);
     }
   }
 
@@ -117,7 +117,7 @@ class ExplosiveSpider extends Entity{
     }
     if (health <= 0) {
       objectHandler.addSpiderBomb(x + w / 4, y + h / 4, BOMB_SIZE, BOMB_SIZE);
-      objectHandler.removeEntry(this);
+      objectHandler.removeEntity(this);
     }
   }
   

@@ -30,7 +30,7 @@ abstract class Object {
   abstract void draw();
 
   abstract void ifTouching(Object crate);
-  
+
   void moveMap() { 
     x -= MAP_SCROLL_SPEED;
   } 
@@ -46,26 +46,18 @@ abstract class Object {
   //Gaat door de objecthandler z'n list heen en zoekt naar object met het ID player om vervolgens x op te vragen
   float getPlayerX() {
     float pX = 0;
-    ArrayList<Object> objects = objectHandler.entries;
-    for (int i = 0; i < objects.size(); i++) {
-      Object gameObject = objects.get(i);
-      if (gameObject.objectId == ObjectID.PLAYER) {
-        pX = gameObject.x;
-      }
-    }
+    ArrayList<Object> entityObjects = objectHandler.entities;
+    Object player = entityObjects.get(0);
+    pX = player.x;
     return pX;
   }
 
   //Position crawler voor de player Y
   float getPlayerY() {
     float pY = 0;
-    ArrayList<Object> objects = objectHandler.entries;
-    for (int i = 0; i < objects.size(); i++) {
-      Object gameObject = objects.get(i);
-      if (gameObject.objectId == ObjectID.PLAYER) {
-        pY = gameObject.y;
-      }
-    }
+    ArrayList<Object> entityObjects = objectHandler.entities;
+    Object player = entityObjects.get(0);
+    pY = player.y;
     return pY;
   }
 
@@ -79,22 +71,30 @@ abstract class Object {
   //Gebruikt bovenstaande methode om te kijken of objecten elkaar doorkruizen
   //Zal kijken of ik nog een kan schrijven die ook de objectID's erbij betrekt, zodat je specifieke collision kan vinden
   boolean collisionDetection() {
-    ArrayList<Object> objects = objectHandler.entries;
-    for (int i = 0; i < objects.size(); i++) {
-      Object gameObject = objects.get(i);
-      if (!gameObject.equals(this) && intersection(gameObject) && gameObject.objectId != ObjectID.BOMB && gameObject.objectId != ObjectID.GHOST && gameObject.objectId != ObjectID.OILB) {
-        return true;
+    ArrayList<Object> entityObjects = objectHandler.entities;
+    ArrayList<Object> wallObjects = objectHandler.walls;
+    for (int i = 0; i < entityObjects.size(); i++) {
+      for (int j = 0; j < wallObjects.size(); j++) {
+        Object wallObject = wallObjects.get(j);
+        Object entityObject = entityObjects.get(i);
+        if (!entityObject.equals(this) && intersection(wallObject) && entityObject.objectId != ObjectID.BOMB && entityObject.objectId != ObjectID.GHOST && entityObject.objectId != ObjectID.OILB) {
+          return true;
+        }
       }
     }
     return false;
   }
 
   boolean rockCollisionDetection() {
-    ArrayList<Object> objects = objectHandler.entries;
-    for (int i = 0; i < objects.size(); i++) {
-      Object gameObject = objects.get(i);
-      if (!gameObject.equals(this) && intersection(gameObject) && gameObject.objectId == ObjectID.ROCK) {
-        return true;
+    ArrayList<Object> entityObjects = objectHandler.entities;
+    ArrayList<Object> wallObjects = objectHandler.walls;
+    for (int i = 0; i < entityObjects.size(); i++) {
+      for (int j = 0; j < wallObjects.size(); j++) {
+        Object wallObject = wallObjects.get(j);
+        Object entityObject = entityObjects.get(i);
+        if (!entityObject.equals(this) && intersection(wallObject) && wallObject.objectId == ObjectID.ROCK) {
+          return true;
+        }
       }
     }
     return false;

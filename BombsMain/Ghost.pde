@@ -52,7 +52,7 @@ class Ghost extends Entity {
       insideExplosion = false;
     }
     if (health <= 0) {
-      objectHandler.removeEntry(this);
+      objectHandler.removeEntity(this);
     }
   }
 
@@ -131,7 +131,7 @@ class Poltergeist extends Entity {
       insideExplosion = false;
     }
     if (health <= 0) {
-      objectHandler.removeEntry(this);
+      objectHandler.removeEntity(this);
     }
   }
 
