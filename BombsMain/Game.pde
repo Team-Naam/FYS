@@ -4,7 +4,7 @@
 class Game {
   ObjectHandler objectHandler;
   MapHandler mapHandler;
-  Sprites sprites;
+  Assets assetLoader;
   Player player;
   GraphicsEngine graphicsEngine;
 
@@ -15,8 +15,8 @@ class Game {
   Game(int tileSize, int width, int height) {
     this.width =  width;
     this.height = height;
-    sprites = new Sprites("data/text/textures.png", tileSize);
-    objectHandler = new ObjectHandler(this.sprites);
+    assetLoader = new Assets("data/text/textures.png", tileSize);
+    objectHandler = new ObjectHandler(this.assetLoader);
     objectHandler.addPlayer();
     mapHandler = new MapHandler(tileSize);
     graphicsEngine = new GraphicsEngine();

@@ -8,10 +8,12 @@ abstract class Object {
   float x, y;
   int w, h;
   ObjectID objectId;
+  ItemID itemId;
+  EntityID entityId;
   ObjectHandler objectHandler;
-  Sprites sprites;
+  Assets sprites;
 
-  Object(float x, float y, int w, int h, ObjectID objectId, ObjectHandler objectHandler, Sprites sprites) {
+  Object(float x, float y, int w, int h, ObjectID objectId, ObjectHandler objectHandler, Assets sprites) {
     this.x = x;
     this.y = y;
     this.w = w;
@@ -77,7 +79,7 @@ abstract class Object {
       for (int j = 0; j < wallObjects.size(); j++) {
         Object wallObject = wallObjects.get(j);
         Object entityObject = entityObjects.get(i);
-        if (!entityObject.equals(this) && intersection(wallObject) && entityObject.objectId != ObjectID.BOMB && entityObject.objectId != ObjectID.GHOST && entityObject.objectId != ObjectID.OILB) {
+        if (!entityObject.equals(this) && intersection(wallObject) && entityObject.objectId != ObjectID.BOMB && entityObject.entityId != EntityID.GHOST) {
           return true;
         }
       }

@@ -10,9 +10,9 @@ class ObjectHandler {
 
   Player player = null;
 
-  Sprites sprites;
+  Assets sprites;
 
-  ObjectHandler(Sprites sprites) {
+  ObjectHandler(Assets sprites) {
     this.sprites = sprites;
   }
 
@@ -98,9 +98,9 @@ class ObjectHandler {
     entities.add(spiderBomb);
   }
 
-  void addOilBottle(float x, float y, int w, int h) {
-    OilBottle oilBottle = new OilBottle(x, y, w / eSD, h / eSD, this, sprites);
-    entities.add(oilBottle);
+  void addBoots(float x, float y, int w, int h) {
+    Boots boots = new Boots(x, y, w / eSD, h / eSD, this, sprites);
+    entities.add(boots);
   }
 
   //Method van verwijderen objecten uit array

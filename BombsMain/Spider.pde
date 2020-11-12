@@ -7,9 +7,9 @@ class Spider extends Entity {
   int velX = SPIDER_MOVEMENT_SPEED ;
   int velY = SPIDER_MOVEMENT_SPEED ;
 
-  Spider(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Spider(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
     super(x, y, w, h, objectHandler, sprites);
-    this.objectId = ObjectID.SPIDER;
+    this.entityId = EntityID.SPIDER;
     savedTime = millis();
   }
 
@@ -89,9 +89,9 @@ class ExplosiveSpider extends Entity{
   int velX = EXPLOSIVE_SPIDER_MOVEMENT_SPEED;
   int velY = EXPLOSIVE_SPIDER_MOVEMENT_SPEED;
   
-  ExplosiveSpider(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  ExplosiveSpider(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
     super(x, y, w, h, objectHandler, sprites);
-    this.objectId = ObjectID.EXPLOSIVE_SPIDER;
+    this.entityId = EntityID.EXPLOSIVE_SPIDER;
     savedTime = millis();
   }
   

@@ -7,9 +7,9 @@ class Ghost extends Entity {
   int velX = GHOST_MOVEMENT_SPEED;
   int velY = GHOST_MOVEMENT_SPEED;
 
-  Ghost(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Ghost(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
     super(x, y, w, h, objectHandler, sprites);
-    this.objectId = ObjectID.GHOST;
+    this.entityId = EntityID.GHOST;
     savedTime = millis();
   }
 
@@ -90,9 +90,9 @@ class Poltergeist extends Entity {
   int velX = POLTERGEIST_MOVEMENT_SPEED;
   int velY = POLTERGEIST_MOVEMENT_SPEED;
 
-  Poltergeist(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Poltergeist(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
     super(x, y, w, h, objectHandler, sprites);
-    this.objectId = ObjectID.POLTERGEIST;
+    this.entityId = EntityID.POLTERGEIST;
     savedTime = millis();
   }
 
