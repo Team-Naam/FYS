@@ -1,13 +1,13 @@
 //Code credit Winand Metz
 
 //Inladen en tijdelijk opslaan textures
-class Sprites {
+class Assets {
 
   //Array voor x en y positie in grid
   final PImage[][] sprites;
 
   //Class neemt filepath in en de groote van de gridtegels
-  Sprites(String path, int tileSize) {
+  Assets(String path, int tileSize) {
     sprites = loadSprites(path, tileSize);
   }
 

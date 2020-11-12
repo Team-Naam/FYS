@@ -14,8 +14,8 @@ class Entity extends Object {
   boolean insideExplosion = false;
   boolean touching = false;
 
-  Entity(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
-    super(x, y, w, h, ObjectID.ENEMY, objectHandler, sprites);
+  Entity(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+    super(x, y, w, h, ObjectID.ENTITY, objectHandler, sprites);
     savedTime = millis();
   }
 

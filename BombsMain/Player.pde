@@ -2,22 +2,25 @@
 
 class Player extends Object {
 
-  boolean torchLightBonus = false;
+  boolean speedBonus = false;
+  boolean start = true;
 
-  int speedX, speedY;
+  int speedX, speedY, startTime;
+  int speedBonusTimer = 1000;
   int velX = PLAYER_SPEED;
   int velY = PLAYER_SPEED;
   int health = PLAYER_HEALTH;
   float oldX, oldY;
   int bombCooldown = 0;
 
-  Player(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Player(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
     super(x, y, w, h, ObjectID.PLAYER, objectHandler, sprites);
   }
 
   void update() {
     playerControls();
     powerUpDetection();
+    powerUps();
 
     if (speedX != 0) {
       speedY = 0;
@@ -67,15 +70,41 @@ class Player extends Object {
       bombCooldown = BOMB_COOLDOWN_TIME;
     }
   }
+
   void ifTouching(Object crate) {
+  }
+
+  void powerUps() {
+    if (!speedBonus) {
+      start = true;
+    }
+    if (speedBonus) {
+      int savedTime = millis();
+      if (start) {
+        startTime = millis();
+        start = false;
+      }
+      int passedTime = savedTime - startTime;
+      println(passedTime);
+      if (passedTime > speedBonusTimer) {
+        println("ANTIWOOSH");
+        velX -= 2;
+        velY -= 2;
+        speedBonus = false;
+      }
+    }
   }
 
   void powerUpDetection() {
     ArrayList<Object> objects = objectHandler.entities;
     for (int i = 0; i < objects.size(); i++) {
-      Object gameObject = objects.get(i);
-      if (!gameObject.equals(this) && intersection(gameObject) && gameObject.objectId == ObjectID.OILB) {
-        torchLightBonus = true;
+      Object item = objects.get(i);
+      if (!item.equals(this) && intersection(item) && item.itemId == ItemID.BOOTS) {
+        println("NYOOM");
+        velX += 2;
+        velY += 2;
+        speedBonus = true;
+        objectHandler.removeEntity(item);
       }
     }
   }

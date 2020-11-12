@@ -3,8 +3,9 @@
  
  Controls: pijltjes toetsen voor lopen, z voor plaatsen dynamiet en esc voor exit */
 
-
 //Code credit Winand Metz, Ole Neuman
+import samuelal.squelized.*;
+import processing.sound.*;
 
 //Voor main menu etc
 Game game;

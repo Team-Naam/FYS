@@ -1,4 +1,4 @@
-//Code credit Alex Tarnòki, Ole Neuman
+//Code credit Alex Tarnòki, Ole Neuman //<>// //<>//
 
 class Bomb extends Object {
 
@@ -9,7 +9,7 @@ class Bomb extends Object {
   int explosionRadius = EXPLOSION_START_RADIUS;
 
 
-  Bomb(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Bomb(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
     super(x, y, w, h, ObjectID.BOMB, objectHandler, sprites);
     startTime = millis();
   }
@@ -49,18 +49,17 @@ class Bomb extends Object {
 
   //Kijkt of object een enemy is
   void enemyDetection() {
-    for (Object enemy : objectHandler.entities) {
-      if ( !enemy.equals(this) && enemy.objectId == ObjectID.ENEMY 
-        || enemy.objectId == ObjectID.GHOST 
-        || enemy.objectId == ObjectID.MUMMY 
-        || enemy.objectId == ObjectID.SPIDER
-        || enemy.objectId == ObjectID.POLTERGEIST
-        || enemy.objectId == ObjectID.SMUMMY
-        || enemy.objectId == ObjectID.SPIDER
-        || enemy.objectId == ObjectID.EXPLOSIVE_SPIDER
-        || enemy.objectId == ObjectID.BBLOCK) {
-        if (circleRectangleOverlap(enemy.x, enemy.y, enemy.w, enemy.h)) {
-          ((Entity)enemy).insideExplosion = true;
+    for (Object entity : objectHandler.entities) {
+      if (!entity.equals(this) && entity.objectId == ObjectID.ENTITY ) {
+        if (circleRectangleOverlap(entity.x, entity.y, entity.w, entity.h)) {
+          ((Entity)entity).insideExplosion = true;
+        }
+      }
+    }        
+    for (Object wall : objectHandler.walls) {
+      if (!wall.equals(this) && wall.objectId == ObjectID.BBLOCK ) {
+        if (circleRectangleOverlap(wall.x, wall.y, wall.w, wall.h)) {
+          ((Entity)wall).insideExplosion = true;
         }
       }
     }
@@ -97,7 +96,7 @@ class C4 extends Bomb
 {
   boolean bombActivated;
 
-  C4(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  C4(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     bombActivated = false;
   }
@@ -139,7 +138,7 @@ class Landmine extends Bomb
 {
   boolean enemyOverlaps;
 
-  Landmine(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Landmine(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     enemyOverlaps = false;
   }
@@ -174,16 +173,17 @@ class Landmine extends Bomb
   }
 
   void enemyOverlapsLandmine() {
-    for (Object enemy : objectHandler.entities) {
-      if ( !enemy.equals(this) && enemy.objectId == ObjectID.ENEMY 
-        || enemy.objectId == ObjectID.GHOST 
-        || enemy.objectId == ObjectID.MUMMY 
-        || enemy.objectId == ObjectID.SPIDER
-        || enemy.objectId == ObjectID.POLTERGEIST
-        || enemy.objectId == ObjectID.SMUMMY
-        || enemy.objectId == ObjectID.SPIDER) {
-        if (rectRect(enemy.x, enemy.y, enemy.w, enemy.h)) {
-          enemyOverlaps = true;
+    for (Object entity : objectHandler.entities) {
+      if ( !entity.equals(this) && entity.objectId == ObjectID.ENTITY ) {
+        if (circleRectangleOverlap(entity.x, entity.y, entity.w, entity.h)) {
+          ((Entity)entity).insideExplosion = true;
+        }
+      }
+    }        
+    for (Object wall : objectHandler.walls) {
+      if ( !wall.equals(this) && wall.objectId == ObjectID.BBLOCK ) {
+        if (circleRectangleOverlap(wall.x, wall.y, wall.w, wall.h)) {
+          ((Entity)wall).insideExplosion = true;
         }
       }
     }
@@ -216,7 +216,7 @@ class SpiderBomb extends Object {
   int explosionRadius = EXPLOSION_START_RADIUS;
 
 
-  SpiderBomb(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  SpiderBomb(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
     super(x, y, w, h, ObjectID.SPIDER_BOMB, objectHandler, sprites);
     startTime = millis();
   }

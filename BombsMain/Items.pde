@@ -1,6 +1,6 @@
 class Item extends Object {
 
-  Item(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Item(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
     super(x, y, w, h, ObjectID.ITEM, objectHandler, sprites);
   }
 
@@ -14,11 +14,91 @@ class Item extends Object {
   }
 }
 
-class OilBottle extends Item {
+class Boots extends Item {
 
-  OilBottle(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Boots(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
     super(x, y, w, h, objectHandler, sprites);
-    this.objectId = ObjectID.OILB;
+    this.itemId = ItemID.BOOTS;
+  }
+
+  void update() {
+  }
+
+  void draw() {
+    fill(128, 128, 0);
+    rect(x, y, w, h);
+  }
+}
+
+class Sparkler extends Item {
+
+  Sparkler(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+    super(x, y, w, h, objectHandler, sprites);
+    this.itemId = ItemID.SPARKLER;
+  }
+
+  void update() {
+  }
+
+  void draw() {
+    fill(128, 128, 0);
+    rect(x, y, w, h);
+  }
+}
+
+class BluePotion extends Item {
+
+  BluePotion(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+    super(x, y, w, h, objectHandler, sprites);
+    this.itemId = ItemID.BPOTION;
+  }
+
+  void update() {
+  }
+
+  void draw() {
+    fill(128, 128, 0);
+    rect(x, y, w, h);
+  }
+}
+
+class Shield extends Item {
+
+  Shield(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+    super(x, y, w, h, objectHandler, sprites);
+    this.itemId = ItemID.SHIELD;
+  }
+
+  void update() {
+  }
+
+  void draw() {
+    fill(128, 128, 0);
+    rect(x, y, w, h);
+  }
+}
+
+class Cloak extends Item {
+
+  Cloak(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+    super(x, y, w, h, objectHandler, sprites);
+    this.itemId = ItemID.CLOAK;
+  }
+
+  void update() {
+  }
+
+  void draw() {
+    fill(128, 128, 0);
+    rect(x, y, w, h);
+  }
+}
+
+class Heart extends Item {
+
+  Heart(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+    super(x, y, w, h, objectHandler, sprites);
+    this.itemId = ItemID.HEART;
   }
 
   void update() {

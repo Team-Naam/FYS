@@ -5,7 +5,7 @@ class Wall extends Object {
 
   PVector lb, rb, ro, lo;
 
-  Wall(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Wall(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
     super(x, y, w, h, ObjectID.WALL, objectHandler, sprites);
   }
 
@@ -32,7 +32,7 @@ class Rock extends Object {
 
   PVector lb, rb, ro, lo;
 
-  Rock(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  Rock(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
     super(x, y, w, h, ObjectID.ROCK, objectHandler, sprites);
   }
 
@@ -59,7 +59,7 @@ class BreakableBlock extends Entity {
 
   //PVector lb, rb, ro, lo;
 
-  BreakableBlock(float x, float y, int w, int h, ObjectHandler objectHandler, Sprites sprites) {
+  BreakableBlock(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.objectId = ObjectID.BBLOCK;
   }
@@ -76,7 +76,7 @@ class BreakableBlock extends Entity {
     }
     if (health <= 0) {
       objectHandler.removeWall(this);
-      objectHandler.addOilBottle(x, y, 64, 64);
+      objectHandler.addBoots(x, y, 64, 64);
     }
   }
 
