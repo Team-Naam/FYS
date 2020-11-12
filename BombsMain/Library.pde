@@ -65,3 +65,28 @@ class InputHandler {
 int randomOnes() {
   return (int) random(3) - 1;
 }
+
+class Timer {
+
+  int startTime;
+  boolean start = true;
+
+  Timer() {
+  }
+
+  boolean startTimer(int countDownTime) {
+    int time = millis();
+    if (start) {
+      startTime = millis();
+      start = false;
+    }
+    int passedTime = time - startTime;
+    if (passedTime > countDownTime) {
+      startTime = 0;
+      time = 0;
+      start = true;
+      return true;
+    }
+    return false;
+  }
+}

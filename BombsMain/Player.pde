@@ -1,6 +1,7 @@
 //Code credit Ruben Verheul, Winand Metz, Ole Neuman
 
 class Player extends Object {
+  Timer timer;
 
   boolean speedBonus = false;
   boolean start = true;
@@ -15,6 +16,7 @@ class Player extends Object {
 
   Player(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
     super(x, y, w, h, ObjectID.PLAYER, objectHandler, sprites);
+    timer = new Timer();
   }
 
   void update() {
@@ -75,18 +77,8 @@ class Player extends Object {
   }
 
   void powerUps() {
-    if (!speedBonus) {
-      start = true;
-    }
     if (speedBonus) {
-      int savedTime = millis();
-      if (start) {
-        startTime = millis();
-        start = false;
-      }
-      int passedTime = savedTime - startTime;
-      println(passedTime);
-      if (passedTime > speedBonusTimer) {
+      if (timer.startTimer(speedBonusTimer)) {
         println("ANTIWOOSH");
         velX -= 2;
         velY -= 2;
