@@ -15,7 +15,7 @@ class Game {
   Game(int tileSize, int width, int height) {
     this.width =  width;
     this.height = height;
-    assetLoader = new Assets("data/text/textures.png", tileSize);
+    assetLoader = new Assets(tileSize);
     objectHandler = new ObjectHandler(this.assetLoader);
     objectHandler.addPlayer();
     mapHandler = new MapHandler(tileSize);

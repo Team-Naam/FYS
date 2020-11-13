@@ -5,15 +5,17 @@ class Assets {
 
   //Array voor x en y positie in grid
   final PImage[][] sprites;
+  final PImage[][] wallSprites;
 
   //Class neemt filepath in en de groote van de gridtegels
-  Assets(String path, int tileSize) {
-    sprites = loadSprites(path, tileSize);
+  Assets(int tileSize) {
+    sprites = loadSprites("data/text/textures.png", tileSize);
+    wallSprites = loadSprites("data/text/walls/walls_spritesheet.png", tileSize);
   }
 
   //Laden van de wall op x 0 en y 0, oftwel eerste vak van het grid met tiles van 128 by 128 pixels
-  PImage getWall() {
-    return sprites[0][0];
+  PImage getWall(int row, int column) {
+    return wallSprites[row][column];
   }
 
   PImage getPlayer() {
