@@ -1,9 +1,22 @@
 //Code credit Winand Metz
 
+//Kan gebruikt worden in schrijven van collision methods, maar ook andere scripting usages, eigenlijk andere manier van classes, game objecten, oproepen
+enum ObjectID {
+  WALL, PLAYER, ENTITY, BOMB, SPIDER_BOMB, ROCK, BBLOCK, ITEM
+}
+
+enum ItemID {
+  BOOTS, SPARKLER, BPOTION, SHIELD, CLOAK, HEART
+}
+
+enum EntityID {
+  GHOST, MUMMY, SMUMMY, SPIDER, EXPLOSIVE_SPIDER, POLTERGEIST, SPIDER_BOSS, WALL_BOSS
+}
+
 //Basis class voor alle gameobjecten
 abstract class Object {
 
-  PVector lb, rb, ro, lo;
+  PVector lb, rb, ro, lo, or, left, right, up, down;
 
   float x, y;
   int w, h;
@@ -25,6 +38,11 @@ abstract class Object {
     rb = new PVector();
     ro = new PVector();
     lo = new PVector();
+    or = new PVector();
+    left = new PVector();
+    right = new PVector();
+    up = new PVector();
+    down = new PVector();
   }
 
   abstract void update();
