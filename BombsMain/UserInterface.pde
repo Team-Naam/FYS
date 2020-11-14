@@ -1,12 +1,12 @@
 class UserInterface {
   Assets assetLoader;
   Player player;
-  HighScore highScore;
+  Highscore highscore;
 
-  UserInterface(Assets assetLoader, Player player, HighScore highScore) {
+  UserInterface(Assets assetLoader, Player player, Highscore highScore) {
     this.assetLoader = assetLoader;
     this.player = player;
-    this.highScore = highScore;
+    this.highscore = highScore;
   }
 
   void update() {
