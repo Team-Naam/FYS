@@ -6,7 +6,7 @@ enum ObjectID {
 }
 
 enum ItemID {
-  BOOTS, SPARKLER, BPOTION, SHIELD, CLOAK, HEART
+  BOOTS, SPARKLER, BPOTION, SHIELD, CLOAK, HEART, COIN
 }
 
 enum EntityID {
