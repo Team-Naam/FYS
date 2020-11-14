@@ -102,7 +102,7 @@ class Player extends Object {
       }
       
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.COIN) {
-        highscore.addScore(20);
+        highscore.addScore(COIN_SCORE);
         objectHandler.removeEntity(item);
       }
     }
