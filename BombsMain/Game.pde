@@ -6,7 +6,9 @@ class Game {
   MapHandler mapHandler;
   Assets assetLoader;
   Player player;
+  HighScore highScore;
   GraphicsEngine graphicsEngine;
+  UserInterface userInterface;
 
   final int width, height;
 
@@ -20,12 +22,14 @@ class Game {
     objectHandler.addPlayer();
     mapHandler = new MapHandler(tileSize);
     graphicsEngine = new GraphicsEngine();
+    userInterface = new UserInterface(this.assetLoader, this.player, this.highScore);
   }
 
   //Oproepen van objecten in de game zodat ze worden getekend
   void update() {
     mapHandler.update();
     objectHandler.update();
+    userInterface.update();
     graphicsEngine.update();
   }
 
@@ -34,6 +38,7 @@ class Game {
     graphicsEngine.drawFloorLighting();
     objectHandler.draw();
     graphicsEngine.draw();
+    userInterface.draw();
   }
 
   //-----------------------------Graphics engine---------------------------------
