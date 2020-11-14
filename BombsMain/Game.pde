@@ -17,11 +17,11 @@ class Game {
     this.width =  width;
     this.height = height;
     assetLoader = new Assets(tileSize);
-    objectHandler = new ObjectHandler(this.assetLoader);
+    highscore = new Highscore();
+    objectHandler = new ObjectHandler(this.assetLoader, highscore);
     objectHandler.addPlayer();
     mapHandler = new MapHandler(tileSize);
     graphicsEngine = new GraphicsEngine();
-    highscore = new Highscore();
   }
 
   //Oproepen van objecten in de game zodat ze worden getekend
