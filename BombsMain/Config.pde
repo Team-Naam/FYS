@@ -17,7 +17,9 @@ final int RAY_DISTANCE = 500;
 //HighScores
 final int TIME_SCORE = 10;
 final int TIME_SCORE_TIMER = 1;  //in sec
-final int HIGHSCORE_LIST_LENGTH = 10;
+
+//Coin
+final int COIN_SCORE = 20;
 
 //Player
 final int PLAYER_X_SPAWN = 0;

@@ -6,7 +6,7 @@ class Game {
   MapHandler mapHandler;
   Assets assetLoader;
   Player player;
-  HighScore highScore;
+  Highscore highscore;
   GraphicsEngine graphicsEngine;
   UserInterface userInterface;
 
@@ -18,13 +18,12 @@ class Game {
     this.width =  width;
     this.height = height;
     assetLoader = new Assets(tileSize);
-    objectHandler = new ObjectHandler(this.assetLoader);
+    highscore = new Highscore();
+    objectHandler = new ObjectHandler(this.assetLoader, highscore);
     objectHandler.addPlayer();
     mapHandler = new MapHandler(tileSize);
     graphicsEngine = new GraphicsEngine();
     userInterface = new UserInterface(this.assetLoader, this.player, this.highScore);
-    highscore = new Highscore();
-
   }
 
   //Oproepen van objecten in de game zodat ze worden getekend

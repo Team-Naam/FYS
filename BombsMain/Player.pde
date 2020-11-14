@@ -2,6 +2,7 @@
 
 class Player extends Object {
   Timer timer;
+  Highscore highscore;
 
   boolean speedBonus = false;
   boolean start = true;
@@ -14,9 +15,10 @@ class Player extends Object {
   float oldX, oldY;
   int bombCooldown = 0;
 
-  Player(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  Player(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites, Highscore highscore) {
     super(x, y, w, h, ObjectID.PLAYER, objectHandler, sprites);
     timer = new Timer();
+    this.highscore = highscore;
   }
 
   void update() {
@@ -96,6 +98,11 @@ class Player extends Object {
         velX += 2;
         velY += 2;
         speedBonus = true;
+        objectHandler.removeEntity(item);
+      }
+      
+      if (!item.equals(this) && intersection(item) && item.itemId == ItemID.COIN) {
+        highscore.addScore(COIN_SCORE);
         objectHandler.removeEntity(item);
       }
     }

@@ -11,9 +11,12 @@ class ObjectHandler {
   Player player = null;
 
   Assets sprites;
+  
+  Highscore highscore;
 
-  ObjectHandler(Assets sprites) {
+  ObjectHandler(Assets sprites, Highscore highscore) {
     this.sprites = sprites;
+    this.highscore = highscore;
   }
 
   //Method voor het creëren van de muren, input lijkt me vanzelf sprekend
@@ -35,7 +38,7 @@ class ObjectHandler {
 
   //Method voor plaatsen van de player
   void addPlayer() {
-    Player player = new Player(PLAYER_X_SPAWN, PLAYER_Y_SPAWN, PLAYER_SIZE, PLAYER_SIZE, this, sprites);
+    Player player = new Player(PLAYER_X_SPAWN, PLAYER_Y_SPAWN, PLAYER_SIZE, PLAYER_SIZE, this, sprites, highscore);
     entities.add(player);
     println("spawned");
   }

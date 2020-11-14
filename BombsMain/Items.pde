@@ -109,3 +109,18 @@ class Heart extends Item {
     rect(x, y, w, h);
   }
 }
+
+class Coin extends Item {
+  Coin(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+    super(x, y, w, h, objectHandler, sprites);
+    this.itemId = ItemID.COIN;
+  }
+  
+  void update() {
+  }
+
+  void draw() {
+    fill(255, 200, 0);
+    rect(x, y, w, h);
+  }
+}
