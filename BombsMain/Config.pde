@@ -18,6 +18,9 @@ final int RAY_DISTANCE = 500;
 final int TIME_SCORE = 10;
 final int TIME_SCORE_TIMER = 1;  //in sec
 
+//Coin
+final int COIN_SCORE = 20;
+
 //Player
 final int PLAYER_X_SPAWN = 0;
 final int PLAYER_Y_SPAWN = 156;
