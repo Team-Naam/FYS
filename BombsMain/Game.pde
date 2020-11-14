@@ -6,8 +6,9 @@ class Game {
   MapHandler mapHandler;
   Assets assetLoader;
   Player player;
-  GraphicsEngine graphicsEngine;
   Highscore highscore;
+  GraphicsEngine graphicsEngine;
+  UserInterface userInterface;
 
   final int width, height;
 
@@ -22,14 +23,16 @@ class Game {
     objectHandler.addPlayer();
     mapHandler = new MapHandler(tileSize);
     graphicsEngine = new GraphicsEngine();
+    userInterface = new UserInterface(this.assetLoader, this.player, this.highScore);
   }
 
   //Oproepen van objecten in de game zodat ze worden getekend
   void update() {
     mapHandler.update();
     objectHandler.update();
-    graphicsEngine.update();
     highscore.update();
+    userInterface.update();
+    graphicsEngine.update();
   }
 
   void draw() {
@@ -37,6 +40,7 @@ class Game {
     graphicsEngine.drawFloorLighting();
     objectHandler.draw();
     graphicsEngine.draw();
+    userInterface.draw();
   }
 
   //-----------------------------Graphics engine---------------------------------
@@ -172,22 +176,21 @@ class Game {
 //-----------------------------Highscore---------------------------------
 
 class Highscore {
-  int score, timeScore, timer;
-  Timer scoreTimer;
+  int score, timeScore;
+  int timer, time;
   boolean tempGameOver;
+  int[] highscoreList;
   boolean scoreAdded;
-  //MySQLConnection myConnection;
-  //Table highscores;
-  int userId;
 
   Highscore() {
-    //myConnection = new MySQLConnection("verheur6", "od93cCRbyqVu5R1M", "jdbc:mysql://oege.ie.hva.nl/zverheur6");
-    //highscores = myConnection.getTable("Highscore");
-    //highscores = myConnection.runQuery("SELECT User_id, score FROM Highscore ORDER BY `score` DESC");
     score = 0;
+    highscoreList = new int[HIGHSCORE_LIST_LENGTH];
     timeScore = TIME_SCORE;
     timer = FRAMERATE * TIME_SCORE_TIMER;
-    scoreTimer = new Timer();
+    time = 0;
+    for (int i = 0; i < highscoreList.length; i++) {
+      highscoreList[i] = 0;
+    }
     tempGameOver = false;
     scoreAdded = false;
   }
@@ -195,8 +198,14 @@ class Highscore {
   //iedere sec komt er score bij
   void update() {
     if (tempGameOver == false) {
-      if (scoreTimer.startTimer(timer)) {
+      time += 1;
+      if (time == timer) {
         score += timeScore;
+        time = 0;
+      }
+      //om te kunnen testen zonder een echte gameover te hebben
+      if (score >= 200) {
+        tempGameOver = true;
       }
     } else {
       // als gameover true is en de highscores nog niet geupdate zijn worden de scores geupdate
@@ -206,12 +215,37 @@ class Highscore {
     }
   }
   
+  void printHighscores() {
+    //print de highscores in de console
+    for (int i = 0; i < highscoreList.length; i++) {
+      println(i+1 + " " + highscoreList[i]);
+    }
+  }
   //update de highscorelist
   void updateHighscores() {
     //als het een nieuwe hoogste score is
-    //highscores = myConnection.runQuery("INSERT INTO `Highscore`(`user_id`, `score`) VALUES ("+ userId + "," + score + ");");
-    score = 0;
-    scoreAdded = true;
+    if (score > highscoreList[0]) {
+      for (int j = highscoreList.length -1; j >= 1; j--) {
+        highscoreList[j] = highscoreList[j -1];
+      }
+      
+      highscoreList[0] = score;
+      scoreAdded = true;
+      score = 0;
+    }
+    
+    for (int i = 1; i < highscoreList.length; i++) {
+      if (score > highscoreList[i] && score <= highscoreList[i -1]) {
+        for (int j = highscoreList.length -1; j > i; j--) {
+          highscoreList[j] = highscoreList[j -1];
+        }
+
+        highscoreList[i] = score;
+        scoreAdded = true;
+        score = 0;
+      }
+    }
+    printHighscores();
   }
   
   //als je buiten deze class score wilt toevoegen
