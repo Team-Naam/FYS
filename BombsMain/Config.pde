@@ -26,6 +26,7 @@ final int PLAYER_X_SPAWN = 0;
 final int PLAYER_Y_SPAWN = 156;
 final int PLAYER_HEALTH = 3;
 final int PLAYER_SPEED = 4;
+final int PLAYER_SHIELD = 0;
 //!NIET VERANDEREN!
 final int PLAYER_SIZE = TILE_SIZE / 2;
 
