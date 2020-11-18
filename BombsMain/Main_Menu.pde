@@ -7,6 +7,8 @@ class MainMenu {
 
   int boxSelected;
   int moveCooldown;
+  
+  PImage logo;
 
   MainMenu() {
     for (int i = 0; i < MENUBOX_AMOUNT; i++) {
@@ -19,10 +21,14 @@ class MainMenu {
     boxSelected = 0;
 
     moveCooldown = 0;
+
+    logo = loadImage("data/text/logo_highres.png");
+    logo.resize(200, 0);
   }
 
   void draw() {
-    background(173);
+    background(MENU_BACKGROUND_COLOUR);
+    image(logo, 20, height - logo.height - 20);
     for (MenuBox menuBox : boxArray) {
       menuBox.draw();
     }
