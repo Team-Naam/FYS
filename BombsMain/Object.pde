@@ -24,9 +24,9 @@ abstract class Object {
   ItemID itemId;
   EntityID entityId;
   ObjectHandler objectHandler;
-  Assets sprites;
+  TextureAssets sprites;
 
-  Object(float x, float y, int w, int h, ObjectID objectId, ObjectHandler objectHandler, Assets sprites) {
+  Object(float x, float y, int w, int h, ObjectID objectId, ObjectHandler objectHandler, TextureAssets sprites) {
     this.x = x;
     this.y = y;
     this.w = w;

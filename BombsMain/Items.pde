@@ -1,6 +1,6 @@
 class Item extends Object {
 
-  Item(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  Item(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, ObjectID.ITEM, objectHandler, sprites);
   }
 
@@ -16,7 +16,7 @@ class Item extends Object {
 
 class Boots extends Item {
 
-  Boots(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  Boots(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.itemId = ItemID.BOOTS;
   }
@@ -32,7 +32,7 @@ class Boots extends Item {
 
 class Sparkler extends Item {
 
-  Sparkler(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  Sparkler(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.itemId = ItemID.SPARKLER;
   }
@@ -48,7 +48,7 @@ class Sparkler extends Item {
 
 class BluePotion extends Item {
 
-  BluePotion(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  BluePotion(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.itemId = ItemID.BPOTION;
   }
@@ -64,7 +64,7 @@ class BluePotion extends Item {
 
 class Shield extends Item {
 
-  Shield(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  Shield(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.itemId = ItemID.SHIELD;
   }
@@ -80,7 +80,7 @@ class Shield extends Item {
 
 class Cloak extends Item {
 
-  Cloak(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  Cloak(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.itemId = ItemID.CLOAK;
   }
@@ -96,7 +96,7 @@ class Cloak extends Item {
 
 class Heart extends Item {
 
-  Heart(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  Heart(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.itemId = ItemID.HEART;
   }
@@ -111,7 +111,7 @@ class Heart extends Item {
 }
 
 class Coin extends Item {
-  Coin(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  Coin(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.itemId = ItemID.COIN;
   }

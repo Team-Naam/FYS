@@ -10,9 +10,9 @@ class ObjectHandler {
 
   Player player = null;
 
-  Assets sprites;
+  TextureAssets sprites;
 
-  ObjectHandler(Assets sprites) {
+  ObjectHandler(TextureAssets sprites) {
     this.sprites = sprites;
   }
 

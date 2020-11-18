@@ -4,7 +4,7 @@
 class Game {
   ObjectHandler objectHandler;
   MapHandler mapHandler;
-  Assets assetLoader;
+  TextureAssets textureLoader;
   Player player;
   Highscore highscore;
   GraphicsEngine graphicsEngine;
@@ -17,13 +17,13 @@ class Game {
   Game(int tileSize, int width, int height) {
     this.width =  width;
     this.height = height;
-    assetLoader = new Assets(tileSize);
+    textureLoader = new TextureAssets(tileSize);
     highscore = new Highscore();
-    objectHandler = new ObjectHandler(this.assetLoader);
+    objectHandler = new ObjectHandler(this.textureLoader);
     objectHandler.addPlayer(this.highscore);
     mapHandler = new MapHandler(tileSize);
     graphicsEngine = new GraphicsEngine();
-    userInterface = new UserInterface(this.assetLoader, this.player, this.highscore);
+    userInterface = new UserInterface(this.textureLoader, this.player, this.highscore);
   }
 
   //Oproepen van objecten in de game zodat ze worden getekend

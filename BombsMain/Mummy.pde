@@ -7,7 +7,7 @@ class Mummy extends Entity {
   int velX = MUMMY_MOVEMENT_SPEED;
   int velY = MUMMY_MOVEMENT_SPEED;
 
-  Mummy(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  Mummy(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.entityId = EntityID.MUMMY;
     savedTime = millis();
@@ -89,7 +89,7 @@ class SMummy extends Mummy {
 
   int shield;
 
-  SMummy(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  SMummy(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.entityId = EntityID.SMUMMY;
     savedTime = millis();

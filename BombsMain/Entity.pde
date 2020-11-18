@@ -14,7 +14,7 @@ class Entity extends Object {
   boolean insideExplosion = false;
   boolean touching = false;
 
-  Entity(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  Entity(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, ObjectID.ENTITY, objectHandler, sprites);
     savedTime = millis();
   }

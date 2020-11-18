@@ -12,7 +12,7 @@ class Wall extends Object {
   boolean upCon = false;
   boolean downCon = false;
 
-  Wall(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  Wall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, ObjectID.WALL, objectHandler, sprites);
   }
 
@@ -148,7 +148,7 @@ class Wall extends Object {
 //Onder en boven muren
 class Rock extends Object {
 
-  Rock(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  Rock(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, ObjectID.ROCK, objectHandler, sprites);
   }
 
@@ -182,7 +182,7 @@ class BreakableBlock extends Entity {
 
   //PVector lb, rb, ro, lo;
 
-  BreakableBlock(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  BreakableBlock(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.objectId = ObjectID.BBLOCK;
   }

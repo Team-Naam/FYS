@@ -15,7 +15,7 @@ class Player extends Object {
   float oldX, oldY;
   int bombCooldown = 0;
 
-  Player(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites, Highscore highscore) {
+  Player(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, Highscore highscore) {
     super(x, y, w, h, ObjectID.PLAYER, objectHandler, sprites);
     timer = new Timer();
     this.highscore = highscore;
