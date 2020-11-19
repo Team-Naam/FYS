@@ -154,7 +154,7 @@ class Poltergeist extends Entity {
     }
   }
   void draw() {
-    fill(200);
+    fill(200, 200, 230);
     rect(x, y, w, h);
   }
 }

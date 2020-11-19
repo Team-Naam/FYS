@@ -77,7 +77,7 @@ class Mummy extends Entity {
 
   void draw() {
     //println(health);
-    fill(128);
+    fill(128, 128, 50);
     rect(x, y, w, h);
   }
 }

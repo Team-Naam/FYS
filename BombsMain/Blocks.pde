@@ -123,7 +123,7 @@ class Wall extends Object {
     if (rightCon && !leftCon && downCon && upCon) {
       image(sprites.getWall(2, 2), x, y);
     }
-    
+
     if (rightCon && !leftCon && !downCon && upCon) {
       image(sprites.getWall(3, 3), x, y);
     }
@@ -133,7 +133,7 @@ class Wall extends Object {
     if (rightCon && leftCon && !downCon && upCon) {
       image(sprites.getWall(3, 1), x, y);
     }
-    
+
     if (rightCon && !leftCon && downCon && !upCon) {
       image(sprites.getWall(1, 3), x, y);
     }
@@ -176,13 +176,13 @@ class Rock extends Object {
 
 //-----------------------------Breakable blocks---------------------------------
 
-class BreakableBlock extends Entity {
+class BreakableWall extends Entity {
 
   int health = BBLOCK_HEALTH;
 
   //PVector lb, rb, ro, lo;
 
-  BreakableBlock(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
+  BreakableWall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.objectId = ObjectID.BBLOCK;
   }
@@ -197,8 +197,8 @@ class BreakableBlock extends Entity {
       insideExplosion = false;
     }
     if (health <= 0) {
+      objectHandler.addItem(x, y, 64, 64);
       objectHandler.removeWall(this);
-      objectHandler.addBoots(x, y, 64, 64);
     }
   }
 

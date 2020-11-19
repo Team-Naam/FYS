@@ -1,4 +1,3 @@
-
 int  cdBlockX = width/2;
 int  cdBlockY = height/2;
 int  cdBlockWidth = 50;

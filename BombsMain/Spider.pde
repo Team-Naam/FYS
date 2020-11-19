@@ -82,34 +82,34 @@ class Spider extends Entity {
 
 //-----------------------------Special spider---------------------------------
 
-class ExplosiveSpider extends Entity{
-  
+class ExplosiveSpider extends Entity {
+
   int health = EXPLOSIVE_SPIDER_HEALTH;
   int roamingTimer = EXPLOSIVE_SPIDER_ROAMING;
   int velX = EXPLOSIVE_SPIDER_MOVEMENT_SPEED;
   int velY = EXPLOSIVE_SPIDER_MOVEMENT_SPEED;
-  
+
   ExplosiveSpider(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.entityId = EntityID.EXPLOSIVE_SPIDER;
     savedTime = millis();
   }
-  
+
   void update() {
     movement();
     bombDamage();
     x = x + speedX;
     y = y + speedY;
-    
+
     if (collisionDetection()) {
       x = oldX - MAP_SCROLL_SPEED;
       y = oldY;
     }
-    
+
     oldX = x;
     oldY = y;
   }
-  
+
   void bombDamage() {
     if (insideExplosion) {
       health -= BOMB_DAMAGE;
@@ -120,7 +120,7 @@ class ExplosiveSpider extends Entity{
       objectHandler.removeEntity(this);
     }
   }
-  
+
   void movement() {
     int passedTime = millis() - savedTime;
     if (dist(getPlayerX(), getPlayerY(), x, y) < PLAYER_DETECTION_DISTANCE) {
@@ -133,7 +133,7 @@ class ExplosiveSpider extends Entity{
       }
     }
   }
-  
+
   void hunt() {
     if (getPlayerX() > x && getPlayerY() > y) {
       speedX = velX;
@@ -152,7 +152,7 @@ class ExplosiveSpider extends Entity{
       speedY = velY;
     }
   }
-  
+
   void draw() {
     fill(174);
     rect(x, y, w, h);

@@ -48,29 +48,28 @@ void loadMap(int[] pixels, int w, int h, int tw, int th, ObjectHandler objectHan
     for (int y = 0; y < h; y++ ) {
       int loc = x + y * w;
       float c = pixels[loc];
-      //Hexcode = 7f0622
-      if (c == 0xFF7F0622) {
+      //Hexcode = 595652
+      if (c == 0xFF595652) {
         objectHandler.addWall(x * tw + offSet, y * th, tw, th);
       }
-      //Hexode = 000000
-      if (c == 0xFF000000) {
-        objectHandler.addSpider(x * tw + offSet, y * th, tw, th);
+      //Hexode = ac3232
+      if (c == 0xFFac3232) {
+        objectHandler.addEnemy(x * tw + offSet, y * th, tw, th);
       }
       //Hexode = 00a0c8
       if (c == 0xFF00a0c8) {
-        objectHandler.addGhost(x * tw + offSet, y * th, tw, th);
+
       }
-      //Hexcode = ffdf8f
-      if (c == 0xFFffdf8f) {
-        //objectHandler.addMummy(x * tw + offSet, y * th, tw, th);
+      //Hexcode = 76428a
+      if (c == 0xFF76428a) {
         objectHandler.addBreakableWall(x * tw + offSet, y * th, tw, th);
       }
       //Hexcode = E4B6AD
       if (c == 0xFFE4B6AD) {
-        objectHandler.addPoltergeist(x * tw + offSet, y * th, tw, th);
+
       }
-      //Hexcode = 515151
-      if (c == 0xFF515151) {
+      //Hexcode = 696a6a
+      if (c == 0xFF696a6a) {
         objectHandler.addRock(x * tw + offSet, y * th, tw, th);
       }
     }
