@@ -24,41 +24,45 @@ class UserInterface {
     this.highscore = highScore;
   }
 
+  void update() {
+  }
+
   void draw() {
     uiBlock();
     cooldownActivator();
   }
-}
-void cooldownActivator()
-{
-  if (clicCooldown() == true)
+
+  void cooldownActivator()
   {
-    cooldownIndicator();
+    if (clicCooldown() == true)
+    {
+      cooldownIndicator();
+    }
   }
-}
 
-void cooldownIndicator()
-{
-  fill(255, cdBlockTransparency);
-  cdBlockHeight++;
-  rect(cdBlockX, cdBlockY, cdBlockWidth, cdBlockHeight);
-  if (cdBlockHeight > 50)
+  void cooldownIndicator()
   {
-    cdBlockHeight = 0;
+    fill(255, cdBlockTransparency);
+    cdBlockHeight++;
+    rect(cdBlockX, cdBlockY, cdBlockWidth, cdBlockHeight);
+    if (cdBlockHeight > 50)
+    {
+      cdBlockHeight = 0;
+    }
   }
-}
 
-void uiBlock()
-{
-  fill(255, 0, 0);
-  rect(uiBlockX, uiBlockY, uiBlockWidth, uiBlockHeight);
-}
-
-
-boolean clicCooldown()
-{
-  if (keyPressed && millis() > timeInterval + timeCheck)
+  void uiBlock()
   {
-    return true;
-  } else return false;
+    fill(255, 0, 0);
+    rect(uiBlockX, uiBlockY, uiBlockWidth, uiBlockHeight);
+  }
+
+
+  boolean clicCooldown()
+  {
+    if (keyPressed && millis() > timeInterval + timeCheck)
+    {
+      return true;
+    } else return false;
+  }
 }

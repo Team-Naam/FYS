@@ -23,6 +23,7 @@ final color BOX_HIGHLIGHTED_INNER_COLOUR = #ED270F;
 final color BOX_TEXT_COLOUR = #000000;
 final int MENUBOX_AMOUNT = 3;
 final int MENU_MOVE_COOLDOWN = 10;
+
 //HighScores
 final int TIME_SCORE = 10;
 final int TIME_SCORE_TIMER = 1;  //in sec

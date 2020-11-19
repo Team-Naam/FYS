@@ -115,34 +115,35 @@ class Player extends Object {
         objectHandler.removeEntity(item);
       }
 
-      
+
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.COIN) {
         highscore.addScore(COIN_SCORE);
 
-      if (!item.equals(this) && intersection(item) && item.itemId == ItemID.HEART) {
-        println("heart goes boom boom");
-        health += 1;
-        objectHandler.removeEntity(item);
-      }
-      if (!item.equals(this) && intersection(item) && item.itemId == ItemID.SHIELD) {
-        println("thicc");
-        shield += 2;
-        objectHandler.removeEntity(item);
-      }
-      if (!item.equals(this) && intersection(item) && item.itemId == ItemID.BPOTION) {
-        println("me goes not boom boom");
-        //de player wordt sowieso nu niet gehit door zijn eigen bomb sooooo....
-        objectHandler.removeEntity(item);
-      }
-      if (!item.equals(this) && intersection(item) && item.itemId == ItemID.SPARKLER) {
-        println("kaboom? Yes Rico, kaboom");
-        sparklerBonus = true;
-        objectHandler.removeEntity(item);
-      }
-      if (!item.equals(this) && intersection(item) && item.itemId == ItemID.CLOAK) {
-        println("now you dont");
-        cloakBonus = true;
-        objectHandler.removeEntity(item);
+        if (!item.equals(this) && intersection(item) && item.itemId == ItemID.HEART) {
+          println("heart goes boom boom");
+          health += 1;
+          objectHandler.removeEntity(item);
+        }
+        if (!item.equals(this) && intersection(item) && item.itemId == ItemID.SHIELD) {
+          println("thicc");
+          shield += 2;
+          objectHandler.removeEntity(item);
+        }
+        if (!item.equals(this) && intersection(item) && item.itemId == ItemID.BPOTION) {
+          println("me goes not boom boom");
+          //de player wordt sowieso nu niet gehit door zijn eigen bomb sooooo....
+          objectHandler.removeEntity(item);
+        }
+        if (!item.equals(this) && intersection(item) && item.itemId == ItemID.SPARKLER) {
+          println("kaboom? Yes Rico, kaboom");
+          sparklerBonus = true;
+          objectHandler.removeEntity(item);
+        }
+        if (!item.equals(this) && intersection(item) && item.itemId == ItemID.CLOAK) {
+          println("now you dont");
+          cloakBonus = true;
+          objectHandler.removeEntity(item);
+        }
       }
     }
   }
