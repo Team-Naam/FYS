@@ -53,22 +53,25 @@ class Entity extends Object {
 
   //Method voor basic volgen van de player
   //Moet nog in dat hij om muren heen navigeert (of je niet ziet achter de muren?)
+  //credits Jordy, Ruben
   void hunt() {
-    if (getPlayerX() > x && getPlayerY() > y) {
-      speedX = velX;
-      speedY = velY;
-    } 
-    if (getPlayerX() < x && getPlayerY() < y) {
-      speedX = -velX;
-      speedY = -velY;
-    } 
-    if (getPlayerX() > x && getPlayerY() < y) {
-      speedX = velX;
-      speedY = -velY;
-    } 
-    if (getPlayerX() < x && getPlayerY() > y) {
-      speedX = -velX;
-      speedY = velY;
+    if (cloakBonus == false) {
+      if (getPlayerX() > x && getPlayerY() > y) {
+        speedX = velX;
+        speedY = velY;
+      } 
+      if (getPlayerX() < x && getPlayerY() < y) {
+        speedX = -velX;
+        speedY = -velY;
+      } 
+      if (getPlayerX() > x && getPlayerY() < y) {
+        speedX = velX;
+        speedY = -velY;
+      } 
+      if (getPlayerX() < x && getPlayerY() > y) {
+        speedX = -velX;
+        speedY = velY;
+      }
     }
   }
 
