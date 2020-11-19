@@ -32,7 +32,8 @@ void draw() {
   instructionPicker();
 }
 
-void instructionPicker(){     //this method calls certain other methods based on the current gameState
+//this method calls certain other methods based on the current gameState
+void instructionPicker(){     
   switch(gameState){
    case 0:
    mainMenu.update();

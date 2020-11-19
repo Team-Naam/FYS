@@ -25,7 +25,7 @@ class Boots extends Item {
   }
 
   void draw() {
-    fill(128, 128, 0);
+    fill(128, 128, 134);
     rect(x, y, w, h);
   }
 }
@@ -41,7 +41,7 @@ class Sparkler extends Item {
   }
 
   void draw() {
-    fill(128, 128, 0);
+    fill(128, 128, 3);
     rect(x, y, w, h);
   }
 }
@@ -57,7 +57,7 @@ class BluePotion extends Item {
   }
 
   void draw() {
-    fill(128, 128, 0);
+    fill(128, 128, 67);
     rect(x, y, w, h);
   }
 }
@@ -73,7 +73,7 @@ class Shield extends Item {
   }
 
   void draw() {
-    fill(128, 128, 0);
+    fill(128, 128, 87);
     rect(x, y, w, h);
   }
 }
@@ -89,7 +89,7 @@ class Cloak extends Item {
   }
 
   void draw() {
-    fill(128, 128, 0);
+    fill(128, 128, 44);
     rect(x, y, w, h);
   }
 }
@@ -105,7 +105,7 @@ class Heart extends Item {
   }
 
   void draw() {
-    fill(128, 128, 0);
+    fill(128, 128, 213);
     rect(x, y, w, h);
   }
 }
@@ -120,7 +120,7 @@ class Coin extends Item {
   }
 
   void draw() {
-    fill(255, 200, 0);
+    fill(255, 200, 56);
     rect(x, y, w, h);
   }
 }

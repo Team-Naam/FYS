@@ -3,6 +3,9 @@
 //Class voor het creëren en opslaan van de objecten
 class ObjectHandler {
 
+  float enemySpawnChance[][] = new float[6][2];
+  float itemSpawnChance[][] = new float[7][2];
+
   int eSD = ENTITY_SIZE_DIVIDER;
 
   ArrayList<Object> walls =  new ArrayList<Object>();
@@ -14,6 +17,79 @@ class ObjectHandler {
 
   ObjectHandler(TextureAssets sprites) {
     this.sprites = sprites;
+    for (int i = 0; i < enemySpawnChance.length; i++) {
+      enemySpawnChance[i][0] = i;
+    }
+    enemySpawnChance[0][1] = GHOST_SPAWN_CHANCE;
+    enemySpawnChance[1][1] = POLTERGEIST_SPAWN_CHANCE;
+    enemySpawnChance[2][1] = SPIDER_SPAWN_CHANCE;
+    enemySpawnChance[3][1] = EXPLOSIVE_SPIDER_SPAWN_CHANCE;
+    enemySpawnChance[4][1] = MUMMY_SPAWN_CHANCE;
+    enemySpawnChance[5][1] = STONED_MUMMY_SPAWN_CHANCE;
+
+    for (int i = 0; i < itemSpawnChance.length; i++) {
+      itemSpawnChance[i][0] = i;
+    }
+    itemSpawnChance[0][1] = BOOTS_DROP_CHANCE;
+    itemSpawnChance[1][1] = SPARKLER_DROP_CHANCE;
+    itemSpawnChance[2][1] = BLUE_POTION_DROP_CHANCE;
+    itemSpawnChance[3][1] = SHIELD_DROP_CHANCE;
+    itemSpawnChance[4][1] = CLOAK_DROP_CHANCE;
+    itemSpawnChance[5][1] = HEART_DROP_CHANCE;
+    itemSpawnChance[6][1] = COIN_DROP_CHANCE;
+  }
+
+  float getEnemy(float rand) {
+    for (int i = 0; i < enemySpawnChance.length; i++) {
+      if (rand < enemySpawnChance[i][1]) {
+        return enemySpawnChance[i][0] + 1;
+      }
+      rand -= enemySpawnChance[i][1];
+    }
+    return 1;
+  }
+
+  void addEnemy(float x, float y, int w, int h) {
+    int total = 0;
+    for (int i = 0; i < enemySpawnChance.length; i++) { 
+      total += enemySpawnChance[i][1];
+    }
+
+    float rand = random(0, 1) * total;
+    float enemy = getEnemy(rand);
+
+    //println(enemy);
+
+    //Ghost 
+    if (enemy == 1) {
+      Ghost ghost = new Ghost(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+      entities.add(ghost);
+    }
+    //Poltergeist
+    if (enemy == 2) {
+      Poltergeist poltergeist = new Poltergeist(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+      entities.add(poltergeist);
+    }
+    //Spider
+    if (enemy == 3) {
+      Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+      entities.add(spider);
+    }
+    //Exp spider
+    if (enemy == 4) {
+      ExplosiveSpider explosiveSpider = new ExplosiveSpider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+      entities.add(explosiveSpider);
+    }
+    //Mummy
+    if (enemy == 5) {
+      Mummy mummy = new Mummy(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+      entities.add(mummy);
+    }
+    //SMummy
+    if (enemy == 6) {
+      SMummy sMummy = new SMummy(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+      entities.add(sMummy);
+    }
   }
 
   //Method voor het creëren van de muren, input lijkt me vanzelf sprekend
@@ -29,8 +105,8 @@ class ObjectHandler {
   }
 
   void addBreakableWall(float x, float y, int w, int h) {
-    BreakableBlock breakableBlock = new BreakableBlock(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
-    walls.add(breakableBlock);
+    BreakableWall breakableWall = new BreakableWall(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
+    walls.add(breakableWall);
   }
 
   //Method voor plaatsen van de player
@@ -38,42 +114,6 @@ class ObjectHandler {
     Player player = new Player(PLAYER_X_SPAWN, PLAYER_Y_SPAWN, PLAYER_SIZE, PLAYER_SIZE, this, sprites, highscore);
     entities.add(player);
     println("spawned");
-  }
-
-  //Method voor plaatsen Ghosts
-  void addGhost(float x, float y, int w, int h) {
-    Ghost ghost = new Ghost(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
-    entities.add(ghost);
-  }
-
-  //Method voor plaatsen Poltergeists
-  void addPoltergeist(float x, float y, int w, int h) {
-    Poltergeist poltergeist = new Poltergeist(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
-    entities.add(poltergeist);
-  }
-
-  //Method voor plaatsen Mummies
-  void addMummy(float x, float y, int w, int h) {
-    Mummy mummy = new Mummy(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
-    entities.add(mummy);
-  }
-
-  //Method voor plaatsen SMummies
-  void addSMummy(float x, float y, int w, int h) {
-    SMummy sMummy = new SMummy(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
-    entities.add(sMummy);
-  }
-
-  //Method voor plaatsen van Spiders
-  void addSpider(float x, float y, int w, int h) {
-    Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
-    entities.add(spider);
-  }
-
-  //Method voor plaatsen Explosive_Spiders
-  void addExplosiveSpider(float x, float y, int w, int h) {
-    ExplosiveSpider explosiveSpider = new ExplosiveSpider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
-    entities.add(explosiveSpider);
   }
 
   //Method voor plaatsen van een Bomb
@@ -98,16 +138,69 @@ class ObjectHandler {
     entities.add(spiderBomb);
   }
 
-  void addBoots(float x, float y, int w, int h) {
-    Boots boots = new Boots(x, y, w / eSD, h / eSD, this, sprites);
-    entities.add(boots);
+  float getItem(float rand) {
+    for (int i = 0; i < itemSpawnChance.length; i++) {
+      if (rand < itemSpawnChance[i][1]) {
+        return itemSpawnChance[i][0] + 1;
+      }
+      rand -= itemSpawnChance[i][1];
+    }
+    return 1;
+  }
+
+  void addItem(float x, float y, int w, int h) {
+    int total = 0;
+    for (int i = 0; i < itemSpawnChance.length; i++) { 
+      total += itemSpawnChance[i][1];
+    }
+
+    float rand = random(0, 1) * total;
+    float item = getItem(rand);
+
+    //println(item);
+
+    //Boots
+    if (item == 1) {
+      Boots boots = new Boots(x, y, w / eSD, h / eSD, this, sprites);
+      entities.add(boots);
+    }
+    //Sparkler
+    if (item == 2) {
+      Sparkler sparkler = new Sparkler(x, y, w / eSD, h / eSD, this, sprites);
+      entities.add(sparkler);
+    }
+    //Blue Potion
+    if (item == 3) {
+      BluePotion bluePotion = new BluePotion(x, y, w / eSD, h / eSD, this, sprites);
+      entities.add(bluePotion);
+    }
+    //Shield
+    if (item == 4) {
+      Shield shield = new Shield(x, y, w / eSD, h / eSD, this, sprites);
+      entities.add(shield);
+    }
+    //Cloak
+    if (item == 5) {
+      Cloak cloak = new Cloak(x, y, w / eSD, h / eSD, this, sprites);
+      entities.add(cloak);
+    }
+    //Heart
+    if (item == 6) {
+      Heart heart = new Heart(x, y, w / eSD, h / eSD, this, sprites);
+      entities.add(heart);
+    }
+    //Coin
+    if (item == 7) {
+      Coin coin = new Coin(x, y, w / eSD, h / eSD, this, sprites);
+      entities.add(coin);
+    }
   }
 
   //Method van verwijderen objecten uit array
   void removeEntity(Object entry) {
     entities.remove(entry);
   }
-  
+
   void removeWall(Object entry) {
     walls.remove(entry);
   }
@@ -144,7 +237,7 @@ class ObjectHandler {
       }
       entityObjects.get(i).draw();
     }
-    
+
     ArrayList<Object> wallObjects = walls;
     for (int i = 0; i < wallObjects.size(); i++) {
       if (i >= wallObjects.size()) {

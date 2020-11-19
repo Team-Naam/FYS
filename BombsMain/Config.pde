@@ -1,7 +1,7 @@
 //Code credit Winand Metz
 
 //Game
-final float MAP_SCROLL_SPEED = 1;
+final float MAP_SCROLL_SPEED = 0.5;
 final float MAP_OFFSET = 0;
 final int LEVELS = 3;
 //!NIET VERANDEREN!
@@ -55,6 +55,12 @@ final int BBLOCK_HEALTH = 1;
 //Entities
 final int PLAYER_DETECTION_DISTANCE = 400;
 final int ENTITY_SIZE_DIVIDER = 2;
+final float GHOST_SPAWN_CHANCE = 30;
+final float POLTERGEIST_SPAWN_CHANCE = 7;
+final float SPIDER_SPAWN_CHANCE = 35;
+final float EXPLOSIVE_SPIDER_SPAWN_CHANCE = 10;
+final float MUMMY_SPAWN_CHANCE = 40;
+final float STONED_MUMMY_SPAWN_CHANCE = 13;
 
 //Ghost
 final int GHOST_HEALTH = 4;
@@ -86,3 +92,12 @@ final int SPIDER_MOVEMENT_SPEED = 3;
 final int EXPLOSIVE_SPIDER_HEALTH = 1;
 final int EXPLOSIVE_SPIDER_ROAMING = 1000;
 final int EXPLOSIVE_SPIDER_MOVEMENT_SPEED = 3;
+
+//Items
+final float BOOTS_DROP_CHANCE = 10;
+final float SPARKLER_DROP_CHANCE = 10;
+final float BLUE_POTION_DROP_CHANCE = 10;
+final float SHIELD_DROP_CHANCE = 10;
+final float CLOAK_DROP_CHANCE = 10;
+final float HEART_DROP_CHANCE = 10;
+final float COIN_DROP_CHANCE = 10;
