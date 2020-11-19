@@ -180,20 +180,21 @@ class Highscore {
   Timer scoreTimer;
   boolean tempGameOver;
   boolean scoreAdded;
-  //MySQLConnection myConnection;
-  //Table highscores;
+  MySQLConnection myConnection;
+  Table highscores;
   int userId;
+  String addScore, selectScore, user;
 
   Highscore() {
-    //myConnection = new MySQLConnection("verheur6", "od93cCRbyqVu5R1M", "jdbc:mysql://oege.ie.hva.nl/zverheur6");
-    //highscores = myConnection.getTable("Highscore");
-    //highscores = myConnection.runQuery("SELECT User_id, score FROM Highscore ORDER BY `score` DESC");
-    score = 0;
+    myConnection = new MySQLConnection("verheur6", "od93cCRbyqVu5R1M", "jdbc:mysql://oege.ie.hva.nl/zverheur6");
+    highscores = myConnection.getTable("Highscore");
+    score = 0; 
     timeScore = TIME_SCORE;
     timer = FRAMERATE * TIME_SCORE_TIMER;
     scoreTimer = new Timer();
     tempGameOver = false;
     scoreAdded = false;
+    queries();
   }
 
   //iedere sec komt er score bij
@@ -209,17 +210,40 @@ class Highscore {
       }
     }
   }
-  
+
   //update de highscorelist
   void updateHighscores() {
-    //als het een nieuwe hoogste score is
-    //highscores = myConnection.runQuery("INSERT INTO `Highscore`(`user_id`, `score`) VALUES ("+ userId + "," + score + ");");
+    //zet de highscore in de tabel
+    //myConnection.updateQuery(addScore);
+    //zodat je altijd de meest up to date highscore laat zien
+    highscores = myConnection.runQuery(selectScore);
     score = 0;
     scoreAdded = true;
   }
-  
+
   //als je buiten deze class score wilt toevoegen
   void addScore(int amount) {
     score += amount;
+  }
+  //temp als je de highscores wilt printen
+  void printHighscore() {
+    textSize(32);
+    fill(255);
+
+
+    text("NAME", width / 2 - 150, 200);
+    text("HIGHSCORE", width / 2, 200);
+    text("_____________________", width / 2 - 150, 210);
+    for (int i = 0; i < highscores.getRowCount(); i++) {
+      TableRow row = highscores.getRow(i);
+      for (int j = 0; j < row.getColumnCount(); j++) {
+        text(row.getString(j), width / 2 -150 + 150 * j, 250 + 50 * i);
+      }
+    }
+  }
+  
+  void queries(){
+    addScore = "INSERT INTO `Highscore`(`name`, `highscore`) VALUES ("+ user + "," + score + ")";
+    selectScore = "SELECT User_id, score FROM Highscore ORDER BY `score` DESC LIMIT " + HIGHSCORE_TABLE_LIMIT;
   }
 }
