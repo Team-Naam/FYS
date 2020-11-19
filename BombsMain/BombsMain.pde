@@ -10,6 +10,8 @@ import processing.sound.*;
 //Voor main menu etc
 Game game;
 InputHandler input;
+MainMenu mainMenu;
+int gameState;
 
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
@@ -20,13 +22,33 @@ void setup() {
   frameRate(FRAMERATE);
   game = new Game(TILE_SIZE, width, height);
   input = new InputHandler();
+  mainMenu = new MainMenu();
+  gameState = 0; //gameState for the main menu
 }
 
 //-----------------------------Draw & Key functies---------------------------------
 
 void draw() {
-  game.update();
-  game.draw();
+  instructionPicker();
+}
+
+void instructionPicker(){     //this method calls certain other methods based on the current gameState
+  switch(gameState){
+   case 0:
+   mainMenu.update();
+   mainMenu.draw();
+   break;
+   
+   case 1:
+   game.update();
+   game.draw();
+   break;
+   
+   default:
+   mainMenu.update();
+   mainMenu.draw();
+   break;
+  }
 }
 
 void keyPressed() {  
