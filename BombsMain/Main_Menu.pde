@@ -72,7 +72,6 @@ class MainMenu {
   }
 }
 
-
 class MenuBox {
 
   float posX, posY;
