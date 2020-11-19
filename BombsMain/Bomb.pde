@@ -9,7 +9,7 @@ class Bomb extends Object {
   int explosionRadius = EXPLOSION_START_RADIUS;
 
 
-  Bomb(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  Bomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, ObjectID.BOMB, objectHandler, sprites);
     startTime = millis();
   }
@@ -96,7 +96,7 @@ class C4 extends Bomb
 {
   boolean bombActivated;
 
-  C4(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  C4(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     bombActivated = false;
   }
@@ -138,7 +138,7 @@ class Landmine extends Bomb
 {
   boolean enemyOverlaps;
 
-  Landmine(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  Landmine(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     enemyOverlaps = false;
   }
@@ -216,7 +216,7 @@ class SpiderBomb extends Object {
   int explosionRadius = EXPLOSION_START_RADIUS;
 
 
-  SpiderBomb(float x, float y, int w, int h, ObjectHandler objectHandler, Assets sprites) {
+  SpiderBomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, ObjectID.SPIDER_BOMB, objectHandler, sprites);
     startTime = millis();
   }
