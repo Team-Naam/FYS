@@ -54,6 +54,9 @@ class Bomb extends Object {
         if (circleRectangleOverlap(entity.x, entity.y, entity.w, entity.h)) {
           ((Entity)entity).insideExplosion = true;
         }
+      } else if (!entity.equals(this) && entity.objectId == ObjectID.PLAYER) {
+        if (circleRectangleOverlap(entity.x, entity.y, entity.w, entity.h)) {
+          ((Player)entity).insideExplosion = true;
       }
     }        
     for (Object wall : objectHandler.walls) {
@@ -176,14 +179,7 @@ class Landmine extends Bomb
     for (Object entity : objectHandler.entities) {
       if ( !entity.equals(this) && entity.objectId == ObjectID.ENTITY ) {
         if (circleRectangleOverlap(entity.x, entity.y, entity.w, entity.h)) {
-          ((Entity)entity).insideExplosion = true;
-        }
-      }
-    }        
-    for (Object wall : objectHandler.walls) {
-      if ( !wall.equals(this) && wall.objectId == ObjectID.BBLOCK ) {
-        if (circleRectangleOverlap(wall.x, wall.y, wall.w, wall.h)) {
-          ((Entity)wall).insideExplosion = true;
+          enemyOverlaps = true;
         }
       }
     }

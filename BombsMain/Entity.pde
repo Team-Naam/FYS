@@ -11,12 +11,18 @@ class Entity extends Object {
   int velY;
   float oldX, oldY;
 
-  boolean insideExplosion = false;
-  boolean touching = false;
+  boolean insideExplosion;
+  boolean takenDamage;
+  boolean touching;
 
   Entity(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, ObjectID.ENTITY, objectHandler, sprites);
     savedTime = millis();
+    health = 1;
+    roamingTimer = 5;
+    insideExplosion = false;
+    takenDamage = false;
+    touching = false;
   }
 
   //Nieuw collision system waarbij hij terug wordt gezet naar de oude positie
@@ -49,6 +55,20 @@ class Entity extends Object {
         savedTime= millis();
       }
     }
+  }
+
+  void bombDamage() {
+    if (insideExplosion && !takenDamage) {
+      health -= BOMB_DAMAGE;
+      takenDamage = true;
+    }
+    if (health <= 0) {
+      objectHandler.removeEntity(this);
+    }
+    if(!insideExplosion && takenDamage){
+     takenDamage = false; 
+    }
+    insideExplosion = false;
   }
 
   //Method voor basic volgen van de player
