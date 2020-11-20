@@ -9,45 +9,24 @@ int  uiBlockY = height/2;
 int  uiBlockWidth = 50;
 int  uiBlockHeight = 50;
 
-int  timeInterval = 2000;
-int  timeCheck = millis();
-
 class UserInterface {
   TextureAssets assetLoader;
   Player player;
   Highscore highscore;
+  Cooldown cooldown;
 
   UserInterface(TextureAssets assetLoader, Player player, Highscore highScore) {
     this.assetLoader = assetLoader;
     this.player = player;
     this.highscore = highScore;
+    cooldown = new Cooldown();
   }
 
-  void update() {
-  }
-
-  void draw() {
+  void draw()
+  {
     uiBlock();
-    cooldownActivator();
-  }
-
-  void cooldownActivator()
-  {
-    if (clicCooldown() == true)
-    {
-      cooldownIndicator();
-    }
-  }
-
-  void cooldownIndicator()
-  {
-    fill(255, cdBlockTransparency);
-    cdBlockHeight++;
-    rect(cdBlockX, cdBlockY, cdBlockWidth, cdBlockHeight);
-    if (cdBlockHeight > 50)
-    {
-      cdBlockHeight = 0;
-    }
+    cooldown.display();
+    cooldown.update();
   }
 
   void uiBlock()
@@ -56,12 +35,36 @@ class UserInterface {
     rect(uiBlockX, uiBlockY, uiBlockWidth, uiBlockHeight);
   }
 
-
-  boolean clicCooldown()
+  class Cooldown
   {
-    if (keyPressed && millis() > timeInterval + timeCheck)
+    Cooldown()
     {
-      return true;
-    } else return false;
+    }
+    void display()
+    {
+      fill(255, cdBlockTransparency);
+      rect(cdBlockX, cdBlockY, cdBlockWidth, cdBlockHeight);
+    }
+    void update()
+    {
+      if (!cooldownReady())
+      {
+        cdBlockHeight++;
+        if (cdBlockHeight > 50)
+        {
+          cdBlockHeight = 50;
+        }
+      }
+      if (cooldownReady() && keyPressed)
+      {
+        cdBlockHeight = 0;
+      }
+    }
+  }
+
+  boolean cooldownReady()
+  {
+    if (cdBlockHeight == 50)return true;
+    else return false;
   }
 }
