@@ -7,6 +7,8 @@ class Player extends Object {
   boolean speedBonus = false;
   boolean sparklerBonus = false;
   boolean start = true;
+  boolean insideExplosion = false;
+  boolean takenBombDamage = false;
 
   int speedX, speedY, startTime;
   int speedBonusTimer = 1000;
@@ -46,7 +48,14 @@ class Player extends Object {
 
     oldX = x;
     oldY = y;
+    
+    //println("playerHealth = " + health);
+    bombDamage();
 
+    if(health <= 0){
+     gameState = 2; 
+    }
+    
     if (bombCooldown > 0) bombCooldown--;
   }
 
@@ -82,6 +91,21 @@ class Player extends Object {
       objectHandler.addLandmine(x + w / 4, y + h / 4, BOMB_SIZE, BOMB_SIZE);
       bombCooldown = BOMB_COOLDOWN_TIME;
     }
+  }
+  
+  void bombDamage() {
+    if (insideExplosion && !takenBombDamage) {
+      health -= BOMB_DAMAGE;
+      println("taking " + BOMB_DAMAGE + " damage");
+      takenBombDamage = true;
+    }
+    if (health <= 0) {
+      objectHandler.removeEntity(this);
+    }
+    if(!insideExplosion && takenBombDamage){
+     takenBombDamage = false; 
+    }
+    insideExplosion = false;
   }
 
   void ifTouching(Object crate) {

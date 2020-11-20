@@ -11,6 +11,7 @@ import processing.sound.*;
 Game game;
 InputHandler input;
 MainMenu mainMenu;
+GameOver gameOver;
 int gameState;
 
 final int KEY_LIMIT = 1024;
@@ -23,6 +24,7 @@ void setup() {
   game = new Game(TILE_SIZE, width, height);
   input = new InputHandler();
   mainMenu = new MainMenu();
+  gameOver = new GameOver();
   gameState = 0; //gameState for the main menu
 }
 
@@ -43,6 +45,10 @@ void instructionPicker(){
    case 1:
    game.update();
    game.draw();
+   break;
+   
+   case 2:
+   gameOver.draw();
    break;
    
    default:

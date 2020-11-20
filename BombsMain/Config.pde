@@ -41,7 +41,7 @@ final int PLAYER_SHIELD = 0;
 final int PLAYER_SIZE = TILE_SIZE / 2;
 
 //Bombs
-final int EXPLOSION_TIMER = 2000;
+final int EXPLOSION_TIMER = 1200;
 final int BOMB_START_OPACITY = 255;
 final int EXPLOSION_START_OPACITY = 255;
 final int EXPLOSION_START_RADIUS = 0;

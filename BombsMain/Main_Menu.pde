@@ -121,3 +121,12 @@ class MenuBox {
     }
   }
 }
+
+class GameOver{
+  void draw(){
+   background(255);
+   textSize(40);
+   text("you died", width / 2, height / 2);
+  }
+  
+}
