@@ -30,7 +30,7 @@ class MapHandler {
     loadMap(newMap.pixels, newMap.width, newMap.height, tileSize, tileSize, objectHandler, offSet);
     mapPositionTracker += offSet; 
     //println("mapWidth = " + newMap.width); 
-    offSet = newMap.width * tileSize; 
+    offSet = floor(newMap.width * tileSize); 
     //println("offSet = " + offSet); 
   } 
  
