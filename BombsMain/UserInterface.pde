@@ -1,70 +1,38 @@
-int  cdBlockX = width/2;
-int  cdBlockY = height/2;
-int  cdBlockWidth = 50;
-int  cdBlockHeight = 0;
-int  cdBlockTransparency = 200;
-
-int  uiBlockX = width/2;
-int  uiBlockY = height/2;
-int  uiBlockWidth = 50;
-int  uiBlockHeight = 50;
-
 class UserInterface {
   TextureAssets assetLoader;
-  Player player;
+  ObjectHandler objectHandler;
   Highscore highscore;
-  Cooldown cooldown;
 
-  UserInterface(TextureAssets assetLoader, Player player, Highscore highScore) {
+  boolean shieldBonus = false;
+  boolean undefeatabaleBonus = false;
+  boolean speedBonus = false;
+  boolean sparklerBonus = false;
+
+  int bombCooldown, health, shield;
+
+  UserInterface(TextureAssets assetLoader, Highscore highScore, ObjectHandler objectHandler) {
     this.assetLoader = assetLoader;
-    this.player = player;
+    this.objectHandler = objectHandler;
     this.highscore = highScore;
-    cooldown = new Cooldown();
   }
 
-  void draw()
-  {
-    uiBlock();
-    cooldown.display();
-    cooldown.update();
+  void update() {
+    ArrayList<Object> entityObjects = objectHandler.entities;
+    Object playerEntity = entityObjects.get(0);
+    bombCooldown = ((Player)playerEntity).bombCooldown;
+    health = ((Player)playerEntity).health;
+    shield = ((Player)playerEntity).shield;
+    speedBonus = ((Player)playerEntity).speedBonus;
+    sparklerBonus = ((Player)playerEntity).sparklerBonus;
+    undefeatabaleBonus = ((Player)playerEntity).undefeatabaleBonus;
+    shieldBonus = ((Player)playerEntity).shieldBonus;
+    println(highscore.score);
   }
 
-  void uiBlock()
-  {
+  void draw() {
     fill(255, 0, 0);
-    rect(uiBlockX, uiBlockY, uiBlockWidth, uiBlockHeight);
-  }
-
-  class Cooldown
-  {
-    Cooldown()
-    {
-    }
-    void display()
-    {
-      fill(255, cdBlockTransparency);
-      rect(cdBlockX, cdBlockY, cdBlockWidth, cdBlockHeight);
-    }
-    void update()
-    {
-      if (!cooldownReady())
-      {
-        cdBlockHeight++;
-        if (cdBlockHeight > 50)
-        {
-          cdBlockHeight = 50;
-        }
-      }
-      if (cooldownReady() && keyPressed)
-      {
-        cdBlockHeight = 0;
-      }
-    }
-  }
-
-  boolean cooldownReady()
-  {
-    if (cdBlockHeight == 50)return true;
-    else return false;
+    rect(50, 50, 50, bombCooldown);
+    
+    rect(120, 50, health * 100, 60);
   }
 }

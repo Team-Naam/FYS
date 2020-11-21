@@ -5,7 +5,6 @@ class Game {
   ObjectHandler objectHandler;
   MapHandler mapHandler;
   TextureAssets textureLoader;
-  Player player;
   Highscore highscore;
   GraphicsEngine graphicsEngine;
   UserInterface userInterface;
@@ -23,7 +22,7 @@ class Game {
     objectHandler.addPlayer(this.highscore);
     mapHandler = new MapHandler(tileSize);
     graphicsEngine = new GraphicsEngine();
-    userInterface = new UserInterface(this.textureLoader, this.player, this.highscore);
+    userInterface = new UserInterface(this.textureLoader, this.highscore, this.objectHandler);
   }
 
   //Oproepen van objecten in de game zodat ze worden getekend
@@ -31,8 +30,8 @@ class Game {
     mapHandler.update();
     objectHandler.update();
     highscore.update();
-    userInterface.update();
     graphicsEngine.update();
+    userInterface.update();
   }
 
   void draw() {
@@ -209,7 +208,7 @@ class Highscore {
       }
     }
   }
-  
+
   //update de highscorelist
   void updateHighscores() {
     //als het een nieuwe hoogste score is
@@ -217,7 +216,7 @@ class Highscore {
     score = 0;
     scoreAdded = true;
   }
-  
+
   //als je buiten deze class score wilt toevoegen
   void addScore(int amount) {
     score += amount;

@@ -4,9 +4,10 @@ class Player extends Object {
   Timer timer;
   Highscore highscore;
 
+  boolean shieldBonus = false;
+  boolean undefeatabaleBonus = false;
   boolean speedBonus = false;
   boolean sparklerBonus = false;
-  boolean start = true;
   boolean insideExplosion = false;
   boolean takenBombDamage = false;
 
@@ -48,14 +49,18 @@ class Player extends Object {
 
     oldX = x;
     oldY = y;
-    
+
     //println("playerHealth = " + health);
     bombDamage();
 
-    if(health <= 0){
-     gameState = 2; 
+    if (shield <= 0) {
+      shieldBonus = false;
     }
-    
+
+    if (health <= 0) {
+      gameState = 2;
+    }
+
     if (bombCooldown > 0) bombCooldown--;
   }
 
@@ -74,11 +79,11 @@ class Player extends Object {
     if (input.downDown() && y < height) {
       speedY += velY;
     }
-    
+
     if (sparklerBonus) {
       bombCooldown = bombSparklerCooldown;
     }
-    
+
     if (input.zDown() && bombCooldown == 0) {
       objectHandler.addBomb(x + w / 4, y + h / 4, BOMB_SIZE, BOMB_SIZE);
       bombCooldown = BOMB_COOLDOWN_TIME;
@@ -92,18 +97,15 @@ class Player extends Object {
       bombCooldown = BOMB_COOLDOWN_TIME;
     }
   }
-  
+
   void bombDamage() {
     if (insideExplosion && !takenBombDamage) {
       health -= BOMB_DAMAGE;
       println("taking " + BOMB_DAMAGE + " damage");
       takenBombDamage = true;
     }
-    if (health <= 0) {
-      objectHandler.removeEntity(this);
-    }
-    if(!insideExplosion && takenBombDamage){
-     takenBombDamage = false; 
+    if (!insideExplosion && takenBombDamage) {
+      takenBombDamage = false;
     }
     insideExplosion = false;
   }
@@ -151,11 +153,13 @@ class Player extends Object {
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.SHIELD) {
         println("thicc");
         shield += 2;
+        shieldBonus = true;
         objectHandler.removeEntity(item);
       }
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.BPOTION) {
         println("me goes not boom boom");
         //de player wordt sowieso nu niet gehit door zijn eigen bomb sooooo....
+        undefeatabaleBonus = true;
         objectHandler.removeEntity(item);
       }
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.SPARKLER) {
