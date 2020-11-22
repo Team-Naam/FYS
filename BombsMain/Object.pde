@@ -2,11 +2,15 @@
 
 //Kan gebruikt worden in schrijven van collision methods, maar ook andere scripting usages, eigenlijk andere manier van classes, game objecten, oproepen
 enum ObjectID {
-  WALL, PLAYER, ENTITY, BOMB, SPIDER_BOMB, ROCK, BBLOCK, ITEM
+  WALL, PLAYER, ENTITY, BOMB, ROCK, BBLOCK, ITEM, SPIDER_BOMB
 }
 
 enum ItemID {
   BOOTS, SPARKLER, BPOTION, SHIELD, CLOAK, HEART, COIN
+}
+
+enum BombID {
+  CFOUR, DYNAMITE, LANDMINE, SPIDER_BOMB
 }
 
 enum EntityID {
@@ -24,6 +28,7 @@ abstract class Object {
   ObjectID objectId;
   ItemID itemId;
   EntityID entityId;
+  BombID bombId;
   ObjectHandler objectHandler;
   TextureAssets sprites;
 
