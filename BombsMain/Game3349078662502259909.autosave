@@ -5,6 +5,7 @@ class Game {
   ObjectHandler objectHandler;
   MapHandler mapHandler;
   TextureAssets textureLoader;
+  Player player;
   Highscore highscore;
   GraphicsEngine graphicsEngine;
   UserInterface userInterface;
@@ -22,17 +23,18 @@ class Game {
     objectHandler.addPlayer(this.highscore);
     mapHandler = new MapHandler(tileSize);
     graphicsEngine = new GraphicsEngine();
-    userInterface = new UserInterface(this.textureLoader, this.highscore, this.objectHandler);
+    userInterface = new UserInterface(this.textureLoader, this.player, this.highscore);
   }
 
   //Oproepen van objecten in de game zodat ze worden getekend
   void update() {
     mapHandler.update();
     objectHandler.update();
-    highscore.update();
-    graphicsEngine.update();
+    highscore.update(); 
+    userInterface.draw();
     userInterface.update();
     userInterface.keyReleased();
+    graphicsEngine.update();
   }
 
   void draw() {
