@@ -11,6 +11,7 @@ class Bomb extends Object {
 
   Bomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, ObjectID.BOMB, objectHandler, sprites);
+    this.bombId = BombID.DYNAMITE;
     startTime = millis();
   }
 
@@ -102,6 +103,7 @@ class C4 extends Bomb
 
   C4(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
+    this.bombId = BombID.CFOUR;
     bombActivated = false;
   }
 
@@ -144,6 +146,7 @@ class Landmine extends Bomb
 
   Landmine(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
+    this.bombId = BombID.LANDMINE;
     enemyOverlaps = false;
   }
 
@@ -215,6 +218,7 @@ class SpiderBomb extends Object {
 
   SpiderBomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, ObjectID.SPIDER_BOMB, objectHandler, sprites);
+    this.bombId = BombID.SPIDER_BOMB;
     startTime = millis();
   }
 
