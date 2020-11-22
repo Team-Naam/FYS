@@ -60,20 +60,10 @@ class UserInterface {
   ActivateBomb activateBomb;
   HealthUI healthUI;
   PowerUPS powerUPS;
-  ObjectHandler objectHandler;
 
-  boolean shieldBonus = false;
-  boolean undefeatabaleBonus = false;
-  boolean speedBonus = false;
-  boolean sparklerBonus = false;
-
-  int bombCooldown, health, shield;
-
-  UserInterface(TextureAssets assetLoader, Highscore highScore, ObjectHandler objectHandler) {
+  UserInterface(TextureAssets assetLoader, Player player, Highscore highScore) {
     this.assetLoader = assetLoader;
-    this.objectHandler = objectHandler;
-    this.highscore = highScore;
-    this.assetLoader = assetLoader;
+    this.player = player;
     this.highscore = highScore;
     cooldowna = new CooldownA();
     cooldownb = new CooldownB();
@@ -81,22 +71,6 @@ class UserInterface {
     activateBomb = new ActivateBomb();
     healthUI = new HealthUI();
     powerUPS = new PowerUPS();
-  }
-
-  void update() {
-    ArrayList<Object> entityObjects = objectHandler.entities;
-    Object playerEntity = entityObjects.get(0);
-    bombCooldown = ((Player)playerEntity).bombCooldown;
-    health = ((Player)playerEntity).health;
-    shield = ((Player)playerEntity).shield;
-    speedBonus = ((Player)playerEntity).speedBonus;
-    sparklerBonus = ((Player)playerEntity).sparklerBonus;
-    undefeatabaleBonus = ((Player)playerEntity).undefeatabaleBonus;
-    shieldBonus = ((Player)playerEntity).shieldBonus;
-    cooldowna.update();
-    cooldownb.update();
-    cooldownc.update();
-    healthUI.update();
   }
 
   void draw()
@@ -124,6 +98,13 @@ class UserInterface {
     }
   }
 
+  void update()
+  {
+    cooldowna.update();
+    cooldownb.update();
+    cooldownc.update();
+    healthUI.update();
+  }
 
   //alle visual blokken in de ui scherm
   void uiBlocks()
@@ -159,7 +140,6 @@ class UserInterface {
     if (highscore.score >= 1000)
     {
       fill(0);
-      textSize(18);
       text("BOOM!", ActiveuiBlockX + 11, ActiveuiBlockY + 25);
     }
     noFill();
@@ -295,16 +275,10 @@ class UserInterface {
     }
     void display()
     {
-      fill(255,0,0);
-      stroke(200,0,0);
-      strokeWeight(5);
-      rect(475, height-75, health * 50, 60);
-      fill(200);
-      stroke(150);
-      strokeWeight(5);
-      rect(475, height-100, shield * 50, 25);
+      textSize(20);
+      fill(255);
+      text("health komt hier"+game.objectHandler.entries.get(0).health, 560, height-50);
       noFill();
-      noStroke();
     }
     void update()
     {
@@ -323,36 +297,11 @@ class UserInterface {
       line(450, height-90, 450, height);
       line(800, height-90, 800, height);
       line(1500, height-90, 1500, height);
+      textSize(20);
+      fill(255);
+      text("power-ups komen hier te staan", 850, height-50);
+      noFill();
       noStroke();
-      
-      if(speedBonus)
-      {
-        fill(125,125,255); //lichtpaars/blauw
-        rect(875, height-75, 50, 50);
-        noFill();
-      }
-      
-      if(sparklerBonus)
-      {
-        fill(255,255,0); //paars/pink
-        rect(950, height-75, 50, 50);
-        noFill();
-      }
-      
-      if(undefeatabaleBonus)
-      {
-        fill(255,0,255); // geel
-        rect(1025, height-75, 50, 50);
-        noFill();
-      }
-      
-      if(shieldBonus)
-      {
-        fill(0,255,255);  //cyan
-        rect(1100, height-75, 50, 50);
-        noFill();
-      }
-      
     }
   }
 
