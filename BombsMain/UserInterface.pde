@@ -1,58 +1,35 @@
 class UserInterface {
 
   // de visual cooldown ui waardoor de player kan zien of de (activate) knop toegankelijk is
-  int ActiveBlockX = width-250;
+  int ActiveBlockX = width-150;
   int ActiveBlockY = height-130;
   int ActiveBlockWidth = 80;
   int ActiveBlockHeight = 35;
 
   // de visual cooldown ui voor de bomb dat na 1.5 seconden afgaat
-  int AcdBlockX = width-350;
-  int AcdBlockY = height-90;
-  int AcdBlockWidth = 80;
-  float AcdBlockHeight = 0;
-
-  // de visual cooldown ui voor de bomb dat pas afgaat als de speler op de (activate) knop drukt
-  int BcdBlockX = width-250;
-  int BcdBlockY = height-90;
-  int BcdBlockWidth = 80;
-  float BcdBlockHeight = 0;
-
-  // de visual cooldown ui voor de bomb dat pas afgaat als een enemy erop gaat lopen
-  int CcdBlockX = width-150;
-  int CcdBlockY = height-90;
-  int CcdBlockWidth = 80;
-  float CcdBlockHeight = 0;
+  int cdBlockX = width-150;
+  int cdBlockY = height-90;
+  int cdBlockWidth = 80;
+  float cdBlockHeight = 0;
 
   int cdBlockTransparency = 200;
 
   //de locatie van de blokjes over het beeldscherm. Voor elk verschillend bomb hun eigen blok.
-  int ActiveuiBlockX = width-250;
+  int ActiveuiBlockX = width-150;
   int ActiveuiBlockY = height-130;
   int ActiveuiBlockWidth = 80;
   int ActiveuiBlockHeight = 35;
 
-  int AuiBlockX = width-350;
-  int AuiBlockY = height-90;
-  int AuiBlockWidth =  80;
-  int AuiBlockHeight = 80;
-
-  int BuiBlockX = width-250;
-  int BuiBlockY = height-90;
-  int BuiBlockWidth =  80;
-  int BuiBlockHeight = 80;
-
-  int CuiBlockX = width-150;
-  int CuiBlockY = height-90;
-  int CuiBlockWidth = 80;
-  int CuiBlockHeight = 80;
+  int uiBlockX = width-150;
+  int uiBlockY = height-90;
+  int uiBlockWidth =  80;
+  int uiBlockHeight = 80;
 
   TextureAssets assetLoader;
   Player player;
   Highscore highscore;
-  CooldownA cooldowna;
-  CooldownB cooldownb;
-  CooldownC cooldownc;
+  Cooldown cooldown;
+
   ActivateBomb activateBomb;
   HealthUI healthUI;
   PowerUPS powerUPS;
@@ -71,9 +48,7 @@ class UserInterface {
     this.highscore = highScore;
     this.assetLoader = assetLoader;
     this.highscore = highScore;
-    cooldowna = new CooldownA();
-    cooldownb = new CooldownB();
-    cooldownc = new CooldownC();
+    cooldown = new Cooldown();
     activateBomb = new ActivateBomb();
     healthUI = new HealthUI();
     powerUPS = new PowerUPS();
@@ -93,18 +68,14 @@ class UserInterface {
     undefeatabaleBonus = ((Player)playerEntity).undefeatabaleBonus;
     shieldBonus = ((Player)playerEntity).shieldBonus;
 
-    cooldowna.update();
-    cooldownb.update();
-    cooldownc.update();
+    cooldown.update();
     healthUI.update();
   }
 
   void draw()
   {
     uiBlocks();
-    cooldowna.display();
-    cooldownb.display();
-    cooldownc.display();
+    cooldown.display();
     activateBomb.display();
     healthUI.display();
     powerUPS.display();
@@ -131,9 +102,7 @@ class UserInterface {
     stroke(150, 0, 0);
     strokeWeight(10);
     fill(255, 0, 0);
-    rect(AuiBlockX, AuiBlockY, AuiBlockWidth, AuiBlockHeight);
-    rect(BuiBlockX, BuiBlockY, BuiBlockWidth, BuiBlockHeight);
-    rect(CuiBlockX, CuiBlockY, CuiBlockWidth, CuiBlockHeight);
+    rect(uiBlockX, uiBlockY, uiBlockWidth, uiBlockHeight);
     fill(20);
     rect(ActiveuiBlockX, ActiveuiBlockY, ActiveuiBlockWidth, ActiveuiBlockHeight);
     noStroke();
@@ -150,112 +119,49 @@ class UserInterface {
     if (cooldownReady()) {
       fill(0);
       textSize(18);
-      text("Ready!", AcdBlockX + 11, AcdBlockY + 50);
-      text("Ready!", BcdBlockX + 11, BcdBlockY + 50);
-      text("Ready!", CcdBlockX + 11, CcdBlockY + 50);
+      text("Bomb", cdBlockX + 12, cdBlockY + 33);
+      text("Ready!", cdBlockX + 11, cdBlockY + 57);
     }
     
     //als de player een bomb geplaatst heeft dat alleen af gaat als ie op de trigger knop drukt ==> showt een BOOM! text zodat de player weet dat de bommen af kunnen gaan
-    if (highscore.score >= 1000) {
+    if (checkC4(objectHandler.entities)) {
       fill(0);
-      textSize(18);
-      text("BOOM!", ActiveuiBlockX + 11, ActiveuiBlockY + 25);
+      textSize(12);
+      text("DETONATE!", ActiveuiBlockX + 6, ActiveuiBlockY + 22);
     }
     
     noFill();
   }
 
-  class CooldownA {
-    CooldownA() {
+  class Cooldown {
+    Cooldown() {
     }
     
     void display() {
       fill(255, cdBlockTransparency);
-      rect(AcdBlockX, AcdBlockY, AcdBlockWidth, AcdBlockHeight);
+      rect(cdBlockX, cdBlockY, cdBlockWidth, cdBlockHeight);
     }
     
     void update() {
       if (!cooldownReady()) {
         // de snelheid van het optellen van de cooldown. bij 80 stopt ie met tellen en dus is de cooldown ready
-        AcdBlockHeight += 1.325;
+        cdBlockHeight += 1.325;
         if (cooldownReady()) {
-          AcdBlockHeight = 80;
+          cdBlockHeight = 80;
         }
       }
       
       //Als de cooldown voorbij is en de player drukt op de actie knop (bomb plaatsen) start de cooldown weer van 0
-      if (cooldownReady() && keyPressed && (key == 'A' || key == 'a')) {
+      if (cooldownReady() && keyPressed && (key == 'A' || key == 'a' || key == 'S' || key == 's' || key == 'Z' || key == 'z' )) {
         if (keyPressed)
         {
-          AcdBlockHeight = 0;
-          BcdBlockHeight = 0;
-          CcdBlockHeight = 0;
+          cdBlockHeight = 0;
           keyPressed = false;
         }
       }
     }
   }
 
-  class CooldownB {
-    
-    CooldownB() {
-    }
-    
-    void display() {
-      fill(255, cdBlockTransparency);
-      rect(BcdBlockX, BcdBlockY, BcdBlockWidth, BcdBlockHeight);
-    }
-    
-    void update() {
-      // de snelheid van het optellen van de cooldown. bij 80 stopt ie met tellen en dus is de cooldown ready
-      if (!cooldownReady()) {
-        BcdBlockHeight += 1.325;
-        if (cooldownReady()) {
-          BcdBlockHeight = 80;
-        }
-      }
-      
-      //Als de cooldown voorbij is en de player drukt op de actie knop (bomb plaatsen) start de cooldown weer van 0
-      if (cooldownReady() && keyPressed && (key == 'S' || key == 's')) {
-        if (keyPressed) {
-          AcdBlockHeight = 0;
-          BcdBlockHeight = 0;
-          CcdBlockHeight = 0;
-          keyPressed = false;
-        }
-      }
-    }
-  }
-
-  class CooldownC {
-    CooldownC() {
-    }
-    
-    void display() {
-      fill(255, cdBlockTransparency);
-      rect(CcdBlockX, CcdBlockY, CcdBlockWidth, CcdBlockHeight);
-    }
-    
-    void update() {
-      // de snelheid van het optellen van de cooldown. bij 80 stopt ie met tellen en dus is de cooldown ready
-      if (!cooldownReady()) {
-        CcdBlockHeight += 1.325;
-        if (cooldownReady()) {
-          CcdBlockHeight = 80;
-        }
-      }
-      
-      //Als de cooldown voorbij is en de player drukt op de actie knop (bomb plaatsen) start de cooldown weer van 0
-      if (cooldownReady() && keyPressed && (key == 'Z' || key == 'z')) {
-        if (keyPressed) {
-          AcdBlockHeight = 0;
-          BcdBlockHeight = 0;
-          CcdBlockHeight = 0;
-          keyPressed = false;
-        }
-      }
-    }
-  }
 
   class ActivateBomb {
     ActivateBomb() {
@@ -263,7 +169,7 @@ class UserInterface {
 
     void display() {
       //Als er een bomb geplaatst is dat alleen af kan gaan als de player op de trigger drukt, wordt de ui gehighlight dat de bomb af kan gaan.
-      if (highscore.score >= 1000) {
+      if (checkC4(objectHandler.entities)) {
         fill((random(50, 255)));
         rect(ActiveBlockX, ActiveBlockY, ActiveBlockWidth, ActiveBlockHeight);
         noFill();
@@ -330,6 +236,7 @@ class UserInterface {
     }
   }
 
+  //Checkt of er een C4 geplaatst is door de speler
   boolean checkC4(ArrayList<Object> entityObjects) {
     for (Object c4 : entityObjects) {
       if (c4.bombId == BombID.CFOUR) {
@@ -341,7 +248,7 @@ class UserInterface {
 
   //checkt of de rectangle bij de lengte is van de lengte van de ui ==> checkt dus of de cooldown voorbij is en ready is is voor de volgende bomb
   boolean cooldownReady() {
-    if (AcdBlockHeight >= 80) {
+    if (cdBlockHeight >= 80) {
       return true;
     } else {
       return false;
