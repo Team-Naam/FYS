@@ -63,6 +63,7 @@ class Poltergeist extends Entity {
       x = oldX - MAP_SCROLL_SPEED;
       y = oldY;
     }
+
     oldX = x;
     oldY = y;
   }
@@ -158,8 +159,8 @@ class Spider extends Entity {
   }
 
   @Override
-  void update(){
-   super.update(); 
+    void update() {
+    super.update();
   }
 
   void draw() {
@@ -184,9 +185,9 @@ class ExplosiveSpider extends Entity {
     velY = EXPLOSIVE_SPIDER_MOVEMENT_SPEED;
   }
 
-@Override
-  void update(){
-   super.update(); 
+  @Override
+    void update() {
+    super.update();
   }
 
   void draw() {

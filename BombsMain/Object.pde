@@ -2,7 +2,7 @@
 
 //Kan gebruikt worden in schrijven van collision methods, maar ook andere scripting usages, eigenlijk andere manier van classes, game objecten, oproepen
 enum ObjectID {
-  WALL, PLAYER, ENTITY, BOMB, ROCK, BBLOCK, ITEM, SPIDER_BOMB
+  WALL, PLAYER, ENTITY, BOMB, ROCK, BBLOCK, ITEM, SPIDER_BOMB, PATH, PLAYER_SHADOW
 }
 
 enum ItemID {
@@ -55,18 +55,9 @@ abstract class Object {
 
   abstract void draw();
 
-  abstract void ifTouching(Object crate);
-
   void moveMap() { 
     x -= MAP_SCROLL_SPEED;
   } 
-
-  void getVector() {
-    lb.set(x, y);
-    rb.set(x + w, y);
-    ro.set(x + w, y + h);
-    lo.set(x, y + h);
-  }
 
   //Position crawler voor de player X
   //Gaat door de objecthandler z'n list heen en zoekt naar object met het ID player om vervolgens x op te vragen
@@ -87,6 +78,17 @@ abstract class Object {
     return pY;
   }
 
+  PVector getPlayerPos() {
+    PVector pt = new PVector();
+    
+    ArrayList<Object> entityObjects = objectHandler.entities;
+    Object player = entityObjects.get(0);
+    
+    pt.set(player.or);
+    
+    return pt;
+  }
+
   //Geeft aan of twee objecten met elkaar kruizen, is niet echt bruikbaar buiten een crawler
   boolean intersection(Object other) {
     return other.w > 0 && other.h > 0 && w > 0 && h > 0
@@ -96,14 +98,14 @@ abstract class Object {
 
   //Gebruikt bovenstaande methode om te kijken of objecten elkaar doorkruizen
   //Zal kijken of ik nog een kan schrijven die ook de objectID's erbij betrekt, zodat je specifieke collision kan vinden
-  boolean collisionDetection() {
+  boolean wallCollisionDetection() {
     ArrayList<Object> entityObjects = objectHandler.entities;
     ArrayList<Object> wallObjects = objectHandler.walls;
     for (int i = 0; i < entityObjects.size(); i++) {
       for (int j = 0; j < wallObjects.size(); j++) {
         Object wallObject = wallObjects.get(j);
         Object entityObject = entityObjects.get(i);
-        if (!entityObject.equals(this) && intersection(wallObject) && entityObject.objectId != ObjectID.BOMB && entityObject.entityId != EntityID.GHOST) {
+        if (!entityObject.equals(this) && intersection(wallObject) && entityObject.objectId != ObjectID.BOMB && entityObject.entityId != EntityID.GHOST && wallObject.objectId != ObjectID.PLAYER_SHADOW) {
           return true;
         }
       }

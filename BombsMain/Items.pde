@@ -9,9 +9,6 @@ class Item extends Object {
 
   void draw() {
   }
-
-  void ifTouching(Object crate) {
-  }
 }
 
 class Boots extends Item {
