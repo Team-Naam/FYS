@@ -10,8 +10,10 @@ class Player extends Object {
   boolean sparklerBonus = false;
   boolean insideExplosion = false;
   boolean takenBombDamage = false;
+  boolean takenEnemyDamage = false;
+  boolean gettingAttacked = false;
 
-  int speedX, speedY, startTime;
+  int speedX, speedY, startTime, attackDamage;
   int speedBonusTimer = 1000;
   int cloakBonusTimer = 5000;
   int velX = PLAYER_SPEED;
@@ -59,6 +61,7 @@ class Player extends Object {
 
     //println("playerHealth = " + health);
     bombDamage();
+    enemyDamage();
 
     if (shield <= 0) {
       shieldBonus = false;
@@ -115,6 +118,17 @@ class Player extends Object {
       takenBombDamage = false;
     }
     insideExplosion = false;
+  }
+
+  void enemyDamage() {
+    if (gettingAttacked && !takenEnemyDamage) {
+      health -= attackDamage;
+      takenEnemyDamage = true;
+    }
+    if (!gettingAttacked && takenEnemyDamage) {
+      takenEnemyDamage = false;
+    }
+    gettingAttacked = false;
   }
 
   void powerUps() {

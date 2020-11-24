@@ -3,6 +3,7 @@
 class Entity extends Object {
 
   int health;
+  int attack;
   int roamingTimer;
   int savedTime;
   int speedX;
@@ -19,6 +20,7 @@ class Entity extends Object {
     super(x, y, w, h, ObjectID.ENTITY, objectHandler, sprites);
     savedTime = millis();
     health = 1;
+    attack = 1;
     roamingTimer = 1;
     insideExplosion = false;
     takenDamage = false;
@@ -28,6 +30,7 @@ class Entity extends Object {
   //Nieuw collision system waarbij hij terug wordt gezet naar de oude positie
   void update() {
     movement();
+    attack();
 
     x = x + speedX;
     y = y + speedY;
@@ -90,6 +93,16 @@ class Entity extends Object {
       takenDamage = false;
     }
     insideExplosion = false;
+  }
+
+  void attack() {
+    ArrayList<Object> entityObjects = objectHandler.entities;
+    Object playerEntity = entityObjects.get(0);
+    if (intersection(playerEntity)) {
+      ((Player)playerEntity).attackDamage = attack;
+      ((Player)playerEntity).gettingAttacked = true;
+      println("slash");
+    }
   }
 
   //Method voor basic volgen van de player

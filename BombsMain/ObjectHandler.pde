@@ -124,14 +124,7 @@ class ObjectHandler {
   void addPlayer(Highscore highscore) {
     Player player = new Player(PLAYER_X_SPAWN, PLAYER_Y_SPAWN, PLAYER_SIZE, PLAYER_SIZE, this, sprites, highscore);
     entities.add(player);
-
-    //addPlayerShadow();
     println("spawned");
-  }
-
-  void addPlayerShadow() {
-    PlayerShadow playerShadow = new PlayerShadow(PLAYER_X_SPAWN, PLAYER_Y_SPAWN, PLAYER_SIZE - 20, PLAYER_SIZE - 20, this, sprites);
-    walls.add(playerShadow);
   }
 
   //Method voor plaatsen van een Bomb
