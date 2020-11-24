@@ -225,7 +225,6 @@ class ObjectHandler {
       }
       entityObjects.get(i).moveMap();
       entityObjects.get(i).update();
-      //entityObjects.get(i).getVector();
     }
 
     ArrayList<Object> wallObjects = walls;
@@ -235,7 +234,6 @@ class ObjectHandler {
       }
       wallObjects.get(i).moveMap();
       wallObjects.get(i).update();
-      //wallObjects.get(i).getVector();
     }
   }
 

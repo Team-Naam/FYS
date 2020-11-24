@@ -15,7 +15,9 @@ class Player extends Object {
 
   int speedX, speedY, startTime, attackDamage;
   int speedBonusTimer = 1000;
+  int undefeatabaleBonusTimer = 5000;
   int cloakBonusTimer = 5000;
+  int sparklerBonusTimer = 3000;
   int velX = PLAYER_SPEED;
   int velY = PLAYER_SPEED;
   int health = PLAYER_HEALTH;
@@ -109,15 +111,17 @@ class Player extends Object {
   }
 
   void bombDamage() {
-    if (insideExplosion && !takenBombDamage) {
-      health -= BOMB_DAMAGE;
-      println("taking " + BOMB_DAMAGE + " damage");
-      takenBombDamage = true;
+    if (!undefeatabaleBonus) {
+      if (insideExplosion && !takenBombDamage) {
+        health -= BOMB_DAMAGE;
+        println("taking " + BOMB_DAMAGE + " damage");
+        takenBombDamage = true;
+      }
+      if (!insideExplosion && takenBombDamage) {
+        takenBombDamage = false;
+      }
+      insideExplosion = false;
     }
-    if (!insideExplosion && takenBombDamage) {
-      takenBombDamage = false;
-    }
-    insideExplosion = false;
   }
 
   void enemyDamage() {
@@ -146,6 +150,19 @@ class Player extends Object {
         cloakBonus = false;
       }
     }
+    if (undefeatabaleBonus) {
+      if (timer.startTimer(undefeatabaleBonusTimer)) {
+        undefeatabaleBonus = false;
+      }
+    }
+    if (sparklerBonus) {
+      if (timer.startTimer(sparklerBonusTimer)) {
+        sparklerBonus = false;
+      }
+    }
+    if (shieldBonus && shield == 0) {
+      shieldBonus = false;
+    }
   }
 
   void powerUpDetection() {
@@ -159,8 +176,10 @@ class Player extends Object {
         speedBonus = true;
         objectHandler.removeEntity(item);
       }
+
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.COIN) {
         highscore.addScore(COIN_SCORE);
+        objectHandler.removeEntity(item);
       }
 
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.HEART) {
@@ -168,23 +187,26 @@ class Player extends Object {
         health += 1;
         objectHandler.removeEntity(item);
       }
+
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.SHIELD) {
         println("thicc");
         shield += 2;
         shieldBonus = true;
         objectHandler.removeEntity(item);
       }
+
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.BPOTION) {
         println("me goes not boom boom");
-        //de player wordt sowieso nu niet gehit door zijn eigen bomb sooooo....
         undefeatabaleBonus = true;
         objectHandler.removeEntity(item);
       }
+
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.SPARKLER) {
         println("kaboom? Yes Rico, kaboom");
         sparklerBonus = true;
         objectHandler.removeEntity(item);
       }
+
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.CLOAK) {
         println("now you dont");
         cloakBonus = true;
