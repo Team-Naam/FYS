@@ -10,8 +10,10 @@ class Player extends Object {
   boolean sparklerBonus = false;
   boolean insideExplosion = false;
   boolean takenBombDamage = false;
+  boolean takenEnemyDamage = false;
+  boolean gettingAttacked = false;
 
-  int speedX, speedY, startTime;
+  int speedX, speedY, startTime, attackDamage;
   int speedBonusTimer = 1000;
   int cloakBonusTimer = 5000;
   int velX = PLAYER_SPEED;
@@ -29,6 +31,13 @@ class Player extends Object {
   }
 
   void update() {
+    lb = new PVector(x, y);
+    rb = new PVector(x + w, y);
+    ro = new PVector(x + w, y + h);
+    lo = new PVector(x, y + h);
+
+    or = new PVector((lb.x + rb.x) / 2, (lb.y + lo.y) / 2);
+
     playerControls();
     powerUpDetection();
     powerUps();
@@ -42,7 +51,7 @@ class Player extends Object {
     x = x + speedX;
     y = y + speedY;
 
-    if (collisionDetection()) {
+    if (wallCollisionDetection()) {
       x = oldX - MAP_SCROLL_SPEED;
       y = oldY;
     }
@@ -52,6 +61,7 @@ class Player extends Object {
 
     //println("playerHealth = " + health);
     bombDamage();
+    enemyDamage();
 
     if (shield <= 0) {
       shieldBonus = false;
@@ -110,7 +120,15 @@ class Player extends Object {
     insideExplosion = false;
   }
 
-  void ifTouching(Object crate) {
+  void enemyDamage() {
+    if (gettingAttacked && !takenEnemyDamage) {
+      health -= attackDamage;
+      takenEnemyDamage = true;
+    }
+    if (!gettingAttacked && takenEnemyDamage) {
+      takenEnemyDamage = false;
+    }
+    gettingAttacked = false;
   }
 
   void powerUps() {

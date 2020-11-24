@@ -58,7 +58,7 @@ class UserInterface {
     ArrayList<Object> entityObjects = objectHandler.entities;
     Object playerEntity = entityObjects.get(0);
 
-    println(checkC4(entityObjects));
+    //println(checkC4(entityObjects));
 
     bombCooldown = ((Player)playerEntity).bombCooldown;
     health = ((Player)playerEntity).health;

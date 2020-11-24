@@ -8,6 +8,7 @@ class Game {
   Highscore highscore;
   GraphicsEngine graphicsEngine;
   UserInterface userInterface;
+  Background background;
 
   final int width, height;
 
@@ -20,6 +21,7 @@ class Game {
     highscore = new Highscore();
     objectHandler = new ObjectHandler(this.textureLoader);
     objectHandler.addPlayer(this.highscore);
+    background = new Background(textureLoader);
     mapHandler = new MapHandler(tileSize);
     graphicsEngine = new GraphicsEngine();
     userInterface = new UserInterface(this.textureLoader, this.highscore, this.objectHandler);
@@ -28,6 +30,7 @@ class Game {
   //Oproepen van objecten in de game zodat ze worden getekend
   void update() {
     mapHandler.update();
+    //background.update();
     objectHandler.update();
     highscore.update();
     graphicsEngine.update();
@@ -37,6 +40,7 @@ class Game {
 
   void draw() {
     background(128);
+    //background.draw();
     graphicsEngine.drawFloorLighting();
     objectHandler.draw();
     graphicsEngine.draw();
@@ -169,6 +173,41 @@ class Game {
       //Check functie
       //image(wallLightMap, 0, 0);
       image(wallLightMap, 0, 0);
+    }
+  }
+
+  class Background {
+    //Path path;
+
+    Object[] backgrounds = new Object[170];
+
+    float x, y;
+    int cols = 17;
+    int rows = 10;
+    int amount = 170;
+
+    Background(TextureAssets sprites) {
+      int k = 0;
+      for (int i = 0; i < cols; i++) {
+        for (int j = 0; j < rows; j++) {
+          backgrounds[k] = new Path(i * 128, j * 128 - OBJECT_Y_OFFSET, 128, 128, objectHandler, sprites);
+
+          k++;
+        }
+      }
+    }
+
+    void update() {
+      for (int i = 0; i < backgrounds.length; i++) {
+        backgrounds[i].update();
+        backgrounds[i].moveMap();
+      }
+    }
+
+    void draw() {
+      for (int i = 0; i < backgrounds.length; i++) {
+        backgrounds[i].draw();
+      }
     }
   }
 }

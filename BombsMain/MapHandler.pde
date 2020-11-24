@@ -54,6 +54,7 @@ void loadMap(int[] pixels, int w, int h, int tw, int th, ObjectHandler objectHan
       }
       //Hexode = ac3232
       if (c == 0xFFac3232) {
+        //objectHandler.addEntity(x * tw + offSet, y * th, tw, th);
         objectHandler.addEnemy(x * tw + offSet, y * th, tw, th);
       }
       //Hexode = 00a0c8

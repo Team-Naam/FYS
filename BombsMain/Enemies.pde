@@ -7,6 +7,7 @@ class Ghost extends Entity {
     this.entityId = EntityID.GHOST;
     savedTime = millis();
     health = GHOST_HEALTH;
+    attack = GHOST_ATTACK;
     roamingTimer = GHOST_ROAMING;
     velX = GHOST_MOVEMENT_SPEED;
     velY = GHOST_MOVEMENT_SPEED;
@@ -16,6 +17,7 @@ class Ghost extends Entity {
     void update() {
     bombDamage();
     movement();
+    attack();
 
     x = x + speedX;
     y = y + speedY;
@@ -46,6 +48,7 @@ class Poltergeist extends Entity {
     this.entityId = EntityID.POLTERGEIST;
     savedTime = millis();
     health = POLTERGEIST_HEALTH;
+    attack = POLTERGEIST_ATTACK;
     roamingTimer = POLTERGEIST_ROAMING;
     velX = POLTERGEIST_MOVEMENT_SPEED;
     velY = POLTERGEIST_MOVEMENT_SPEED;
@@ -55,6 +58,7 @@ class Poltergeist extends Entity {
     void update() {
     bombDamage();
     movement();
+    attack();
 
     x = x + speedX;
     y = y + speedY;
@@ -63,6 +67,7 @@ class Poltergeist extends Entity {
       x = oldX - MAP_SCROLL_SPEED;
       y = oldY;
     }
+
     oldX = x;
     oldY = y;
   }
@@ -83,6 +88,7 @@ class Mummy extends Entity {
     savedTime = millis();
 
     health = MUMMY_HEALTH;
+    attack = MUMMY_ATTACK;
     roamingTimer = MUMMY_ROAMING;
     velX = MUMMY_MOVEMENT_SPEED;
     velY = MUMMY_MOVEMENT_SPEED;
@@ -111,7 +117,9 @@ class SMummy extends Mummy {
     super(x, y, w, h, objectHandler, sprites);
     this.entityId = EntityID.SMUMMY;
     savedTime = millis();
+    health = SMUMMY_HEALTH;
     shield = SMUMMY_SHIELD;
+    attack = SMUMMY_ATTACK;
   }
 
   @Override
@@ -152,14 +160,15 @@ class Spider extends Entity {
     this.entityId = EntityID.SPIDER;
     savedTime = millis();
     health = SPIDER_HEALTH;
+    attack = SPIDER_ATTACK;
     roamingTimer = SPIDER_ROAMING;
     velX = SPIDER_MOVEMENT_SPEED ;
     velY = SPIDER_MOVEMENT_SPEED ;
   }
 
   @Override
-  void update(){
-   super.update(); 
+    void update() {
+    super.update();
   }
 
   void draw() {
@@ -179,14 +188,15 @@ class ExplosiveSpider extends Entity {
     this.entityId = EntityID.EXPLOSIVE_SPIDER;
     savedTime = millis();
     health = EXPLOSIVE_SPIDER_HEALTH;
+    attack = EXPLOSIVE_SPIDER_ATTACK;
     roamingTimer = EXPLOSIVE_SPIDER_ROAMING;
     velX = EXPLOSIVE_SPIDER_MOVEMENT_SPEED;
     velY = EXPLOSIVE_SPIDER_MOVEMENT_SPEED;
   }
 
-@Override
-  void update(){
-   super.update(); 
+  @Override
+    void update() {
+    super.update();
   }
 
   void draw() {

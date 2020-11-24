@@ -1,8 +1,9 @@
-//Code credit Jordy Post, Winand Metz, Ruben Verheul, Ole Neuman
+//Code credit Jordy Post, Winand Metz, Ruben Verheul, Ole Neuman 
 
 class Entity extends Object {
 
   int health;
+  int attack;
   int roamingTimer;
   int savedTime;
   int speedX;
@@ -19,7 +20,8 @@ class Entity extends Object {
     super(x, y, w, h, ObjectID.ENTITY, objectHandler, sprites);
     savedTime = millis();
     health = 1;
-    roamingTimer = 5;
+    attack = 1;
+    roamingTimer = 1;
     insideExplosion = false;
     takenDamage = false;
     touching = false;
@@ -28,11 +30,12 @@ class Entity extends Object {
   //Nieuw collision system waarbij hij terug wordt gezet naar de oude positie
   void update() {
     movement();
+    attack();
 
     x = x + speedX;
     y = y + speedY;
 
-    if (collisionDetection()) {
+    if (wallCollisionDetection()) {
       x = oldX - MAP_SCROLL_SPEED;
       y = oldY;
     }
@@ -57,23 +60,6 @@ class Entity extends Object {
     }
   }
 
-  void bombDamage() {
-    if (insideExplosion && !takenDamage) {
-      health -= BOMB_DAMAGE;
-      takenDamage = true;
-    }
-    if (health <= 0) {
-      objectHandler.removeEntity(this);
-    }
-    if(!insideExplosion && takenDamage){
-     takenDamage = false; 
-    }
-    insideExplosion = false;
-  }
-
-  //Method voor basic volgen van de player
-  //Moet nog in dat hij om muren heen navigeert (of je niet ziet achter de muren?)
-  //credits Jordy, Ruben
   void hunt() {
     if (cloakBonus == false) {
       if (getPlayerX() > x && getPlayerY() > y) {
@@ -95,11 +81,36 @@ class Entity extends Object {
     }
   }
 
-  void ifTouching(Object crate) {
+  void bombDamage() {
+    if (insideExplosion && !takenDamage) {
+      health -= BOMB_DAMAGE;
+      takenDamage = true;
+    }
+    if (health <= 0) {
+      objectHandler.removeEntity(this);
+    }
+    if (!insideExplosion && takenDamage) {
+      takenDamage = false;
+    }
+    insideExplosion = false;
   }
 
+  void attack() {
+    ArrayList<Object> entityObjects = objectHandler.entities;
+    Object playerEntity = entityObjects.get(0);
+    if (intersection(playerEntity)) {
+      ((Player)playerEntity).attackDamage = attack;
+      ((Player)playerEntity).gettingAttacked = true;
+      println("slash");
+    }
+  }
+
+  //Method voor basic volgen van de player
+  //Moet nog in dat hij om muren heen navigeert (of je niet ziet achter de muren?)
+  //credits Jordy, Ruben
+
   void draw() {
-    //fill(20);
-    //rect(x, y, w, h);
+    fill(20);
+    rect(x, y, w, h);
   }
 }

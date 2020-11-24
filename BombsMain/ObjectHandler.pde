@@ -39,6 +39,14 @@ class ObjectHandler {
     itemSpawnChance[6][1] = COIN_DROP_CHANCE;
   }
 
+  void addEntity(float x, float y, int w, int h) {
+    x = x + 32;
+    y = y + 32;
+
+    Entity entity = new Entity(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+    entities.add(entity);
+  }
+
   float getEnemy(float rand) {
     for (int i = 0; i < enemySpawnChance.length; i++) {
       if (rand < enemySpawnChance[i][1]) {
@@ -50,6 +58,9 @@ class ObjectHandler {
   }
 
   void addEnemy(float x, float y, int w, int h) {
+    x = x + 64;
+    y = y + 64;
+
     int total = 0;
     for (int i = 0; i < enemySpawnChance.length; i++) { 
       total += enemySpawnChance[i][1];
@@ -224,7 +235,7 @@ class ObjectHandler {
       }
       wallObjects.get(i).moveMap();
       wallObjects.get(i).update();
-      wallObjects.get(i).getVector();
+      //wallObjects.get(i).getVector();
     }
   }
 

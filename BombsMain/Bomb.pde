@@ -15,9 +15,6 @@ class Bomb extends Object {
     startTime = millis();
   }
 
-  void ifTouching(Object crate) {
-  }
-
   //Wanneer dynamiet explodeerd kijk hij of er enemy in de blastradius zit en paast dit door naar de enemy class
   //Explosie begint fel en neemt daarna af in opacity, wanneer deze nul is wordt hij verwijdert
   void update() {
@@ -207,7 +204,7 @@ class Landmine extends Bomb
 
 //class voor de Bomb die de ExplosiveSpider maakt
 //code credit Alex Tarnoki, Ole Neuman, Ruben Verheul
-class SpiderBomb extends Object {
+class SpiderBomb extends Bomb {
 
   int bombTimer = EXPLOSION_TIMER;
   int bombOpacity = BOMB_START_OPACITY;
@@ -217,12 +214,9 @@ class SpiderBomb extends Object {
 
 
   SpiderBomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, ObjectID.SPIDER_BOMB, objectHandler, sprites);
+    super(x, y, w, h, objectHandler, sprites);
     this.bombId = BombID.SPIDER_BOMB;
     startTime = millis();
-  }
-
-  void ifTouching(Object crate) {
   }
 
   //Wanneer dynamiet explodeerd kijk hij of er enemy in de blastradius zit en paast dit door naar de enemy class
