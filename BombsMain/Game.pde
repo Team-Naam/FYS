@@ -32,19 +32,19 @@ class Game {
     mapHandler.update();
     //background.update();
     objectHandler.update();
-    //highscore.update();
-    //graphicsEngine.update();
-    //userInterface.update();
-    //userInterface.keyReleased();
+    highscore.update();
+    graphicsEngine.update();
+    userInterface.update();
+    userInterface.keyReleased();
   }
 
   void draw() {
     background(128);
     //background.draw();
-    //graphicsEngine.drawFloorLighting();
+    graphicsEngine.drawFloorLighting();
     objectHandler.draw();
-    //graphicsEngine.draw();
-    //userInterface.draw();
+    graphicsEngine.draw();
+    userInterface.draw();
   }
 
   //-----------------------------Graphics engine---------------------------------

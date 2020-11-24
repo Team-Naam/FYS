@@ -185,29 +185,3 @@ class Player extends Object {
     image(sprites.getPlayer(), x, y);
   }
 }
-
-class PlayerShadow extends Object {
-
-  Object playerEntity;
-
-  PlayerShadow(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, ObjectID.PLAYER_SHADOW, objectHandler, sprites);
-    playerEntity = objectHandler.entities.get(0);
-  }
-
-  void update() {
-    lb = new PVector(x, y);
-    rb = new PVector(x + w, y);
-    ro = new PVector(x + w, y + h);
-    lo = new PVector(x, y + h);
-
-    or = new PVector((lb.x + rb.x) / 2, (lb.y + lo.y) / 2);
-    
-    x = playerEntity.x + 10;
-    y = playerEntity.y + 10;
-  }
-
-  void draw() {
-    rect(x, y, w, h);
-  }
-}
