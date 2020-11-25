@@ -32,8 +32,8 @@ final int TIME_SCORE_TIMER = 1;  //in sec
 final int COIN_SCORE = 20;
 
 //Player
-final int PLAYER_X_SPAWN = 0;
-final int PLAYER_Y_SPAWN = 156;
+final int PLAYER_X_SPAWN = 156;
+final int PLAYER_Y_SPAWN = 476;
 final int PLAYER_HEALTH = 10;
 final int PLAYER_SPEED = 4;
 final int PLAYER_SHIELD = 0;
