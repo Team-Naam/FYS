@@ -41,8 +41,6 @@ class Player extends Object {
     or = new PVector((lb.x + rb.x) / 2, (lb.y + lo.y) / 2);
 
     playerControls();
-    powerUpDetection();
-    powerUps();
 
     if (speedX != 0) {
       speedY = 0;
@@ -61,7 +59,9 @@ class Player extends Object {
     oldX = x;
     oldY = y;
 
-    //println("playerHealth = " + health);
+    powerUpDetection();
+    powerUps();
+
     bombDamage();
     enemyDamage();
 

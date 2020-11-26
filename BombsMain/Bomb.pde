@@ -36,7 +36,7 @@ class Bomb extends Object {
       noStroke();
     }
     //rect(x, y, w, h);
-    image(sprites.getBomb(1, 0), x, y);
+    image(sprites.getBombItem(1, 0), x, y);
     fill(235, 109, 30, explosionOpacity);
     noStroke();
     circle(x + w, y + h, explosionRadius);
@@ -108,7 +108,7 @@ class C4 extends Bomb
   void draw() {
     fill(0, bombOpacity);
     if (bombOpacity == 0) noStroke();
-    image(sprites.getBomb(2, 0), x, y);
+    image(sprites.getBombItem(2, 0), x, y);
     //rect(x, y, w, h);
     fill(235, 109, 30, explosionOpacity);
     noStroke();
@@ -152,7 +152,7 @@ class Landmine extends Bomb
   void draw() {
     fill(0, bombOpacity);
     if (bombOpacity == 0) noStroke();
-    image(sprites.getBomb(0, 0), x, y);
+    image(sprites.getBombItem(0, 0), x, y);
     //rect(x, y, w, h);
     fill(235, 109, 30, explosionOpacity);
     noStroke();
