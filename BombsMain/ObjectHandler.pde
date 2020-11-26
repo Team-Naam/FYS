@@ -129,23 +129,23 @@ class ObjectHandler {
 
   //Method voor plaatsen van een Bomb
   void addBomb(float x, float y, int w, int h) {
-    Bomb bomb = new Bomb(x, y, w / eSD, h / eSD, this, sprites);
+    Bomb bomb = new Bomb(x, y, w, h, this, sprites);
     entities.add(bomb);
   }
 
   void addC4(float x, float y, int w, int h) {
-    C4 c4 = new C4(x, y, w / eSD, h / eSD, this, sprites);
+    C4 c4 = new C4(x, y, w, h, this, sprites);
     entities.add(c4);
   }
 
   void addLandmine(float x, float y, int w, int h) {
-    Landmine landmine = new Landmine(x, y, w / eSD, h / eSD, this, sprites);
+    Landmine landmine = new Landmine(x, y, w, h, this, sprites);
     entities.add(landmine);
   }
 
   //Method voor plaatsen van een SpiderBomb
   void addSpiderBomb(float x, float y, int w, int h) {
-    SpiderBomb spiderBomb = new SpiderBomb(x, y, w / eSD, h / eSD, this, sprites);
+    SpiderBomb spiderBomb = new SpiderBomb(x, y, w, h, this, sprites);
     entities.add(spiderBomb);
   }
 
