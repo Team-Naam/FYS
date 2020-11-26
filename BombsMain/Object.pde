@@ -105,7 +105,7 @@ abstract class Object {
       for (int j = 0; j < wallObjects.size(); j++) {
         Object wallObject = wallObjects.get(j);
         Object entityObject = entityObjects.get(i);
-        if (!entityObject.equals(this) && intersection(wallObject) && entityObject.objectId != ObjectID.BOMB && entityObject.entityId != EntityID.GHOST && wallObject.objectId != ObjectID.PLAYER_SHADOW) {
+        if (!entityObject.equals(this) && intersection(wallObject) && entityObject.objectId != ObjectID.BOMB && entityObject.entityId != EntityID.GHOST) {
           return true;
         }
       }

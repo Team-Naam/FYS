@@ -205,9 +205,9 @@ class UserInterface {
     void display() {
       stroke(255);
       strokeWeight(5);
-      line(450, height-90, 450, height);
-      line(800, height-90, 800, height);
-      line(1500, height-90, 1500, height);
+      //line(450, height-90, 450, height);
+      //line(800, height-90, 800, height);
+      //line(1500, height-90, 1500, height);
       noStroke();
 
       if (speedBonus) {

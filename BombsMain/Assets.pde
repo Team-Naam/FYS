@@ -6,6 +6,8 @@ class TextureAssets {
   //Array voor x en y positie in grid
   final PImage[][] sprites;
   final PImage[][] wallSprites;
+  final PImage[][] itemsBombsUI;
+  final PImage[][] menusUserInterface;
   //final PImage[][] rockSprites;
   //final PImage[][] bWallSprites;
   //final PImage[][] itemsAndUISprites;
@@ -15,6 +17,8 @@ class TextureAssets {
   TextureAssets(int tileSize) {
     sprites = loadSprites("data/text/textures.png", tileSize);
     wallSprites = loadSprites("data/text/walls/walls_spritesheet.png", tileSize);
+    itemsBombsUI = loadSprites("data/text/items/itemsBombsUI.png", 32);
+    menusUserInterface = loadSprites("data/text/ui/menu_ui.png", tileSize);
     //rockSprites = loadSprites('', tileSize);
   }
 
@@ -28,6 +32,24 @@ class TextureAssets {
 
   PImage getRock() {
     return sprites[1][0];
+  }
+
+  //Lives/armor is (0, 0) tot en met (3, 0), highscore is (0, 1) tot (0, 3)
+  //Detonation device off is (4, 0) en on is (5, 0)
+  //Hud bomb icons zijn C4(6, 0), dynamite(7, 0) en landmine(7, 1)
+  PImage getUserHud(int row, int column) {
+    return menusUserInterface[row][column];
+  }
+
+  //Landmine (0, 0), dynamite (1, 0), c4 (2, 0)
+  PImage getBomb(int row, int column) {
+    return itemsBombsUI[row][column];
+  }
+
+  //Z (0), x (2), s (4), a (6), on colum 7 (row, voor non-pressed, + 1 for pressed)
+  //Esc on colum 6 (row 0, + 1 for pressed)
+  PImage getKeyCap(int row, int column) {
+    return itemsBombsUI[row][column];
   }
 
   //Functie voor het inladen van de verschillende textures in een array

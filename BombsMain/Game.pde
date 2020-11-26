@@ -34,8 +34,7 @@ class Game {
     objectHandler.update();
     highscore.update();
     graphicsEngine.update();
-    userInterface.update();
-    userInterface.keyReleased();
+    //userInterface.update();
   }
 
   void draw() {
@@ -44,7 +43,7 @@ class Game {
     graphicsEngine.drawFloorLighting();
     objectHandler.draw();
     graphicsEngine.draw();
-    userInterface.draw();
+    //userInterface.draw();
   }
 
   //-----------------------------Graphics engine---------------------------------
