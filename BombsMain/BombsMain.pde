@@ -12,6 +12,10 @@ Game game;
 InputHandler input;
 MainMenu mainMenu;
 GameOver gameOver;
+TextureAssets textureAssets;
+
+PFont bits;
+
 int gameState;
 
 final int KEY_LIMIT = 1024;
@@ -21,10 +25,16 @@ void setup() {
   fullScreen(P2D);
   //size(1920, 1080, P2D);
   frameRate(FRAMERATE);
-  game = new Game(TILE_SIZE, width, height);
+  
+  bits = createFont("data/font/8bitlim.ttf", 40, true);
+  textFont(bits);
+  
   input = new InputHandler();
   mainMenu = new MainMenu();
+  textureAssets = new TextureAssets(TILE_SIZE);
+  game = new Game(TILE_SIZE, width, height, textureAssets);
   gameOver = new GameOver();
+
   gameState = 0; //gameState for the main menu
 }
 
@@ -35,26 +45,26 @@ void draw() {
 }
 
 //this method calls certain other methods based on the current gameState
-void instructionPicker(){     
-  switch(gameState){
-   case 0:
-   mainMenu.update();
-   mainMenu.draw();
-   break;
-   
-   case 1:
-   game.update();
-   game.draw();
-   break;
-   
-   case 2:
-   gameOver.draw();
-   break;
-   
-   default:
-   mainMenu.update();
-   mainMenu.draw();
-   break;
+void instructionPicker() {     
+  switch(gameState) {
+  case 0:
+    mainMenu.update();
+    mainMenu.draw();
+    break;
+
+  case 1:
+    game.update();
+    game.draw();
+    break;
+
+  case 2:
+    gameOver.draw();
+    break;
+
+  default:
+    mainMenu.update();
+    mainMenu.draw();
+    break;
   }
 }
 

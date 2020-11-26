@@ -24,7 +24,7 @@ class Emitter {
      Schiet hier een ray naar toe met elk twee extra rays die net zijonder en zijboven zitten van de orginele ray
      Dit helpt met de vloeiendheid wanneer de emitter beweegt en de schaduwen van plek veranderen*/
     for (Object object : objectHandler.walls) {
-      if (object.objectId == ObjectID.WALL || object.objectId == ObjectID.ROCK) {
+      if (object.objectId == ObjectID.WALL || object.objectId == ObjectID.ROCK || object.objectId == ObjectID.BBLOCK) {
         if (dist(pos.x, pos.y, object.x, object.y) < RAY_DISTANCE) { //checkt alleen rays voor objecten binnen RAY_DISTANCE pixels van de emitter
           rays.add(new Ray(pos, object.lb.x, object.lb.y));
           rays.add(new Ray(pos, object.rb.x, object.rb.y));
@@ -51,7 +51,7 @@ class Emitter {
       PVector closest = null;
       float record = width; //Voor optimization redenen staat deze op width, bepaald hoe ver de ray max mag komen
       for (Object object : entries) {
-        if (object.objectId == ObjectID.WALL || object.objectId == ObjectID.ROCK) { //Safe wall dat hij alleen de waardes pakt van Wall en Rock
+        if (object.objectId == ObjectID.WALL || object.objectId == ObjectID.ROCK || object.objectId == ObjectID.BBLOCK) { //Safe wall dat hij alleen de waardes pakt van Wall en Rock
           PVector intUp = ray.getIntersection(object.lb, object.rb); //Checkt intersectie met bovenkant
           PVector intRight = ray.getIntersection(object.rb, object.ro); //Checkt intersectie met rechterkant
           PVector intDown = ray.getIntersection(object.ro, object.lo); //Checkt intersectie met onderkant

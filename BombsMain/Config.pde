@@ -100,10 +100,10 @@ final int EXPLOSIVE_SPIDER_ROAMING = 1000;
 final int EXPLOSIVE_SPIDER_MOVEMENT_SPEED = 3;
 
 //Items
-final float BOOTS_DROP_CHANCE = 10;
-final float SPARKLER_DROP_CHANCE = 10;
-final float BLUE_POTION_DROP_CHANCE = 10;
-final float SHIELD_DROP_CHANCE = 10;
-final float CLOAK_DROP_CHANCE = 10;
-final float HEART_DROP_CHANCE = 10;
+final float BOOTS_DROP_CHANCE = 23;
+final float SPARKLER_DROP_CHANCE = 8;
+final float BLUE_POTION_DROP_CHANCE = 2;
+final float SHIELD_DROP_CHANCE = 20;
+final float CLOAK_DROP_CHANCE = 3;
+final float HEART_DROP_CHANCE = 5;
 final float COIN_DROP_CHANCE = 10;

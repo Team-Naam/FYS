@@ -42,7 +42,7 @@ class TextureAssets {
   }
 
   //Landmine (0, 0), dynamite (1, 0), c4 (2, 0)
-  PImage getBomb(int row, int column) {
+  PImage getBombItem(int row, int column) {
     return itemsBombsUI[row][column];
   }
 

@@ -22,8 +22,7 @@ class Boots extends Item {
   }
 
   void draw() {
-    fill(128, 128, 134);
-    rect(x, y, w, h);
+    image(sprites.getBombItem(4, 0), x, y);
   }
 }
 
@@ -38,8 +37,7 @@ class Sparkler extends Item {
   }
 
   void draw() {
-    fill(128, 128, 3);
-    rect(x, y, w, h);
+    image(sprites.getBombItem(7, 0), x, y);
   }
 }
 
@@ -54,8 +52,7 @@ class BluePotion extends Item {
   }
 
   void draw() {
-    fill(128, 128, 67);
-    rect(x, y, w, h);
+    image(sprites.getBombItem(3, 0), x, y);
   }
 }
 
@@ -70,8 +67,7 @@ class Shield extends Item {
   }
 
   void draw() {
-    fill(128, 128, 87);
-    rect(x, y, w, h);
+    image(sprites.getBombItem(6, 0), x, y);
   }
 }
 
@@ -86,8 +82,7 @@ class Cloak extends Item {
   }
 
   void draw() {
-    fill(128, 128, 44);
-    rect(x, y, w, h);
+    image(sprites.getBombItem(5, 0), x, y);
   }
 }
 
@@ -102,8 +97,7 @@ class Heart extends Item {
   }
 
   void draw() {
-    fill(128, 128, 213);
-    rect(x, y, w, h);
+    image(sprites.getBombItem(0, 2), x, y);
   }
 }
 
@@ -112,12 +106,11 @@ class Coin extends Item {
     super(x, y, w, h, objectHandler, sprites);
     this.itemId = ItemID.COIN;
   }
-  
+
   void update() {
   }
 
   void draw() {
-    fill(255, 200, 56);
-    rect(x, y, w, h);
+    image(sprites.getBombItem(0, 1), x, y);
   }
 }
