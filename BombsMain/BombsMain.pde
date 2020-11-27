@@ -18,6 +18,8 @@ PFont bits;
 
 int gameState;
 
+boolean escapePressed;
+
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 
@@ -42,6 +44,8 @@ void setup() {
 
 void draw() {
   instructionPicker();
+  
+  escapePressed = false;
 }
 
 //this method calls certain other methods based on the current gameState
@@ -71,6 +75,12 @@ void instructionPicker() {
 void keyPressed() {  
   if (keyCode >= KEY_LIMIT) return;
   keysPressed[keyCode] = true;
+  
+  //rebind van escape
+  if (key == ESC) {
+    key = 0;
+    escapePressed = true;
+  }
 }
 
 void keyReleased() {
