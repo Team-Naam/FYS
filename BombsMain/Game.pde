@@ -35,6 +35,11 @@ class Game {
     highscore.update();
     graphicsEngine.update();
     userInterface.update();
+    
+    //stuurt je naar het main menu als je op escape drukt
+    if (input.escapeDown()) {
+      toMainMenu();
+    }
   }
 
   void draw() {
@@ -213,45 +218,51 @@ class Game {
 
 //-----------------------------Highscore---------------------------------
 
+//code credit Jordy
 class Highscore {
   int score, timeScore, timer;
   Timer scoreTimer;
-  boolean tempGameOver;
   boolean scoreAdded;
   //MySQLConnection myConnection;
-  //Table highscores;
+ // Table highscores;
   int userId;
+  String addScore, selectScore, user;
+  int highscoreTableLimit;
 
   Highscore() {
     //myConnection = new MySQLConnection("verheur6", "od93cCRbyqVu5R1M", "jdbc:mysql://oege.ie.hva.nl/zverheur6");
     //highscores = myConnection.getTable("Highscore");
-    //highscores = myConnection.runQuery("SELECT User_id, score FROM Highscore ORDER BY `score` DESC");
-    score = 0;
+    score = 0; 
     timeScore = TIME_SCORE;
     timer = FRAMERATE * TIME_SCORE_TIMER;
     scoreTimer = new Timer();
-    tempGameOver = false;
     scoreAdded = false;
+    queries();
   }
 
   //iedere sec komt er score bij
   void update() {
-    if (tempGameOver == false) {
+    switch(gameState) {
+    case 1:
       if (scoreTimer.startTimer(timer)) {
         score += timeScore;
       }
-    } else {
-      // als gameover true is en de highscores nog niet geupdate zijn worden de scores geupdate
+      break;
+    case 2:
+      //als gameState gameover is en de highscores nog niet geupdate zijn worden de scores geupdate
       if (scoreAdded == false) {
         updateHighscores();
       }
+      break;
     }
   }
 
   //update de highscorelist
   void updateHighscores() {
-    //als het een nieuwe hoogste score is
-    //highscores = myConnection.runQuery("INSERT INTO `Highscore`(`user_id`, `score`) VALUES ("+ userId + "," + score + ");");
+    //zet de highscore in de tabel
+    //myConnection.updateQuery(addScore);
+    //zodat je altijd de meest up to date highscore laat zien
+    //highscores = myConnection.runQuery(selectScore);
     score = 0;
     scoreAdded = true;
   }
@@ -260,4 +271,22 @@ class Highscore {
   void addScore(int amount) {
     score += amount;
   }
+
+  //temp als je de highscores wilt printen
+  void printHighscore(int limit) {
+    highscoreTableLimit = limit;
+
+    for (int i = 0; i < highscores.getRowCount(); i++) {
+      TableRow row = highscores.getRow(i);
+      for (int j = 0; j < row.getColumnCount(); j++) {
+        text(row.getString(j), width / 2 -150 + 150 * j, 250 + 50 * i);
+      }
+    }
+  }
+
+  void queries() {
+    addScore = "INSERT INTO `Highscore`(`name`, `highscore`) VALUES ("+ user + "," + score + ")";
+    selectScore = "SELECT User_id, score FROM Highscore ORDER BY `score` DESC LIMIT " + highscoreTableLimit;
+  }
 }
+
