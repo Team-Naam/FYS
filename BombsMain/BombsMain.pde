@@ -27,24 +27,31 @@ void setup() {
   fullScreen(P2D);
   //size(1920, 1080, P2D);
   frameRate(FRAMERATE);
-  
+
   bits = createFont("data/font/8bitlim.ttf", 40, true);
   textFont(bits);
-  
+
   input = new InputHandler();
-  mainMenu = new MainMenu();
   textureAssets = new TextureAssets(TILE_SIZE);
+  mainMenu = new MainMenu();
   game = new Game(TILE_SIZE, width, height, textureAssets);
-  gameOver = new GameOver();
+  gameOver = new GameOver(game.highscore);
 
   gameState = 0; //gameState for the main menu
+}
+
+//code credit Jordy
+//stuurt je naar de main menu en reset de game
+void toMainMenu() {
+  gameState = 0;
+  game = new Game(TILE_SIZE, width, height, textureAssets);
 }
 
 //-----------------------------Draw & Key functies---------------------------------
 
 void draw() {
   instructionPicker();
-  
+
   escapePressed = false;
 }
 
@@ -62,6 +69,7 @@ void instructionPicker() {
     break;
 
   case 2:
+    gameOver.update();
     gameOver.draw();
     break;
 
@@ -75,7 +83,7 @@ void instructionPicker() {
 void keyPressed() {  
   if (keyCode >= KEY_LIMIT) return;
   keysPressed[keyCode] = true;
-  
+
   //rebind van escape
   if (key == ESC) {
     key = 0;

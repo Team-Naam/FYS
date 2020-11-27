@@ -273,20 +273,19 @@ class Highscore {
   }
 
   //temp als je de highscores wilt printen
-  void printHighscore(int limit) {
-    highscoreTableLimit = limit;
+  //void printHighscore(int limit) {
+  //  highscoreTableLimit = limit;
 
-    for (int i = 0; i < highscores.getRowCount(); i++) {
-      TableRow row = highscores.getRow(i);
-      for (int j = 0; j < row.getColumnCount(); j++) {
-        text(row.getString(j), width / 2 -150 + 150 * j, 250 + 50 * i);
-      }
-    }
-  }
+  //  for (int i = 0; i < highscores.getRowCount(); i++) {
+  //    TableRow row = highscores.getRow(i);
+  //    for (int j = 0; j < row.getColumnCount(); j++) {
+  //      text(row.getString(j), width / 2 -150 + 150 * j, 250 + 50 * i);
+  //    }
+  //  }
+  //}
 
   void queries() {
     addScore = "INSERT INTO `Highscore`(`name`, `highscore`) VALUES ("+ user + "," + score + ")";
     selectScore = "SELECT User_id, score FROM Highscore ORDER BY `score` DESC LIMIT " + highscoreTableLimit;
   }
 }
-

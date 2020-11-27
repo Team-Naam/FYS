@@ -142,10 +142,3 @@ class Ray {
     }
   }
 }
-
-//code credit Jordy
-//stuurt je naar de main menu en reset de game
-void toMainMenu() {
-  gameState = 0;
-  game = new Game(TILE_SIZE, width, height);
-}
