@@ -55,8 +55,7 @@ class InputHandler {
 
   //checks if the ESCAPE key is held down, and returns true if it is
   boolean escapeDown() {
-    if (keysPressed[27]) return true;
-    return false;
+    return escapePressed;
   }
 }
 
@@ -142,4 +141,11 @@ class Ray {
       return pt;
     }
   }
+}
+
+//code credit Jordy
+//stuurt je naar de main menu en reset de game
+void toMainMenu() {
+  gameState = 0;
+  game = new Game(TILE_SIZE, width, height);
 }
