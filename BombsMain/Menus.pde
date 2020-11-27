@@ -9,8 +9,15 @@ class MainMenu {
   int moveCooldown;
 
   PImage logo;
+  TextureAssets sprites;
+  
+  int xKeyXPos = 1405;
+  int xKeyYPosStart = 640;
+  int xKeyYPosSettings = 820;
+  int xKeyYPosQuit = 1000;
 
-  MainMenu() {
+  MainMenu(TextureAssets textureLoader) {
+
     for (int i = 0; i < MENUBOX_AMOUNT; i++) {
       boxArray[i] = new MenuBox(width / 4, height / 2 + i* (height / 6), width / 2, height / 8, 20);
     }
@@ -24,6 +31,7 @@ class MainMenu {
 
     logo = loadImage("data/text/logo_highres.png");
     logo.resize(200, 0);
+    this.sprites = textureLoader;
   }
 
   void draw() {
@@ -32,6 +40,9 @@ class MainMenu {
     for (MenuBox menuBox : boxArray) {
       menuBox.draw();
     }
+    image(sprites.getKeyCap(2,7), xKeyXPos, xKeyYPosStart);
+    image(sprites.getKeyCap(2,7), xKeyXPos, xKeyYPosSettings);
+    image(sprites.getKeyCap(2,7), xKeyXPos, xKeyYPosQuit);
   }
 
   void update() {
@@ -39,6 +50,7 @@ class MainMenu {
       menuBox.selected = false;
     }
     boxArray[boxSelected].selected = true;
+     
 
     if (input.upDown() && moveCooldown == 0) {
       if (boxSelected == 0) boxSelected = MENUBOX_AMOUNT - 1;
@@ -115,6 +127,7 @@ class MenuBox {
     if (selected) {
       boxOuterColour = BOX_HIGHLIGHTED_OUTER_COLOUR;
       boxInteriorColour = BOX_HIGHLIGHTED_INNER_COLOUR;
+
     } else {
       boxOuterColour = BOX_BASIC_OUTER_COLOUR;
       boxInteriorColour = BOX_BASIC_INNER_COLOUR;
