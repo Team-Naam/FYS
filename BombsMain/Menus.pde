@@ -7,7 +7,7 @@ class MainMenu {
 
   int boxSelected;
   int moveCooldown;
-  
+
   PImage logo;
 
   MainMenu() {
@@ -52,21 +52,21 @@ class MainMenu {
       moveCooldown = MENU_MOVE_COOLDOWN;
     }
     if (moveCooldown > 0) moveCooldown--;
-    
-    if(input.xDown()){
-      switch(boxSelected){
-       case 0:
-       gameState = 1;
-       break;
-       case 1:
-       gameState = 2;
-       break;
-       case 2:
-       exit();
-       return;
-       
-       default:
-       gameState = 1;
+
+    if (input.xDown()) {
+      switch(boxSelected) {
+      case 0:
+        gameState = 1;
+        break;
+      case 1:
+        gameState = 2;
+        break;
+      case 2:
+        exit();
+        return;
+
+      default:
+        gameState = 1;
       }
     }
   }
@@ -133,6 +133,12 @@ class GameOver {
     this.highscore = highscore;
   }
 
+  void update() {
+    if (input.escapeDown()) {
+      toMainMenu();
+    }
+  }
+
   void draw() {
     background(MENU_BACKGROUND_COLOUR);
     image(logo, 20, height - logo.height - 20);
@@ -142,11 +148,5 @@ class GameOver {
     text("GAME OVER", width / 2 -150, height / 4);
     textSize(40);
     text("SCORE: " + highscore.score, width / 2 -125, height / 4 + 100);
-  }
-
-  void update() {
-    if (input.escapeDown()) {
-      toMainMenu();
-    }
   }
 }
