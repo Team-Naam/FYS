@@ -73,8 +73,7 @@ class Poltergeist extends Entity {
   }
 
   void draw() {
-    fill(200, 200, 230);
-    rect(x, y, w, h);
+    image(sprites.getEntity(0, 0), x, y);
   }
 }
 
