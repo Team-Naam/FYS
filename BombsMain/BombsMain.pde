@@ -33,7 +33,7 @@ void setup() {
 
   input = new InputHandler();
   textureAssets = new TextureAssets(TILE_SIZE);
-  mainMenu = new MainMenu();
+  mainMenu = new MainMenu(textureAssets);
   game = new Game(TILE_SIZE, width, height, textureAssets);
   gameOver = new GameOver();
 
