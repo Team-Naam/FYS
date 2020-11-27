@@ -122,11 +122,31 @@ class MenuBox {
   }
 }
 
-class GameOver{
-  void draw(){
-   background(255);
-   textSize(40);
-   text("you died", width / 2, height / 2);
+//code credit Jordy
+//gameOver scherm
+class GameOver {
+  PImage logo;
+  Highscore highscore;
+
+  GameOver(Highscore highscore) {
+    logo = loadImage("data/text/logo_highres.png");
+    this.highscore = highscore;
   }
-  
-}
+
+  void draw() {
+    background(MENU_BACKGROUND_COLOUR);
+    image(logo, 20, height - logo.height - 20);
+    logo.resize(200, 0);
+    fill(0);
+    textSize(50);
+    text("GAME OVER", width / 2 -150, height / 4);
+    textSize(40);
+    text("SCORE: " + highscore.score, width / 2 -125, height / 4 + 100);
+  }
+
+  void update() {
+    if (input.escapeDown()) {
+      toMainMenu();
+    }
+  }
+}
