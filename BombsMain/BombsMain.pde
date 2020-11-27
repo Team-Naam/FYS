@@ -35,7 +35,7 @@ void setup() {
   textureAssets = new TextureAssets(TILE_SIZE);
   mainMenu = new MainMenu();
   game = new Game(TILE_SIZE, width, height, textureAssets);
-  gameOver = new GameOver(game.highscore);
+  gameOver = new GameOver();
 
   gameState = 0; //gameState for the main menu
 }
@@ -69,7 +69,7 @@ void instructionPicker() {
     break;
 
   case 2:
-    gameOver.update();
+    gameOver.update(game.highscore);
     gameOver.draw();
     break;
 

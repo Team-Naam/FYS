@@ -128,12 +128,13 @@ class GameOver {
   PImage logo;
   Highscore highscore;
 
-  GameOver(Highscore highscore) {
+  GameOver() {
     logo = loadImage("data/text/logo_highres.png");
     this.highscore = highscore;
   }
 
-  void update() {
+  void update(Highscore highscore) {
+  this.highscore = highscore;
     if (input.escapeDown()) {
       toMainMenu();
     }
