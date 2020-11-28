@@ -49,7 +49,7 @@ class Bomb extends Object {
   //Kijkt of object een enemy is
   void enemyDetection() {
     for (Object entity : objectHandler.entities) {
-      if (!entity.equals(this) && entity.objectId == ObjectID.ENTITY ) {
+      if (!entity.equals(this) && entity.objectId == ObjectID.ENTITY) {
         if (circleRectangleOverlap(entity.x, entity.y, entity.w, entity.h)) {
           ((Entity)entity).insideExplosion = true;
         }
@@ -119,6 +119,7 @@ class C4 extends Bomb
     }
   }
 
+
   void update() {
     if ( bombActivated) {
       enemyDetection();
@@ -167,6 +168,7 @@ class Landmine extends Bomb
     {
       enemyOverlapsLandmine();
     }
+
     if (enemyOverlaps) {
       enemyDetection();
       if (explosionRadius < 400) {

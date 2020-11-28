@@ -33,8 +33,8 @@ class Game {
     //background.update();
     objectHandler.update();
     highscore.update();
-    graphicsEngine.update();
     userInterface.update();
+    graphicsEngine.update();
     
     //stuurt je naar het main menu als je op escape drukt
     if (input.escapeDown()) {
@@ -44,6 +44,7 @@ class Game {
 
   void draw() {
     background(128);
+    //graphicsEngine.drawFloorLighting();
     //background.draw();
     graphicsEngine.drawFloorLighting();
     objectHandler.draw();
