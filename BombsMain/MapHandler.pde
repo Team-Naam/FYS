@@ -14,7 +14,7 @@ class MapHandler {
   MapHandler(int sizeOfTiles) { 
     mapList = new IntList();
     mapQueue = new ArrayDeque<Integer>(50);
-    for (int i = 1; i <= LEVEL_AMOUNT; i++) {
+    for (int i = 0; i < LEVEL_AMOUNT; i++) {
       mapList.append(i);
     }
     addTutorial();
