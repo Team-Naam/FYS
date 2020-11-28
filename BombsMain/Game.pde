@@ -263,7 +263,6 @@ class Highscore {
     //myConnection.updateQuery(addScore);
     //zodat je altijd de meest up to date highscore laat zien
     //highscores = myConnection.runQuery(selectScore);
-    score = 0;
     scoreAdded = true;
   }
 
