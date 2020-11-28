@@ -83,7 +83,7 @@ class ObjectHandler {
     }
     //Spider
     if (enemy == 3) {
-      Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+      Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD / eSD, this, sprites);
       entities.add(spider);
     }
     //Exp spider
@@ -104,7 +104,7 @@ class ObjectHandler {
   }
 
   void addSpider(float x, float y, int w, int h) {
-    Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+    Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD / eSD, this, sprites);
     entities.add(spider);
   }
 

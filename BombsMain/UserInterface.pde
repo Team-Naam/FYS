@@ -108,7 +108,7 @@ class UserInterface {
     image(textureAssets.getUserHud(7, 0), width-400, height-125);
     image(textureAssets.getUserHud(7, 1), width-275, height-125);
     image(textureAssets.getUserHud(6, 0), width-150, height-125);
-
+    
     //Pakt het plaatje uit Assets voor het activeer knop
     image(textureAssets.getUserHud(4, 0), width-125, height-250);
 
