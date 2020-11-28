@@ -103,6 +103,11 @@ class ObjectHandler {
     }
   }
 
+  void addSpider(float x, float y, int w, int h) {
+    Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+    entities.add(spider);
+  }
+
   //Method voor het creëren van de muren, input lijkt me vanzelf sprekend
   void addWall(float x, float y, int w, int h) {
     Wall wall = new Wall(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);

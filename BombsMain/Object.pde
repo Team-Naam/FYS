@@ -26,7 +26,7 @@ abstract class Object {
   boolean undefeatabaleBonus;
   boolean speedBonus;
   boolean sparklerBonus;
-  
+
   float x, y;
   int w, h;
   ObjectID objectId;
@@ -84,12 +84,12 @@ abstract class Object {
 
   PVector getPlayerPos() {
     PVector pt = new PVector();
-    
+
     ArrayList<Object> entityObjects = objectHandler.entities;
     Object player = entityObjects.get(0);
-    
+
     pt.set(player.or);
-    
+
     return pt;
   }
 
@@ -101,14 +101,9 @@ abstract class Object {
   }
 
   //Gebruikt bovenstaande methode om te kijken of objecten elkaar doorkruizen
-  //Zal kijken of ik nog een kan schrijven die ook de objectID's erbij betrekt, zodat je specifieke collision kan vinden
   boolean wallCollisionDetection() {
-    ArrayList<Object> entityObjects = objectHandler.entities;
-    ArrayList<Object> wallObjects = objectHandler.walls;
-    for (int i = 0; i < entityObjects.size(); i++) {
-      for (int j = 0; j < wallObjects.size(); j++) {
-        Object wallObject = wallObjects.get(j);
-        Object entityObject = entityObjects.get(i);
+    for (Object wallObject : objectHandler.walls) {
+      for (Object entityObject : objectHandler.entities) {
         if (!entityObject.equals(this) && intersection(wallObject) && entityObject.objectId != ObjectID.BOMB && entityObject.entityId != EntityID.GHOST) {
           return true;
         }
@@ -117,13 +112,10 @@ abstract class Object {
     return false;
   }
 
+
   boolean rockCollisionDetection() {
-    ArrayList<Object> entityObjects = objectHandler.entities;
-    ArrayList<Object> wallObjects = objectHandler.walls;
-    for (int i = 0; i < entityObjects.size(); i++) {
-      for (int j = 0; j < wallObjects.size(); j++) {
-        Object wallObject = wallObjects.get(j);
-        Object entityObject = entityObjects.get(i);
+    for (Object wallObject : objectHandler.walls) {
+      for (Object entityObject : objectHandler.entities) {
         if (!entityObject.equals(this) && intersection(wallObject) && wallObject.objectId == ObjectID.ROCK) {
           return true;
         }
