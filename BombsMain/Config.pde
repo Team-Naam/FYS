@@ -3,7 +3,8 @@
 //Game
 final float MAP_SCROLL_SPEED = 0.5;
 final float MAP_OFFSET = 0;
-final int LEVELS = 3;
+final int LEVEL_AMOUNT = 3;
+
 //!NIET VERANDEREN!
 final int TILE_SIZE = 128;
 final int OBJECT_Y_OFFSET = 100;
