@@ -41,8 +41,6 @@ class Entity extends Object {
       y = oldY;
     }
 
-    bombDamage();
-
     oldX = x;
     oldY = y;
   }

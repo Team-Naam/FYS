@@ -42,7 +42,11 @@ class Player extends Object {
 
     or = new PVector((lb.x + rb.x) / 2, (lb.y + lo.y) / 2);
 
-    playerControls();
+    if (speedX != 0) {
+      speedY = 0;
+    } else if (speedY != 0) {
+      speedX = 0;
+    }
 
     x = x + speedX;
     y = y + speedY;
@@ -75,7 +79,6 @@ class Player extends Object {
   void playerControls() {
     speedX = 0;
     speedY = 0;
-    
     if (input.leftDown() && x > 0) {
       speedX += -velX;
     }

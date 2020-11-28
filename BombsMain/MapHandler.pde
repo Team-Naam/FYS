@@ -5,7 +5,7 @@ import java.util.Queue;
 import java.util.ArrayDeque;
 
 class MapHandler { 
-
+ 
   IntList mapList; 
   Queue<Integer> mapQueue;
   PImage newMap; 
@@ -14,12 +14,12 @@ class MapHandler {
   float mapPositionTracker; 
   float offSet; 
   int mapAmount; 
-
+ 
   MapHandler(int sizeOfTiles) { 
     mapList = new IntList();
     mapQueue = new ArrayDeque<Integer>(50);
-    for (int e = 0; e < LEVEL_AMOUNT; e++) {
-      mapList.append(e);
+    for (int i = 0; i < LEVEL_AMOUNT; i++) {
+      mapList.append(i);
     }
     addTutorial();
     mapPositionTracker = 0; 
@@ -28,25 +28,25 @@ class MapHandler {
     offSet = MAP_OFFSET; 
     mapAmount = LEVEL_AMOUNT;
   } 
-
+ 
   void update() { 
     mapPositionTracker -= mapScrollSpeed; 
     if (mapPositionTracker <= 0) {  
       generateMap(game.objectHandler); 
-      //println("Generating new map");
-    }
+      //println("Generating new map"); 
+    } 
   } 
-
+ 
   void generateMap(ObjectHandler objectHandler) { 
     loadMapImage(); 
     loadMap(newMap.pixels, newMap.width, newMap.height, tileSize, tileSize, objectHandler, offSet);
     mapPositionTracker += offSet; 
     //println("mapWidth = " + newMap.width); 
     offSet = floor(newMap.width * tileSize); 
-    //println("offSet = " + offSet);
+    //println("offSet = " + offSet); 
   } 
-
-  void loadMapImage() {
+ 
+  void loadMapImage() { 
     if (mapQueue.peek() != null) {
       int mapFileNumber = mapQueue.remove();
       if (mapFileNumber >= 0) {
@@ -104,6 +104,7 @@ void loadMap(int[] pixels, int w, int h, int tw, int th, ObjectHandler objectHan
       }
       //Hexcode = E4B6AD
       if (c == 0xFFE4B6AD) {
+
       }
       //Hexcode = 696a6a
       if (c == 0xFF696a6a) {
