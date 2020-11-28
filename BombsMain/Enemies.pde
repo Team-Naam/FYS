@@ -60,6 +60,8 @@ class Poltergeist extends Entity {
     movement();
     attack();
 
+
+
     x = x + speedX;
     y = y + speedY;
 
@@ -70,6 +72,20 @@ class Poltergeist extends Entity {
 
     oldX = x;
     oldY = y;
+  }
+
+  void attack() {
+    ArrayList<Object> entityObjects = objectHandler.entities;
+    Object playerEntity = entityObjects.get(0);
+    if (intersection(playerEntity)) {
+      ((Player)playerEntity).attackDamage = attack;
+      ((Player)playerEntity).gettingAttacked = true;
+      cloakBonus = false;
+      undefeatabaleBonus = false;
+      speedBonus = false;
+      sparklerBonus = false;
+      println("slash");
+    }
   }
 
   void draw() {

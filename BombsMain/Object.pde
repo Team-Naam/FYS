@@ -23,6 +23,10 @@ abstract class Object {
   PVector lb, rb, ro, lo, or, left, right, up, down;
 
   boolean cloakBonus;
+  boolean undefeatabaleBonus;
+  boolean speedBonus;
+  boolean sparklerBonus;
+  
   float x, y;
   int w, h;
   ObjectID objectId;
