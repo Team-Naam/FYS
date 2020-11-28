@@ -10,8 +10,7 @@ class TextureAssets {
   final PImage[][] menusUserInterface;
   final PImage[][] entities;
   //final PImage[][] rockSprites;
-  //final PImage[][] bWallSprites;
-  //final PImage[][] itemsAndUISprites;
+  final PImage[][] bWallSprites;
   //final PImage[][] backgroundSprites;
 
   //Class neemt filepaths in en de groote van de gridtegels
@@ -21,11 +20,16 @@ class TextureAssets {
     itemsBombsUI = loadSprites("data/text/items/itemsBombsUI.png", 32);
     menusUserInterface = loadSprites("data/text/ui/menu_ui.png", tileSize);
     entities = loadSprites("data/text/entities/poltergeist_test_64.png", 64);
+    bWallSprites = loadSprites("data/text/walls/broken_walls_spritesheet.png", tileSize);
     //rockSprites = loadSprites('', tileSize);
   }
 
   PImage getWall(int row, int column) {
     return wallSprites[row][column];
+  }
+
+  PImage getBrokenWall(int row, int column) {
+    return bWallSprites[row][column];
   }
 
   PImage getPlayer() {

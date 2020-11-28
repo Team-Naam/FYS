@@ -30,7 +30,7 @@ class Wall extends Object {
     down = new PVector((lb.x + rb.x) / 2 + 1, y + h + 5);
 
     for (Object wallObject : objectHandler.walls) {
-      if (wallObject.objectId == ObjectID.WALL || wallObject.objectId == ObjectID.ROCK) {
+      if (wallObject.objectId == ObjectID.WALL || wallObject.objectId == ObjectID.ROCK || wallObject.objectId == ObjectID.BBLOCK) {
         if (dist(or.x, or.y, wallObject.or.x, wallObject.or.y) < 138) {
 
           leftRay = new Ray(or, left.x, left.y);
@@ -170,7 +170,7 @@ class Rock extends Object {
   }
 }
 
-//-----------------------------Breakable blocks---------------------------------
+//-----------------------------Path blocks---------------------------------
 
 class Path extends Object {
   Ray leftRay;
@@ -210,7 +210,7 @@ class Path extends Object {
     down = new PVector((lb.x + rb.x) / 2 + 1, y + h + 5);
 
     for (Object wallObject : objectHandler.walls) {
-      if (wallObject.objectId == ObjectID.WALL || wallObject.objectId == ObjectID.ROCK) {
+      if (wallObject.objectId == ObjectID.WALL || wallObject.objectId == ObjectID.ROCK || wallObject.objectId == ObjectID.BBLOCK) {
         if (dist(or.x, or.y, wallObject.or.x, wallObject.or.y) < 138) {
           leftRay = new Ray(or, left.x, left.y);
           rightRay = new Ray(or, right.x, right.y);
@@ -262,6 +262,15 @@ class Path extends Object {
 //-----------------------------Breakable blocks---------------------------------
 
 class BreakableWall extends Entity {
+  Ray leftRay;
+  Ray rightRay;
+  Ray upRay;
+  Ray downRay;
+
+  boolean leftCon = false;
+  boolean rightCon = false;
+  boolean upCon = false;
+  boolean downCon = false;
 
   int health = BBLOCK_HEALTH;
 
@@ -272,7 +281,8 @@ class BreakableWall extends Entity {
     this.objectId = ObjectID.BBLOCK;
   }
 
-  void update() {
+  @Override
+    void update() {
     lb = new PVector(x, y);
     rb = new PVector(x + w, y);
     ro = new PVector(x + w, y + h);
@@ -285,10 +295,55 @@ class BreakableWall extends Entity {
     up = new PVector((lb.x + rb.x) / 2 - 1, y - 5);
     down = new PVector((lb.x + rb.x) / 2 + 1, y + h + 5);
 
+    for (Object wallObject : objectHandler.walls) {
+      if (wallObject.objectId == ObjectID.WALL || wallObject.objectId == ObjectID.ROCK || wallObject.objectId == ObjectID.BBLOCK) {
+        if (dist(or.x, or.y, wallObject.or.x, wallObject.or.y) < 138) {
+
+          leftRay = new Ray(or, left.x, left.y);
+          rightRay = new Ray(or, right.x, right.y);
+          upRay = new Ray(or, up.x, up.y);
+          downRay = new Ray(or, down.x, down.y);
+
+          float record = 69;
+
+          PVector leftInt = leftRay.getIntersection(wallObject.rb, wallObject.ro);
+          PVector rightInt = rightRay.getIntersection(wallObject.lb, wallObject.lo);
+          PVector upInt = upRay.getIntersection(wallObject.lo, wallObject.ro);
+          PVector downInt = downRay.getIntersection(wallObject.lb, wallObject.rb);
+
+          if (leftInt != null) {
+            float d = PVector.dist(this.or, leftInt);
+            if (d < record) {
+              leftCon = true;
+            }
+          }
+          if (rightInt != null) {
+            float d = PVector.dist(this.or, rightInt);
+            if (d < record) {
+              rightCon = true;
+            }
+          }
+          if (upInt != null) {
+            float d = PVector.dist(this.or, upInt);
+            if (d < record) {
+              upCon = true;
+            }
+          }
+          if (downInt != null) {
+            float d = PVector.dist(this.or, downInt);
+            if (d < record) {
+              downCon = true;
+            }
+          }
+        }
+      }
+    }
+
     bombDamage();
   }
 
-  void bombDamage() {
+  @Override
+    void bombDamage() {
     if (insideExplosion) {
       health -= BOMB_DAMAGE;
       insideExplosion = false;
@@ -300,7 +355,11 @@ class BreakableWall extends Entity {
   }
 
   void draw() {
-    fill(128, 24, 78);
-    rect(x, y, w, h);
+    if (rightCon && leftCon && !upCon && !downCon) {
+      image(sprites.getBrokenWall(0, 0), x, y);
+    }
+    if (!rightCon && !leftCon && upCon && downCon) {
+      image(sprites.getBrokenWall(1, 0), x, y);
+    }
   }
 }
