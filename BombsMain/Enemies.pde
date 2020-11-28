@@ -99,9 +99,7 @@ class Mummy extends Entity {
   }
 
   void draw() {
-    //println(health);
-    fill(128, 128, 50);
-    rect(x, y, w, h);
+    image(sprites.getEntity(1, 0), x, y);
   }
 }
 

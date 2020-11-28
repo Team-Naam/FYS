@@ -10,7 +10,7 @@ class MainMenu {
 
   PImage logo;
   TextureAssets sprites;
-  
+
   int xKeyXPos = 1405;
   int xKeyYPosStart = 640;
   int xKeyYPosSettings = 820;
@@ -40,9 +40,9 @@ class MainMenu {
     for (MenuBox menuBox : boxArray) {
       menuBox.draw();
     }
-    image(sprites.getKeyCap(2,7), xKeyXPos, xKeyYPosStart);
-    image(sprites.getKeyCap(2,7), xKeyXPos, xKeyYPosSettings);
-    image(sprites.getKeyCap(2,7), xKeyXPos, xKeyYPosQuit);
+    image(sprites.getKeyCap(2, 7), xKeyXPos, xKeyYPosStart);
+    image(sprites.getKeyCap(2, 7), xKeyXPos, xKeyYPosSettings);
+    image(sprites.getKeyCap(2, 7), xKeyXPos, xKeyYPosQuit);
   }
 
   void update() {
@@ -50,7 +50,7 @@ class MainMenu {
       menuBox.selected = false;
     }
     boxArray[boxSelected].selected = true;
-     
+
 
     if (input.upDown() && moveCooldown == 0) {
       if (boxSelected == 0) boxSelected = MENUBOX_AMOUNT - 1;
@@ -127,7 +127,6 @@ class MenuBox {
     if (selected) {
       boxOuterColour = BOX_HIGHLIGHTED_OUTER_COLOUR;
       boxInteriorColour = BOX_HIGHLIGHTED_INNER_COLOUR;
-
     } else {
       boxOuterColour = BOX_BASIC_OUTER_COLOUR;
       boxInteriorColour = BOX_BASIC_INNER_COLOUR;
@@ -143,11 +142,10 @@ class GameOver {
 
   GameOver() {
     logo = loadImage("data/text/logo_highres.png");
-    this.highscore = highscore;
   }
 
   void update(Highscore highscore) {
-  this.highscore = highscore;
+    this.highscore = highscore;
     if (input.escapeDown()) {
       toMainMenu();
     }

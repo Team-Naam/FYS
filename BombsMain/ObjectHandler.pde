@@ -93,7 +93,7 @@ class ObjectHandler {
     }
     //Mummy
     if (enemy == 5) {
-      Mummy mummy = new Mummy(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+      Mummy mummy = new Mummy(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD, this, sprites);
       entities.add(mummy);
     }
     //SMummy
