@@ -185,8 +185,7 @@ class Spider extends Entity {
   }
 
   void draw() {
-    fill(32);
-    rect(x, y, w, h);
+    image(sprites.getEntity(0, 1), x, y);
   }
 }
 

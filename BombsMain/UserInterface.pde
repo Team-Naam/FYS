@@ -225,11 +225,11 @@ class UserInterface {
       fill(255, 0, 0);
       stroke(200, 0, 0);
       strokeWeight(5);
-      rect(80, height-80, health * 20, 20);
+      rect(80, height - 80, health * 20, 20);
       fill(0, 255, 255);
       stroke(0, 255, 255);
       strokeWeight(5);
-      rect(80, height-30, shield * 20, 15);
+      rect(80, height - 30, shield * 20, 15);
       noFill();
       noStroke();
     }
