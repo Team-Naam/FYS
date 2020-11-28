@@ -33,14 +33,14 @@ class Player extends Object {
   }
 
   void update() {
+    playerControls();
+    
     lb = new PVector(x, y);
     rb = new PVector(x + w, y);
     ro = new PVector(x + w, y + h);
     lo = new PVector(x, y + h);
 
     or = new PVector((lb.x + rb.x) / 2, (lb.y + lo.y) / 2);
-
-    playerControls();
 
     if (speedX != 0) {
       speedY = 0;

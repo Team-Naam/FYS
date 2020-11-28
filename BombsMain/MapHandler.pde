@@ -1,5 +1,9 @@
 //Code Credit Ole Neuman 
 //This class handles everything that has to do with the map 
+
+import java.util.Queue;
+import java.util.ArrayDeque;
+
 class MapHandler { 
  
   IntList mapList; 
@@ -88,12 +92,11 @@ void loadMap(int[] pixels, int w, int h, int tw, int th, ObjectHandler objectHan
       }
       //Hexode = ac3232
       if (c == 0xFFac3232) {
-        //objectHandler.addEntity(x * tw + offSet, y * th, tw, th);
         objectHandler.addEnemy(x * tw + offSet, y * th, tw, th);
       }
       //Hexode = 00a0c8
-      if (c == 0xFF00a0c8) {
-
+      if (c == 0xFF000000) {
+        objectHandler.addSpider(x * tw + offSet, y * th, tw, th);
       }
       //Hexcode = 76428a
       if (c == 0xFF76428a) {

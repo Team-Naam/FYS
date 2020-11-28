@@ -255,7 +255,7 @@ class SpiderBomb extends Bomb {
     for (Object player : objectHandler.entities) {
       if ( !player.equals(this) && player.objectId == ObjectID.PLAYER ) {
         if (circleRectangleOverlap(player.x, player.y, player.w, player.h)) {
-          ((Entity)player).insideExplosion = true;
+          ((Player)player).insideExplosion = true;
         }
       }
     }
