@@ -8,6 +8,7 @@ class TextureAssets {
   final PImage[][] wallSprites;
   final PImage[][] itemsBombsUI;
   final PImage[][] menusUserInterface;
+  final PImage[][] entities;
   //final PImage[][] rockSprites;
   //final PImage[][] bWallSprites;
   //final PImage[][] itemsAndUISprites;
@@ -19,6 +20,7 @@ class TextureAssets {
     wallSprites = loadSprites("data/text/walls/walls_spritesheet.png", tileSize);
     itemsBombsUI = loadSprites("data/text/items/itemsBombsUI.png", 32);
     menusUserInterface = loadSprites("data/text/ui/menu_ui.png", tileSize);
+    entities = loadSprites("data/text/entities/poltergeist_test_64.png", 64);
     //rockSprites = loadSprites('', tileSize);
   }
 
@@ -28,6 +30,10 @@ class TextureAssets {
 
   PImage getPlayer() {
     return sprites[1][1];
+  }
+
+  PImage getEntity(int row, int column) {
+    return entities[row][column];
   }
 
   PImage getRock() {

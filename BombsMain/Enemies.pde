@@ -73,8 +73,7 @@ class Poltergeist extends Entity {
   }
 
   void draw() {
-    fill(200, 200, 230);
-    rect(x, y, w, h);
+    image(sprites.getEntity(0, 0), x, y);
   }
 }
 
@@ -100,9 +99,7 @@ class Mummy extends Entity {
   }
 
   void draw() {
-    //println(health);
-    fill(128, 128, 50);
-    rect(x, y, w, h);
+    image(sprites.getEntity(1, 0), x, y);
   }
 }
 

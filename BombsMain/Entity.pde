@@ -29,6 +29,7 @@ class Entity extends Object {
 
   //Nieuw collision system waarbij hij terug wordt gezet naar de oude positie
   void update() {
+    bombDamage();
     movement();
     attack();
 
