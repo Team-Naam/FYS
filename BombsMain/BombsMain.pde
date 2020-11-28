@@ -6,6 +6,8 @@
 //Code credit Winand Metz, Ole Neuman
 import samuelal.squelized.*;
 import processing.sound.*;
+import java.util.Queue;
+import java.util.ArrayDeque;
 
 //Voor main menu etc
 Game game;
