@@ -14,10 +14,10 @@ class Player extends Object {
   boolean gettingAttacked = false;
 
   int speedX, speedY, startTime, attackDamage;
-  int speedBonusTimer = 1000;
-  int undefeatabaleBonusTimer = 5000;
-  int cloakBonusTimer = 5000;
-  int sparklerBonusTimer = 3000;
+  int speedBonusTimer = SPEED_BONUS_TIME;
+  int undefeatabaleBonusTimer = UNDEFEATBALE_BONUS_TIME;
+  int cloakBonusTimer = CLOACK_BONUS_TIME;
+  int sparklerBonusTimer = BOMB_BONUS_TIME;
   int velX = PLAYER_SPEED;
   int velY = PLAYER_SPEED;
   int health = PLAYER_HEALTH;
@@ -34,7 +34,7 @@ class Player extends Object {
 
   void update() {
     playerControls();
-    
+
     lb = new PVector(x, y);
     rb = new PVector(x + w, y);
     ro = new PVector(x + w, y + h);
@@ -170,10 +170,15 @@ class Player extends Object {
     for (int i = 0; i < objects.size(); i++) {
       Object item = objects.get(i);
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.BOOTS) {
-        println("NYOOM");
-        velX += 2;
-        velY += 2;
-        speedBonus = true;
+        if (!speedBonus) {
+          println("NYOOM");
+          velX += SPEED_BONUS;
+          velY += SPEED_BONUS;
+          speedBonus = true;
+        }
+        if (speedBonus) {
+          speedBonusTimer += SPEED_BONUS_TIME;
+        }
         objectHandler.removeEntity(item);
       }
 
@@ -190,7 +195,7 @@ class Player extends Object {
 
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.SHIELD) {
         println("thicc");
-        shield += 2;
+        shield += SHIELD_BONUS;
         shieldBonus = true;
         objectHandler.removeEntity(item);
       }
@@ -217,7 +222,6 @@ class Player extends Object {
 
 
   void draw() {
-    //rect(x, y, w, h);
-    image(sprites.getPlayer(), x, y);
+    image(sprites.getEntity(1, 1), x, y);
   }
 }

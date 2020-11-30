@@ -22,7 +22,7 @@ final color BOX_BASIC_INNER_COLOUR = #271FC5;
 final color BOX_HIGHLIGHTED_OUTER_COLOUR = #E4BB17;
 final color BOX_HIGHLIGHTED_INNER_COLOUR = #ED270F;
 final color BOX_TEXT_COLOUR = #000000;
-final int MENUBOX_AMOUNT = 3;
+final int MENUBOX_AMOUNT = 2;
 final int MENU_MOVE_COOLDOWN = 10;
 
 //HighScores
@@ -30,13 +30,13 @@ final int TIME_SCORE = 10;
 final int TIME_SCORE_TIMER = 1;  //in sec
 
 //Coin
-final int COIN_SCORE = 20;
+final int COIN_SCORE = 100;
 
 //Player
 final int PLAYER_X_SPAWN = 256;
 final int PLAYER_Y_SPAWN = 476;
 final int PLAYER_HEALTH = 10;
-final int PLAYER_SPEED = 4;
+final int PLAYER_SPEED = 3;
 final int PLAYER_SHIELD = 0;
 //!NIET VERANDEREN!
 final int PLAYER_SIZE = TILE_SIZE / 2;
@@ -58,13 +58,13 @@ final int PLAYER_DETECTION_DISTANCE = 400;
 final int ENTITY_SIZE_DIVIDER = 2;
 final float GHOST_SPAWN_CHANCE = 30;
 final float POLTERGEIST_SPAWN_CHANCE = 7;
-final float SPIDER_SPAWN_CHANCE = 35;
+final float SPIDER_SPAWN_CHANCE = 50;
 final float EXPLOSIVE_SPIDER_SPAWN_CHANCE = 10;
 final float MUMMY_SPAWN_CHANCE = 40;
 final float STONED_MUMMY_SPAWN_CHANCE = 13;
 
 //Ghost
-final int GHOST_HEALTH = 4;
+final int GHOST_HEALTH = 3;
 final int GHOST_ATTACK = 3;
 final int GHOST_ROAMING = 3000;
 final int GHOST_MOVEMENT_SPEED = 2;
@@ -76,17 +76,17 @@ final int POLTERGEIST_ROAMING = 3000;
 final int POLTERGEIST_MOVEMENT_SPEED = 2;
 
 //Mummy
-final int MUMMY_HEALTH = 3;
+final int MUMMY_HEALTH = 8;
 final int MUMMY_ATTACK = 4;
 final int MUMMY_ROAMING = 2000;
 final int MUMMY_MOVEMENT_SPEED = 1;
 
 //SMummy
-final int SMUMMY_HEALTH = 3;
+final int SMUMMY_HEALTH = 8;
 final int SMUMMY_ATTACK = 4;
 final int SMUMMY_ROAMING = 2000;
 final int SMUMMY_MOVEMENT_SPEED = 1;
-final int SMUMMY_SHIELD = 1;
+final int SMUMMY_SHIELD = 2;
 
 //Spider
 final int SPIDER_HEALTH = 1;
@@ -101,10 +101,18 @@ final int EXPLOSIVE_SPIDER_ROAMING = 1000;
 final int EXPLOSIVE_SPIDER_MOVEMENT_SPEED = 3;
 
 //Items
-final float BOOTS_DROP_CHANCE = 23;
-final float SPARKLER_DROP_CHANCE = 8;
+final float BOOTS_DROP_CHANCE = 5;
+final float SPARKLER_DROP_CHANCE = 4;
 final float BLUE_POTION_DROP_CHANCE = 2;
-final float SHIELD_DROP_CHANCE = 20;
+final float SHIELD_DROP_CHANCE = 10;
 final float CLOAK_DROP_CHANCE = 3;
-final float HEART_DROP_CHANCE = 5;
-final float COIN_DROP_CHANCE = 10;
+final float HEART_DROP_CHANCE = 13;
+final float COIN_DROP_CHANCE = 60;
+
+//Power ups
+final int SPEED_BONUS_TIME = 4000;
+final int UNDEFEATBALE_BONUS_TIME = 2000;
+final int CLOACK_BONUS_TIME = 3000;
+final int BOMB_BONUS_TIME = 2000;
+final int SHIELD_BONUS = 2;
+final int SPEED_BONUS = 2;
