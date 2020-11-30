@@ -88,7 +88,7 @@ class Entity extends Object {
       takenDamage = true;
     }
     if (health <= 0) {
-      if (entityId == EntityID.EXPLOSIVE_SPIDER){
+      if (entityId == EntityID.EXPLOSIVE_SPIDER) {
         objectHandler.addSpiderBomb(x, y, BOMB_SIZE, BOMB_SIZE);
       }
       objectHandler.removeEntity(this);

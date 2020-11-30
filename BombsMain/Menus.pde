@@ -22,8 +22,8 @@ class MainMenu {
       boxArray[i] = new MenuBox(width / 4, height / 2 + i* (height / 6), width / 2, height / 8, 20);
     }
     boxArray[0].boxText = "Start";
-    boxArray[1].boxText = "Settings";
-    boxArray[2].boxText = "Quit";
+    //boxArray[1].boxText = "Settings";
+    boxArray[1].boxText = "Quit";
 
     boxSelected = 0;
 
@@ -42,7 +42,7 @@ class MainMenu {
     }
     image(sprites.getKeyCap(2, 7), xKeyXPos, xKeyYPosStart);
     image(sprites.getKeyCap(2, 7), xKeyXPos, xKeyYPosSettings);
-    image(sprites.getKeyCap(2, 7), xKeyXPos, xKeyYPosQuit);
+    //image(sprites.getKeyCap(2, 7), xKeyXPos, xKeyYPosQuit);
   }
 
   void update() {
@@ -70,10 +70,10 @@ class MainMenu {
       case 0:
         gameState = 1;
         break;
+      //case 1:
+      //  gameState = 2;
+      //  break;
       case 1:
-        gameState = 2;
-        break;
-      case 2:
         exit();
         return;
 
