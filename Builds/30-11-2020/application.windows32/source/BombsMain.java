@@ -563,7 +563,7 @@ class BreakableWall extends Entity {
     }
   }
 }
-//Code credit Alex Tarnòki, Ole Neuman
+//Code credit Alex Tarnòki, Ole Neuman //<>//
 
 class Bomb extends Object {
 
@@ -880,7 +880,7 @@ class MovingWall extends Entity {
 //Code credit Winand Metz
 
 //Game
-final float MAP_SCROLL_SPEED = 0.5f;
+final float MAP_SCROLL_SPEED = 1;
 final float MAP_OFFSET = 0;
 final int LEVEL_AMOUNT = 3;
 
@@ -914,7 +914,7 @@ final int COIN_SCORE = 100;
 //Player
 final int PLAYER_X_SPAWN = 256;
 final int PLAYER_Y_SPAWN = 476;
-final int PLAYER_HEALTH = 10;
+final int PLAYER_HEALTH = 12;
 final int PLAYER_SPEED = 3;
 final int PLAYER_SHIELD = 0;
 //!NIET VERANDEREN!
@@ -1330,7 +1330,6 @@ class Entity extends Object {
     rect(x, y, w, h);
   }
 }
-
 //Code credit Winand Metz
 
 //Alles game gerelateerd
@@ -1621,7 +1620,6 @@ class Highscore {
     selectScore = "SELECT User_id, score FROM Highscore ORDER BY `score` DESC LIMIT " + highscoreTableLimit;
   }
 }
-
 class Item extends Object {
 
   Item(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
@@ -2168,7 +2166,6 @@ public void loadMap(int[] pixels, int w, int h, int tw, int th, ObjectHandler ob
     }
   }
 }
-
 //all code that has to do with the Main Menu of the game
 //code credit Ole Neuman
 
@@ -2950,7 +2947,6 @@ class Player extends Object {
   }
 }
 
-
 class UserInterface {
   TextureAssets assetLoader;
   Player player;
@@ -3111,7 +3107,6 @@ class UserInterface {
     return false;
   }
 }
-
   public void settings() {  fullScreen(P2D); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "BombsMain" };

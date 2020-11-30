@@ -1,7 +1,7 @@
 //Code credit Winand Metz
 
 //Game
-final float MAP_SCROLL_SPEED = 0.5;
+final float MAP_SCROLL_SPEED = 1;
 final float MAP_OFFSET = 0;
 final int LEVEL_AMOUNT = 3;
 
@@ -35,7 +35,7 @@ final int COIN_SCORE = 100;
 //Player
 final int PLAYER_X_SPAWN = 256;
 final int PLAYER_Y_SPAWN = 476;
-final int PLAYER_HEALTH = 10;
+final int PLAYER_HEALTH = 12;
 final int PLAYER_SPEED = 3;
 final int PLAYER_SHIELD = 0;
 //!NIET VERANDEREN!
