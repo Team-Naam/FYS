@@ -103,6 +103,11 @@ class ObjectHandler {
     }
   }
 
+  void addBreakableObject(float x, float y, int w, int h) {
+    BreakableObject breakableObject = new BreakableObject(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD / eSD, this, sprites);
+    entities.add(breakableObject);
+  }
+
   void addSpider(float x, float y, int w, int h) {
     Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD / eSD, this, sprites);
     entities.add(spider);
