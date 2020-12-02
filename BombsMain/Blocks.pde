@@ -363,3 +363,15 @@ class BreakableWall extends Entity {
     }
   }
 }
+
+//-----------------------------Breakable items---------------------------------
+
+class BreakableObject extends Entity {
+
+  BreakableObject(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
+    super(x, y, w, h, objectHandler, sprites);
+    this.entityId = EntityID.BOBJECT;
+  }
+  
+  
+}
