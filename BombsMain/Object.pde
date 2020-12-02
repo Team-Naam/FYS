@@ -2,7 +2,7 @@
 
 //Kan gebruikt worden in schrijven van collision methods, maar ook andere scripting usages, eigenlijk andere manier van classes, game objecten, oproepen
 enum ObjectID {
-  WALL, PLAYER, ENTITY, BOMB, ROCK, BBLOCK, ITEM, SPIDER_BOMB, PATH, PLAYER_SHADOW
+  WALL, PLAYER, ENTITY, BOMB, ROCK, BBLOCK, ITEM, SPIDER_BOMB, PATH
 }
 
 enum ItemID {
@@ -14,7 +14,7 @@ enum BombID {
 }
 
 enum EntityID {
-  GHOST, MUMMY, SMUMMY, SPIDER, EXPLOSIVE_SPIDER, POLTERGEIST, SPIDER_BOSS, WALL_BOSS
+  GHOST, MUMMY, SMUMMY, SPIDER, EXPLOSIVE_SPIDER, POLTERGEIST, SPIDER_BOSS, WALL_BOSS, BOBJECT
 }
 
 //Basis class voor alle gameobjecten
