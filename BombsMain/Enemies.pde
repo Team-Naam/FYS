@@ -23,7 +23,7 @@ class Ghost extends Entity {
     y = y + speedY;
 
     if (rockCollisionDetection()) {
-      x = oldX - MAP_SCROLL_SPEED;
+      x = oldX - game.mapHandler.mapScrollSpeed;
       y = oldY;
     }
 

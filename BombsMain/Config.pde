@@ -1,7 +1,7 @@
 //Code credit Winand Metz
 
 //Game
-final float MAP_SCROLL_SPEED = 1;
+final float MAP_SCROLL_SPEED = 0.5;
 final float MAP_OFFSET = 0;
 final int LEVEL_AMOUNT = 3;
 

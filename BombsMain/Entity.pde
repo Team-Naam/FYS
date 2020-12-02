@@ -37,7 +37,7 @@ class Entity extends Object {
     y = y + speedY;
 
     if (wallCollisionDetection()) {
-      x = oldX - MAP_SCROLL_SPEED;
+      x = oldX - game.mapHandler.mapScrollSpeed;
       y = oldY;
     }
 
