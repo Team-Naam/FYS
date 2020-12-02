@@ -11,6 +11,7 @@ class MapHandler {
   PImage newMap; 
   int tileSize; 
   float mapScrollSpeed; 
+  float baseScrollSpeed;
   float mapPositionTracker; 
   float offSet; 
   int mapAmount; 
@@ -18,24 +19,33 @@ class MapHandler {
   MapHandler(int sizeOfTiles) { 
     mapList = new IntList();
     mapQueue = new ArrayDeque<Integer>(50);
-    for(int i = 0; i < LEVEL_AMOUNT; i++) {
+    for (int i = 0; i < LEVEL_AMOUNT; i++) {
       mapList.append(i);
     }
     addTutorial();
     mapPositionTracker = 0; 
     tileSize = sizeOfTiles; 
-    mapScrollSpeed = MAP_SCROLL_SPEED; 
+    baseScrollSpeed = MAP_SCROLL_SPEED; 
+    mapScrollSpeed = baseScrollSpeed;
     offSet = MAP_OFFSET; 
     mapAmount = LEVEL_AMOUNT;
   } 
 
   void update() { 
+    mapScrollSpeed = baseScrollSpeed;
+    fastMapForward();
     mapPositionTracker -= mapScrollSpeed; 
     if (mapPositionTracker <= 0) {  
       generateMap(game.objectHandler); 
       //println("Generating new map");
     }
   } 
+
+  void fastMapForward() {
+    if (game.objectHandler.entities.get(0).x > width * 0.75) {
+      mapScrollSpeed += 0.5;
+    }
+  }
 
   void generateMap(ObjectHandler objectHandler) { 
     loadMapImage(); 

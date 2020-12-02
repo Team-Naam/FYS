@@ -60,7 +60,7 @@ abstract class Object {
   abstract void draw();
 
   void moveMap() { 
-    x -= MAP_SCROLL_SPEED;
+    x -= game.mapHandler.mapScrollSpeed;
   } 
 
   //Position crawler voor de player X
