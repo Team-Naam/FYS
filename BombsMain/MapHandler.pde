@@ -110,8 +110,13 @@ void loadMap(int[] pixels, int w, int h, int tw, int th, ObjectHandler objectHan
       if (c == 0xFF76428a) {
         objectHandler.addBreakableWall(x * tw + offSet, y * th, tw, th);
       }
-      //Hexcode = E4B6AD
-      if (c == 0xFFE4B6AD) {
+      //Hexcode = 222034
+      if (c == 0xFF222034) {
+        objectHandler.addSpiderQueen(x * tw + offSet, y * th, tw, th);
+      }
+      //Hexcode = 45283c
+      if (c == 0xFF45283c) {
+        objectHandler.addMovingWall(x * tw + offSet, y * th, tw, th);
       }
       //Hexcode = 696a6a
       if (c == 0xFF696a6a) {
