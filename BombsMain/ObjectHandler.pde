@@ -217,6 +217,16 @@ class ObjectHandler {
     }
   }
 
+  void addSpiderQueen(float x, float y, int w, int h) {
+    SpiderQueen spiderQueen = new SpiderQueen(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
+    entities.add(spiderQueen);
+  }
+  
+  void addMovingWall(float x, float y, int w, int h) {
+    MovingWall movingWall = new MovingWall(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
+    entities.add(movingWall);
+  }
+
   //Method van verwijderen objecten uit array
   void removeEntity(Object entry) {
     entities.remove(entry);

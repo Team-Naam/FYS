@@ -216,6 +216,8 @@ class Player extends Object {
 
 
   void draw() {
-    image(sprites.getEntity(1, 1), x, y);
+    if (!cloakBonus) {
+      image(sprites.getEntity(1, 1), x, y);
+    }
   }
 }
