@@ -122,6 +122,10 @@ void loadMap(int[] pixels, int w, int h, int tw, int th, ObjectHandler objectHan
       if (c == 0xFF696a6a) {
         objectHandler.addRock(x * tw + offSet, y * th, tw, th);
       }
+      //Hexcode = 6abe30
+      if (c == 0xFF6abe30) {
+        objectHandler.addBreakableItem(x * tw + offSet, y * th, tw, th);
+      }
     }
   }
 }

@@ -7,16 +7,18 @@ class Wall extends Object {
   Ray upRay;
   Ray downRay;
 
-  boolean leftCon = false;
-  boolean rightCon = false;
-  boolean upCon = false;
-  boolean downCon = false;
+  boolean leftCon, rightCon, upCon, downCon;
 
   Wall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, ObjectID.WALL, objectHandler, sprites);
   }
 
   void update() {
+    leftCon = false;
+    rightCon = false;
+    upCon = false;
+    downCon = false;
+
     lb = new PVector(x, y);
     rb = new PVector(x + w, y);
     ro = new PVector(x + w, y + h);
@@ -176,21 +178,21 @@ class Path extends Object {
   Ray leftRay;
   Ray rightRay;
   Ray upRay;
-  Ray downRay;
 
-  boolean leftCon = false;
-  boolean rightCon = false;
-  boolean upCon = false;
-  boolean downCon = false;
+  boolean leftCon, rightCon, upCon;
 
   Path(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, ObjectID.PATH, objectHandler, sprites);
   }
 
   void update() {
-    if (x == -128) {
+    if (x < -128) {
       x = 2048;
     }
+
+    leftCon = false;
+    rightCon = false;
+    upCon = false;
 
     stroke(0);
     strokeWeight(1);
@@ -207,7 +209,6 @@ class Path extends Object {
     left = new PVector(x - 5, (lb.y + lo.y) / 2);
     right = new PVector(x + w + 5, (lb.y + lo.y) / 2);
     up = new PVector((lb.x + rb.x) / 2 - 1, y - 5);
-    down = new PVector((lb.x + rb.x) / 2 + 1, y + h + 5);
 
     for (Object wallObject : objectHandler.walls) {
       if (wallObject.objectId == ObjectID.WALL || wallObject.objectId == ObjectID.ROCK || wallObject.objectId == ObjectID.BBLOCK) {
@@ -245,17 +246,46 @@ class Path extends Object {
   }
 
   void draw() {
-    stroke(255, 0, 0);
-    line(or.x, or.y, x - 5, (lb.y + lo.y) / 2);
-    stroke(0, 255, 0);
-    line(or.x, or.y, x + w + 5, (lb.y + lo.y) / 2);
-    stroke(0, 0, 255);
-    line(or.x, or.y, (lb.x + rb.x) / 2, y - 5);
-    stroke(255, 255, 0);
-    line(or.x, or.y, (lb.x + rb.x) / 2, y + h + 5);
+    if (upCon && rightCon && leftCon) {
+      image(sprites.getBackground(1, 0), x, y);
+    }
+    if (upCon && !rightCon && !leftCon) {
+      image(sprites.getBackground(0, 1), x, y);
+    }
 
-    fill(82, 51, 63);
-    rect(x, y, w, h);
+    if (upCon && rightCon && !leftCon) {
+      image(sprites.getBackground(0, 2), x, y);
+    }
+    if (upCon && !rightCon && leftCon) {
+      image(sprites.getBackground(1, 1), x, y);
+    }
+
+    if (!upCon && !rightCon && leftCon) {
+      image(sprites.getBackground(2, 0), x, y);
+    }
+    if (!upCon && rightCon && !leftCon) {
+      image(sprites.getBackground(1, 2), x, y);
+    } 
+
+    if (!upCon && rightCon && leftCon) {
+      image(sprites.getBackground(2, 1), x, y);
+    }
+
+    if (!upCon && !rightCon && !leftCon) {
+      image(sprites.getBackground(0, 0), x, y);
+    }
+
+    //stroke(255, 0, 0);
+    //line(or.x, or.y, x - 5, (lb.y + lo.y) / 2);
+    //stroke(0, 255, 0);
+    //line(or.x, or.y, x + w + 5, (lb.y + lo.y) / 2);
+    //stroke(0, 0, 255);
+    //line(or.x, or.y, (lb.x + rb.x) / 2, y - 5);
+    //stroke(255, 255, 0);
+    //line(or.x, or.y, (lb.x + rb.x) / 2, y + h + 5);
+
+    //fill(82, 51, 63);
+    //rect(x, y, w, h);
   }
 }
 
@@ -267,14 +297,7 @@ class BreakableWall extends Entity {
   Ray upRay;
   Ray downRay;
 
-  boolean leftCon = false;
-  boolean rightCon = false;
-  boolean upCon = false;
-  boolean downCon = false;
-
-  int health = BBLOCK_HEALTH;
-
-  //PVector lb, rb, ro, lo;
+  boolean leftCon, rightCon, upCon, downCon;
 
   BreakableWall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
@@ -283,6 +306,11 @@ class BreakableWall extends Entity {
 
   @Override
     void update() {
+    leftCon = false;
+    rightCon = false;
+    upCon = false;
+    downCon = false;
+
     lb = new PVector(x, y);
     rb = new PVector(x + w, y);
     ro = new PVector(x + w, y + h);
@@ -368,10 +396,83 @@ class BreakableWall extends Entity {
 
 class BreakableObject extends Entity {
 
+  int randomTexture;
+  float randomPosQ, newX, newY;
+
   BreakableObject(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
     super(x, y, w, h, objectHandler, sprites);
     this.entityId = EntityID.BOBJECT;
   }
-  
-  
+
+  void update() {
+    newX = x + randomPosQ;
+    newY = y + randomPosQ;
+
+    bombDamage();
+  }
+
+  @Override
+    void bombDamage() {
+    if (insideExplosion) {
+      health -= BOMB_DAMAGE;
+      insideExplosion = false;
+    }
+    if (health <= 0) {
+      objectHandler.addItem(newX, newY, 64, 64);
+      objectHandler.removeEntity(this);
+    }
+  }
+}
+
+class Corpse extends BreakableObject {
+
+  Corpse(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
+    super(x, y, w, h, objectHandler, sprites);
+  }
+
+  @Override
+    void bombDamage() {
+    if (insideExplosion) {
+      health -= BOMB_DAMAGE;
+      insideExplosion = false;
+    }
+    if (health <= 0) {
+      objectHandler.addItem(x, y, 64, 64);
+      objectHandler.removeEntity(this);
+    }
+  }
+
+  void draw() {
+    fill(255);
+    rect(x, y + 24, w, h);
+  }
+}
+
+class Vases extends BreakableObject {
+
+  Vases(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
+    super(x, y, w, h, objectHandler, sprites);
+    randomTexture = (int)random(9);
+    randomPosQ = random(1) * 80;
+
+    println(newX, newY);
+  }
+
+  void draw() {
+    image(sprites.getObject(0, 0), newX, newY);
+  }
+}
+
+class Backpack extends BreakableObject {
+
+  Backpack(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
+    super(x, y, w, h, objectHandler, sprites);
+    randomTexture = (int)random(9);
+    randomPosQ = random(1) * 70;
+  }
+
+  void draw() {
+    fill(255);
+    rect(newX, newY, w, h);
+  }
 }

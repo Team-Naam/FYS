@@ -221,10 +221,29 @@ class ObjectHandler {
     SpiderQueen spiderQueen = new SpiderQueen(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
     entities.add(spiderQueen);
   }
-  
+
   void addMovingWall(float x, float y, int w, int h) {
     MovingWall movingWall = new MovingWall(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
     entities.add(movingWall);
+  }
+
+  void addBreakableItem(float x, float y, int w, int h) {
+    int randomItem = (int)random(4);
+    
+    //println(randomItem);
+    
+    if (randomItem == 1) {
+      Corpse corpse = new Corpse(x, y - OBJECT_Y_OFFSET, w, h / eSD, this, sprites);
+      entities.add(corpse);
+    }
+    if (randomItem == 2) {
+      Vases vases = new Vases(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+      entities.add(vases);
+    }
+    if (randomItem == 3) {
+      Backpack backpack = new Backpack(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+      entities.add(backpack);
+    }
   }
 
   //Method van verwijderen objecten uit array

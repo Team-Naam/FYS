@@ -30,7 +30,7 @@ class Game {
   //Oproepen van objecten in de game zodat ze worden getekend
   void update() {
     mapHandler.update();
-    //background.update();
+    background.update();
     objectHandler.update();
     highscore.update();
     graphicsEngine.update();
@@ -43,8 +43,8 @@ class Game {
   }
 
   void draw() {
-    background(128);
-    //background.draw();
+    background(41, 29, 43);
+    background.draw();
     graphicsEngine.drawFloorLighting();
     objectHandler.draw();
     graphicsEngine.draw();
@@ -203,8 +203,8 @@ class Game {
 
     void update() {
       for (int i = 0; i < backgrounds.length; i++) {
-        backgrounds[i].update();
         backgrounds[i].moveMap();
+        backgrounds[i].update();
       }
     }
 
