@@ -59,8 +59,6 @@ class Poltergeist extends Entity {
     movement();
     attack();
 
-
-
     x = x + speedX;
     y = y + speedY;
 

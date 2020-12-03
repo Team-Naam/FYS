@@ -1,7 +1,7 @@
 //Code credit Winand Metz
 
 //Game
-final float MAP_SCROLL_SPEED = 0;
+final float MAP_SCROLL_SPEED = 1;
 final float MAP_OFFSET = 0;
 final int LEVEL_AMOUNT = 3;
 
@@ -33,7 +33,7 @@ final int TIME_SCORE_TIMER = 1;  //in sec
 final int COIN_SCORE = 100;
 
 //Player
-final int PLAYER_X_SPAWN = 128;
+final int PLAYER_X_SPAWN = 256;
 final int PLAYER_Y_SPAWN = 476;
 final int PLAYER_HEALTH = 12;
 final int PLAYER_SPEED = 4;
@@ -49,9 +49,6 @@ final int EXPLOSION_START_RADIUS = 0;
 final int BOMB_DAMAGE = 3;
 final int BOMB_SIZE = 32;
 final int BOMB_COOLDOWN_TIME = 60;
-
-//Blocks
-final int BBLOCK_HEALTH = 1;
 
 //Entities
 final int PLAYER_DETECTION_DISTANCE = 400;
