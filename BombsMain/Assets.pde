@@ -3,6 +3,8 @@
 //Inladen en tijdelijk opslaan textures
 class TextureAssets {
 
+  final int fps = 6;
+
   //Array voor x en y positie in grid
   final PImage[][] sprites;
   final PImage[][] wallSprites;
@@ -16,6 +18,8 @@ class TextureAssets {
   final PImage[][] backgroundSprites;
   final PImage[][] explosion;
 
+  int frame = 0;
+
   //Class neemt filepaths in en de groote van de gridtegels
   TextureAssets(int tileSize) {
     sprites = loadSprites("data/text/textures.png", tileSize);
@@ -26,12 +30,17 @@ class TextureAssets {
     bWallSprites = loadSprites("data/text/walls/broken_walls_spritesheet.png", tileSize);
     vasesAndBackpacks = loadSprites("data/text/objects/vases1.png", 64);
     backgroundSprites = loadSprites("data/text/floors/floors.png", tileSize);
-    explosion = loadSprites("data/text/effects/explosion.png", tileSize);
+    explosion = loadSprites("data/text/effects/explosion.png", 256);
     //corpses = loadSprites("data/text/objects/", tileSize);
   }
 
-  PImage getExplosion(int row) {
-    return explosion[row][0];
+  void getExplosion(int column, float x, float y) {
+    if ((frameCount % fps) == 0) {
+      frame = (frame + 1) % 11;
+    }
+    imageMode(CENTER);
+    image(explosion[frame][column], x, y);
+    imageMode(CORNER);
   }
 
   PImage getBackground(int row, int column) {
@@ -94,8 +103,9 @@ class TextureAssets {
 }
 
 class SoundAssets {
-  
+
   SoundFile coin;
+
   float rate, FX_VOLUME;
 
   SoundAssets(PApplet setup) {
