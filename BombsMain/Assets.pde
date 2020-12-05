@@ -43,8 +43,10 @@ class TextureAssets {
     imageMode(CENTER);
     image(explosion[frame][column], x, y);
     imageMode(CORNER);
-  PImage getLogo(){
-   return logo; 
+  }
+
+  PImage getLogo() {
+    return logo;
   }
 
   PImage getExplosion(int row) {
@@ -117,11 +119,11 @@ class SoundAssets {
   SoundFile player_hit, player_dies, player_footsteps;
   SoundFile bomb_placed, bomb_exploded, bomb_breaks_object;
   SoundFile menu_hover, menu_select;
-  
+
   float rate, FX_VOLUME;
 
   SoundAssets(PApplet setup) {
-//--ITEM SOUND EFFECTS-------------------------------------------------------------------------
+    //--ITEM SOUND EFFECTS-------------------------------------------------------------------------
     item_coin = new SoundFile(setup, "data/sound/item/coin.mp3");
     item_heart = new SoundFile(setup, "data/sound/item/heart.mp3");
     item_cloak = new SoundFile(setup, "data/sound/item/cloak.mp3");
@@ -129,26 +131,26 @@ class SoundAssets {
     item_sparkler = new SoundFile(setup, "data/sound/item/sparkler.mp3");
     item_bluepotion = new SoundFile(setup, "data/sound/item/bluepotion.mp3");
     item_boots = new SoundFile(setup, "data/sound/item/boots.mp3");
-//--ENEMY SOUNDS EFFECTS-----------------------------------------------------------------------
+    //--ENEMY SOUNDS EFFECTS-----------------------------------------------------------------------
     enemy_hit = new SoundFile(setup, "data/sound/enemy/hit.mp3");
     enemy_dies = new SoundFile(setup, "data/sound/enemy/dies.mp3");
-//--PLAYER SOUND EFFECTS-----------------------------------------------------------------------
+    //--PLAYER SOUND EFFECTS-----------------------------------------------------------------------
     player_hit = new SoundFile(setup, "data/sound/player/hit.mp3");
     player_dies = new SoundFile(setup, "data/sound/player/dies.mp3");
     player_footsteps = new SoundFile(setup, "data/sound/player/footsteps.mp3");
-//--BOMB SOUND EFFECTS-------------------------------------------------------------------------
+    //--BOMB SOUND EFFECTS-------------------------------------------------------------------------
     bomb_placed = new SoundFile(setup, "data/sound/bomb/placed.mp3");
     bomb_exploded = new SoundFile(setup, "data/sound/bomb/exploded.mp3");
     bomb_breaks_object = new SoundFile(setup, "data/sound/bomb/breaksobject.mp3");
-//--MENU SOUND EFFECTS-------------------------------------------------------------------------
+    //--MENU SOUND EFFECTS-------------------------------------------------------------------------
     menu_hover = new SoundFile(setup, "data/sound/menu/hover.mp3");
     menu_select = new SoundFile(setup, "data/sound/menu/select.mp3");
 
     rate = 1;
     FX_VOLUME = 1.0;
   }
-  
-//ITEM SOUND EFFECTS--------------------------------
+
+  //ITEM SOUND EFFECTS--------------------------------
   void getCoinPickUp() {
     item_coin.play(1, FX_VOLUME);
   }
@@ -170,14 +172,14 @@ class SoundAssets {
   void getBootsPickUp() {
     item_boots.play(1, FX_VOLUME);
   }
-//ENEMY SOUNDS EFFECTS-----------------------------
+  //ENEMY SOUNDS EFFECTS-----------------------------
   void getEnemyHit() {
     enemy_hit.play(1, FX_VOLUME);
   }
   void getEnemyDies() {
     enemy_dies.play(1, FX_VOLUME);
   }
-//PLAYER SOUND EFFECTS------------------------------
+  //PLAYER SOUND EFFECTS------------------------------
   void getPlayerHit() {
     player_hit.play(1, FX_VOLUME);
   }
@@ -187,7 +189,7 @@ class SoundAssets {
   void getPlayerFootsteps() {
     player_footsteps.play(1, FX_VOLUME);
   }
-//BOMB SOUND EFFECTS------------------------------
+  //BOMB SOUND EFFECTS------------------------------
   void getBombPlaced() {
     bomb_placed.play(1, FX_VOLUME);
   }
@@ -197,7 +199,7 @@ class SoundAssets {
   void getBombBreaksObject() {
     bomb_breaks_object.play(1, FX_VOLUME);
   }
-//MENU SOUND EFFECTS------------------------------
+  //MENU SOUND EFFECTS------------------------------
   void getMenuHover() {
     menu_hover.play(1, FX_VOLUME);
   }
