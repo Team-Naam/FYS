@@ -13,6 +13,7 @@ InputHandler input;
 MainMenu mainMenu;
 GameOver gameOver;
 TextureAssets textureAssets;
+SoundAssets soundAssets;
 
 PFont bits;
 
@@ -32,6 +33,7 @@ void setup() {
   textFont(bits);
 
   input = new InputHandler();
+  soundAssets = new SoundAssets(this);
   textureAssets = new TextureAssets(TILE_SIZE);
   mainMenu = new MainMenu(textureAssets);
   game = new Game(TILE_SIZE, width, height, textureAssets);

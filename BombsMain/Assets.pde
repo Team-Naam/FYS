@@ -14,6 +14,7 @@ class TextureAssets {
   final PImage[][] bWallSprites;
   //final PImage[][] rockSprites;
   final PImage[][] backgroundSprites;
+  final PImage[][] explosion;
 
   //Class neemt filepaths in en de groote van de gridtegels
   TextureAssets(int tileSize) {
@@ -25,9 +26,14 @@ class TextureAssets {
     bWallSprites = loadSprites("data/text/walls/broken_walls_spritesheet.png", tileSize);
     vasesAndBackpacks = loadSprites("data/text/objects/vases1.png", 64);
     backgroundSprites = loadSprites("data/text/floors/floors.png", tileSize);
+    explosion = loadSprites("data/text/effects/explosion.png", tileSize);
     //corpses = loadSprites("data/text/objects/", tileSize);
   }
-  
+
+  PImage getExplosion(int row) {
+    return explosion[row][0];
+  }
+
   PImage getBackground(int row, int column) {
     return backgroundSprites[row][column];
   }
@@ -88,7 +94,17 @@ class TextureAssets {
 }
 
 class SoundAssets {
+  
+  SoundFile coin;
+  float rate, FX_VOLUME;
 
-  SoundAssets() {
+  SoundAssets(PApplet setup) {
+    coin = new SoundFile(setup, "");
+    rate = 1;
+    FX_VOLUME = 1.0;
+  }
+
+  void getCoinPickUp() {
+    coin.play(1, FX_VOLUME);
   }
 }
