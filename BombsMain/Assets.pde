@@ -119,6 +119,12 @@ class SoundAssets {
   SoundFile player_hit, player_dies, player_footsteps;
   SoundFile bomb_placed, bomb_exploded, bomb_breaks_object;
   SoundFile menu_hover, menu_select;
+  Reverb roomRev;
+  LowPass lowPass;
+
+  final float room = 0.1;
+  final float damp = 0;
+  final float wet = 1;
 
   float rate, FX_VOLUME;
 
@@ -146,8 +152,14 @@ class SoundAssets {
     menu_hover = new SoundFile(setup, "data/sound/menu/hover.mp3");
     menu_select = new SoundFile(setup, "data/sound/menu/select.mp3");
 
+    roomRev = new Reverb(setup);
+    lowPass = new LowPass(setup);
+
+    roomRev.set(room, damp, wet);
+    lowPass.freq(500);
+
     rate = 1;
-    FX_VOLUME = 1.0;
+    FX_VOLUME = 0.75;
   }
 
   //ITEM SOUND EFFECTS--------------------------------
@@ -187,6 +199,8 @@ class SoundAssets {
     player_dies.play(1, FX_VOLUME);
   }
   void getPlayerFootsteps() {
+    roomRev.process(player_footsteps);
+    lowPass.process(player_footsteps);
     player_footsteps.play(1, FX_VOLUME);
   }
   //BOMB SOUND EFFECTS------------------------------
@@ -194,7 +208,9 @@ class SoundAssets {
     bomb_placed.play(1, FX_VOLUME);
   }
   void getBombExploded() {
-    bomb_exploded.play(1, FX_VOLUME);
+    roomRev.process(bomb_exploded);
+    lowPass.process(bomb_exploded);
+    bomb_exploded.play(1, FX_VOLUME - 0.60);
   }
   void getBombBreaksObject() {
     bomb_breaks_object.play(1, FX_VOLUME);

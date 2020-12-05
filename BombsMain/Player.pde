@@ -25,6 +25,7 @@ class Player extends Object {
   float oldX, oldY;
   int bombCooldown = 0;
   int bombSparklerCooldown = 0;
+  int fps = 20;
 
   Player(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, Highscore highscore, SoundAssets soundAssets) {
     super(x, y, w, h, ObjectID.PLAYER, objectHandler, sprites, soundAssets);
@@ -42,6 +43,11 @@ class Player extends Object {
 
     or = new PVector((lb.x + rb.x) / 2, (lb.y + lo.y) / 2);
 
+    if (speedX == 4 || speedY == 4 || speedX == 4 && speedY == 4 || speedX == -4 || speedY == -4 || speedX == -4 && speedY == -4) {
+      if((frameCount % fps) == 0)
+      soundAssets.getPlayerFootsteps();
+    }
+    
     x = x + speedX;
     y = y + speedY;
 
