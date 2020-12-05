@@ -1,4 +1,4 @@
-//Code credit Alex Tarnòki, Ole Neuman //<>// //<>// //<>//
+//Code credit Alex Tarnòki, Ole Neuman //<>//
 
 class Bomb extends Object {
 
@@ -7,6 +7,8 @@ class Bomb extends Object {
   int startTime;
   int explosionOpacity = EXPLOSION_START_OPACITY;
   int explosionRadius = EXPLOSION_START_RADIUS;
+
+  boolean bombAnimation = false;
 
 
   Bomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
@@ -18,29 +20,30 @@ class Bomb extends Object {
   //Wanneer dynamiet explodeerd kijk hij of er enemy in de blastradius zit en paast dit door naar de enemy class
   //Explosie begint fel en neemt daarna af in opacity, wanneer deze nul is wordt hij verwijdert
   void update() {
-    if ( bombExploded()) {
+    if (bombExploded()) {
+      bombAnimation = true;
       enemyDetection();
       if (explosionRadius < 400) {
         explosionRadius += 25;
       }
       if (explosionRadius >= 400) {
-        explosionOpacity -=5;
+        explosionOpacity -=6;
         bombOpacity = 0;
       }
     }
   }
 
   void draw() {
-    fill(0, bombOpacity);
-    if (bombOpacity == 0) {
-      noStroke();
+    if (!bombAnimation) {
+      image(sprites.getBombItem(1, 0), x, y);
     }
-    //rect(x, y, w, h);
-    image(sprites.getBombItem(1, 0), x, y);
-    fill(235, 109, 30, explosionOpacity);
-    noStroke();
-    circle(x + w, y + h, explosionRadius);
-    stroke(1);
+    if (bombAnimation) {
+      sprites.getExplosion(0, x, y);
+    }
+    //fill(235, 109, 30, explosionOpacity);
+    //noStroke();
+    //circle(x + w, y + h, explosionRadius);
+    //stroke(1);
     if (explosionOpacity <= 0) {
       objectHandler.removeEntity(this);
     }
@@ -88,7 +91,9 @@ class Bomb extends Object {
 
   //Explosie timer
   boolean bombExploded() {
-    if ( millis() > startTime + bombTimer) return true;
+    if ( millis() > startTime + bombTimer) {
+      return true;
+    }
     return false;
   }
 }
