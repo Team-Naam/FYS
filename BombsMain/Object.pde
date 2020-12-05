@@ -2,7 +2,7 @@
 
 //Kan gebruikt worden in schrijven van collision methods, maar ook andere scripting usages, eigenlijk andere manier van classes, game objecten, oproepen
 enum ObjectID {
-  WALL, PLAYER, ENTITY, BOMB, ROCK, BBLOCK, ITEM, SPIDER_BOMB, PATH
+  WALL, PLAYER, ENTITY, BOMB, ROCK, BBLOCK, ITEM, SPIDER_BOMB, PATH, FIX
 }
 
 enum ItemID {
@@ -64,6 +64,15 @@ abstract class Object {
   void moveMap() { 
     x -= game.mapHandler.mapScrollSpeed;
   } 
+
+  void selfDestruct() {
+    if (x < -256) {
+      if (objectId == ObjectID.WALL || objectId == ObjectID.BBLOCK ||objectId == ObjectID.ROCK) {
+        objectHandler.removeWall(this);
+      } 
+      objectHandler.removeEntity(this);
+    }
+  }
 
   //Position crawler voor de player X
   //Gaat door de objecthandler z'n list heen en zoekt naar object met het ID player om vervolgens x op te vragen

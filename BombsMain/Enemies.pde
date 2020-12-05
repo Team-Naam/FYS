@@ -15,6 +15,7 @@ class Ghost extends Entity {
 
   @Override
     void update() {
+    selfDestruct();
     bombDamage();
     movement();
     attack();
@@ -55,6 +56,7 @@ class Poltergeist extends Entity {
 
   @Override
     void update() {
+    selfDestruct();
     bombDamage();
     movement();
     attack();

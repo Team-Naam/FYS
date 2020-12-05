@@ -23,6 +23,7 @@ class Game {
     highscore = new Highscore();
     objectHandler = new ObjectHandler(this.textureLoader, this.soundLoader);
     objectHandler.addPlayer(this.highscore);
+    objectHandler.addFix();
     background = new Background(textureLoader);
     mapHandler = new MapHandler(tileSize);
     graphicsEngine = new GraphicsEngine();

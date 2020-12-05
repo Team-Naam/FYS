@@ -14,6 +14,8 @@ class Wall extends Object {
   }
 
   void update() {
+    selfDestruct();
+
     leftCon = false;
     rightCon = false;
     upCon = false;
@@ -154,6 +156,8 @@ class Rock extends Object {
   }
 
   void update() {
+    selfDestruct();
+
     lb = new PVector(x, y);
     rb = new PVector(x + w, y);
     ro = new PVector(x + w, y + h);
@@ -306,6 +310,8 @@ class BreakableWall extends Entity {
 
   @Override
     void update() {
+    selfDestruct();
+
     leftCon = false;
     rightCon = false;
     upCon = false;
@@ -405,6 +411,8 @@ class BreakableObject extends Entity {
   }
 
   void update() {
+    selfDestruct();
+
     newX = x + randomPosQ;
     newY = y + randomPosQ;
 

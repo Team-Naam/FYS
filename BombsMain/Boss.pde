@@ -6,6 +6,7 @@ class SpiderQueen extends Entity {
   }
 
   void update() {
+    selfDestruct();
   }
 
   void draw() {
@@ -20,6 +21,7 @@ class MovingWall extends Entity {
   }
 
   void update() {
+    selfDestruct();
   }
 
   void draw() {
