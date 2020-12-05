@@ -2,8 +2,9 @@
 //code credit Ole Neuman
 
 class MainMenu {
-  
+
   TextureAssets sprites;
+  SoundAssets soundAssets;
 
   MenuBox[] boxArray = new MenuBox[MENUBOX_AMOUNT];
 
@@ -11,8 +12,6 @@ class MainMenu {
   int moveCooldown;
 
   PImage logo;
-  TextureAssets sprites;
-  SoundAssets soundAssets;
 
   int xKeyXPos = 1405;
   int xKeyYPosStart = 640;

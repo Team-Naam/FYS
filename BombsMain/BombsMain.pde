@@ -37,7 +37,7 @@ void setup() {
   textureAssets = new TextureAssets(TILE_SIZE);
   mainMenu = new MainMenu(textureAssets, soundAssets);
   game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets);
-  gameOver = new GameOver();
+  gameOver = new GameOver(textureAssets);
 
   gameState = 0; //gameState for the main menu
 }
