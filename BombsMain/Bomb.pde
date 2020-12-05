@@ -10,7 +10,6 @@ class Bomb extends Object {
 
   boolean bombAnimation = false;
 
-
   Bomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, ObjectID.BOMB, objectHandler, sprites, soundAssets);
     this.bombId = BombID.DYNAMITE;
@@ -20,6 +19,8 @@ class Bomb extends Object {
   //Wanneer dynamiet explodeerd kijk hij of er enemy in de blastradius zit en paast dit door naar de enemy class
   //Explosie begint fel en neemt daarna af in opacity, wanneer deze nul is wordt hij verwijdert
   void update() {
+    selfDestruct();
+
     if (bombExploded()) {
       bombAnimation = true;
       enemyDetection();
@@ -125,6 +126,8 @@ class C4 extends Bomb
   }
 
   void update() {
+    selfDestruct();
+
     if ( bombActivated) {
       enemyDetection();
       if (explosionRadius < 400) {
@@ -168,6 +171,8 @@ class Landmine extends Bomb
     }
   }
   void update() {
+    selfDestruct();
+
     if (enemyOverlaps == false)
     {
       enemyOverlapsLandmine();
@@ -230,6 +235,8 @@ class SpiderBomb extends Bomb {
   //Wanneer dynamiet explodeerd kijk hij of er enemy in de blastradius zit en paast dit door naar de enemy class
   //Explosie begint fel en neemt daarna af in opacity, wanneer deze nul is wordt hij verwijdert
   void update() {
+    selfDestruct();
+
     if ( bombExploded()) {
       playerDetection();
       if (explosionRadius < 400) {

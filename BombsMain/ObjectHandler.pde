@@ -12,6 +12,7 @@ class ObjectHandler {
   ArrayList<Object> entities = new ArrayList<Object>();
 
   Player player = null;
+  CollisionFix fix = null;
 
   TextureAssets sprites;
   SoundAssets soundAssets;
@@ -139,6 +140,11 @@ class ObjectHandler {
     println("spawned");
   }
 
+  void addFix() {
+    CollisionFix fix = new CollisionFix(PLAYER_X_SPAWN, PLAYER_Y_SPAWN - OBJECT_Y_OFFSET, PLAYER_SIZE, PLAYER_SIZE, this, sprites, soundAssets);
+    entities.add(fix);
+  }
+
   //Method voor plaatsen van een Bomb
   void addBomb(float x, float y, int w, int h) {
     Bomb bomb = new Bomb(x, y, w, h, this, sprites, soundAssets);
@@ -231,9 +237,9 @@ class ObjectHandler {
 
   void addBreakableItem(float x, float y, int w, int h) {
     int randomItem = (int)random(4);
-    
+
     //println(randomItem);
-    
+
     if (randomItem == 1) {
       Corpse corpse = new Corpse(x, y - OBJECT_Y_OFFSET, w, h / eSD, this, sprites, soundAssets);
       entities.add(corpse);

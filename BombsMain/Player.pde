@@ -63,7 +63,7 @@ class Player extends Object {
       shieldBonus = false;
     }
 
-    if (health <= 0) {
+    if (health <= 0 || x <= -128) {
       gameState = 2;
     }
 

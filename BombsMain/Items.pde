@@ -5,6 +5,7 @@ class Item extends Object {
   }
 
   void update() {
+    selfDestruct();
   }
 
   void draw() {
@@ -16,9 +17,6 @@ class Boots extends Item {
   Boots(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.itemId = ItemID.BOOTS;
-  }
-
-  void update() {
   }
 
   void draw() {
@@ -33,9 +31,6 @@ class Sparkler extends Item {
     this.itemId = ItemID.SPARKLER;
   }
 
-  void update() {
-  }
-
   void draw() {
     image(sprites.getBombItem(7, 0), x, y);
   }
@@ -46,9 +41,6 @@ class BluePotion extends Item {
   BluePotion(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.itemId = ItemID.BPOTION;
-  }
-
-  void update() {
   }
 
   void draw() {
@@ -62,10 +54,7 @@ class Shield extends Item {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.itemId = ItemID.SHIELD;
   }
-
-  void update() {
-  }
-
+  
   void draw() {
     image(sprites.getBombItem(6, 0), x, y);
   }
@@ -76,9 +65,6 @@ class Cloak extends Item {
   Cloak(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.itemId = ItemID.CLOAK;
-  }
-
-  void update() {
   }
 
   void draw() {
@@ -93,9 +79,6 @@ class Heart extends Item {
     this.itemId = ItemID.HEART;
   }
 
-  void update() {
-  }
-
   void draw() {
     image(sprites.getBombItem(0, 2), x, y);
   }
@@ -105,9 +88,6 @@ class Coin extends Item {
   Coin(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.itemId = ItemID.COIN;
-  }
-
-  void update() {
   }
 
   void draw() {

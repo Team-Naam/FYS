@@ -4,9 +4,10 @@ class SpiderQueen extends Entity {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.entityId = EntityID.SPIDER_BOSS;
   }
-  
+
   @Override
-  void update(){
+  void update() {
+   selfDestruct();
    super.update();
   }
 
@@ -23,6 +24,10 @@ class MovingWall extends Entity {
     this.entityId = EntityID.WALL_BOSS;
   }
 
+  void update() {
+    selfDestruct();
+  }
+  
   void draw() {
     fill(#3ac93f);
     rect(x, y, w, h);

@@ -29,6 +29,7 @@ class Entity extends Object {
 
   //Nieuw collision system waarbij hij terug wordt gezet naar de oude positie
   void update() {
+    selfDestruct();
     bombDamage();
     movement();
     attack();
@@ -120,6 +121,24 @@ class Entity extends Object {
 
   void draw() {
     fill(20);
+    rect(x, y, w, h);
+  }
+}
+
+class CollisionFix extends Object {
+
+  CollisionFix(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, ObjectID.FIX, objectHandler, sprites, soundAssets);
+  }
+
+  @Override
+    void moveMap() {
+  }
+
+  void update() {
+  }
+
+  void draw() {
     rect(x, y, w, h);
   }
 }
