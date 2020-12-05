@@ -104,17 +104,96 @@ class TextureAssets {
 
 class SoundAssets {
 
-  SoundFile coin;
-
+  SoundFile item_coin, item_heart, item_cloak, item_shield, item_sparkler, item_bluepotion, item_boots;
+  SoundFile enemy_hit, enemy_dies;
+  SoundFile player_hit, player_dies, player_footsteps;
+  SoundFile bomb_placed, bomb_exploded, bomb_breaks_object;
+  SoundFile menu_hover, menu_select;
+  
   float rate, FX_VOLUME;
 
   SoundAssets(PApplet setup) {
-    coin = new SoundFile(setup, "coin.mp3");
+//--ITEM SOUND EFFECTS-------------------------------------------------------------------------
+    item_coin = new SoundFile(setup, "data/sound/item/coin.mp3");
+    item_heart = new SoundFile(setup, "data/sound/item/heart.mp3");
+    item_cloak = new SoundFile(setup, "data/sound/item/cloak.mp3");
+    item_shield = new SoundFile(setup, "data/sound/item/shield.mp3");
+    item_sparkler = new SoundFile(setup, "data/sound/item/sparkler.mp3");
+    item_bluepotion = new SoundFile(setup, "data/sound/item/bluepotion.mp3");
+    item_boots = new SoundFile(setup, "data/sound/item/boots.mp3");
+//--ENEMY SOUNDS EFFECTS-----------------------------------------------------------------------
+    enemy_hit = new SoundFile(setup, "data/sound/enemy/hit.mp3");
+    enemy_dies = new SoundFile(setup, "data/sound/enemy/dies.mp3");
+//--PLAYER SOUND EFFECTS-----------------------------------------------------------------------
+    player_hit = new SoundFile(setup, "data/sound/player/hit.mp3");
+    player_dies = new SoundFile(setup, "data/sound/player/dies.mp3");
+    player_footsteps = new SoundFile(setup, "data/sound/player/footsteps.mp3");
+//--BOMB SOUND EFFECTS-------------------------------------------------------------------------
+    bomb_placed = new SoundFile(setup, "data/sound/bomb/placed.mp3");
+    bomb_exploded = new SoundFile(setup, "data/sound/bomb/exploded.mp3");
+    bomb_breaks_object = new SoundFile(setup, "data/sound/bomb/breaksobject.mp3");
+//--MENU SOUND EFFECTS-------------------------------------------------------------------------
+    menu_hover = new SoundFile(setup, "data/sound/menu/hover.mp3");
+    menu_select = new SoundFile(setup, "data/sound/menu/select.mp3");
+
     rate = 1;
     FX_VOLUME = 1.0;
   }
-
+  
+//ITEM SOUND EFFECTS--------------------------------
   void getCoinPickUp() {
-    coin.play(1, FX_VOLUME);
+    item_coin.play(1, FX_VOLUME);
+  }
+  void getHeartPickUp() {
+    item_heart.play(1, FX_VOLUME);
+  }
+  void getCloakPickUp() {
+    item_cloak.play(1, FX_VOLUME);
+  }
+  void getShieldPickUp() {
+    item_shield.play(1, FX_VOLUME);
+  }
+  void getSparklerickUp() {
+    item_sparkler.play(1, FX_VOLUME);
+  }
+  void getBluePotionPickUp() {
+    item_bluepotion.play(1, FX_VOLUME);
+  }
+  void getBootsPickUp() {
+    item_boots.play(1, FX_VOLUME);
+  }
+//ENEMY SOUNDS EFFECTS-----------------------------
+  void getEnemyHit() {
+    enemy_hit.play(1, FX_VOLUME);
+  }
+  void getEnemyDies() {
+    enemy_dies.play(1, FX_VOLUME);
+  }
+//PLAYER SOUND EFFECTS------------------------------
+  void getPlayerHit() {
+    player_hit.play(1, FX_VOLUME);
+  }
+  void getPlayerDies() {
+    player_dies.play(1, FX_VOLUME);
+  }
+  void getPlayerFootsteps() {
+    player_footsteps.play(1, FX_VOLUME);
+  }
+//BOMB SOUND EFFECTS------------------------------
+  void getBombPlaced() {
+    bomb_placed.play(1, FX_VOLUME);
+  }
+  void getBombExploded() {
+    bomb_exploded.play(1, FX_VOLUME);
+  }
+  void getBombBreaksObject() {
+    bomb_breaks_object.play(1, FX_VOLUME);
+  }
+//MENU SOUND EFFECTS------------------------------
+  void getMenuHover() {
+    menu_hover.play(1, FX_VOLUME);
+  }
+  void getMenuSelect() {
+    menu_select.play(1, FX_VOLUME);
   }
 }

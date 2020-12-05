@@ -35,19 +35,18 @@ void setup() {
   input = new InputHandler();
   soundAssets = new SoundAssets(this);
   textureAssets = new TextureAssets(TILE_SIZE);
-  mainMenu = new MainMenu(textureAssets);
-  game = new Game(TILE_SIZE, width, height, textureAssets);
+  mainMenu = new MainMenu(textureAssets, soundAssets);
+  game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets);
   gameOver = new GameOver();
-  
+
   gameState = 0; //gameState for the main menu
-  
 }
 
 //code credit Jordy
 //stuurt je naar de main menu en reset de game
 void toMainMenu() {
   gameState = 0;
-  game = new Game(TILE_SIZE, width, height, textureAssets);
+  game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets);
 }
 
 //-----------------------------Draw & Key functies---------------------------------

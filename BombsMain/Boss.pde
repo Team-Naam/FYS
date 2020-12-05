@@ -1,7 +1,7 @@
 class SpiderQueen extends Entity {
 
-  SpiderQueen(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  SpiderQueen(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.entityId = EntityID.SPIDER_BOSS;
   }
 
@@ -14,8 +14,8 @@ class SpiderQueen extends Entity {
 
 class MovingWall extends Entity {
 
-  MovingWall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  MovingWall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.entityId = EntityID.WALL_BOSS;
   }
 

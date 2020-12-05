@@ -2,8 +2,8 @@
 
 class Ghost extends Entity {
 
-  Ghost(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  Ghost(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.entityId = EntityID.GHOST;
     savedTime = millis();
     health = GHOST_HEALTH;
@@ -42,8 +42,8 @@ class Ghost extends Entity {
 class Poltergeist extends Entity {
 
 
-  Poltergeist(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  Poltergeist(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.entityId = EntityID.POLTERGEIST;
     savedTime = millis();
     health = POLTERGEIST_HEALTH;
@@ -94,8 +94,8 @@ class Poltergeist extends Entity {
 
 class Mummy extends Entity {
 
-  Mummy(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  Mummy(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.entityId = EntityID.MUMMY;
     savedTime = millis();
 
@@ -123,8 +123,8 @@ class SMummy extends Mummy {
 
   int shield;
 
-  SMummy(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  SMummy(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.entityId = EntityID.SMUMMY;
     savedTime = millis();
     health = SMUMMY_HEALTH;
@@ -164,8 +164,8 @@ class SMummy extends Mummy {
 
 class Spider extends Entity {
 
-  Spider(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  Spider(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.entityId = EntityID.SPIDER;
     savedTime = millis();
     health = SPIDER_HEALTH;
@@ -191,8 +191,8 @@ class ExplosiveSpider extends Entity {
 
 
 
-  ExplosiveSpider(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  ExplosiveSpider(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.entityId = EntityID.EXPLOSIVE_SPIDER;
     savedTime = millis();
     health = EXPLOSIVE_SPIDER_HEALTH;

@@ -9,17 +9,19 @@ class Game {
   GraphicsEngine graphicsEngine;
   UserInterface userInterface;
   Background background;
+  SoundAssets soundLoader;
 
   final int width, height;
 
   //Inladen van alle assets voor de game en level creation dmv inladen van een png map, op basis van pixels plaatsing van objecten
   //TileSize is grote van de blokken in het plaatsingsgrid (tegelgrote)
-  Game(int tileSize, int width, int height, TextureAssets textureAssets) {
+  Game(int tileSize, int width, int height, TextureAssets textureAssets, SoundAssets soundAssets) {
     this.width =  width;
     this.height = height;
     textureLoader = textureAssets;
+    soundLoader = soundAssets;
     highscore = new Highscore();
-    objectHandler = new ObjectHandler(this.textureLoader);
+    objectHandler = new ObjectHandler(this.textureLoader, this.soundLoader);
     objectHandler.addPlayer(this.highscore);
     background = new Background(textureLoader);
     mapHandler = new MapHandler(tileSize);
@@ -194,7 +196,7 @@ class Game {
       int k = 0;
       for (int i = 0; i < cols; i++) {
         for (int j = 0; j < rows; j++) {
-          backgrounds[k] = new Path(i * 128, j * 128 - OBJECT_Y_OFFSET, 128, 128, objectHandler, sprites);
+          backgrounds[k] = new Path(i * 128, j * 128 - OBJECT_Y_OFFSET, 128, 128, objectHandler, sprites, soundAssets);
 
           k++;
         }

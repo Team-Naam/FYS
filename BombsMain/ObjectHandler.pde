@@ -14,9 +14,11 @@ class ObjectHandler {
   Player player = null;
 
   TextureAssets sprites;
+  SoundAssets soundAssets;
 
-  ObjectHandler(TextureAssets sprites) {
+  ObjectHandler(TextureAssets sprites, SoundAssets soundAssets) {
     this.sprites = sprites;
+    this.soundAssets = soundAssets;
     for (int i = 0; i < enemySpawnChance.length; i++) {
       enemySpawnChance[i][0] = i;
     }
@@ -43,7 +45,7 @@ class ObjectHandler {
     x = x + 32;
     y = y + 32;
 
-    Entity entity = new Entity(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+    Entity entity = new Entity(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites, soundAssets);
     entities.add(entity);
   }
 
@@ -73,89 +75,89 @@ class ObjectHandler {
 
     //Ghost 
     if (enemy == 1) {
-      Ghost ghost = new Ghost(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+      Ghost ghost = new Ghost(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites, soundAssets);
       entities.add(ghost);
     }
     //Poltergeist
     if (enemy == 2) {
-      Poltergeist poltergeist = new Poltergeist(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+      Poltergeist poltergeist = new Poltergeist(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites, soundAssets);
       entities.add(poltergeist);
     }
     //Spider
     if (enemy == 3) {
-      Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD / eSD, this, sprites);
+      Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD / eSD, this, sprites, soundAssets);
       entities.add(spider);
     }
     //Exp spider
     if (enemy == 4) {
-      ExplosiveSpider explosiveSpider = new ExplosiveSpider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+      ExplosiveSpider explosiveSpider = new ExplosiveSpider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites, soundAssets);
       entities.add(explosiveSpider);
     }
     //Mummy
     if (enemy == 5) {
-      Mummy mummy = new Mummy(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD, this, sprites);
+      Mummy mummy = new Mummy(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD, this, sprites, soundAssets);
       entities.add(mummy);
     }
     //SMummy
     if (enemy == 6) {
-      SMummy sMummy = new SMummy(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+      SMummy sMummy = new SMummy(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites, soundAssets);
       entities.add(sMummy);
     }
   }
 
   void addBreakableObject(float x, float y, int w, int h) {
-    BreakableObject breakableObject = new BreakableObject(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD / eSD, this, sprites);
+    BreakableObject breakableObject = new BreakableObject(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD / eSD, this, sprites, soundAssets);
     entities.add(breakableObject);
   }
 
   void addSpider(float x, float y, int w, int h) {
-    Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD / eSD, this, sprites);
+    Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD / eSD, this, sprites, soundAssets);
     entities.add(spider);
   }
 
   //Method voor het creëren van de muren, input lijkt me vanzelf sprekend
   void addWall(float x, float y, int w, int h) {
-    Wall wall = new Wall(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
+    Wall wall = new Wall(x, y - OBJECT_Y_OFFSET, w, h, this, sprites, soundAssets);
     walls.add(wall);
   }
 
   //Method voor de rockwall onder- en bovenkant van het scherm 
   void addRock(float x, float y, int w, int h) {
-    Rock rock = new Rock(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
+    Rock rock = new Rock(x, y - OBJECT_Y_OFFSET, w, h, this, sprites, soundAssets);
     walls.add(rock);
   }
 
   void addBreakableWall(float x, float y, int w, int h) {
-    BreakableWall breakableWall = new BreakableWall(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
+    BreakableWall breakableWall = new BreakableWall(x, y - OBJECT_Y_OFFSET, w, h, this, sprites, soundAssets);
     walls.add(breakableWall);
   }
 
   //Method voor plaatsen van de player
   void addPlayer(Highscore highscore) {
-    Player player = new Player(PLAYER_X_SPAWN, PLAYER_Y_SPAWN, PLAYER_SIZE / eSD, PLAYER_SIZE, this, sprites, highscore);
+    Player player = new Player(PLAYER_X_SPAWN, PLAYER_Y_SPAWN, PLAYER_SIZE / eSD, PLAYER_SIZE, this, sprites, highscore, soundAssets);
     entities.add(player);
     println("spawned");
   }
 
   //Method voor plaatsen van een Bomb
   void addBomb(float x, float y, int w, int h) {
-    Bomb bomb = new Bomb(x, y, w, h, this, sprites);
+    Bomb bomb = new Bomb(x, y, w, h, this, sprites, soundAssets);
     entities.add(bomb);
   }
 
   void addC4(float x, float y, int w, int h) {
-    C4 c4 = new C4(x, y, w, h, this, sprites);
+    C4 c4 = new C4(x, y, w, h, this, sprites, soundAssets);
     entities.add(c4);
   }
 
   void addLandmine(float x, float y, int w, int h) {
-    Landmine landmine = new Landmine(x, y, w, h, this, sprites);
+    Landmine landmine = new Landmine(x, y, w, h, this, sprites, soundAssets);
     entities.add(landmine);
   }
 
   //Method voor plaatsen van een SpiderBomb
   void addSpiderBomb(float x, float y, int w, int h) {
-    SpiderBomb spiderBomb = new SpiderBomb(x, y, w, h, this, sprites);
+    SpiderBomb spiderBomb = new SpiderBomb(x, y, w, h, this, sprites, soundAssets);
     entities.add(spiderBomb);
   }
 
@@ -182,48 +184,48 @@ class ObjectHandler {
 
     //Boots
     if (item == 1) {
-      Boots boots = new Boots(x, y, w / eSD, h / eSD, this, sprites);
+      Boots boots = new Boots(x, y, w / eSD, h / eSD, this, sprites, soundAssets);
       entities.add(boots);
     }
     //Sparkler
     if (item == 2) {
-      Sparkler sparkler = new Sparkler(x, y, w / eSD, h / eSD, this, sprites);
+      Sparkler sparkler = new Sparkler(x, y, w / eSD, h / eSD, this, sprites, soundAssets);
       entities.add(sparkler);
     }
     //Blue Potion
     if (item == 3) {
-      BluePotion bluePotion = new BluePotion(x, y, w / eSD, h / eSD, this, sprites);
+      BluePotion bluePotion = new BluePotion(x, y, w / eSD, h / eSD, this, sprites, soundAssets);
       entities.add(bluePotion);
     }
     //Shield
     if (item == 4) {
-      Shield shield = new Shield(x, y, w / eSD, h / eSD, this, sprites);
+      Shield shield = new Shield(x, y, w / eSD, h / eSD, this, sprites, soundAssets);
       entities.add(shield);
     }
     //Cloak
     if (item == 5) {
-      Cloak cloak = new Cloak(x, y, w / eSD, h / eSD, this, sprites);
+      Cloak cloak = new Cloak(x, y, w / eSD, h / eSD, this, sprites, soundAssets);
       entities.add(cloak);
     }
     //Heart
     if (item == 6) {
-      Heart heart = new Heart(x, y, w / eSD, h / eSD, this, sprites);
+      Heart heart = new Heart(x, y, w / eSD, h / eSD, this, sprites, soundAssets);
       entities.add(heart);
     }
     //Coin
     if (item == 7) {
-      Coin coin = new Coin(x, y, w / eSD, h / eSD, this, sprites);
+      Coin coin = new Coin(x, y, w / eSD, h / eSD, this, sprites, soundAssets);
       entities.add(coin);
     }
   }
 
   void addSpiderQueen(float x, float y, int w, int h) {
-    SpiderQueen spiderQueen = new SpiderQueen(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
+    SpiderQueen spiderQueen = new SpiderQueen(x, y - OBJECT_Y_OFFSET, w, h, this, sprites, soundAssets);
     entities.add(spiderQueen);
   }
 
   void addMovingWall(float x, float y, int w, int h) {
-    MovingWall movingWall = new MovingWall(x, y - OBJECT_Y_OFFSET, w, h, this, sprites);
+    MovingWall movingWall = new MovingWall(x, y - OBJECT_Y_OFFSET, w, h, this, sprites, soundAssets);
     entities.add(movingWall);
   }
 
@@ -233,15 +235,15 @@ class ObjectHandler {
     //println(randomItem);
     
     if (randomItem == 1) {
-      Corpse corpse = new Corpse(x, y - OBJECT_Y_OFFSET, w, h / eSD, this, sprites);
+      Corpse corpse = new Corpse(x, y - OBJECT_Y_OFFSET, w, h / eSD, this, sprites, soundAssets);
       entities.add(corpse);
     }
     if (randomItem == 2) {
-      Vases vases = new Vases(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+      Vases vases = new Vases(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites, soundAssets);
       entities.add(vases);
     }
     if (randomItem == 3) {
-      Backpack backpack = new Backpack(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites);
+      Backpack backpack = new Backpack(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites, soundAssets);
       entities.add(backpack);
     }
   }

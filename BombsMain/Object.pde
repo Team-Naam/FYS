@@ -35,8 +35,9 @@ abstract class Object {
   BombID bombId;
   ObjectHandler objectHandler;
   TextureAssets sprites;
+  SoundAssets soundAssets;
 
-  Object(float x, float y, int w, int h, ObjectID objectId, ObjectHandler objectHandler, TextureAssets sprites) {
+  Object(float x, float y, int w, int h, ObjectID objectId, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     this.x = x;
     this.y = y;
     this.w = w;
@@ -44,6 +45,7 @@ abstract class Object {
     this.objectId = objectId;
     this.objectHandler = objectHandler;
     this.sprites = sprites;
+    this.soundAssets = soundAssets;
     lb = new PVector();
     rb = new PVector();
     ro = new PVector();
