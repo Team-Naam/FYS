@@ -2,6 +2,8 @@
 //code credit Ole Neuman
 
 class MainMenu {
+  
+  TextureAssets sprites;
 
   MenuBox[] boxArray = new MenuBox[MENUBOX_AMOUNT];
 
@@ -29,16 +31,13 @@ class MainMenu {
     boxSelected = 0;
 
     moveCooldown = 0;
-
-    logo = loadImage("data/text/logo_highres.png");
-    logo.resize(200, 0);
     this.sprites = textureLoader;
     this.soundAssets = soundAssets;
   }
 
   void draw() {
     background(MENU_BACKGROUND_COLOUR);
-    image(logo, 20, height - logo.height - 20);
+    image(sprites.getLogo(), 20, height - 131, 200, 111);
     for (MenuBox menuBox : boxArray) {
       menuBox.draw();
     }
@@ -142,11 +141,11 @@ class MenuBox {
 //code credit Jordy
 //gameOver scherm
 class GameOver {
-  PImage logo;
+  TextureAssets sprites;
   Highscore highscore;
 
-  GameOver() {
-    logo = loadImage("data/text/logo_highres.png");
+  GameOver(TextureAssets textureLoader) {
+    this.sprites = textureLoader;
   }
 
   void update(Highscore highscore) {
@@ -158,8 +157,7 @@ class GameOver {
 
   void draw() {
     background(MENU_BACKGROUND_COLOUR);
-    image(logo, 20, height - logo.height - 20);
-    logo.resize(200, 0);
+    image(sprites.getLogo(), 20, height - 131, 200, 111);
     fill(0);
     textSize(50);
     text("GAME OVER", width / 2 -150, height / 4);

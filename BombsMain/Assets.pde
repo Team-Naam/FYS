@@ -17,11 +17,13 @@ class TextureAssets {
   //final PImage[][] rockSprites;
   final PImage[][] backgroundSprites;
   final PImage[][] explosion;
+  final PImage logo;
 
   int frame = 0;
 
   //Class neemt filepaths in en de groote van de gridtegels
   TextureAssets(int tileSize) {
+    logo = loadImage("data/text/logo_highres.png");
     sprites = loadSprites("data/text/textures.png", tileSize);
     wallSprites = loadSprites("data/text/walls/walls_spritesheet.png", tileSize);
     itemsBombsUI = loadSprites("data/text/items/itemsBombsUI.png", 32);
@@ -41,6 +43,12 @@ class TextureAssets {
     imageMode(CENTER);
     image(explosion[frame][column], x, y);
     imageMode(CORNER);
+  PImage getLogo(){
+   return logo; 
+  }
+
+  PImage getExplosion(int row) {
+    return explosion[row][0];
   }
 
   PImage getBackground(int row, int column) {
