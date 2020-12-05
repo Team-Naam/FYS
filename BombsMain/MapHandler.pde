@@ -13,8 +13,14 @@ class MapHandler {
   float mapScrollSpeed; 
   float baseScrollSpeed;
   float mapPositionTracker; 
+  float fastforwardWidth;
   float offSet; 
   int mapAmount; 
+  int numberOfMapsLoaded;
+  boolean mapScrolling;
+  boolean mapEvent;
+
+  String bossToBeSpawned;
 
   MapHandler(int sizeOfTiles) { 
     mapList = new IntList();
@@ -29,46 +35,82 @@ class MapHandler {
     mapScrollSpeed = baseScrollSpeed;
     offSet = MAP_OFFSET; 
     mapAmount = LEVEL_AMOUNT;
+    mapScrolling = false;
+    mapEvent = false;
+    fastforwardWidth = 0.60;
+    numberOfMapsLoaded = 0;
+    bossToBeSpawned = "";
   } 
 
   void update() { 
     mapScrollSpeed = baseScrollSpeed;
+    if (!mapScrolling) mapScrollSpeed = 0;
     fastMapForward();
     mapPositionTracker -= mapScrollSpeed; 
-    if (mapPositionTracker <= 0) {  
-      generateMap(game.objectHandler); 
-      //println("Generating new map");
+    if (mapPositionTracker <= 0) { 
+      mapEventHandler();
+      if (mapEvent == false) {
+        loadNormalMap(); 
+        //println("Generating new map");
+      } else if ( mapPositionTracker <= -128) {
+        mapScrolling = false;
+        fastforwardWidth = 1;
+        spawnBoss();
+        mapEvent = false;
+        offSet -= 128;
+      }
     }
-  } 
+  }
+
 
   void fastMapForward() {
-    if (game.objectHandler.entities.get(0).x > width * 0.75) {
+    if (game.objectHandler.entities.get(0).x > width * fastforwardWidth) {
+      if (fastforwardWidth != 0.75) {
+        mapScrolling = true;
+        fastforwardWidth = 0.75;
+      }
       mapScrollSpeed += 0.5;
     }
   }
 
   void generateMap(ObjectHandler objectHandler) { 
-    loadMapImage(); 
     loadMap(newMap.pixels, newMap.width, newMap.height, tileSize, tileSize, objectHandler, offSet);
     mapPositionTracker += offSet; 
-    //println("mapWidth = " + newMap.width); 
     offSet = floor(newMap.width * tileSize); 
-    //println("offSet = " + offSet);
+    numberOfMapsLoaded += 1;
   } 
 
-  void loadMapImage() { 
+  void mapEventHandler() {
+    //switch(numberOfMapsLoaded) {
+    //}
+    if (mapEvent) {
+    }
+
+    if (numberOfMapsLoaded % 5 == 0 && numberOfMapsLoaded != 0 && !mapEvent) {
+      generateBossMap();
+      mapEvent = true;
+    }
+  }
+
+
+  void loadNormalMap() {
     if (mapQueue.peek() != null) {
       int mapFileNumber = mapQueue.remove();
-      if (mapFileNumber >= 0) {
-        newMap = loadImage("data/maps/main/map" + mapFileNumber + ".png"); 
-        newMap.loadPixels();
-      } else {
-        newMap = loadImage("data/maps/start/tutorial" + (-mapFileNumber - 1) + ".png"); 
-        newMap.loadPixels();
-      }
+      loadNormalMapImage(mapFileNumber);
     } else {
       generateQueue();
     }
+  }
+
+  void loadNormalMapImage(int mapFileNumber) { 
+    if (mapFileNumber >= 0) {
+      newMap = loadImage("data/maps/main/map" + mapFileNumber + ".png"); 
+      newMap.loadPixels();
+    } else {
+      newMap = loadImage("data/maps/start/tutorial" + (-mapFileNumber - 1) + ".png"); 
+      newMap.loadPixels();
+    }
+    generateMap(game.objectHandler);
   }
 
   void generateQueue() {
@@ -78,14 +120,48 @@ class MapHandler {
       mapQueue.add(maps.get(randomMapIndex));
       maps.remove(randomMapIndex);
     }
-    loadMapImage();
+  }
+
+  void generateBossMap() {
+    bossToBeSpawned = randomBoss();
+    newMap = loadImage("data/maps/bosses/" + bossToBeSpawned + "_map.png");
+    newMap.loadPixels();
+    generateMap(game.objectHandler);
+    numberOfMapsLoaded += 1;
   }
 
   void addTutorial() {
     mapQueue.add(-1);
     mapQueue.add(-2);
   }
+  
+  void spawnBoss(){
+   switch(bossToBeSpawned){
+     case "spider":
+     game.objectHandler.addSpiderQueen(1200, 540, tileSize, tileSize);
+     break;
+     
+     case "wall":
+     game.objectHandler.addMovingWall(1200, 540, tileSize, tileSize);
+     break;
+   }
+  }
+  
+  String randomBoss(){
+   int boss = int(random(1, 3));
+   switch(boss){
+    case 1:
+    return "spider";
+    
+    case 2:
+    return "wall";
+    
+    default:
+    return "spider";
+   }
+  }
 }
+
 
 //Code credit Winand Metz
 //Het bepalen van de plaatsing van objecten in het level dmv aflezen pixel colorcodes(android graphics color) en dit omzetten in een grid van 15 bij 8
