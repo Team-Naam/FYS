@@ -99,7 +99,7 @@ class SoundAssets {
   float rate, FX_VOLUME;
 
   SoundAssets(PApplet setup) {
-    coin = new SoundFile(setup, "");
+    coin = new SoundFile(setup, "coin.mp3");
     rate = 1;
     FX_VOLUME = 1.0;
   }
