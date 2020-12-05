@@ -16,8 +16,8 @@ class Entity extends Object {
   boolean takenDamage;
   boolean touching;
 
-  Entity(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, ObjectID.ENTITY, objectHandler, sprites);
+  Entity(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, ObjectID.ENTITY, objectHandler, sprites, soundAssets);
     savedTime = millis();
     health = 1;
     attack = 1;
@@ -84,6 +84,7 @@ class Entity extends Object {
 
   void bombDamage() {
     if (insideExplosion && !takenDamage) {
+      soundAssets.getEnemyHit();
       health -= BOMB_DAMAGE;
       takenDamage = true;
     }

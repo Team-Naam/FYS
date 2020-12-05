@@ -26,8 +26,8 @@ class Player extends Object {
   int bombCooldown = 0;
   int bombSparklerCooldown = 0;
 
-  Player(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, Highscore highscore) {
-    super(x, y, w, h, ObjectID.PLAYER, objectHandler, sprites);
+  Player(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, Highscore highscore, SoundAssets soundAssets) {
+    super(x, y, w, h, ObjectID.PLAYER, objectHandler, sprites, soundAssets);
     timer = new Timer();
     this.highscore = highscore;
   }
@@ -93,14 +93,17 @@ class Player extends Object {
     if (input.zDown() && bombCooldown == 0) {
       objectHandler.addBomb(x + w / 4, y + h / 4, BOMB_SIZE, BOMB_SIZE);
       bombCooldown = BOMB_COOLDOWN_TIME;
+      //soundAssets.getBombPlaced();
     }
     if (input.sDown()&& bombCooldown == 0) {
       objectHandler.addC4(x + w / 4, y + h / 4, BOMB_SIZE, BOMB_SIZE);
       bombCooldown = BOMB_COOLDOWN_TIME;
+      //soundAssets.getBombPlaced();
     }
     if (input.aDown()&& bombCooldown == 0) {
       objectHandler.addLandmine(x + w / 4, y + h / 4, BOMB_SIZE, BOMB_SIZE);
       bombCooldown = BOMB_COOLDOWN_TIME;
+      //soundAssets.getBombPlaced();
     }
   }
 

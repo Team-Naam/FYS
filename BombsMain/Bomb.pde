@@ -9,8 +9,8 @@ class Bomb extends Object {
   int explosionRadius = EXPLOSION_START_RADIUS;
 
 
-  Bomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, ObjectID.BOMB, objectHandler, sprites);
+  Bomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, ObjectID.BOMB, objectHandler, sprites, soundAssets);
     this.bombId = BombID.DYNAMITE;
     startTime = millis();
   }
@@ -99,8 +99,8 @@ class C4 extends Bomb
 {
   boolean bombActivated;
 
-  C4(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  C4(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.bombId = BombID.CFOUR;
     bombActivated = false;
   }
@@ -143,8 +143,8 @@ class Landmine extends Bomb
 {
   boolean enemyOverlaps;
 
-  Landmine(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  Landmine(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.bombId = BombID.LANDMINE;
     enemyOverlaps = false;
   }
@@ -216,8 +216,8 @@ class SpiderBomb extends Bomb {
   int explosionRadius = EXPLOSION_START_RADIUS;
 
 
-  SpiderBomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  SpiderBomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.bombId = BombID.SPIDER_BOMB;
     startTime = millis();
   }

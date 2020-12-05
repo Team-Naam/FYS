@@ -9,8 +9,8 @@ class Wall extends Object {
 
   boolean leftCon, rightCon, upCon, downCon;
 
-  Wall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, ObjectID.WALL, objectHandler, sprites);
+  Wall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, ObjectID.WALL, objectHandler, sprites, soundAssets);
   }
 
   void update() {
@@ -149,8 +149,8 @@ class Wall extends Object {
 //Onder en boven muren
 class Rock extends Object {
 
-  Rock(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, ObjectID.ROCK, objectHandler, sprites);
+  Rock(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, ObjectID.ROCK, objectHandler, sprites, soundAssets);
   }
 
   void update() {
@@ -181,8 +181,8 @@ class Path extends Object {
 
   boolean leftCon, rightCon, upCon;
 
-  Path(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, ObjectID.PATH, objectHandler, sprites);
+  Path(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, ObjectID.PATH, objectHandler, sprites, soundAssets);
   }
 
   void update() {
@@ -299,8 +299,8 @@ class BreakableWall extends Entity {
 
   boolean leftCon, rightCon, upCon, downCon;
 
-  BreakableWall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  BreakableWall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.objectId = ObjectID.BBLOCK;
   }
 
@@ -399,8 +399,8 @@ class BreakableObject extends Entity {
   int randomTexture;
   float randomPosQ, newX, newY;
 
-  BreakableObject(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  BreakableObject(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.entityId = EntityID.BOBJECT;
   }
 
@@ -426,8 +426,8 @@ class BreakableObject extends Entity {
 
 class Corpse extends BreakableObject {
 
-  Corpse(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  Corpse(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
   }
 
   @Override
@@ -450,8 +450,8 @@ class Corpse extends BreakableObject {
 
 class Vases extends BreakableObject {
 
-  Vases(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  Vases(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     randomTexture = (int)random(9);
     randomPosQ = random(1) * 80;
 
@@ -465,8 +465,8 @@ class Vases extends BreakableObject {
 
 class Backpack extends BreakableObject {
 
-  Backpack(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  Backpack(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     randomTexture = (int)random(9);
     randomPosQ = random(1) * 70;
   }

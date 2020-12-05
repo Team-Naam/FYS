@@ -10,13 +10,14 @@ class MainMenu {
 
   PImage logo;
   TextureAssets sprites;
+  SoundAssets soundAssets;
 
   int xKeyXPos = 1405;
   int xKeyYPosStart = 640;
   int xKeyYPosSettings = 820;
   int xKeyYPosQuit = 1000;
 
-  MainMenu(TextureAssets textureLoader) {
+  MainMenu(TextureAssets textureLoader, SoundAssets soundAssets) {
 
     for (int i = 0; i < MENUBOX_AMOUNT; i++) {
       boxArray[i] = new MenuBox(width / 4, height / 2 + i* (height / 6), width / 2, height / 8, 20);
@@ -32,6 +33,7 @@ class MainMenu {
     logo = loadImage("data/text/logo_highres.png");
     logo.resize(200, 0);
     this.sprites = textureLoader;
+    this.soundAssets = soundAssets;
   }
 
   void draw() {
@@ -56,23 +58,26 @@ class MainMenu {
       if (boxSelected == 0) boxSelected = MENUBOX_AMOUNT - 1;
       else boxSelected--;
       moveCooldown = MENU_MOVE_COOLDOWN;
+      soundAssets.getMenuHover();
     }
 
     if (input.downDown() && moveCooldown == 0) {
       if (boxSelected == MENUBOX_AMOUNT - 1) boxSelected = 0;
       else boxSelected++;
       moveCooldown = MENU_MOVE_COOLDOWN;
+      soundAssets.getMenuHover();
     }
     if (moveCooldown > 0) moveCooldown--;
 
     if (input.xDown()) {
+      soundAssets.getMenuSelect();
       switch(boxSelected) {
       case 0:
         gameState = 1;
         break;
-      //case 1:
-      //  gameState = 2;
-      //  break;
+        //case 1:
+        //  gameState = 2;
+        //  break;
       case 1:
         exit();
         return;
