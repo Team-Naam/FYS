@@ -4,6 +4,7 @@
 final float MAP_SCROLL_SPEED = 1;
 final float MAP_OFFSET = 0;
 final int LEVEL_AMOUNT = 3;
+final int FPS = 6;
 
 //!NIET VERANDEREN!
 final int TILE_SIZE = 128;
