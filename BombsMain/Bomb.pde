@@ -1,6 +1,9 @@
 //Code credit Alex Tarnòki, Ole Neuman //<>//
 
 class Bomb extends Object {
+  SpriteSheetAnim explosionAnim;
+
+  final int fps;
 
   int bombTimer = EXPLOSION_TIMER;
   int bombOpacity = BOMB_START_OPACITY;
@@ -13,7 +16,12 @@ class Bomb extends Object {
   Bomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, ObjectID.BOMB, objectHandler, sprites, soundAssets);
     this.bombId = BombID.DYNAMITE;
+
+    fps = 12;
     startTime = millis();
+    explosionAnim = new SpriteSheetAnim(sprites.explosion, 0, 12, fps);
+    explosionAnim.playOnce();
+    explosionAnim.setCenter();
   }
 
   //Wanneer dynamiet explodeerd kijk hij of er enemy in de blastradius zit en paast dit door naar de enemy class
@@ -23,10 +31,12 @@ class Bomb extends Object {
 
     if (bombExploded()) {
       bombAnimation = true;
-      
-      soundAssets.getBombExploded();
+
+      explosionAnim.update(x, y);
+
+      //soundAssets.getBombExploded();
       enemyDetection();
-      
+
       if (explosionRadius < 400) {
         explosionRadius += 25;
       }
@@ -42,13 +52,9 @@ class Bomb extends Object {
       image(sprites.getBombItem(1, 0), x, y);
     }
     if (bombAnimation) {
-      sprites.getExplosion(0, x, y);
+      explosionAnim.draw();
     }
-    //fill(235, 109, 30, explosionOpacity);
-    //noStroke();
-    //circle(x + w, y + h, explosionRadius);
-    //stroke(1);
-    if (explosionOpacity <= 0) {
+    if (explosionAnim.index > 11) {
       objectHandler.removeEntity(this);
     }
   }
