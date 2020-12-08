@@ -26,8 +26,8 @@ class MovingWall extends Entity {
   HalfWall topWall, bottomWall;
   Timer activateTimer = new Timer();
 
-  MovingWall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites) {
-    super(x, y, w, h, objectHandler, sprites);
+  MovingWall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.entityId = EntityID.WALL_BOSS;
 
     health = WALL_BOSS_HP;
@@ -118,8 +118,8 @@ class HalfWall extends Entity {
   int xRest, yRest, attackState;
   boolean hasSplit, initializing;
 
-  HalfWall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, boolean top, MovingWall WallBoss) {
-    super(x, y, w, h, objectHandler, sprites);
+  HalfWall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets, boolean top, MovingWall WallBoss) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.entityId = EntityID.HALF_WALL;
 
     velX = WALL_BOSS_VEL;
