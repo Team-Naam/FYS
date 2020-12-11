@@ -42,8 +42,8 @@ class MovingWall extends Entity {
     invincible = true; 
     attacking = false;
 
-    topWall = new HalfWall(x, y, w, h /2, objectHandler, sprites, true, this);
-    bottomWall = new HalfWall(x, y + h /2, w, h /2, objectHandler, sprites, false, this);
+    topWall = new HalfWall(x, y, w, h /2, objectHandler, sprites, soundAssets, true, this);
+    bottomWall = new HalfWall(x, y + h /2, w, h /2, objectHandler, sprites, soundAssets, false, this);
 
     objectHandler.entities.add(topWall);
     objectHandler.entities.add(bottomWall);
