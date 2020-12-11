@@ -17,11 +17,13 @@ class TextureAssets {
   final PImage[][] backgroundOverlays;
   final PImage[][] explosion;
   final PImage logo;
+  final PImage main_menu;
 
 
   //Class neemt filepaths in en de groote van de gridtegels
   TextureAssets(int tileSize) {
     logo = loadImage("data/text/logo_highres.png");
+    main_menu = loadImage("data/text/ui/main menu.png");
     sprites = loadSprites("data/text/textures.png", tileSize);
     wallSprites = loadSprites("data/text/walls/walls_spritesheet.png", tileSize);
     itemsBombsUI = loadSprites("data/text/items/itemsBombsUI.png", 32);
@@ -37,6 +39,10 @@ class TextureAssets {
 
   PImage getLogo() {
     return logo;
+  }
+
+  PImage getMenuBackground() {
+    return main_menu;
   }
 
   PImage getBackground(int row, int column) {
@@ -160,7 +166,7 @@ class SpriteSheetAnim {
   void update(float x_, float y_) {
     this.x = x_;
     this.y = y_;
-    
+
     setSpeed(fps);
 
     if (playing) {
