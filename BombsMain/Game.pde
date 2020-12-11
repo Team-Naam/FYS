@@ -2,6 +2,7 @@
 
 //Alles game gerelateerd
 class Game {
+  Timer timer;
   ObjectHandler objectHandler;
   MapHandler mapHandler;
   TextureAssets textureLoader;
@@ -16,7 +17,7 @@ class Game {
   //Inladen van alle assets voor de game en level creation dmv inladen van een png map, op basis van pixels plaatsing van objecten
   //TileSize is grote van de blokken in het plaatsingsgrid (tegelgrote)
   Game(int tileSize, int width, int height, TextureAssets textureAssets, SoundAssets soundAssets) {
-    this.width =  width;
+    this.width = width;
     this.height = height;
     textureLoader = textureAssets;
     soundLoader = soundAssets;
@@ -28,6 +29,8 @@ class Game {
     mapHandler = new MapHandler(tileSize);
     graphicsEngine = new GraphicsEngine();
     userInterface = new UserInterface(this.textureLoader, this.highscore, this.objectHandler);
+    timer = new Timer();
+    isPlaying = true;
   }
 
   //Oproepen van objecten in de game zodat ze worden getekend
@@ -40,13 +43,19 @@ class Game {
     userInterface.update();
 
     //stuurt je naar het main menu als je op escape drukt
-    if (input.escapeDown()) {
-      toMainMenu();
+    if (input.escapeDown() && timer.startTimer(200)) {
+      isPlaying = false;
+      inMainMenu = false;
     }
   }
 
   void draw() {
     background(41, 29, 43);
+
+    if (!isPlaying) {
+      graphicsEngine.update();
+    }
+
     background.draw();
     graphicsEngine.drawFloorLighting();
     objectHandler.draw();

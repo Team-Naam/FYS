@@ -12,6 +12,7 @@ Game game;
 InputHandler input;
 MainMenu mainMenu;
 GameOver gameOver;
+PauseMenu pauseMenu;
 TextureAssets textureAssets;
 SoundAssets soundAssets;
 
@@ -20,6 +21,8 @@ PFont bits;
 int gameState;
 
 boolean escapePressed;
+boolean isPlaying;
+boolean inMainMenu;
 
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
@@ -29,21 +32,20 @@ void setup() {
   //size(1920, 1080, P2D);
   frameRate(FRAMERATE);
 
-  bits = createFont("data/font/8bitlim.ttf", 40, true);
+  bits = createFont("data/font/8bitlim.ttf", 48, true);
   textFont(bits);
 
   input = new InputHandler();
   soundAssets = new SoundAssets(this);
   textureAssets = new TextureAssets(TILE_SIZE);
-  mainMenu = new MainMenu(textureAssets, soundAssets);
   game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets);
+  mainMenu = new MainMenu(textureAssets, soundAssets);
   gameOver = new GameOver(textureAssets);
+  pauseMenu = new PauseMenu(textureAssets);
 
   gameState = 0; //gameState for the main menu
 }
 
-//code credit Jordy
-//stuurt je naar de main menu en reset de game
 void toMainMenu() {
   gameState = 0;
   game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets);
@@ -53,8 +55,6 @@ void toMainMenu() {
 
 void draw() {
   instructionPicker();
-
-  escapePressed = false;
 }
 
 //this method calls certain other methods based on the current gameState
@@ -66,8 +66,16 @@ void instructionPicker() {
     break;
 
   case 1:
-    game.update();
+    if (isPlaying) {
+      game.update();
+    }
+
     game.draw();
+
+    if (!isPlaying) {
+      pauseMenu.update();
+      pauseMenu.draw();
+    }
     break;
 
   case 2:
@@ -96,4 +104,5 @@ void keyPressed() {
 void keyReleased() {
   if (keyCode >= KEY_LIMIT) return;
   keysPressed[keyCode] = false;
+  escapePressed = false;
 }
