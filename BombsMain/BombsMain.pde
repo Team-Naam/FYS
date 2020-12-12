@@ -15,6 +15,7 @@ GameOver gameOver;
 PauseMenu pauseMenu;
 TextureAssets textureAssets;
 SoundAssets soundAssets;
+ServerHandler serverHandler;
 
 PFont bits;
 
@@ -38,10 +39,12 @@ void setup() {
   input = new InputHandler();
   soundAssets = new SoundAssets(this);
   textureAssets = new TextureAssets(TILE_SIZE);
-  game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets);
+  serverHandler = new ServerHandler();
+  game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets, serverHandler);
   mainMenu = new MainMenu(textureAssets, soundAssets);
   gameOver = new GameOver(textureAssets);
   pauseMenu = new PauseMenu(textureAssets);
+  highscoreMenu = new HighscoreMenu(textureAssets, serverHandler);
 
   gameState = 0; //gameState for the main menu
 }
