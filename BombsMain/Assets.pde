@@ -185,12 +185,24 @@ class SpriteSheetAnim {
 }
 
 class SoundAssets {
-
+  //--ITEM SOUND EFFECTS-------------------------------------------------------------------------
   SoundFile item_coin, item_heart, item_cloak, item_shield, item_sparkler, item_bluepotion, item_boots;
-  SoundFile enemy_hit, enemy_dies;
+  SoundFile item_bluepotion_expired, item_boots_expired, item_cloak_expired, item_sparkler_expired, item_shield_broken;
+  //--ENEMY SOUNDS EFFECTS-----------------------------------------------------------------------
+  SoundFile enemy_hit, enemy_dies, enemy_footsteps, enemy_noise;
+  //--PLAYER SOUND EFFECTS-----------------------------------------------------------------------
   SoundFile player_hit, player_dies, player_footsteps;
-  SoundFile bomb_placed, bomb_exploded, bomb_breaks_object;
-  SoundFile menu_hover, menu_select;
+  //--BOMB SOUND EFFECTS-------------------------------------------------------------------------
+  SoundFile bomb_placed, bomb_breaks_object;
+  SoundFile bomb_c4_activated, bomb_c4_exploded;
+  SoundFile bomb_dynamite_sizzles, bomb_dynamite_exploded;
+  SoundFile bomb_landmine_ready, bomb_landmine_triggered, bomb_landmine_exploded;
+  //--MENU SOUND EFFECTS-------------------------------------------------------------------------
+  SoundFile menu_hover, menu_select, menu_goback;
+  //--BOSS SOUND EFFECTS-------------------------------------------------------------------------
+  SoundFile mw_dies, mw_footsteps, mw_hit, mw_noise;
+  SoundFile sq_dies, sq_footsteps, sq_hit, sq_noise;
+  //---------------------------------------------------------------------------------------------
   Reverb roomRev;
   LowPass lowPass;
 
@@ -209,20 +221,49 @@ class SoundAssets {
     item_sparkler = new SoundFile(setup, "data/sound/item/sparkler.mp3");
     item_bluepotion = new SoundFile(setup, "data/sound/item/bluepotion.mp3");
     item_boots = new SoundFile(setup, "data/sound/item/boots.mp3");
+
+    item_bluepotion_expired = new SoundFile(setup, "");
+    item_boots_expired = new SoundFile(setup, "");
+    item_cloak_expired = new SoundFile(setup, "");
+    item_sparkler_expired = new SoundFile(setup, "");
+    item_shield_broken = new SoundFile(setup, "");
     //--ENEMY SOUNDS EFFECTS-----------------------------------------------------------------------
     enemy_hit = new SoundFile(setup, "data/sound/enemy/hit.mp3");
     enemy_dies = new SoundFile(setup, "data/sound/enemy/dies.mp3");
+    enemy_footsteps = new SoundFile(setup, "");
+    enemy_noise = new SoundFile(setup, "");
     //--PLAYER SOUND EFFECTS-----------------------------------------------------------------------
     player_hit = new SoundFile(setup, "data/sound/player/hit.mp3");
     player_dies = new SoundFile(setup, "data/sound/player/dies.mp3");
     player_footsteps = new SoundFile(setup, "data/sound/player/footsteps.mp3");
     //--BOMB SOUND EFFECTS-------------------------------------------------------------------------
     bomb_placed = new SoundFile(setup, "data/sound/bomb/placed.mp3");
-    bomb_exploded = new SoundFile(setup, "data/sound/bomb/exploded.mp3");
     bomb_breaks_object = new SoundFile(setup, "data/sound/bomb/breaksobject.mp3");
+
+    bomb_c4_activated = new SoundFile(setup, "data/sound/bomb");
+    bomb_c4_exploded = new SoundFile(setup, "data/sound/bomb/c4/exploded.mp3");
+
+    bomb_dynamite_sizzles = new SoundFile(setup, "data/sound/bomb/dynamite");
+    bomb_dynamite_exploded = new SoundFile(setup, "data/sound/bomb/dynamite/exploded.mp3");
+
+    bomb_landmine_ready = new SoundFile(setup, "data/sound/bomb");
+    bomb_landmine_triggered = new SoundFile(setup, "data/sound/bomb");
+    bomb_landmine_exploded = new SoundFile(setup, "data/sound/bomb/landmine/exploded");
     //--MENU SOUND EFFECTS-------------------------------------------------------------------------
     menu_hover = new SoundFile(setup, "data/sound/menu/hover.mp3");
     menu_select = new SoundFile(setup, "data/sound/menu/select.mp3");
+    menu_goback = new SoundFile(setup, "");
+    //--BOSS SOUND EFFECTS-------------------------------------------------------------------------
+    mw_dies = new SoundFile(setup, "");
+    mw_footsteps = new SoundFile(setup, "");
+    mw_hit = new SoundFile(setup, "");
+    mw_noise = new SoundFile(setup, "");
+
+    sq_dies = new SoundFile(setup, "");
+    sq_footsteps = new SoundFile(setup, "");
+    sq_hit = new SoundFile(setup, "");
+    sq_noise = new SoundFile(setup, "");
+    //---------------------------------------------------------------------------------------------
 
     roomRev = new Reverb(setup);
     lowPass = new LowPass(setup);
@@ -243,26 +284,84 @@ class SoundAssets {
   }
 
   //ITEM SOUND EFFECTS--------------------------------
-  void getCoinPickUp() {
+  void getCoinPickUp() 
+  {
     item_coin.play(1, FX_VOLUME);
   }
-  void getHeartPickUp() {
+  void getHeartPickUp()
+  {
     item_heart.play(1, FX_VOLUME);
   }
-  void getCloakPickUp() {
+  void getCloakPickUp()
+  {
     item_cloak.play(1, FX_VOLUME);
   }
-  void getShieldPickUp() {
+  void getShieldPickUp() 
+  {
     item_shield.play(1, FX_VOLUME);
   }
-  void getSparklerickUp() {
+  void getSparklerPickUp() 
+  {
     item_sparkler.play(1, FX_VOLUME);
   }
-  void getBluePotionPickUp() {
+  void getBluePotionPickUp() 
+  {
     item_bluepotion.play(1, FX_VOLUME);
   }
-  void getBootsPickUp() {
+  void getBootsPickUp() 
+  {
     item_boots.play(1, FX_VOLUME);
+  }
+  void getCloakExpired() 
+  {
+    item_cloak_expired.play(1, FX_VOLUME);
+  }
+  void getSparklerExpired() 
+  {
+    item_sparkler_expired.play(1, FX_VOLUME);
+  }
+  void getBluePotionExpired() 
+  {
+    item_bluepotion_expired.play(1, FX_VOLUME);
+  }
+  void getBootsExpired() 
+  {
+    item_boots_expired.play(1, FX_VOLUME);
+  }
+  void getShieldBroken()
+  {
+    item_shield_broken.play(1, FX_VOLUME);
+  }
+
+  //ENEMY SOUNDS EFFECTS----------------------------
+  void getEnemyHit() 
+  {
+    enemy_hit.play(1, FX_VOLUME);
+  }
+  void getEnemyDies() 
+  {
+    enemy_dies.play(1, FX_VOLUME);
+  }
+  void getEnemyFootsteps() 
+  {
+    enemy_footsteps.play(1, FX_VOLUME);
+  }
+  void getEnemyNoise() 
+  {
+    enemy_noise.play(1, FX_VOLUME);
+  }
+  //PLAYER SOUND EFFECTS----------------------------
+  void getPlayerHit() 
+  {
+    player_hit.play(1, FX_VOLUME);
+  }
+  void getPlayerDies() 
+  {
+    player_dies.play(1, FX_VOLUME);
+  }
+  void getPlayerFootsteps() 
+  {
+    player_footsteps.play(1, FX_VOLUME - 0.5);
   }
   //ENEMY SOUNDS EFFECTS-----------------------------
   void getEnemyHit() {
@@ -284,21 +383,88 @@ class SoundAssets {
     lowPass.process(player_footsteps);
   }
   //BOMB SOUND EFFECTS------------------------------
-  void getBombPlaced() {
+  void getBombPlaced() 
+  {
     bomb_placed.play(1, FX_VOLUME);
   }
-  void getBombExploded() {
-    bomb_exploded.play(1, FX_VOLUME - 0.60);
-  }
-
-  void getBombBreaksObject() {
+  void getBombBreaksObject() 
+  {
     bomb_breaks_object.play(1, FX_VOLUME);
   }
+  void getC4Activated() 
+  {
+    bomb_c4_activated.play(1, FX_VOLUME);
+  }
+  void getC4Exploded() 
+  {
+    bomb_c4_exploded.play(1, FX_VOLUME);
+  }
+  void getDynamiteSizzles() 
+  {
+    bomb_dynamite_sizzles.play(1, FX_VOLUME);
+  }
+  void getDynamiteExploded() 
+  {
+    bomb_dynamite_exploded.play(1, FX_VOLUME);
+  }
+  void getLandmineReady() 
+  {
+    bomb_landmine_ready.play(1, FX_VOLUME);
+  }
+  void getLandmineTriggered() 
+  {
+    bomb_landmine_triggered.play(1, FX_VOLUME);
+  }
+  void getLandmineExploded() 
+  {
+    bomb_landmine_exploded.play(1, FX_VOLUME);
+  }
   //MENU SOUND EFFECTS------------------------------
-  void getMenuHover() {
+  void getMenuHover() 
+  {
     menu_hover.play(1, FX_VOLUME);
   }
-  void getMenuSelect() {
+  void getMenuSelect() 
+  {
     menu_select.play(1, FX_VOLUME);
   }
+  void getMenuGoBack() 
+  {
+    menu_goback.play(1, FX_VOLUME);
+  }
+  //BOSS SOUND EFFECTS------------------------------
+  void getBossMWDies()
+  {
+  mw_dies.play(1, FX_VOLUME);
+  }
+  void getBossMWFootsteps()
+  {
+  mw_footsteps.play(1, FX_VOLUME);
+  }
+  void getBossMWHit()
+  {
+  mw_hit.play(1, FX_VOLUME);
+  }
+  void getBossMWNoise()
+  {
+  mw_noise.play(1, FX_VOLUME);
+  }
+
+void getBossSQDies()
+  {
+  sq_dies.play(1, FX_VOLUME);
+  }
+  void getBossSQFootsteps()
+  {
+  sq_footsteps.play(1, FX_VOLUME);
+  }
+  void getBossSQHit()
+  {
+  sq_hit.play(1, FX_VOLUME);
+  }
+  void getBossSQNoise()
+  {
+  sq_noise.play(1, FX_VOLUME);
+  }
+  //-----------------------------------------------
 }
