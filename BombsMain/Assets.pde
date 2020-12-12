@@ -350,6 +350,7 @@ class SoundAssets {
   {
     enemy_noise.play(1, FX_VOLUME);
   }
+  
   //PLAYER SOUND EFFECTS----------------------------
   void getPlayerHit() 
   {
@@ -363,25 +364,7 @@ class SoundAssets {
   {
     player_footsteps.play(1, FX_VOLUME - 0.5);
   }
-  //ENEMY SOUNDS EFFECTS-----------------------------
-  void getEnemyHit() {
-    enemy_hit.play(1, ENTITY_VOLUME);
-  }
-  void getEnemyDies() {
-    enemy_dies.play(1, ENTITY_VOLUME);
-  }
-  //PLAYER SOUND EFFECTS------------------------------
-  void getPlayerHit() {
-    player_hit.play(1, ENTITY_VOLUME);
-  }
-  void getPlayerDies() {
-    player_dies.play(1, ENTITY_VOLUME);
-  }
-  void getPlayerFootsteps() {
-    player_footsteps.play(1, ENTITY_VOLUME - 0.5);
-    roomRev.process(player_footsteps);
-    lowPass.process(player_footsteps);
-  }
+  
   //BOMB SOUND EFFECTS------------------------------
   void getBombPlaced() 
   {
