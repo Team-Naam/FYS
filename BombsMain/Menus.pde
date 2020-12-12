@@ -18,7 +18,7 @@ class MainMenu {
     for (int i = 0; i < MENUBOX_AMOUNT; i++) {
       boxArray[i] = new MenuBox(1520, height / 2 + i * (height / 6), 200, height / 8, 40, textureLoader);
     }
-    
+
     timer = new Timer();
 
     boxArray[0].boxText = "Start";
@@ -93,6 +93,7 @@ class MainMenu {
 
 class MenuBox {
   TextureAssets sprites;
+  SpriteSheetAnim keyX;
 
   float posX, posY;
   int boxWidth, boxHeight, textSize;
@@ -105,6 +106,7 @@ class MenuBox {
 
   MenuBox(float positionX, float positionY, int Width, int Height, int size, TextureAssets textureLoader) {
     this.sprites = textureLoader;
+    keyX = new SpriteSheetAnim(sprites.itemsBombsUI, 3, 2, 6);
     posX = positionX;
     posY = positionY;
     boxWidth = Width;
@@ -121,11 +123,12 @@ class MenuBox {
     textSize(textSize);
     text(boxText, posX + boxWidth / 2, posY + boxHeight / 2);
     if (selected) {
-      image(sprites.getKeyCap(2, 7), posX, posY + 45);
+      keyX.draw();
     }
   }
 
   void update() {
+    keyX.update(posX, posY + 45);
     if (selected) {
       textColour = BOX_TEXT_COLOUR;
     } else {
@@ -254,5 +257,19 @@ class PauseMenu {
     for (MenuBox menuBox : boxArray) {
       menuBox.draw();
     }
+  }
+}
+
+class SettingsMenu {
+  TextureAssets sprites;
+
+  SettingsMenu(TextureAssets textureLoader) {
+    this.sprites = textureLoader;
+  }
+
+  void update() {
+  }
+
+  void draw() {
   }
 }

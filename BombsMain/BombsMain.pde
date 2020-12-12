@@ -43,9 +43,11 @@ void setup() {
   gameOver = new GameOver(textureAssets);
   pauseMenu = new PauseMenu(textureAssets);
 
+  soundAssets.update();
   gameState = 0; //gameState for the main menu
 }
 
+//Code credit Jordy Post
 void toMainMenu() {
   gameState = 0;
   game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets);

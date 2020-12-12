@@ -44,10 +44,10 @@ class Player extends Object {
     or = new PVector((lb.x + rb.x) / 2, (lb.y + lo.y) / 2);
 
     if (speedX == 4 || speedY == 4 || speedX == 4 && speedY == 4 || speedX == -4 || speedY == -4 || speedX == -4 && speedY == -4) {
-      if((frameCount % fps) == 0)
-      soundAssets.getPlayerFootsteps();
+      if ((frameCount % fps) == 0)
+        soundAssets.getPlayerFootsteps();
     }
-    
+
     x = x + speedX;
     y = y + speedY;
 
@@ -221,6 +221,13 @@ class Player extends Object {
         objectHandler.removeEntity(item);
       }
     }
+  }
+
+  @Override
+    void dropShadow() {
+    noStroke();
+    fill(0, 112);
+    ellipse(x + w / 2, y + h * 1.01, w, w * 0.9);
   }
 
 

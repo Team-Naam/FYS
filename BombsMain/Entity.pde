@@ -135,6 +135,10 @@ class CollisionFix extends Object {
     void moveMap() {
   }
 
+  @Override
+    void dropShadow() {
+  }
+
   void update() {
   }
 
