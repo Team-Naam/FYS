@@ -74,6 +74,12 @@ abstract class Object {
     }
   }
 
+  void dropShadow() {
+    noStroke();
+    fill(0, 112);
+    ellipse(x + w / 2, y + h * 0.9, w, w * 0.9);
+  }
+
   //Position crawler voor de player X
   //Gaat door de objecthandler z'n list heen en zoekt naar object met het ID player om vervolgens x op te vragen
   float getPlayerX() {

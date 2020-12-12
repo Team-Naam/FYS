@@ -287,12 +287,16 @@ class ObjectHandler {
   //Draw method voor elk onderdeel in de list
   void draw() {
     ArrayList<Object> entityObjects = entities;
-    for (int i = 0; i < entityObjects.size(); i++) {
+    for (int i = 1; i < entityObjects.size(); i++) {
       if (i >= entityObjects.size()) {
         break;
       }
+      entityObjects.get(i).dropShadow();
       entityObjects.get(i).draw();
     }
+    
+    entityObjects.get(0).dropShadow();
+    entityObjects.get(0).draw();
 
     ArrayList<Object> wallObjects = walls;
     for (int i = 0; i < wallObjects.size(); i++) {
