@@ -13,6 +13,7 @@ InputHandler input;
 MainMenu mainMenu;
 GameOver gameOver;
 PauseMenu pauseMenu;
+HighscoreMenu highscoreMenu;
 TextureAssets textureAssets;
 SoundAssets soundAssets;
 ServerHandler serverHandler;
@@ -53,7 +54,7 @@ void setup() {
 //Code credit Jordy Post
 void toMainMenu() {
   gameState = 0;
-  game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets);
+  game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets, serverHandler);
 }
 
 //-----------------------------Draw & Key functies---------------------------------

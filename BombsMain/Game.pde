@@ -11,14 +11,16 @@ class Game {
   UserInterface userInterface;
   Background background;
   SoundAssets soundLoader;
+  ServerHandler serverHandler;
 
   final int width, height;
 
   //Inladen van alle assets voor de game en level creation dmv inladen van een png map, op basis van pixels plaatsing van objecten
   //TileSize is grote van de blokken in het plaatsingsgrid (tegelgrote)
-  Game(int tileSize, int width, int height, TextureAssets textureAssets, SoundAssets soundAssets) {
+  Game(int tileSize, int width, int height, TextureAssets textureAssets, SoundAssets soundAssets, ServerHandler databaseLoader) {
     this.width = width;
     this.height = height;
+    this.serverHandler = databaseLoader;
     textureLoader = textureAssets;
     soundLoader = soundAssets;
     highscore = new Highscore(serverHandler);
