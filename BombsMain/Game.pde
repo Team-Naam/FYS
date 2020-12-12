@@ -21,7 +21,7 @@ class Game {
     this.height = height;
     textureLoader = textureAssets;
     soundLoader = soundAssets;
-    highscore = new Highscore();
+    highscore = new Highscore(serverHandler);
     objectHandler = new ObjectHandler(this.textureLoader, this.soundLoader);
     objectHandler.addPlayer(this.highscore);
     objectHandler.addFix();
@@ -235,21 +235,15 @@ class Highscore {
   int score, timeScore, timer;
   Timer scoreTimer;
   boolean scoreAdded;
-  //MySQLConnection myConnection;
-  // Table highscores;
-  int userId;
-  String addScore, selectScore, user;
-  int highscoreTableLimit;
+  ServerHandler serverHandler;
 
-  Highscore() {
-    //myConnection = new MySQLConnection("verheur6", "od93cCRbyqVu5R1M", "jdbc:mysql://oege.ie.hva.nl/zverheur6");
-    //highscores = myConnection.getTable("Highscore");
+  Highscore(ServerHandler serverHandler) {
+    this.serverHandler = serverHandler;
     score = 0; 
     timeScore = TIME_SCORE;
     timer = FRAMERATE * TIME_SCORE_TIMER;
     scoreTimer = new Timer();
     scoreAdded = false;
-    queries();
   }
 
   //iedere sec komt er score bij
@@ -272,31 +266,12 @@ class Highscore {
   //update de highscorelist
   void updateHighscores() {
     //zet de highscore in de tabel
-    //myConnection.updateQuery(addScore);
-    //zodat je altijd de meest up to date highscore laat zien
-    //highscores = myConnection.runQuery(selectScore);
+    serverHandler.updateHighscores(score);
     scoreAdded = true;
   }
 
   //als je buiten deze class score wilt toevoegen
   void addScore(int amount) {
     score += amount;
-  }
-
-  //temp als je de highscores wilt printen
-  //void printHighscore(int limit) {
-  //  highscoreTableLimit = limit;
-
-  //  for (int i = 0; i < highscores.getRowCount(); i++) {
-  //    TableRow row = highscores.getRow(i);
-  //    for (int j = 0; j < row.getColumnCount(); j++) {
-  //      text(row.getString(j), width / 2 -150 + 150 * j, 250 + 50 * i);
-  //    }
-  //  }
-  //}
-
-  void queries() {
-    addScore = "INSERT INTO `Highscore`(`name`, `highscore`) VALUES ("+ user + "," + score + ")";
-    selectScore = "SELECT User_id, score FROM Highscore ORDER BY `score` DESC LIMIT " + highscoreTableLimit;
   }
 }
