@@ -2,6 +2,7 @@
 
 //Alles game gerelateerd
 class Game {
+  Timer timer;
   ObjectHandler objectHandler;
   MapHandler mapHandler;
   TextureAssets textureLoader;
@@ -16,11 +17,11 @@ class Game {
   //Inladen van alle assets voor de game en level creation dmv inladen van een png map, op basis van pixels plaatsing van objecten
   //TileSize is grote van de blokken in het plaatsingsgrid (tegelgrote)
   Game(int tileSize, int width, int height, TextureAssets textureAssets, SoundAssets soundAssets) {
-    this.width =  width;
+    this.width = width;
     this.height = height;
     textureLoader = textureAssets;
     soundLoader = soundAssets;
-    highscore = new Highscore();
+    highscore = new Highscore(serverHandler);
     objectHandler = new ObjectHandler(this.textureLoader, this.soundLoader);
     objectHandler.addPlayer(this.highscore);
     objectHandler.addFix();
@@ -28,6 +29,8 @@ class Game {
     mapHandler = new MapHandler(tileSize);
     graphicsEngine = new GraphicsEngine();
     userInterface = new UserInterface(this.textureLoader, this.highscore, this.objectHandler);
+    timer = new Timer();
+    isPlaying = true;
   }
 
   //Oproepen van objecten in de game zodat ze worden getekend
@@ -40,13 +43,19 @@ class Game {
     userInterface.update();
 
     //stuurt je naar het main menu als je op escape drukt
-    if (input.escapeDown()) {
-      toMainMenu();
+    if (input.escapeDown() && timer.startTimer(200)) {
+      isPlaying = false;
+      inMainMenu = false;
     }
   }
 
   void draw() {
     background(41, 29, 43);
+
+    if (!isPlaying) {
+      graphicsEngine.update();
+    }
+
     background.draw();
     graphicsEngine.drawFloorLighting();
     objectHandler.draw();
@@ -226,21 +235,15 @@ class Highscore {
   int score, timeScore, timer;
   Timer scoreTimer;
   boolean scoreAdded;
-  //MySQLConnection myConnection;
-  // Table highscores;
-  int userId;
-  String addScore, selectScore, user;
-  int highscoreTableLimit;
+  ServerHandler serverHandler;
 
-  Highscore() {
-    //myConnection = new MySQLConnection("verheur6", "od93cCRbyqVu5R1M", "jdbc:mysql://oege.ie.hva.nl/zverheur6");
-    //highscores = myConnection.getTable("Highscore");
+  Highscore(ServerHandler serverHandler) {
+    this.serverHandler = serverHandler;
     score = 0; 
     timeScore = TIME_SCORE;
     timer = FRAMERATE * TIME_SCORE_TIMER;
     scoreTimer = new Timer();
     scoreAdded = false;
-    queries();
   }
 
   //iedere sec komt er score bij
@@ -263,31 +266,12 @@ class Highscore {
   //update de highscorelist
   void updateHighscores() {
     //zet de highscore in de tabel
-    //myConnection.updateQuery(addScore);
-    //zodat je altijd de meest up to date highscore laat zien
-    //highscores = myConnection.runQuery(selectScore);
+    serverHandler.updateHighscores(score);
     scoreAdded = true;
   }
 
   //als je buiten deze class score wilt toevoegen
   void addScore(int amount) {
     score += amount;
-  }
-
-  //temp als je de highscores wilt printen
-  //void printHighscore(int limit) {
-  //  highscoreTableLimit = limit;
-
-  //  for (int i = 0; i < highscores.getRowCount(); i++) {
-  //    TableRow row = highscores.getRow(i);
-  //    for (int j = 0; j < row.getColumnCount(); j++) {
-  //      text(row.getString(j), width / 2 -150 + 150 * j, 250 + 50 * i);
-  //    }
-  //  }
-  //}
-
-  void queries() {
-    addScore = "INSERT INTO `Highscore`(`name`, `highscore`) VALUES ("+ user + "," + score + ")";
-    selectScore = "SELECT User_id, score FROM Highscore ORDER BY `score` DESC LIMIT " + highscoreTableLimit;
   }
 }

@@ -22,7 +22,7 @@ final color BOX_BASIC_OUTER_COLOUR = #C51FBD;
 final color BOX_BASIC_INNER_COLOUR = #271FC5;
 final color BOX_HIGHLIGHTED_OUTER_COLOUR = #E4BB17;
 final color BOX_HIGHLIGHTED_INNER_COLOUR = #ED270F;
-final color BOX_TEXT_COLOUR = #000000;
+final color BOX_TEXT_COLOUR = #FFFFFF;
 final int MENUBOX_AMOUNT = 2;
 final int MENU_MOVE_COOLDOWN = 10;
 
@@ -97,6 +97,44 @@ final int EXPLOSIVE_SPIDER_HEALTH = 1;
 final int EXPLOSIVE_SPIDER_ATTACK = 1;
 final int EXPLOSIVE_SPIDER_ROAMING = 1000;
 final int EXPLOSIVE_SPIDER_MOVEMENT_SPEED = 3;
+
+
+
+//Wall Boss
+final int WALL_BOSS_HP = 20;
+final int WALL_BOSS_VEL = 2;
+final float WALL_BOSS_INNIT_SPLIT_VEL = .1;
+final float WALL_BOSS_INNIT_SPLIT_DIST = 100;
+
+final int WALL_BOSS_X_REST = 1920 - TILE_SIZE - 400;
+final int WALL_BOSS_Y_REST = 1080 /2 - TILE_SIZE /2;
+final int WALL_BOSS_X_LIMIT = 1700;
+
+final int WALL_BOSS_BOX_TOP = 200;
+final int WALL_BOSS_BOX_BOTTOM = 200;
+final int WALL_BOSS_BOX_LEFT = 1005;
+final int WALL_BOSS_BOX_RIGHT = 265;
+
+final int WALL_BOSS_INIT_WAIT = 600;
+
+final int WALL_BOSS_RETURN_VEL = 6;
+
+final int SLAM_DMG = 1;
+final int SLAM_SPLIT = 2500;
+final int SLAM_STUN_TIME = 3 *FRAMERATE;
+
+final int NO_ESCAPE_DMG = 3;
+final int NO_ESCAPE_STUN_TIME = 2 *FRAMERATE;
+final int NO_ESCAPE_SPAWN_TIME = 2 *FRAMERATE;
+final int NO_ESCAPE_BWALLS_AMOUNT = 7;
+final float NO_ESCAPE_VEL_MODIFIER = 0.75;
+
+final int ROLLOUT_DMG = 2;
+final int ROLLOUT_CHARGE_TIME = 2 *FRAMERATE;
+final int ROLLOUT_VEL_MODIFIER = 2;
+final int ROLLOUT_STUN_TIME = 3 *FRAMERATE;
+
+
 
 //Items
 final float BOOTS_DROP_CHANCE = 5;

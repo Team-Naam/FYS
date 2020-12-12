@@ -184,7 +184,7 @@ class Path extends Object {
   Ray upRay;
 
   int randomOverlayX, randomOverlayY;
-  
+
   boolean leftCon, rightCon, upCon;
 
   Path(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
@@ -282,7 +282,7 @@ class Path extends Object {
     if (!upCon && !rightCon && !leftCon) {
       image(sprites.getBackground(0, 0), x, y);
     }
-    
+
     image(sprites.getBackgroundOverlay(randomOverlayX, randomOverlayY), x, y);
 
     //stroke(255, 0, 0);
@@ -436,6 +436,13 @@ class BreakableObject extends Entity {
       objectHandler.removeEntity(this);
     }
   }
+
+  @Override
+    void dropShadow() {
+    noStroke();
+    fill(0, 112);
+    ellipse(newX + w / 2, newY + h * 0.9, w, w * 0.9);
+  }
 }
 
 class Corpse extends BreakableObject {
@@ -456,6 +463,13 @@ class Corpse extends BreakableObject {
     }
   }
 
+  @Override
+    void dropShadow() {
+    noStroke();
+    fill(0, 112);
+    ellipse(x + w / 2, y + h * 0.9, w, w * 0.9);
+  }
+
   void draw() {
     fill(255);
     rect(x, y + 24, w, h);
@@ -470,6 +484,13 @@ class Vases extends BreakableObject {
     randomPosQ = random(1) * 80;
 
     println(newX, newY);
+  }
+
+  @Override
+    void dropShadow() {
+    noStroke();
+    fill(0, 112);
+    ellipse(newX + w / 2, newY + h * 0.7, w, w * 0.9);
   }
 
   void draw() {

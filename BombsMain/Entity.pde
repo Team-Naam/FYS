@@ -93,7 +93,7 @@ class Entity extends Object {
       if (entityId == EntityID.EXPLOSIVE_SPIDER) {
         objectHandler.addSpiderBomb(x, y, BOMB_SIZE, BOMB_SIZE);
       }
-      if (entityId == EntityID.SPIDER_BOSS || entityId == EntityID.WALL_BOSS){
+      if (entityId == EntityID.SPIDER_BOSS || entityId == EntityID.WALL_BOSS) {
         game.mapHandler.mapScrolling = true; 
         game.mapHandler.fastforwardWidth = 0.75;
       }
@@ -135,10 +135,14 @@ class CollisionFix extends Object {
     void moveMap() {
   }
 
+  @Override
+    void dropShadow() {
+  }
+
   void update() {
   }
 
   void draw() {
-    rect(x, y, w, h);
+    //rect(x, y, w, h);
   }
 }

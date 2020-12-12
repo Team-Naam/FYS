@@ -71,10 +71,10 @@ class UserInterface {
   void showButtons()
   {
     //Pakt de Z, A, S en de X knop uit Assets
-    image(textureAssets.getBombItem(0, 7), width-325, height-50);
-    image(textureAssets.getBombItem(6, 7), width-200, height-50);
-    image(textureAssets.getBombItem(4, 7), width-75, height-50);
-    image(textureAssets.getBombItem(2, 7), width-50, height-150);
+    image(textureAssets.getBombItem(0, 4), width-325, height-50);
+    image(textureAssets.getBombItem(0, 5), width-200, height-50);
+    image(textureAssets.getBombItem(0, 6), width-75, height-50);
+    image(textureAssets.getBombItem(0, 3), width-50, height-150);
   }
 
   void showScoreBoard()
@@ -105,9 +105,9 @@ class UserInterface {
   void showUI()
   {
     //Pakt de plaatjes uit Assets voor Dynamite, Landmine, C4
-    image(textureAssets.getUserHud(7, 0), width-400, height-125);
-    image(textureAssets.getUserHud(7, 1), width-275, height-125);
-    image(textureAssets.getUserHud(6, 0), width-150, height-125);
+    image(textureAssets.getUserHud(7, 0), width-400, height-109, 64, 64);
+    image(textureAssets.getUserHud(7, 1), width-275, height-109, 64, 64);
+    image(textureAssets.getUserHud(6, 0), width-150, height-109, 64, 64);
 
     //Pakt het plaatje uit Assets voor het activeer knop
     image(textureAssets.getUserHud(4, 0), width-125, height-250);

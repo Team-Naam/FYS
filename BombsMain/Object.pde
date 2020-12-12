@@ -14,7 +14,7 @@ enum BombID {
 }
 
 enum EntityID {
-  GHOST, MUMMY, SMUMMY, SPIDER, EXPLOSIVE_SPIDER, POLTERGEIST, SPIDER_BOSS, WALL_BOSS, BOBJECT
+  GHOST, MUMMY, SMUMMY, SPIDER, EXPLOSIVE_SPIDER, POLTERGEIST, SPIDER_BOSS, WALL_BOSS, HALF_WALL, BOBJECT
 }
 
 //Basis class voor alle gameobjecten
@@ -72,6 +72,12 @@ abstract class Object {
       } 
       objectHandler.removeEntity(this);
     }
+  }
+
+  void dropShadow() {
+    noStroke();
+    fill(0, 112);
+    ellipse(x + w / 2, y + h * 0.9, w, w * 0.9);
   }
 
   //Position crawler voor de player X

@@ -17,11 +17,13 @@ class TextureAssets {
   final PImage[][] backgroundOverlays;
   final PImage[][] explosion;
   final PImage logo;
+  final PImage main_menu;
 
 
   //Class neemt filepaths in en de groote van de gridtegels
   TextureAssets(int tileSize) {
     logo = loadImage("data/text/logo_highres.png");
+    main_menu = loadImage("data/text/ui/main menu.png");
     sprites = loadSprites("data/text/textures.png", tileSize);
     wallSprites = loadSprites("data/text/walls/walls_spritesheet.png", tileSize);
     itemsBombsUI = loadSprites("data/text/items/itemsBombsUI.png", 32);
@@ -37,6 +39,10 @@ class TextureAssets {
 
   PImage getLogo() {
     return logo;
+  }
+
+  PImage getMenuBackground() {
+    return main_menu;
   }
 
   PImage getBackground(int row, int column) {
@@ -204,7 +210,7 @@ class SoundAssets {
   final float damp = 0;
   final float wet = 1;
 
-  float rate, FX_VOLUME;
+  float rate, FX_VOLUME, MUSIC_VOLUME, MAIN_VOLUME, ENTITY_VOLUME, AMBIENT_VOLUME;
 
   SoundAssets(PApplet setup) {
     //--ITEM SOUND EFFECTS-------------------------------------------------------------------------
@@ -266,7 +272,15 @@ class SoundAssets {
     lowPass.freq(500);
 
     rate = 1;
-    FX_VOLUME = 0.75;
+  }
+
+  void update() {
+    MAIN_VOLUME = 0.75;
+
+    FX_VOLUME = MAIN_VOLUME * 0.75;
+    MUSIC_VOLUME = MAIN_VOLUME * 0.75;
+    ENTITY_VOLUME = MAIN_VOLUME * 0.75;
+    AMBIENT_VOLUME = MAIN_VOLUME * 0.75;
   }
 
   //ITEM SOUND EFFECTS--------------------------------
@@ -298,7 +312,6 @@ class SoundAssets {
   {
     item_boots.play(1, FX_VOLUME);
   }
-
   void getCloakExpired() 
   {
     item_cloak_expired.play(1, FX_VOLUME);
@@ -349,6 +362,23 @@ class SoundAssets {
   void getPlayerFootsteps() 
   {
     player_footsteps.play(1, FX_VOLUME - 0.5);
+  }
+  //ENEMY SOUNDS EFFECTS-----------------------------
+  void getEnemyHit() {
+    enemy_hit.play(1, ENTITY_VOLUME);
+  }
+  void getEnemyDies() {
+    enemy_dies.play(1, ENTITY_VOLUME);
+  }
+  //PLAYER SOUND EFFECTS------------------------------
+  void getPlayerHit() {
+    player_hit.play(1, ENTITY_VOLUME);
+  }
+  void getPlayerDies() {
+    player_dies.play(1, ENTITY_VOLUME);
+  }
+  void getPlayerFootsteps() {
+    player_footsteps.play(1, ENTITY_VOLUME - 0.5);
     roomRev.process(player_footsteps);
     lowPass.process(player_footsteps);
   }
