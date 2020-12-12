@@ -165,6 +165,47 @@ class GameOver {
   }
 }
 
+class HighscoreMenu {
+  TextureAssets sprites;
+  ServerHandler serverHandler;
+  Table highscores;
+  
+  HighscoreMenu(TextureAssets textureLoader, ServerHandler serverHandler) {
+    this.sprites = textureLoader;
+    this.serverHandler = serverHandler;
+    highscores = serverHandler.getHighscores(10);
+  }
+
+  void update() {
+    if (input.escapeDown()) {
+      toMainMenu();
+    }
+  }
+
+  void draw() {
+    background(MENU_BACKGROUND_COLOUR);
+    image(sprites.getLogo(), 20, height - 131, 200, 111);
+    
+    fill(20);
+    rect(width /2 - 250, 100, 550, 810);
+
+    fill(255);
+    //print de headers
+    text("username", width / 2 -190, 200);
+    text("score", width / 2 +110, 200);
+    textSize(50);
+    
+    //print de table
+    textSize(40);
+    for (int i = 0; i < highscores.getRowCount(); i++) {
+      TableRow row = highscores.getRow(i);
+      for (int j = 0; j < row.getColumnCount(); j++) {
+        text(row.getString(j), width / 2 -170 + 300 * j, 300 + 60 * i);
+      }
+    }
+  }
+}
+
 class PauseMenu {
   MenuBox[] boxArray = new MenuBox[3];
   Timer timer;
