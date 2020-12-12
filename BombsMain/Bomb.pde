@@ -31,10 +31,9 @@ class Bomb extends Object {
 
     if (bombExploded()) {
       bombAnimation = true;
-
+      
       explosionAnim.update(x, y);
 
-      //soundAssets.getBombExploded();
       enemyDetection();
 
       if (explosionRadius < 400) {

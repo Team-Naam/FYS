@@ -99,17 +99,17 @@ class Player extends Object {
     if (input.zDown() && bombCooldown == 0) {
       objectHandler.addBomb(x + w / 4, y + h / 4, BOMB_SIZE, BOMB_SIZE);
       bombCooldown = BOMB_COOLDOWN_TIME;
-      //soundAssets.getBombPlaced();
+      soundAssets.getBombPlaced();
     }
     if (input.sDown()&& bombCooldown == 0) {
       objectHandler.addC4(x + w / 4, y + h / 4, BOMB_SIZE, BOMB_SIZE);
       bombCooldown = BOMB_COOLDOWN_TIME;
-      //soundAssets.getBombPlaced();
+      soundAssets.getBombPlaced();
     }
     if (input.aDown()&& bombCooldown == 0) {
       objectHandler.addLandmine(x + w / 4, y + h / 4, BOMB_SIZE, BOMB_SIZE);
       bombCooldown = BOMB_COOLDOWN_TIME;
-      //soundAssets.getBombPlaced();
+      soundAssets.getBombPlaced();
     }
   }
 
@@ -173,6 +173,7 @@ class Player extends Object {
     for (int i = 0; i < objects.size(); i++) {
       Object item = objects.get(i);
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.BOOTS) {
+        soundAssets.getBootsPickUp();
         if (!speedBonus) {
           println("NYOOM");
           velX += SPEED_BONUS;
@@ -186,17 +187,20 @@ class Player extends Object {
       }
 
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.COIN) {
+        soundAssets.getCoinPickUp();
         highscore.addScore(COIN_SCORE);
         objectHandler.removeEntity(item);
       }
 
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.HEART) {
+        soundAssets.getHeartPickUp();
         println("heart goes boom boom");
         health += 1;
         objectHandler.removeEntity(item);
       }
 
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.SHIELD) {
+        soundAssets.getShieldPickUp();
         println("thicc");
         shield += SHIELD_BONUS;
         shieldBonus = true;
@@ -204,18 +208,21 @@ class Player extends Object {
       }
 
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.BPOTION) {
+        soundAssets.getBluePotionPickUp();
         println("me goes not boom boom");
         undefeatabaleBonus = true;
         objectHandler.removeEntity(item);
       }
 
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.SPARKLER) {
+        soundAssets.getSparklerPickUp();
         println("kaboom? Yes Rico, kaboom");
         sparklerBonus = true;
         objectHandler.removeEntity(item);
       }
 
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.CLOAK) {
+        soundAssets.getCloakPickUp();
         println("now you dont");
         cloakBonus = true;
         objectHandler.removeEntity(item);
