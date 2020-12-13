@@ -11,7 +11,10 @@ class Entity extends Object {
   int velX;
   int velY;
   float oldX, oldY;
-
+  float slowAmount;
+  float slow;
+  int spawnedMiniSpider;
+  boolean abilityCharge;
   boolean insideExplosion;
   boolean takenDamage;
   boolean touching;
@@ -25,6 +28,8 @@ class Entity extends Object {
     insideExplosion = false;
     takenDamage = false;
     touching = false;
+    abilityCharge = false;
+    slow = MINI_SPIDER_SLOW;
   }
 
   //Nieuw collision system waarbij hij terug wordt gezet naar de oude positie
@@ -44,6 +49,8 @@ class Entity extends Object {
 
     oldX = x;
     oldY = y;
+
+    slowAmount = slow * spawnedMiniSpider;
   }
 
   void movement() {
@@ -63,7 +70,7 @@ class Entity extends Object {
   }
 
   void hunt() {
-    if (cloakBonus == false) {
+    if (cloakBonus == false && abilityCharge == false) {
       if (getPlayerX() > x && getPlayerY() > y) {
         speedX = velX;
         speedY = velY;
@@ -97,6 +104,11 @@ class Entity extends Object {
         game.mapHandler.mapScrolling = true; 
         game.mapHandler.fastforwardWidth = 0.75;
       }
+      if (entityId == EntityID.SPIDER_BOSS) {
+        for (int i = 0; i < 6; i++) {
+          objectHandler.addSpider(x,y,w,h);
+        }
+      }
       objectHandler.removeEntity(this);
     }
     if (!insideExplosion && takenDamage) {
@@ -111,7 +123,11 @@ class Entity extends Object {
     if (intersection(playerEntity)) {
       ((Player)playerEntity).attackDamage = attack;
       ((Player)playerEntity).gettingAttacked = true;
-      println("slash");
+      //println("slash");
+    }
+    
+    if (intersection(playerEntity) && entityId == EntityID.MINI_SPIDER) {
+      playerSpeed = slowAmount * playerSpeed;
     }
   }
 

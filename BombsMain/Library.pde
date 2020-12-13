@@ -68,9 +68,11 @@ int randomOnes() {
 class Timer {
 
   int startTime;
+  String timerName;
   boolean start = true;
 
-  Timer() {
+  Timer(String Name) {
+    timerName = Name;
   }
 
   boolean startTimer(int countDownTime) {
@@ -80,6 +82,7 @@ class Timer {
       start = false;
     }
     int passedTime = time - startTime;
+    println(timerName + "passedTime" + passedTime);
     if (passedTime > countDownTime) {
       startTime = 0;
       time = 0;

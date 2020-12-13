@@ -18,8 +18,8 @@ class Player extends Object {
   int undefeatabaleBonusTimer = UNDEFEATBALE_BONUS_TIME;
   int cloakBonusTimer = CLOACK_BONUS_TIME;
   int sparklerBonusTimer = BOMB_BONUS_TIME;
-  int velX = PLAYER_SPEED;
-  int velY = PLAYER_SPEED;
+  float velX = playerSpeed;
+  float velY = playerSpeed;
   int health = PLAYER_HEALTH;
   int shield = PLAYER_SHIELD;
   float oldX, oldY;
@@ -29,7 +29,7 @@ class Player extends Object {
 
   Player(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, Highscore highscore, SoundAssets soundAssets) {
     super(x, y, w, h, ObjectID.PLAYER, objectHandler, sprites, soundAssets);
-    timer = new Timer();
+    timer = new Timer("playerTimer");
     this.highscore = highscore;
   }
 

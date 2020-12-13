@@ -213,3 +213,32 @@ class ExplosiveSpider extends Entity {
     image(sprites.getEntity(0, 1), x, y);
   }
 }
+
+
+//-----------------------------Mini spider---------------------------------
+
+
+class MiniSpider extends Entity {
+
+  MiniSpider(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, objectHandler, sprites, soundAssets);
+    this.entityId = EntityID.MINI_SPIDER; //entityId aanmaken voor minispider
+    savedTime = millis();
+    health = MINI_SPIDER_HEALTH; 
+    attack = MINI_SPIDER_ATTACK;
+    roamingTimer = MINI_SPIDER_ROAMING;
+    velX = MINI_SPIDER_MOVEMENT_SPEED;
+    velY = MINI_SPIDER_MOVEMENT_SPEED;
+  }
+  
+  @Override
+    void update() {
+    super.update();
+  }
+
+  void draw() {
+    fill(0);
+    rect(20, 20, 20, 20);
+    //image(sprites.getEntity(mini_spider), x, y);
+  }
+}
