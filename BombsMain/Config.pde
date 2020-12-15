@@ -1,7 +1,7 @@
 //Code credit Winand Metz
 
 //Game
-final float MAP_SCROLL_SPEED = 0; // was 1
+final float MAP_SCROLL_SPEED = 1; // was 1
 final float MAP_OFFSET = 0;
 final int LEVEL_AMOUNT = 3;
 final int FPS = 6;
@@ -35,8 +35,8 @@ final int COIN_SCORE = 100;
 
 //Player
 final int PLAYER_X_SPAWN = 256;
-final int PLAYER_Y_SPAWN = 668; //was 476
-final int PLAYER_HEALTH = 10000000; // was 12
+final int PLAYER_Y_SPAWN = 476; //was 476
+final int PLAYER_HEALTH = 12; // was 12
 final int PLAYER_SPEED = 4;
 final int PLAYER_SHIELD = 0;
 //!NIET VERANDEREN!
@@ -116,9 +116,6 @@ final int SPIDER_SPAWN_TIME = 10000;
 final int WEB_ATTACK_DELAY = 1000;
 final int WEBATTACK_RADIUS = 50;
 
-
-
-
 //Wall Boss
 final int WALL_BOSS_HP = 20;
 final int WALL_BOSS_VEL = 2;
@@ -152,8 +149,6 @@ final int ROLLOUT_DMG = 2;
 final int ROLLOUT_CHARGE_TIME = 2 *FRAMERATE;
 final int ROLLOUT_VEL_MODIFIER = 2;
 final int ROLLOUT_STUN_TIME = 3 *FRAMERATE;
-
-
 
 //Items
 final float BOOTS_DROP_CHANCE = 5;
