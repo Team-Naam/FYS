@@ -1,15 +1,12 @@
 class SpiderQueen extends Entity {
 
-  String currentAttack ,currentSpiderSpawn;
+  String currentAttack, currentSpiderSpawn;
   int abilityTimer, birthTimer, rechargeTimer, spiderSpawnTime, webAttackDelay, amountWebsShot;
   float abilityPicker;
   boolean doneShooting, spawnSpider;
   Timer pickTimer, attackTimer, webAttackTimer, explosiveBirthTimer, seriousBirthTimer, spiderSpawnTimer;
-  
-  int initSize;
-  List<Bullet> bullets;
-  PVector bulletSpd;
-  IntList bulletPool;
+  ArrayList<Bullet> bullets;
+
 
   SpiderQueen(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
@@ -37,10 +34,7 @@ class SpiderQueen extends Entity {
     amountWebsShot = 0;
     doneShooting = false;
 
-    initSize = 0100;
-    bullets = new ArrayList(initSize);
-    bulletSpd = new PVector();
-    bulletPool = new IntList(initSize);
+    bullets = new ArrayList();
   }
 
   @Override
@@ -50,39 +44,42 @@ class SpiderQueen extends Entity {
     attackUpdate();
     spiderSpawnUpdate();
 
+    //wanneer de boss geen ability charged ->
     if (abilityCharge == false) {
-
+      //wanneer de timer evenlang is als de aangegeven timer (pickTimer op abilityTimer), lees dan de regels onder.
       if (pickTimer.startTimer(abilityTimer)) {
         println("i read this");
         abilityCharge();
         abilityCharge = true;
       }
     }
-
+    //als een mini spider gespawnt is, reset hij de spiderSpawnTimer/switched hij de case naar spiderSpawn
     if (spawnSpider == true) {
       println("spiderSpawn");
       currentSpiderSpawn = "spiderSpawn";
+      spiderSpawnTimer.startTime = 0;
       spiderSpawnTimer.startTime = millis();
       spawnSpider = false;
     }
   }
 
-
+//aanroepen spawn Mini Spiders
   void spiderSpawnUpdate() {
     switch(currentSpiderSpawn) {
     case "spiderSpawn":
       if (spiderSpawnTimer.startTimer(spiderSpawnTime)) {
-        for (int i = 0; i < 4; i++) //misschien i++ vervangen door (i += 1;) {
+        for (int i = 0; i < 4; i++) /*misschien i++ vervangen door (i += 1;)*/ {
           for (int j = 0; j < 2; j++) {
             objectHandler.addMiniSpider(x, y, w, h);
             spawnedMiniSpider += 1;
             //spawn mini spiders (maak nog mini-spiders)
+            
           }
-        //i += 1;
-        spawnSpider = true;  
+          //i += 1;
+          spawnSpider = true;
+        }
+        break;
       }
-      break;
-
     default:
       break;
     }
@@ -92,9 +89,9 @@ class SpiderQueen extends Entity {
   void attackUpdate() {
     switch(currentAttack) {
     case "webAttack":
-
+      //het aanroepen van bullets
       if (webAttackTimer.startTimer(webAttackDelay) && amountWebsShot <= 4 && !doneShooting) {
-        addBullet();
+        objectHandler.addBullet(x, y);
         amountWebsShot += 1;
         //attackTimer.startTime = millis();
         println(amountWebsShot);
@@ -102,6 +99,7 @@ class SpiderQueen extends Entity {
           doneShooting = true;
         }
       } else { 
+        //einde van de attack (kan weer lopen en de current attack wordt gereset
         if (attackTimer.startTimer(5000)) {
           velX = SPIDERQUEEN_MOVEMENT;
           velY = SPIDERQUEEN_MOVEMENT;
@@ -113,6 +111,7 @@ class SpiderQueen extends Entity {
       break;
 
     case "explosiveBirth":
+    //2 explosivespider aanmaken
       if (explosiveBirthTimer.startTimer(birthTimer)) {
         for (int i = 0; i < 2; i++) {
           objectHandler.addExplosiveSpider(x, y, w, h);
@@ -125,6 +124,7 @@ class SpiderQueen extends Entity {
       break;
 
     case "seriousBirth":
+    //2 normale spiders aanmaken
       if (seriousBirthTimer.startTimer(birthTimer)) {
         for (int i = 0; i < 2; i++) {
           objectHandler.addSpider(x, y, w, h);
@@ -143,6 +143,7 @@ class SpiderQueen extends Entity {
   }
 
   void abilityCharge() {
+    //een random picker tussen de verschillende abilities
     println("i read this aswell");
     abilityPicker = random(30);
     //random ability kiezer
@@ -158,28 +159,19 @@ class SpiderQueen extends Entity {
     abilityCharge = false;
   }
 
-
+//aanroepen wat er voor webAttack allemaal moet gebeuren/aangeroepen (case switchen, timer starten...)
   void webAttack() {
-
+  
     println("web attack");
     velY = 0;
     velX = 0;
     currentAttack = "webAttack";
+    doneShooting = false;
+    amountWebsShot = 0;
     webAttackTimer.startTime = millis();
-    //for (int i = 0; i < 5; i++) {
-    //  timer = new Timer();
-    //  if (timer.startTimer(webAttackDelay)) {
-    //    webAttacks.add(new webAttack(x, y));
-    //  }
-    //  timer = new Timer();
-    //  if (timer.startTimer(rechargeTimer)) {
-    //    velX = SPIDERQUEEN_MOVEMENT;
-    //    velY = SPIDERQUEEN_MOVEMENT;
-    //  }
-    //}
   }
 
-
+//aanroepen wat er voor explosiveBirth allemaal moet gebeuren/aangeroepen (case switchen, timer starten...)
   void explosiveBirth() {
     println("explosive birth");
     velY = 0;
@@ -188,7 +180,7 @@ class SpiderQueen extends Entity {
     currentAttack = "explosiveBirth";
   }
 
-
+//aanroepen wat er voor seriousBirth allemaal moet gebeuren/aangeroepen (case switchen, timer starten...)
   void seriousBirth() {
     println("serious birth");
     velY = 0;
@@ -197,72 +189,57 @@ class SpiderQueen extends Entity {
     currentAttack = "seriousBirth";
   }
 
-  void addBullet() {
-    bulletSpd.set(x, y);
-    bulletSpd.sub(getPlayerPos());
-
-    bulletSpd.setMag(Bullet.VEL);
-
-    findVacantSlot();
-  }
-
-  void findVacantSlot() {
-    int bp = bulletPool.size();
-
-    if (bp > 0) {
-      bullets.get(bulletPool.remove(bp-1)).rez(getPlayerPos(), bulletSpd);
-    } else {
-      bullets.add(new Bullet(getPlayerPos(), bulletSpd));
-    }
-  }
-
   void draw() {
     fill(#e823e5);
     rect(x, y, w, h);
   }
 }
 
-public class Bullet {
-  static final short VEL = 5, DIM = 4;
-  PVector pos = new PVector(), spd = new PVector();
-  boolean isInactive;
+//class voor de bullets die de SpiderQueen schiet, extends uit de Object class
+class Bullet extends Object {
+  float playerPosX, playerPosY, velX, velY;
+  float bulletSpeed;
 
-  Bullet(PVector loc, PVector vel) {
-    rez(loc, vel);
+  Bullet(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
+    super(x, y, w, h, ObjectID.BULLET, objectHandler, sprites, soundAssets);
+    playerPosX = getPlayerX();
+    playerPosY = getPlayerY();
+    bulletSpeed = BULLET_SPEED;
+    velocityCalculation();
   }
-
-  void rez(PVector loc, PVector vel) {
-    pos.set(loc);
-    spd.set(vel);
-
-    isInactive = false;
+  //berekent de snelheid dat de kogel moet hebben
+  void velocityCalculation() {
+    float dir_x = playerPosX - x;
+    float dir_y = playerPosY - y;
+    // de snelheid gedeeld door de wortel van (het kwadraad van de directie van x en het kwadraad van de directie van y) (ab^2 + ac^ = bc^2)
+    float factor = bulletSpeed / sqrt(sq(dir_x) + sq(dir_y));
+    velX = dir_x * factor;
+    velY = dir_y * factor;
   }
-  void display() {
-    fill(255);
-    ellipse(pos.x, pos.y, DIM, DIM);
+   
+  void checkCollision() {
+    //checkt of de bullet met een wall collide.
+    if (wallCollisionDetection()) {
+      objectHandler.removeEntity(this);
+    }
+    // checkt of de bullet met de player collide.
+    if (intersection(objectHandler.entities.get(0))) {
+      ((Player)objectHandler.entities.get(0)).health -= BULLET_DAMAGE;
+      objectHandler.removeEntity(this);
+    }
   }
 
   void update() {
-    pos.add(spd);
+    checkCollision();
+    x += velX;
+    y += velY;
   }
 
-  boolean check() {
-    return pos.x > width | pos.x < 0 | pos.y > height | pos.y < 0;
-  }
-
-  boolean script() {
-    if (isInactive) return false;
-
-    display();
-    update();
-
-    return isInactive = check();
+  void draw() {
+    fill(255);
+    ellipse(x, y, w, h);
   }
 }
-
-
-
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //code credit Jordy
