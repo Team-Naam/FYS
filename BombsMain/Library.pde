@@ -82,7 +82,7 @@ class Timer {
       start = false;
     }
     int passedTime = time - startTime;
-    println(timerName + "passedTime" + passedTime);
+    //println(timerName + "passedTime" + passedTime);
     if (passedTime > countDownTime) {
       startTime = 0;
       time = 0;
