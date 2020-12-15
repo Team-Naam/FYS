@@ -109,12 +109,14 @@ final float MINI_SPIDER_SLOW = 0.25;
 final int SPIDERQUEEN_HEALTH = 12;
 final int SPIDERQUEEN_ATTACK = 1;
 final int SPIDERQUEEN_MOVEMENT = 2;
-final int ABILITY_TIMER = 30000; 
+final int ABILITY_TIMER = 10000; 
 final int BIRTH_TIMER = 5000;
 final int RECHARGE_TIMER = 5000;
 final int SPIDER_SPAWN_TIME = 10000;
 final int WEB_ATTACK_DELAY = 1000;
 final int WEBATTACK_RADIUS = 50;
+final float BULLET_SPEED = 8;
+final int BULLET_DAMAGE = 2;
 
 //Wall Boss
 final int WALL_BOSS_HP = 20;

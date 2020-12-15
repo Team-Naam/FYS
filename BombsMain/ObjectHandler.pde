@@ -59,6 +59,11 @@ class ObjectHandler {
     }
     return 1;
   }
+  
+  void addBullet(float x, float y) {
+    Bullet bullet = new Bullet(x,y,10,10,this,sprites,soundAssets);
+    entities.add(bullet);
+  }
 
   void addEnemy(float x, float y, int w, int h) {
     x = x + 64;
