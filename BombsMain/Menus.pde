@@ -19,7 +19,7 @@ class MainMenu {
       boxArray[i] = new MenuBox(1520, height / 2 + i * (height / 6), 200, height / 8, 40, textureLoader);
     }
 
-    timer = new Timer();
+    timer = new Timer("menuTimer");
 
     boxArray[0].boxText = "Start";
     boxArray[1].boxText = "Quit";
@@ -224,7 +224,7 @@ class PauseMenu {
     boxArray[1].boxText = "Settings";
     boxArray[2].boxText = "Exit to Main Menu";
 
-    timer = new Timer();
+    timer = new Timer("pauseMenuTimer");
 
     boxxSelected = 0;
 

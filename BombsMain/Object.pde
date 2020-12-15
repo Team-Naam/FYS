@@ -14,7 +14,7 @@ enum BombID {
 }
 
 enum EntityID {
-  GHOST, MUMMY, SMUMMY, SPIDER, EXPLOSIVE_SPIDER, POLTERGEIST, SPIDER_BOSS, WALL_BOSS, HALF_WALL, BOBJECT
+  GHOST, MUMMY, SMUMMY, SPIDER, EXPLOSIVE_SPIDER, MINI_SPIDER, POLTERGEIST, SPIDER_BOSS, WALL_BOSS, HALF_WALL, BOBJECT
 }
 
 //Basis class voor alle gameobjecten
@@ -28,6 +28,7 @@ abstract class Object {
   boolean sparklerBonus;
 
   float x, y;
+  float playerSpeed = PLAYER_SPEED;
   int w, h;
   ObjectID objectId;
   ItemID itemId;

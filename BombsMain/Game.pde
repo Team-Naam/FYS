@@ -31,7 +31,7 @@ class Game {
     mapHandler = new MapHandler(tileSize);
     graphicsEngine = new GraphicsEngine();
     userInterface = new UserInterface(this.textureLoader, this.highscore, this.objectHandler);
-    timer = new Timer();
+    timer = new Timer("gameTimer");
     isPlaying = true;
   }
 
@@ -244,7 +244,7 @@ class Highscore {
     score = 0; 
     timeScore = TIME_SCORE;
     timer = FRAMERATE * TIME_SCORE_TIMER;
-    scoreTimer = new Timer();
+    scoreTimer = new Timer("scoreTimer");
     scoreAdded = false;
   }
 

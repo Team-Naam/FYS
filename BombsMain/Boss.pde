@@ -1,14 +1,219 @@
 class SpiderQueen extends Entity {
 
+  String currentAttack ,currentSpiderSpawn;
+  int abilityTimer, birthTimer, rechargeTimer, spiderSpawnTime, webAttackDelay, amountWebsShot;
+  float abilityPicker;
+  boolean doneShooting, spawnSpider;
+  Timer pickTimer, attackTimer, webAttackTimer, explosiveBirthTimer, seriousBirthTimer, spiderSpawnTimer;
+  
+  int initSize;
+  List<Bullet> bullets;
+  PVector bulletSpd;
+  IntList bulletPool;
+
   SpiderQueen(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.entityId = EntityID.SPIDER_BOSS;
+
+    health = SPIDERQUEEN_HEALTH;
+    attack = SPIDERQUEEN_ATTACK;
+    velX = SPIDERQUEEN_MOVEMENT;
+    velY = SPIDERQUEEN_MOVEMENT;
+    abilityTimer = ABILITY_TIMER;
+    birthTimer = BIRTH_TIMER;
+    rechargeTimer = RECHARGE_TIMER;
+    webAttackDelay = WEB_ATTACK_DELAY;
+    spiderSpawnTime = SPIDER_SPAWN_TIME;
+    pickTimer = new Timer("pickTimer");
+    webAttackTimer = new Timer("webAttackTimer");
+    explosiveBirthTimer = new Timer("explosiveBirthTimer");
+    seriousBirthTimer = new Timer("seriousBirthTimer");
+    spiderSpawnTimer = new Timer("spiderSpawnTimer");
+    attackTimer = new Timer ("attackTimer");
+    currentAttack = "";
+    currentSpiderSpawn = "";
+    spawnSpider = true;
+
+    amountWebsShot = 0;
+    doneShooting = false;
+
+    initSize = 0100;
+    bullets = new ArrayList(initSize);
+    bulletSpd = new PVector();
+    bulletPool = new IntList(initSize);
   }
 
   @Override
-  void update() {
-   selfDestruct();
-   super.update();
+    void update() {
+    selfDestruct();
+    super.update();
+    attackUpdate();
+    spiderSpawnUpdate();
+
+    if (abilityCharge == false) {
+
+      if (pickTimer.startTimer(abilityTimer)) {
+        println("i read this");
+        abilityCharge();
+        abilityCharge = true;
+      }
+    }
+
+    if (spawnSpider == true) {
+      println("spiderSpawn");
+      currentSpiderSpawn = "spiderSpawn";
+      spiderSpawnTimer.startTime = millis();
+      spawnSpider = false;
+    }
+  }
+
+
+  void spiderSpawnUpdate() {
+    switch(currentSpiderSpawn) {
+    case "spiderSpawn":
+      if (spiderSpawnTimer.startTimer(spiderSpawnTime)) {
+        for (int i = 0; i < 4; i++) //misschien i++ vervangen door (i += 1;) {
+          for (int j = 0; j < 2; j++) {
+            objectHandler.addMiniSpider(x, y, w, h);
+            spawnedMiniSpider += 1;
+            //spawn mini spiders (maak nog mini-spiders)
+          }
+        //i += 1;
+        spawnSpider = true;  
+      }
+      break;
+
+    default:
+      break;
+    }
+  }
+
+
+  void attackUpdate() {
+    switch(currentAttack) {
+    case "webAttack":
+
+      if (webAttackTimer.startTimer(webAttackDelay) && amountWebsShot <= 4 && !doneShooting) {
+        addBullet();
+        amountWebsShot += 1;
+        //attackTimer.startTime = millis();
+        println(amountWebsShot);
+        if (amountWebsShot >= 5) {
+          doneShooting = true;
+        }
+      } else { 
+        if (attackTimer.startTimer(5000)) {
+          velX = SPIDERQUEEN_MOVEMENT;
+          velY = SPIDERQUEEN_MOVEMENT;
+          println("hi");
+          currentAttack = "";
+          abilityCharge = false;
+        }
+      }
+      break;
+
+    case "explosiveBirth":
+      if (explosiveBirthTimer.startTimer(birthTimer)) {
+        for (int i = 0; i < 2; i++) {
+          objectHandler.addExplosiveSpider(x, y, w, h);
+        }
+        velX = SPIDERQUEEN_MOVEMENT;
+        velY = SPIDERQUEEN_MOVEMENT;
+        currentAttack = "";
+        abilityCharge = false;
+      }
+      break;
+
+    case "seriousBirth":
+      if (seriousBirthTimer.startTimer(birthTimer)) {
+        for (int i = 0; i < 2; i++) {
+          objectHandler.addSpider(x, y, w, h);
+        }
+        velX = SPIDERQUEEN_MOVEMENT;
+        velY = SPIDERQUEEN_MOVEMENT;
+        currentAttack = "";
+        abilityCharge = false;
+      }
+      break;
+
+    default:
+      abilityCharge = false;
+      break;
+    }
+  }
+
+  void abilityCharge() {
+    println("i read this aswell");
+    abilityPicker = random(30);
+    //random ability kiezer
+    if (abilityPicker <= 10 && abilityPicker >= 0) {
+      webAttack();
+    }
+    if (abilityPicker <= 20 && abilityPicker > 10) {
+      explosiveBirth();
+    }
+    if (abilityPicker <= 30 && abilityPicker > 20) {
+      seriousBirth();
+    }
+    abilityCharge = false;
+  }
+
+
+  void webAttack() {
+
+    println("web attack");
+    velY = 0;
+    velX = 0;
+    currentAttack = "webAttack";
+    webAttackTimer.startTime = millis();
+    //for (int i = 0; i < 5; i++) {
+    //  timer = new Timer();
+    //  if (timer.startTimer(webAttackDelay)) {
+    //    webAttacks.add(new webAttack(x, y));
+    //  }
+    //  timer = new Timer();
+    //  if (timer.startTimer(rechargeTimer)) {
+    //    velX = SPIDERQUEEN_MOVEMENT;
+    //    velY = SPIDERQUEEN_MOVEMENT;
+    //  }
+    //}
+  }
+
+
+  void explosiveBirth() {
+    println("explosive birth");
+    velY = 0;
+    velX = 0;
+    explosiveBirthTimer.startTime = millis();
+    currentAttack = "explosiveBirth";
+  }
+
+
+  void seriousBirth() {
+    println("serious birth");
+    velY = 0;
+    velX = 0;
+    seriousBirthTimer.startTime = millis();
+    currentAttack = "seriousBirth";
+  }
+
+  void addBullet() {
+    bulletSpd.set(x, y);
+    bulletSpd.sub(getPlayerPos());
+
+    bulletSpd.setMag(Bullet.VEL);
+
+    findVacantSlot();
+  }
+
+  void findVacantSlot() {
+    int bp = bulletPool.size();
+
+    if (bp > 0) {
+      bullets.get(bulletPool.remove(bp-1)).rez(getPlayerPos(), bulletSpd);
+    } else {
+      bullets.add(new Bullet(getPlayerPos(), bulletSpd));
+    }
   }
 
   void draw() {
@@ -17,6 +222,49 @@ class SpiderQueen extends Entity {
   }
 }
 
+public class Bullet {
+  static final short VEL = 5, DIM = 4;
+  PVector pos = new PVector(), spd = new PVector();
+  boolean isInactive;
+
+  Bullet(PVector loc, PVector vel) {
+    rez(loc, vel);
+  }
+
+  void rez(PVector loc, PVector vel) {
+    pos.set(loc);
+    spd.set(vel);
+
+    isInactive = false;
+  }
+  void display() {
+    fill(255);
+    ellipse(pos.x, pos.y, DIM, DIM);
+  }
+
+  void update() {
+    pos.add(spd);
+  }
+
+  boolean check() {
+    return pos.x > width | pos.x < 0 | pos.y > height | pos.y < 0;
+  }
+
+  boolean script() {
+    if (isInactive) return false;
+
+    display();
+    update();
+
+    return isInactive = check();
+  }
+}
+
+
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //code credit Jordy
 class MovingWall extends Entity {
 
@@ -24,7 +272,7 @@ class MovingWall extends Entity {
   int currentAttack, amountOfAttacks;
 
   HalfWall topWall, bottomWall;
-  Timer activateTimer = new Timer();
+  Timer activateTimer = new Timer("activateTimer");
 
   MovingWall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
@@ -113,7 +361,7 @@ class HalfWall extends Entity {
   MovingWall wallBoss;
   Player player = (Player)objectHandler.entities.get(0);
 
-  Timer timer = new Timer();
+  Timer timer = new Timer("wallTimer");
 
   int xRest, yRest, attackState;
   boolean hasSplit, initializing;

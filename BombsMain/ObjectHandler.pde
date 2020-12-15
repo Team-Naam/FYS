@@ -115,6 +115,16 @@ class ObjectHandler {
     Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD / eSD, this, sprites, soundAssets);
     entities.add(spider);
   }
+    
+  void addMiniSpider(float x, float y, int w, int h) {
+    MiniSpider miniSpider = new MiniSpider(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD / eSD, this, sprites, soundAssets);
+    entities.add(miniSpider);
+  }
+  
+  void addExplosiveSpider(float x, float y, int w, int h) {
+    ExplosiveSpider explosiveSpider = new ExplosiveSpider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites, soundAssets);
+      entities.add(explosiveSpider);
+  }
 
   //Method voor het creëren van de muren, input lijkt me vanzelf sprekend
   void addWall(float x, float y, int w, int h) {

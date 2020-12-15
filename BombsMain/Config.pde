@@ -1,7 +1,7 @@
 //Code credit Winand Metz
 
 //Game
-final float MAP_SCROLL_SPEED = 1;
+final float MAP_SCROLL_SPEED = 0; // was 1
 final float MAP_OFFSET = 0;
 final int LEVEL_AMOUNT = 3;
 final int FPS = 6;
@@ -35,8 +35,8 @@ final int COIN_SCORE = 100;
 
 //Player
 final int PLAYER_X_SPAWN = 256;
-final int PLAYER_Y_SPAWN = 476;
-final int PLAYER_HEALTH = 12;
+final int PLAYER_Y_SPAWN = 668; //was 476
+final int PLAYER_HEALTH = 10000000; // was 12
 final int PLAYER_SPEED = 4;
 final int PLAYER_SHIELD = 0;
 //!NIET VERANDEREN!
@@ -97,6 +97,25 @@ final int EXPLOSIVE_SPIDER_HEALTH = 1;
 final int EXPLOSIVE_SPIDER_ATTACK = 1;
 final int EXPLOSIVE_SPIDER_ROAMING = 1000;
 final int EXPLOSIVE_SPIDER_MOVEMENT_SPEED = 3;
+
+//MiniSpider
+final int MINI_SPIDER_HEALTH = 1;
+final int MINI_SPIDER_ATTACK = 0;
+final int MINI_SPIDER_ROAMING = 1000;
+final int MINI_SPIDER_MOVEMENT_SPEED = 3;
+final float MINI_SPIDER_SLOW = 0.25;
+
+//SpiderQueen
+final int SPIDERQUEEN_HEALTH = 12;
+final int SPIDERQUEEN_ATTACK = 1;
+final int SPIDERQUEEN_MOVEMENT = 2;
+final int ABILITY_TIMER = 30000; 
+final int BIRTH_TIMER = 5000;
+final int RECHARGE_TIMER = 5000;
+final int SPIDER_SPAWN_TIME = 10000;
+final int WEB_ATTACK_DELAY = 1000;
+final int WEBATTACK_RADIUS = 50;
+
 
 
 
