@@ -7,7 +7,6 @@
 import samuelal.squelized.*;
 import processing.sound.*;
 
-
 //Voor main menu etc
 Game game;
 InputHandler input;
@@ -89,6 +88,19 @@ void instructionPicker() {
     gameOver.update(game.highscore);
     gameOver.draw();
     break;
+
+    // Highscore
+  case 3:
+    break;
+    
+    // Achievements
+  case 4:
+    break;
+    
+    // Settings
+  case 5:
+    break;
+
 
   default:
     mainMenu.update();
