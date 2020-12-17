@@ -16,13 +16,16 @@ class MainMenu {
 
   MainMenu(TextureAssets textureLoader, SoundAssets soundAssets) {
     for (int i = 0; i < MENUBOX_AMOUNT; i++) {
-      boxArray[i] = new MenuBox(1520, height / 2 + i * (height / 6), 200, height / 8, 40, textureLoader);
+      boxArray[i] = new MenuBox(1500, height / 3 + i * (height / 10), 200, height / 8, 40, textureLoader);
     }
 
     timer = new Timer("menuTimer");
 
     boxArray[0].boxText = "Start";
-    boxArray[1].boxText = "Quit";
+    boxArray[1].boxText = "Highscore";
+    boxArray[2].boxText = "Achievements";
+    boxArray[3].boxText = "Settings";
+    boxArray[4].boxText = "Quit";
 
     boxSelected = 0;
 
@@ -39,10 +42,10 @@ class MainMenu {
     textSize(48);
 
     fill(128);
-    text("BombRunner", 1562, 402);
+    text("BombRunner", 1562, 302);
 
     fill(255);
-    text("BombRunner", 1560, 400);
+    text("BombRunner", 1560, 300);
     for (MenuBox menuBox : boxArray) {
       menuBox.draw();
     }
@@ -80,7 +83,22 @@ class MainMenu {
         gameState = 1;
         break;
 
+        // Highscore
       case 1:
+        gameState = 3;
+        break;
+        
+        // Achievements
+      case 2:
+        gameState = 4;
+        break;
+        
+        // Settings
+      case 3:
+        gameState = 5;
+        break;
+
+      case 4:
         exit();
         return;
 
@@ -169,7 +187,7 @@ class HighscoreMenu {
   TextureAssets sprites;
   ServerHandler serverHandler;
   Table highscores;
-  
+
   HighscoreMenu(TextureAssets textureLoader, ServerHandler serverHandler) {
     this.sprites = textureLoader;
     this.serverHandler = serverHandler;
@@ -185,7 +203,7 @@ class HighscoreMenu {
   void draw() {
     background(MENU_BACKGROUND_COLOUR);
     image(sprites.getLogo(), 20, height - 131, 200, 111);
-    
+
     fill(20);
     rect(width /2 - 250, 100, 550, 810);
 
@@ -194,7 +212,7 @@ class HighscoreMenu {
     text("username", width / 2 -190, 200);
     text("score", width / 2 +110, 200);
     textSize(50);
-    
+
     //print de table
     textSize(40);
     for (int i = 0; i < highscores.getRowCount(); i++) {
