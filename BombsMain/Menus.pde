@@ -461,7 +461,9 @@ class SettingsMenu {
   }
 
   void draw() {
-    background(0);
+    background(MENU_BACKGROUND_COLOUR);
+    image(sprites.getMenuBackground(), 0, 0);
+    image(sprites.getLogo(), 20, height - 131, 200, 111);
     mainVolumeComponent.draw();
     fxVolumeComponent.draw();
     musicVolumeComponent.draw();
