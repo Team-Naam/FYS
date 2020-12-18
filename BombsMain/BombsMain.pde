@@ -14,6 +14,7 @@ MainMenu mainMenu;
 GameOver gameOver;
 PauseMenu pauseMenu;
 HighscoreMenu highscoreMenu;
+SettingsMenu settingsMenu;
 TextureAssets textureAssets;
 SoundAssets soundAssets;
 ServerHandler serverHandler;
@@ -41,13 +42,15 @@ void setup() {
   soundAssets = new SoundAssets(this);
   textureAssets = new TextureAssets(TILE_SIZE);
   serverHandler = new ServerHandler();
+  serverHandler.getSoundVol();
+  settingsMenu = new SettingsMenu(textureAssets);
+  soundAssets.update();
   game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets, serverHandler);
   mainMenu = new MainMenu(textureAssets, soundAssets);
   gameOver = new GameOver(textureAssets);
   pauseMenu = new PauseMenu(textureAssets);
   highscoreMenu = new HighscoreMenu(textureAssets, serverHandler);
 
-  soundAssets.update();
   gameState = 0; //gameState for the main menu
 }
 
@@ -92,15 +95,16 @@ void instructionPicker() {
     // Highscore
   case 3:
     break;
-    
+
     // Achievements
   case 4:
     break;
-    
+
     // Settings
   case 5:
+    settingsMenu.update();
+    settingsMenu.draw();
     break;
-
 
   default:
     mainMenu.update();
