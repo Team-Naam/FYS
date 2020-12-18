@@ -49,6 +49,10 @@ class MainMenu {
     for (MenuBox menuBox : boxArray) {
       menuBox.draw();
     }
+    
+    fill(255);
+    textSize(28);
+    text("Hint", width / 2, height - 32);
   }
 
   void update() {
@@ -342,10 +346,11 @@ class SettingsMenu {
 
   int selectedComponent;
   int moveCooldown;
-  boolean notPressedX;
+  boolean notPressedX, finishedLoading;
 
   SettingsMenu(TextureAssets textureLoader) {
     this.sprites = textureLoader;
+    timer = new Timer("SettingsMenu");
     mainVolumeComponent = new VolumeButton(soundAssets.MAIN_VOLUME, "Main volume", width / 2 - 100, 200);
     fxVolumeComponent = new VolumeButton(soundAssets.UNNORMALISED_FX_VOLUME, "Effects", width / 2 - 100, 300);
     musicVolumeComponent = new VolumeButton(soundAssets.UNNORMALISED_MUSIC_VOLUME, "Music", width / 2 - 100, 400);
@@ -356,10 +361,9 @@ class SettingsMenu {
     backButton = new MenuBox(width / 2 - 400 - 100, height - 200, 200, height / 8, 32, textureLoader);
 
     saveButton.boxText = "Save and apply";
-
-
     moveCooldown = 0;
     selectedComponent = 0;
+    finishedLoading = false;
   }
 
   void update() {
@@ -371,6 +375,9 @@ class SettingsMenu {
     }
 
     notPressedX = true;
+    if (finishedLoading && timer.startTimer(750)) {
+      finishedLoading = false;
+    }
 
     backButton.selected = false;
     saveButton.selected = false;
@@ -449,6 +456,7 @@ class SettingsMenu {
       saveButton.selected = true;
       if (input.xDown() && notPressedX) {
         soundAssets.update();
+        finishedLoading = true;
         notPressedX = false;
       }
       break;
@@ -472,11 +480,17 @@ class SettingsMenu {
 
     saveButton.draw();
     backButton.draw();
+
+    if (finishedLoading) {
+      fill(255, 255, 0);
+      textSize(24);
+      text("Settings saved!", width / 2 - 100, height - 200);
+    }
   }
 
   class VolumeButton {
-    Toggle add;
     Toggle subtract;
+    Toggle add;
 
     float volumePercentage, x, y;
     int volume;
@@ -488,21 +502,21 @@ class SettingsMenu {
       this.x = x_;
       this.y = y_;
       this.buttonName = buttonName_;
-      add = new Toggle(5, x, y);
-      subtract = new Toggle(6, x + 80, y);
+      subtract = new Toggle(5, x, y);
+      add = new Toggle(6, x + 80, y);
       selected = false;
     }
 
     void update() {
       if (input.aDown()) {
-        add.changeState(true);
-        add.addVol();
-      } else if (input.sDown()) {
         subtract.changeState(true);
         subtract.subtractVol();
+      } else if (input.sDown()) {
+        add.changeState(true);
+        add.addVol();
       } else {
-        add.changeState(false);
         subtract.changeState(false);
+        add.changeState(false);
       }
     }
 
@@ -516,8 +530,8 @@ class SettingsMenu {
       if (selected) {
         fill(255);
       } else {
-        add.changeState(true);
         subtract.changeState(true);
+        add.changeState(true);
         fill(128);
       }
 
@@ -529,8 +543,8 @@ class SettingsMenu {
       textSize(30);
       text(buttonName, x, y);
 
-      add.draw();
       subtract.draw();
+      add.draw();
     }
 
     class Toggle {

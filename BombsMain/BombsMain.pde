@@ -106,11 +106,6 @@ void instructionPicker() {
     settingsMenu.draw();
     break;
 
-    //  // Settings
-    //case 6:
-    //  break;
-
-
   default:
     mainMenu.update();
     mainMenu.draw();
