@@ -211,8 +211,10 @@ class SoundAssets {
   final float wet = 1;
 
   float rate, FX_VOLUME, MUSIC_VOLUME, MAIN_VOLUME, ENTITY_VOLUME, AMBIENT_VOLUME;
+  float UNNORMALISED_FX_VOLUME, UNNORMALISED_MUSIC_VOLUME, UNNORMALISED_ENTITY_VOLUME, UNNORMALISED_AMBIENT_VOLUME;
 
   SoundAssets(PApplet setup) {
+    
     //--ITEM SOUND EFFECTS-------------------------------------------------------------------------
     item_coin = new SoundFile(setup, "data/sound/item/coin.mp3");
     item_heart = new SoundFile(setup, "data/sound/item/heart.mp3");
@@ -275,12 +277,16 @@ class SoundAssets {
   }
 
   void update() {
-    MAIN_VOLUME = 0.75;
-
-    FX_VOLUME = MAIN_VOLUME * 0.75;
-    MUSIC_VOLUME = MAIN_VOLUME * 0.75;
-    ENTITY_VOLUME = MAIN_VOLUME * 0.75;
-    AMBIENT_VOLUME = MAIN_VOLUME * 0.75;
+    MAIN_VOLUME = settingsMenu.mainVolumeComponent.updateVolume();
+    UNNORMALISED_FX_VOLUME = settingsMenu.fxVolumeComponent.updateVolume();
+    UNNORMALISED_MUSIC_VOLUME = settingsMenu.musicVolumeComponent.updateVolume();
+    UNNORMALISED_ENTITY_VOLUME = settingsMenu.entityVolumeComponent.updateVolume();
+    UNNORMALISED_AMBIENT_VOLUME = settingsMenu.ambientVolumeComponent.updateVolume();
+    
+    FX_VOLUME = UNNORMALISED_FX_VOLUME * MAIN_VOLUME;
+    MUSIC_VOLUME = UNNORMALISED_MUSIC_VOLUME * MAIN_VOLUME;
+    ENTITY_VOLUME = UNNORMALISED_ENTITY_VOLUME * MAIN_VOLUME;
+    AMBIENT_VOLUME = UNNORMALISED_AMBIENT_VOLUME * MAIN_VOLUME;
   }
 
   //ITEM SOUND EFFECTS--------------------------------
@@ -350,7 +356,7 @@ class SoundAssets {
   {
     enemy_noise.play(1, FX_VOLUME);
   }
-  
+
   //PLAYER SOUND EFFECTS----------------------------
   void getPlayerHit() 
   {
@@ -364,7 +370,7 @@ class SoundAssets {
   {
     player_footsteps.play(1, FX_VOLUME - 0.5);
   }
-  
+
   //BOMB SOUND EFFECTS------------------------------
   void getBombPlaced() 
   {
@@ -418,36 +424,36 @@ class SoundAssets {
   //BOSS SOUND EFFECTS------------------------------
   void getBossMWDies()
   {
-  mw_dies.play(1, FX_VOLUME);
+    mw_dies.play(1, FX_VOLUME);
   }
   void getBossMWFootsteps()
   {
-  mw_footsteps.play(1, FX_VOLUME);
+    mw_footsteps.play(1, FX_VOLUME);
   }
   void getBossMWHit()
   {
-  mw_hit.play(1, FX_VOLUME);
+    mw_hit.play(1, FX_VOLUME);
   }
   void getBossMWNoise()
   {
-  mw_noise.play(1, FX_VOLUME);
+    mw_noise.play(1, FX_VOLUME);
   }
 
-void getBossSQDies()
+  void getBossSQDies()
   {
-  sq_dies.play(1, FX_VOLUME);
+    sq_dies.play(1, FX_VOLUME);
   }
   void getBossSQFootsteps()
   {
-  sq_footsteps.play(1, FX_VOLUME);
+    sq_footsteps.play(1, FX_VOLUME);
   }
   void getBossSQHit()
   {
-  sq_hit.play(1, FX_VOLUME);
+    sq_hit.play(1, FX_VOLUME);
   }
   void getBossSQNoise()
   {
-  sq_noise.play(1, FX_VOLUME);
+    sq_noise.play(1, FX_VOLUME);
   }
   //-----------------------------------------------
 }
