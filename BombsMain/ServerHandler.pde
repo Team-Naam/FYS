@@ -14,9 +14,25 @@ class ServerHandler {
     //myConnection.updateQuery(addScore);
   }
 
-  Table getHighscores(int highscoreTableLimit) {
+  Table getTopHighscores(int highscoreTableLimit) {
     //de query
     String selectScore = "SELECT userName, score FROM Highscore h INNER JOIN User u ON h.idUser = u.idUser ORDER BY `score` DESC LIMIT " + highscoreTableLimit;
+
+    return myConnection.runQuery(selectScore);
+  }
+
+  Table getTopPlayers(int highscoreTableLimit) {
+    //de query
+    String selectScore = "SELECT userName, MAX(score) FROM Highscore h INNER JOIN User u ON h.idUser = u.idUser GROUP BY userName  ORDER BY MAX(score) DESC LIMIT " + highscoreTableLimit;
+
+    return myConnection.runQuery(selectScore);
+  }
+
+  Table getTopHighscoresUser(int highscoreTableLimit) {
+    //temp userId word de userId van de ingelogde user
+    int userId = 10;
+    //de query
+    String selectScore = "SELECT userName, score FROM Highscore h INNER JOIN User u ON h.idUser = u.idUser WHERE h.idUser = " + userId + " ORDER BY score DESC LIMIT " + highscoreTableLimit;
 
     return myConnection.runQuery(selectScore);
   }
