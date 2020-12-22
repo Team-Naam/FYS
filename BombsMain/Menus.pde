@@ -194,21 +194,60 @@ class HighscoreMenu {
   TextureAssets sprites;
   ServerHandler serverHandler;
   Table highscores;
+  MenuBox[] boxArray = new MenuBox[3];
+  Timer timer;
+
+  int selected;
+  int highscoreTableLimit;
+
+  boolean justChanged;
 
   HighscoreMenu(TextureAssets textureLoader, ServerHandler serverHandler) {
     this.sprites = textureLoader;
     this.serverHandler = serverHandler;
-    highscores = serverHandler.getHighscores(10);
+    highscoreTableLimit = 10;
+    highscores = serverHandler.getTopHighscores(highscoreTableLimit);
+    timer = new Timer("HighscoreSelected");
+
+    for (int i = 0; i < boxArray.length; i++) {
+      boxArray[i] = new MenuBox(width /2 - 1005, 100*i -50, 1100, 510, 30, textureLoader);
+    }
+
+    boxArray[0].boxText = "Best Scores";
+    boxArray[1].boxText = "Best Players";
+    boxArray[2].boxText = "Your Best";
+
+    selected = 0;
+    justChanged = false;
   }
 
   void update() {
     if (input.escapeDown()) {
       toMainMenu();
     }
+    if (input.downDown() && !justChanged) {
+      selected ++;
+      if (selected > 2) selected = 0;
+      updateSelected();
+      justChanged = true;
+    }
+
+    if (input.upDown() && !justChanged) {
+      selected --;
+      if (selected < 0) selected = 2;
+      updateSelected();
+      justChanged = true;
+    }
+
+    if (justChanged) {
+      if (timer.startTimer(200)) justChanged = false;
+    }
+
   }
 
   void draw() {
     background(MENU_BACKGROUND_COLOUR);
+    noStroke();
     image(sprites.getLogo(), 20, height - 131, 200, 111);
 
     fill(20);
@@ -227,6 +266,36 @@ class HighscoreMenu {
       for (int j = 0; j < row.getColumnCount(); j++) {
         text(row.getString(j), width / 2 -170 + 300 * j, 300 + 60 * i);
       }
+    }
+
+    fill(20);
+    rect(width /2 - 500, 100, 250, 410);
+
+    for (MenuBox menuBox : boxArray) {
+      menuBox.draw();
+    }
+  }
+  
+  void updateSelected(){
+    switch(selected) {
+    case 0:
+      boxArray[0].selected = true;
+      boxArray[1].selected = false;
+      boxArray[2].selected = false;
+      highscores = serverHandler.getTopHighscores(highscoreTableLimit);
+      break;
+    case 1:
+      boxArray[0].selected = false;
+      boxArray[1].selected = true;
+      boxArray[2].selected = false;
+      highscores = serverHandler.getTopPlayers(highscoreTableLimit);
+      break;
+    case 2:
+      boxArray[0].selected = false;
+      boxArray[1].selected = false;
+      boxArray[2].selected = true;
+      highscores = serverHandler.getTopHighscoresUser(highscoreTableLimit);
+      break;
     }
   }
 }
