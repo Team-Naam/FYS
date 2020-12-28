@@ -94,6 +94,8 @@ void instructionPicker() {
 
     // Highscore
   case 3:
+    highscoreMenu.update();
+    highscoreMenu.draw();
     break;
 
     // Achievements
