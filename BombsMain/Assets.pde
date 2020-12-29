@@ -214,7 +214,7 @@ class SoundAssets {
   float UNNORMALISED_FX_VOLUME, UNNORMALISED_MUSIC_VOLUME, UNNORMALISED_ENTITY_VOLUME, UNNORMALISED_AMBIENT_VOLUME;
 
   SoundAssets(PApplet setup) {
-    
+
     //--ITEM SOUND EFFECTS-------------------------------------------------------------------------
     item_coin = new SoundFile(setup, "data/sound/item/coin.mp3");
     item_heart = new SoundFile(setup, "data/sound/item/heart.mp3");
@@ -283,6 +283,8 @@ class SoundAssets {
     UNNORMALISED_ENTITY_VOLUME = settingsMenu.entityVolumeComponent.updateVolume();
     UNNORMALISED_AMBIENT_VOLUME = settingsMenu.ambientVolumeComponent.updateVolume();
     
+    serverHandler.updateSoundVol();
+
     FX_VOLUME = UNNORMALISED_FX_VOLUME * MAIN_VOLUME;
     MUSIC_VOLUME = UNNORMALISED_MUSIC_VOLUME * MAIN_VOLUME;
     ENTITY_VOLUME = UNNORMALISED_ENTITY_VOLUME * MAIN_VOLUME;

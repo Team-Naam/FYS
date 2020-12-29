@@ -30,6 +30,7 @@ class MainMenu {
     boxSelected = 0;
 
     moveCooldown = 0;
+
     this.sprites = textureLoader;
     this.soundAssets = soundAssets;
   }
@@ -49,10 +50,10 @@ class MainMenu {
     for (MenuBox menuBox : boxArray) {
       menuBox.draw();
     }
-    
+
     fill(255);
     textSize(28);
-    text("Hint", width / 2, height - 32);
+    text("Userid =" + userID, width / 2, height - 32);
   }
 
   void update() {
@@ -242,7 +243,6 @@ class HighscoreMenu {
     if (justChanged) {
       if (timer.startTimer(200)) justChanged = false;
     }
-
   }
 
   void draw() {
@@ -275,8 +275,8 @@ class HighscoreMenu {
       menuBox.draw();
     }
   }
-  
-  void updateSelected(){
+
+  void updateSelected() {
     switch(selected) {
     case 0:
       boxArray[0].selected = true;
@@ -506,7 +506,16 @@ class SettingsMenu {
       ambientVolumeComponent.update();
       break;
 
-    case 5:
+    case 5: 
+      saveButton.selected = true;
+      if (input.xDown() && notPressedX) {
+        soundAssets.update();
+        finishedLoading = true;
+        notPressedX = false;
+      }
+      break;
+
+    case 6:
       backButton.selected = true;
       if (input.xDown() && notPressedX) {
         soundAssets.getMenuSelect();
@@ -517,15 +526,6 @@ class SettingsMenu {
         if (!inMainMenu) {
           gameState = 1;
         }
-        notPressedX = false;
-      }
-      break;
-
-    case 6: 
-      saveButton.selected = true;
-      if (input.xDown() && notPressedX) {
-        soundAssets.update();
-        finishedLoading = true;
         notPressedX = false;
       }
       break;

@@ -1,5 +1,9 @@
 //Code credit Winand Metz
 
+//Temp login
+final String USERNAME = "'winand'";
+final String PASSWORD = "'fys20'";
+
 //Game
 final float MAP_SCROLL_SPEED = 1; // was 1
 final float MAP_OFFSET = 0;
