@@ -22,10 +22,12 @@ ServerHandler serverHandler;
 PFont bits;
 
 int gameState;
+int userID;
 
 boolean escapePressed;
 boolean isPlaying;
 boolean inMainMenu;
+boolean playAsGuest;
 
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
