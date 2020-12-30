@@ -194,20 +194,21 @@ class GameOver {
 class HighscoreMenu {
   TextureAssets sprites;
   ServerHandler serverHandler;
-  Table highscores;
+  Table highscores, topHighscores, topPlayers, topHighscoresUser;
   MenuBox[] boxArray = new MenuBox[3];
   Timer timer;
 
   int selected;
-  int highscoreTableLimit;
 
   boolean justChanged;
 
   HighscoreMenu(TextureAssets textureLoader, ServerHandler serverHandler) {
     this.sprites = textureLoader;
     this.serverHandler = serverHandler;
-    highscoreTableLimit = 10;
-    highscores = serverHandler.getTopHighscores(highscoreTableLimit);
+    topHighscores = serverHandler.getTopHighscores(HIGHSCORE_TABLE_LIMIT);
+    topPlayers = serverHandler.getTopPlayers(HIGHSCORE_TABLE_LIMIT);
+    topHighscoresUser = serverHandler.getTopHighscoresUser(HIGHSCORE_TABLE_LIMIT);
+    highscores = topHighscores;
     timer = new Timer("HighscoreSelected");
 
     for (int i = 0; i < boxArray.length; i++) {
@@ -241,7 +242,7 @@ class HighscoreMenu {
     }
 
     if (justChanged) {
-      if (timer.startTimer(200)) justChanged = false;
+      if (timer.startTimer(100)) justChanged = false;
     }
   }
 
@@ -275,26 +276,26 @@ class HighscoreMenu {
       menuBox.draw();
     }
   }
-
-  void updateSelected() {
+  
+  void updateSelected(){
     switch(selected) {
     case 0:
       boxArray[0].selected = true;
       boxArray[1].selected = false;
       boxArray[2].selected = false;
-      highscores = serverHandler.getTopHighscores(highscoreTableLimit);
+      highscores = topHighscores;
       break;
     case 1:
       boxArray[0].selected = false;
       boxArray[1].selected = true;
       boxArray[2].selected = false;
-      highscores = serverHandler.getTopPlayers(highscoreTableLimit);
+      highscores = topPlayers;
       break;
     case 2:
       boxArray[0].selected = false;
       boxArray[1].selected = false;
       boxArray[2].selected = true;
-      highscores = serverHandler.getTopHighscoresUser(highscoreTableLimit);
+      highscores = topHighscoresUser;
       break;
     }
   }
