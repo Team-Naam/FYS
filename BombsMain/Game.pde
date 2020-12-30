@@ -37,6 +37,8 @@ class Game {
 
   //Oproepen van objecten in de game zodat ze worden getekend
   void update() {
+    inMainMenu = false;
+
     mapHandler.update();
     background.update();
     objectHandler.update();
@@ -47,7 +49,6 @@ class Game {
     //stuurt je naar het main menu als je op escape drukt
     if (input.escapeDown() && timer.startTimer(200)) {
       isPlaying = false;
-      inMainMenu = false;
     }
   }
 

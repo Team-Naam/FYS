@@ -7,7 +7,6 @@
 import samuelal.squelized.*;
 import processing.sound.*;
 
-
 //Voor main menu etc
 Game game;
 InputHandler input;
@@ -15,6 +14,7 @@ MainMenu mainMenu;
 GameOver gameOver;
 PauseMenu pauseMenu;
 HighscoreMenu highscoreMenu;
+SettingsMenu settingsMenu;
 TextureAssets textureAssets;
 SoundAssets soundAssets;
 ServerHandler serverHandler;
@@ -22,10 +22,12 @@ ServerHandler serverHandler;
 PFont bits;
 
 int gameState;
+int userID;
 
 boolean escapePressed;
 boolean isPlaying;
 boolean inMainMenu;
+boolean playAsGuest;
 
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
@@ -42,13 +44,15 @@ void setup() {
   soundAssets = new SoundAssets(this);
   textureAssets = new TextureAssets(TILE_SIZE);
   serverHandler = new ServerHandler();
+  serverHandler.getSoundVol();
+  settingsMenu = new SettingsMenu(textureAssets);
+  soundAssets.update();
   game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets, serverHandler);
   mainMenu = new MainMenu(textureAssets, soundAssets);
   gameOver = new GameOver(textureAssets);
   pauseMenu = new PauseMenu(textureAssets);
   highscoreMenu = new HighscoreMenu(textureAssets, serverHandler);
 
-  soundAssets.update();
   gameState = 0; //gameState for the main menu
 }
 
@@ -88,6 +92,22 @@ void instructionPicker() {
   case 2:
     gameOver.update(game.highscore);
     gameOver.draw();
+    break;
+
+    // Highscore
+  case 3:
+    highscoreMenu.update();
+    highscoreMenu.draw();
+    break;
+
+    // Achievements
+  case 4:
+    break;
+
+    // Settings
+  case 5:
+    settingsMenu.update();
+    settingsMenu.draw();
     break;
 
   default:

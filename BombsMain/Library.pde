@@ -118,8 +118,8 @@ class Ray {
     float s_dy = wall_b.y - wall_a.y;
 
     //Check if they are parrellel, if not, return null
-    double r_mag = Math.sqrt(r_dx*r_dx+r_dy*r_dy);
-    double s_mag = Math.sqrt(s_dx*s_dx+s_dy*s_dy);
+    float r_mag = sqrt(r_dx*r_dx+r_dy*r_dy);
+    float s_mag = sqrt(s_dx*s_dx+s_dy*s_dy);
     if (r_dx / r_mag == s_dx / s_mag && r_dy / r_mag == s_dy / s_mag) {
       return null;
     }
