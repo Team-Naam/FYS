@@ -60,6 +60,11 @@ void setup() {
 void toMainMenu() {
   gameState = 0;
   game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets, serverHandler);
+  
+  //update alle highscore tabellen
+  highscoreMenu.topHighscores = serverHandler.getTopHighscores(HIGHSCORE_TABLE_LIMIT);
+  highscoreMenu.topPlayers = serverHandler.getTopPlayers(HIGHSCORE_TABLE_LIMIT);
+  highscoreMenu.topHighscoresUser = serverHandler.getTopHighscoresUser(HIGHSCORE_TABLE_LIMIT);
 }
 
 //-----------------------------Draw & Key functies---------------------------------
