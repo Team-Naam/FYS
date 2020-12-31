@@ -22,6 +22,11 @@ class ServerHandler {
     myConnection.updateQuery(addUser);
   }
 
+  void temporaryUserDeletion(String userName, String userPassword) {
+    String deleteUser = "DELETE FROM User WHERE userName = "+ userName +" AND userPassword = "+ userPassword +"; ";
+    myConnection.updateQuery(deleteUser);
+  }
+
   int userId(String userName, String userPassword) {
     Table idTable = getUserId(userName, userPassword);
 
