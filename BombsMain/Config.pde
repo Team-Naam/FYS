@@ -32,7 +32,8 @@ final int MENU_MOVE_COOLDOWN = 10;
 
 //HighScores
 final int TIME_SCORE = 10;
-final int TIME_SCORE_TIMER = 1;  //in sec
+final int TIME_SCORE_TIMER = 1;
+final int HIGHSCORE_TABLE_LIMIT = 10;
 
 //Coin
 final int COIN_SCORE = 100;
