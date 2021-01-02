@@ -3,7 +3,7 @@
 class Bomb extends Object {
   SpriteSheetAnim explosionAnim;
 
-  final int fps;
+  final int FPS = 12;
 
   int bombTimer = EXPLOSION_TIMER;
   int bombOpacity = BOMB_START_OPACITY;
@@ -17,9 +17,8 @@ class Bomb extends Object {
     super(x, y, w, h, ObjectID.BOMB, objectHandler, sprites, soundAssets);
     this.bombId = BombID.DYNAMITE;
 
-    fps = 12;
     startTime = millis();
-    explosionAnim = new SpriteSheetAnim(sprites.explosion, 0, 12, fps);
+    explosionAnim = new SpriteSheetAnim(sprites.explosion, 0, 12, FPS);
     explosionAnim.playOnce();
     explosionAnim.setCenter();
   }

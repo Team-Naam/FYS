@@ -42,7 +42,6 @@ class Ghost extends Entity {
 //Code credit Ruben Verheul
 class Poltergeist extends Entity {
 
-
   Poltergeist(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.entityId = EntityID.POLTERGEIST;

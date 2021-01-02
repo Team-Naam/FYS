@@ -7,6 +7,9 @@ class ServerHandler {
     setID();
   }
 
+  /* Code credit Winand Metz
+   Set de ID van de speler voor gebruik in online functionaliteit
+   ID 0 is gast speler zonder account */
   void setID() {
     userID = userId(USERNAME, PASSWORD);
 
@@ -17,16 +20,23 @@ class ServerHandler {
     }
   }
 
+  /* Tijdelijke user account creation method
+   Neemt een username en password in en voegt dit toe aan de database 
+   PlayerID wordt door de database gehandlet
+   Er zit nog geen duplication protection voor accounts met zelfde naam in */
   void temporaryUserCreation(String userName, String userPassword) {
     String addUser = "INSERT INTO User(userName, userPassword) VALUES("+ userName +", "+ userPassword +"); INSERT INTO Settings(idUser) VALUES(LAST_INSERT_ID()); INSERT INTO Player_Statistics(idUser) VALUES(LAST_INSERT_ID());";
     myConnection.updateQuery(addUser);
   }
 
+  /* Tijdelijke user account deletion method 
+   Neemt de username en password in en delete alle gerelateerde entries uit de database */
   void temporaryUserDeletion(String userName, String userPassword) {
     String deleteUser = "DELETE FROM User WHERE userName = "+ userName +" AND userPassword = "+ userPassword +"; ";
     myConnection.updateQuery(deleteUser);
   }
 
+  //Geeft de userID bij een succesvolle login, anders wordt automatisch een guest account gereturned
   int userId(String userName, String userPassword) {
     Table idTable = getUserId(userName, userPassword);
 
@@ -37,6 +47,7 @@ class ServerHandler {
     }
   }
 
+  //Haalt de userID uit de database met username en password
   Table getUserId(String userName, String userPassword) {
     String getUserId = "SELECT * FROM User WHERE userName = " + userName + " AND userPassword = "+ userPassword +"; ";
 
@@ -75,11 +86,14 @@ class ServerHandler {
     return myConnection.runQuery(selectScore);
   }
 
+  /* Code credit Winand Metz
+   Updates de volume waardes in de database */
   void updateSoundVol() {
     String updateVolumes = "UPDATE Settings s INNER JOIN User u ON s.idUser = u.idUser SET main_volume = " + soundAssets.MAIN_VOLUME + ", ambient_volume = " + soundAssets.UNNORMALISED_AMBIENT_VOLUME + ", music_volume = " + soundAssets.UNNORMALISED_MUSIC_VOLUME + ", entity_volume = " + soundAssets.UNNORMALISED_ENTITY_VOLUME + ", fx_volume = " + soundAssets.UNNORMALISED_FX_VOLUME + " WHERE s.idUser = " + userID + "; ";
     myConnection.updateQuery(updateVolumes);
   }
 
+  //Neemt de correcte volume waardes uit de volumes table, tenzij de speler als gast speelt, dan worden de standaard volumes doorgegeven
   void getSoundVol() {
     Table volumes = getVolumes();
 
@@ -98,6 +112,7 @@ class ServerHandler {
     }
   }
 
+  //Laad de volume waardes in 
   Table getVolumes() {
     String selectVolumes = "SELECT * FROM Settings s INNER JOIN User u ON s.idUser = u.idUser WHERE s.idUser = " + userID + "; ";
 

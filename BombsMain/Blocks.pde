@@ -1,6 +1,5 @@
 //Code credit Winand Metz
 
-//Muren, moet nog collision op
 class Wall extends Object {
   Ray leftRay;
   Ray rightRay;
@@ -13,26 +12,37 @@ class Wall extends Object {
     super(x, y, w, h, ObjectID.WALL, objectHandler, sprites, soundAssets);
   }
 
+  //De update wordt als eerste gerund en bepaald meerdere waardes die worden gebruikt in draw
   void update() {
+
+    //Als het object zich buiten het scherm bevindt wordt hij verwijderd
     selfDestruct();
 
+    //Alle connectie boolean values worden eerst op false gezet, zodat altijd opnieuw wordt bepaald of er een connectie is
     leftCon = false;
     rightCon = false;
     upCon = false;
     downCon = false;
 
+    //Vectors voor de collision vierhoek van het object 
     lb = new PVector(x, y);
     rb = new PVector(x + w, y);
     ro = new PVector(x + w, y + h);
     lo = new PVector(x, y + h);
 
+    //Vector voor bepalen van het middelpunt 
     or = new PVector((lb.x + rb.x) / 2, (lb.y + lo.y) / 2);
 
+    //Vectors voor het einde van de connectie controle rays 
     left = new PVector(x - 5, (lb.y + lo.y) / 2);
     right = new PVector(x + w + 5, (lb.y + lo.y) / 2);
     up = new PVector((lb.x + rb.x) / 2 - 1, y - 5);
     down = new PVector((lb.x + rb.x) / 2 + 1, y + h + 5);
 
+    /* Dit deel van de code schiet vier rays, één naar boven, beneden, links en rechts
+     Hiermee wordt gecheckt of de objecten andere objecten aanraken en zet, als het zo is, de connection booleans op true
+     
+     Er zitten optimasation tweaks in, waaronder dat er alleen wordt gecheckt als de origins binnen een distance zitten van 138, of te wel direct naaste objecten */
     for (Object wallObject : objectHandler.walls) {
       if (wallObject.objectId == ObjectID.WALL || wallObject.objectId == ObjectID.ROCK || wallObject.objectId == ObjectID.BBLOCK) {
         if (dist(or.x, or.y, wallObject.or.x, wallObject.or.y) < 138) {
@@ -78,18 +88,8 @@ class Wall extends Object {
     }
   }
 
-  //Inladen van de texture voor de muur en plaatsing
+  //De connectie booleans bepalen welke texture uit de spritesheet wordt gebruikt zodat het lijkt alsof de muren verbonden zijn
   void draw() {
-    //stroke(255, 0, 0);
-    //line(or.x, or.y, x - 5, (lb.y + lo.y) / 2);
-    //stroke(0, 255, 0);
-    //line(or.x, or.y, x + w + 5, (lb.y + lo.y) / 2);
-    //stroke(0, 0, 255);
-    //line(or.x, or.y, (lb.x + rb.x) / 2, y - 5);
-    //stroke(255, 255, 0);
-    //line(or.x, or.y, (lb.x + rb.x) / 2, y + h + 5);
-
-
     if (rightCon && leftCon && downCon && !upCon) {
       image(sprites.getWall(2, 0), x, y);
     }
@@ -148,7 +148,6 @@ class Wall extends Object {
 
 //-----------------------------Rock top & bottom---------------------------------
 
-//Onder en boven muren
 class Rock extends Object {
 
   Rock(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
@@ -156,15 +155,19 @@ class Rock extends Object {
   }
 
   void update() {
+    //Als het object zich buiten het scherm bevindt wordt hij verwijderd
     selfDestruct();
 
+    //Vectors voor de collision vierhoek van het object 
     lb = new PVector(x, y);
     rb = new PVector(x + w, y);
     ro = new PVector(x + w, y + h);
     lo = new PVector(x, y + h);
 
+    //Vector voor bepalen van het middelpunt 
     or = new PVector((lb.x + rb.x) / 2, (lb.y + lo.y) / 2);
 
+    //Vectors voor het einde van de connectie controle rays 
     left = new PVector(x - 5, (lb.y + lo.y) / 2);
     right = new PVector(x + w + 5, (lb.y + lo.y) / 2);
     up = new PVector((lb.x + rb.x) / 2 - 1, y - 5);
@@ -189,35 +192,41 @@ class Path extends Object {
 
   Path(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, ObjectID.PATH, objectHandler, sprites, soundAssets);
+
+    //Bepaald een random overlay x en y waarde, dit wordt later gebruikt in draw
     randomOverlayX = (int)random(0, 2);
     randomOverlayY = (int)random(0, 2);
   }
 
   void update() {
+    //Als het path object zich links buiten het scherm bevind, wordt deze terug gezet naar de rechterkant
     if (x < -128) {
       x = 2048;
     }
 
+    //Connectie booleans
     leftCon = false;
     rightCon = false;
     upCon = false;
 
-    stroke(0);
-    strokeWeight(1);
-    fill(255, 0, 0);
-    rect(x, y, w, h);
-
+    //Vectors voor de collision vierhoek van het object 
     lb = new PVector(x, y);
     rb = new PVector(x + w, y);
     ro = new PVector(x + w, y + h);
     lo = new PVector(x, y + h);
 
+    //Vector voor bepalen van het middelpunt 
     or = new PVector((lb.x + rb.x) / 2, (lb.y + lo.y) / 2);
 
+    //Vectors voor het einde van de connectie controle rays 
     left = new PVector(x - 5, (lb.y + lo.y) / 2);
     right = new PVector(x + w + 5, (lb.y + lo.y) / 2);
     up = new PVector((lb.x + rb.x) / 2 - 1, y - 5);
 
+    /* Dit deel van de code schiet drie rays, één naar boven, links en rechts
+     Hiermee wordt gecheckt of de objecten andere objecten aanraken en zet, als het zo is, de connection booleans op true
+     
+     Er zitten optimasation tweaks in, waaronder dat er alleen wordt gecheckt als de origins binnen een distance zitten van 138, of te wel direct naaste objecten */
     for (Object wallObject : objectHandler.walls) {
       if (wallObject.objectId == ObjectID.WALL || wallObject.objectId == ObjectID.ROCK || wallObject.objectId == ObjectID.BBLOCK) {
         if (dist(or.x, or.y, wallObject.or.x, wallObject.or.y) < 138) {
@@ -253,6 +262,7 @@ class Path extends Object {
     }
   }
 
+  //De connectie booleans bepalen welke texture uit de spritesheet wordt gebruikt, zodat het lijkt alsof de muren een contact shadow hebben met de grond
   void draw() {
     if (upCon && rightCon && leftCon) {
       image(sprites.getBackground(1, 0), x, y);
@@ -283,19 +293,8 @@ class Path extends Object {
       image(sprites.getBackground(0, 0), x, y);
     }
 
+    //Hier wordt een random overlay gepakt uit de spritesheet, waarmee wordt bepaald hoe het tegel patroon eruit ziet
     image(sprites.getBackgroundOverlay(randomOverlayX, randomOverlayY), x, y);
-
-    //stroke(255, 0, 0);
-    //line(or.x, or.y, x - 5, (lb.y + lo.y) / 2);
-    //stroke(0, 255, 0);
-    //line(or.x, or.y, x + w + 5, (lb.y + lo.y) / 2);
-    //stroke(0, 0, 255);
-    //line(or.x, or.y, (lb.x + rb.x) / 2, y - 5);
-    //stroke(255, 255, 0);
-    //line(or.x, or.y, (lb.x + rb.x) / 2, y + h + 5);
-
-    //fill(82, 51, 63);
-    //rect(x, y, w, h);
   }
 }
 
@@ -314,27 +313,37 @@ class BreakableWall extends Entity {
     this.objectId = ObjectID.BBLOCK;
   }
 
+  //Breakable wall is een entity maar moet de karakterstieken van een muur hebben, de update is dus overriden
   @Override
     void update() {
+    //Als het object zich buiten het scherm bevindt wordt hij verwijderd
     selfDestruct();
 
+    //Connectie booleans
     leftCon = false;
     rightCon = false;
     upCon = false;
     downCon = false;
 
+    //Vectors voor de collision vierhoek van het object 
     lb = new PVector(x, y);
     rb = new PVector(x + w, y);
     ro = new PVector(x + w, y + h);
     lo = new PVector(x, y + h);
 
+    //Vector voor bepalen van het middelpunt 
     or = new PVector((lb.x + rb.x) / 2, (lb.y + lo.y) / 2);
 
+    //Vectors voor het einde van de connectie controle rays 
     left = new PVector(x - 5, (lb.y + lo.y) / 2);
     right = new PVector(x + w + 5, (lb.y + lo.y) / 2);
     up = new PVector((lb.x + rb.x) / 2 - 1, y - 5);
     down = new PVector((lb.x + rb.x) / 2 + 1, y + h + 5);
 
+    /* Dit deel van de code schiet vier rays, één naar boven, beneden, links en rechts
+     Hiermee wordt gecheckt of de objecten andere objecten aanraken en zet, als het zo is, de connection booleans op true
+     
+     Er zitten optimasation tweaks in, waaronder dat er alleen wordt gecheckt als de origins binnen een distance zitten van 138, of te wel direct naaste objecten */
     for (Object wallObject : objectHandler.walls) {
       if (wallObject.objectId == ObjectID.WALL || wallObject.objectId == ObjectID.ROCK || wallObject.objectId == ObjectID.BBLOCK) {
         if (dist(or.x, or.y, wallObject.or.x, wallObject.or.y) < 138) {
@@ -378,22 +387,27 @@ class BreakableWall extends Entity {
         }
       }
     }
-
+    //Als het object in een explosie bevind, wordt het gebroken 
     bombDamage();
   }
 
+  //Bij het breken van breekbare muren wordt een item gedropt
   @Override
     void bombDamage() {
+    //Eerst wordt gecheckt of de object zich in de explosie circle bevind, waarna vervolgens de health ervan wordt afgetrokken
     if (insideExplosion) {
       health -= BOMB_DAMAGE;
       insideExplosion = false;
     }
     if (health <= 0) {
+      //addItem wordt aangeroepen met de x en y van de muur
       objectHandler.addItem(x, y, 64, 64);
+      //Object wordt uit de list gehaald en verwijderd
       objectHandler.removeWall(this);
     }
   }
 
+  //De connectie booleans bepalen welke texture uit de spritesheet wordt gebruikt, zodat het lijkt alsof de breekbare muren verbonden zijn
   void draw() {
     if (rightCon && leftCon && !upCon && !downCon) {
       image(sprites.getBrokenWall(0, 0), x, y);
@@ -417,26 +431,34 @@ class BreakableObject extends Entity {
   }
 
   void update() {
+    //Als het object zich buiten het scherm bevindt wordt hij verwijderd
     selfDestruct();
 
+    //Objectpositie wordt met een random offset opgeteld
     newX = x + randomPosQ;
     newY = y + randomPosQ;
 
+    //Als het object in een explosie bevind, wordt het gebroken (zie Entity)
     bombDamage();
   }
 
+  //Bij het breken van breekbare objecten wordt een item gedropt
   @Override
     void bombDamage() {
+    //Eerst wordt gecheckt of de object zich in de explosie circle bevind, waarna vervolgens de health ervan wordt afgetrokken
     if (insideExplosion) {
       health -= BOMB_DAMAGE;
       insideExplosion = false;
     }
     if (health <= 0) {
+      //addItem wordt aangeroepen met de x en y van de muur
       objectHandler.addItem(newX, newY, 64, 64);
+      //Object wordt uit de list gehaald en verwijderd
       objectHandler.removeEntity(this);
     }
   }
 
+  //De dropshadow (zie Object class) is voor de objecten anders i.v.m. de aparte vormen
   @Override
     void dropShadow() {
     noStroke();

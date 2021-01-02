@@ -1,9 +1,12 @@
+//Code credit Winand Metz
+
 class Item extends Object {
 
   Item(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, ObjectID.ITEM, objectHandler, sprites, soundAssets);
   }
 
+  //Als het object zich buiten het scherm bevindt wordt hij verwijderd
   void update() {
     selfDestruct();
   }
@@ -85,17 +88,15 @@ class Heart extends Item {
 }
 
 class Coin extends Item {
-  SpriteSheetAnim coinSprite;
+  final int FPS = 6;
 
-  final int fps;
+  SpriteSheetAnim coinSprite;
 
   Coin(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.itemId = ItemID.COIN;
-    
-        fps = 6;
-    
-    coinSprite = new SpriteSheetAnim(sprites.itemsBombsUI, 1, 4, fps);
+
+    coinSprite = new SpriteSheetAnim(sprites.itemsBombsUI, 1, 4, FPS);
   }
 
   void update() {
@@ -105,6 +106,5 @@ class Coin extends Item {
 
   void draw() {
     coinSprite.draw();
-    //image(sprites.getBombItem(0, 1), x, y);
   }
 }

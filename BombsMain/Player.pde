@@ -36,11 +36,13 @@ class Player extends Object {
   void update() {
     playerControls();
 
+    //Vectors voor de collision vierhoek van het object 
     lb = new PVector(x, y);
     rb = new PVector(x + w, y);
     ro = new PVector(x + w, y + h);
     lo = new PVector(x, y + h);
 
+    //Vector voor bepalen van het middelpunt 
     or = new PVector((lb.x + rb.x) / 2, (lb.y + lo.y) / 2);
 
     if (speedX == 4 || speedY == 4 || speedX == 4 && speedY == 4 || speedX == -4 || speedY == -4 || speedX == -4 && speedY == -4) {
@@ -51,6 +53,7 @@ class Player extends Object {
     x = x + speedX;
     y = y + speedY;
 
+    //Collision tegen de walls
     if (wallCollisionDetection()) {
       x = oldX - game.mapHandler.mapScrollSpeed;
       y = oldY;
@@ -231,6 +234,7 @@ class Player extends Object {
   }
 
   @Override
+    //De dropshadow (zie Object class) is voor de player anders
     void dropShadow() {
     noStroke();
     fill(0, 112);
