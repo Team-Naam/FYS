@@ -13,12 +13,15 @@ final int FPS = 6;
 //!NIET VERANDEREN!
 final int TILE_SIZE = 128;
 final int OBJECT_Y_OFFSET = 100;
+final int ESC_SELECT_TIMER = 200;
 
 //Graphics
 final int FRAMERATE = 60;
+final color BACKGROUND_COLOR = color(41, 29, 43);
 final int FLOOR_SHADOW_STRENGTH = 230; //Normaliter ligt de waarde van deze en ENVIROMENT_SHADOW_STRENGHT dicht bij elkaar
 final int ENVIROMENT_SHADOW_STRENGHT = 230;
 final int RAY_DISTANCE = 500;
+final int TEXT_RENDER_SIZE = 48;
 
 //Main Menu
 final color MENU_BACKGROUND_COLOUR = #12173B;

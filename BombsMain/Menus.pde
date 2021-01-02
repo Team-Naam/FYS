@@ -1,6 +1,4 @@
-//all code that has to do with the Main Menu of the game
-//code credit Ole Neuman
-
+//Code credit Ole Neuman
 class MainMenu {
 
   TextureAssets sprites;
@@ -82,7 +80,7 @@ class MainMenu {
 
     if (moveCooldown > 0) moveCooldown--;
 
-    if (input.xDown() && timer.startTimer(200)) {
+    if (input.xDown() && timer.startTimer(ESC_SELECT_TIMER)) {
       soundAssets.getMenuSelect();
       switch(boxSelected) {
 
@@ -164,7 +162,6 @@ class MenuBox {
 }
 
 //code credit Jordy
-//gameOver scherm
 class GameOver {
   TextureAssets sprites;
   Highscore highscore;
@@ -301,6 +298,7 @@ class HighscoreMenu {
   }
 }
 
+//Code credit Winand Metz
 class PauseMenu {
   MenuBox[] boxArray = new MenuBox[3];
   Timer timer;
@@ -327,7 +325,7 @@ class PauseMenu {
   }
 
   void update() {
-    if (input.escapeDown() && timer.startTimer(200)) {
+    if (input.escapeDown() && timer.startTimer(ESC_SELECT_TIMER)) {
       isPlaying = true;
     }
 
@@ -362,7 +360,7 @@ class PauseMenu {
       moveCooldown--;
     }
 
-    if (input.xDown() && timer.startTimer(200)) {
+    if (input.xDown() && timer.startTimer(ESC_SELECT_TIMER)) {
       soundAssets.getMenuSelect();
       switch(boxxSelected) {
 
@@ -400,6 +398,7 @@ class PauseMenu {
   }
 }
 
+//Code credit Winand Metz
 class SettingsMenu {
   final float VOLUME_INCREASE = 0.05;
   final int VOLUME_SCREEN_BUTTONS = 7;

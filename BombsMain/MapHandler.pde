@@ -1,9 +1,9 @@
 //Code Credit Ole Neuman 
-//This class handles everything that has to do with the map 
 
 import java.util.Queue;
 import java.util.ArrayDeque;
 
+//This class handles everything that has to do with the map 
 class MapHandler { 
 
   IntList mapList; 
@@ -134,37 +134,38 @@ class MapHandler {
     mapQueue.add(-1);
     mapQueue.add(-2);
   }
-  
-  void spawnBoss(){
-   switch(bossToBeSpawned){
-     case "spider":
-     game.objectHandler.addSpiderQueen(1200, 540, tileSize, tileSize);
-     break;
-     
-     case "wall":
-     game.objectHandler.addMovingWall(1200, 540, tileSize, tileSize);
-     break;
-   }
+
+  void spawnBoss() {
+    switch(bossToBeSpawned) {
+    case "spider":
+      game.objectHandler.addSpiderQueen(1200, 540, tileSize, tileSize);
+      break;
+
+    case "wall":
+      game.objectHandler.addMovingWall(1200, 540, tileSize, tileSize);
+      break;
+    }
   }
-  
-  String randomBoss(){
-   int boss = int(random(1, 3));
-   switch(boss){
+
+  String randomBoss() {
+    int boss = int(random(1, 3));
+    switch(boss) {
     case 1:
-    return "spider";
-    
+      return "spider";
+
     case 2:
-    return "wall";
-    
+      return "wall";
+
     default:
-    return "spider";
-   }
+      return "spider";
+    }
   }
 }
 
 
-//Code credit Winand Metz
-//Het bepalen van de plaatsing van objecten in het level dmv aflezen pixel colorcodes(android graphics color) en dit omzetten in een grid van 15 bij 8
+/* Code credit Winand Metz
+ Het bepalen van de plaatsing van objecten in het level dmv aflezen pixel colorcodes(android graphics color) en dit omzetten in een grid van 15 bij 8
+ Orginele bron, afgeleid van: https://github.com/jarlah/WizardGame/blob/master/MapLoader.pde*/
 void loadMap(int[] pixels, int w, int h, int tw, int th, ObjectHandler objectHandler, float offSet) {
   for (int x = 0; x < w; x++) {
     for (int y = 0; y < h; y++ ) {
@@ -200,7 +201,7 @@ void loadMap(int[] pixels, int w, int h, int tw, int th, ObjectHandler objectHan
       }
       //Hexcode = 6abe30
       if (c == 0xFF6abe30) {
-        objectHandler.addBreakableItem(x * tw + offSet, y * th, tw, th);
+        objectHandler.addBreakableObject(x * tw + offSet, y * th, tw, th);
       }
     }
   }

@@ -1,6 +1,5 @@
 //Code credit Winand Metz
 
-//Alles game gerelateerd
 class Game {
   Timer timer;
   ObjectHandler objectHandler;
@@ -15,8 +14,6 @@ class Game {
 
   final int width, height;
 
-  //Inladen van alle assets voor de game en level creation dmv inladen van een png map, op basis van pixels plaatsing van objecten
-  //TileSize is grote van de blokken in het plaatsingsgrid (tegelgrote)
   Game(int tileSize, int width, int height, TextureAssets textureAssets, SoundAssets soundAssets, ServerHandler databaseLoader) {
     this.width = width;
     this.height = height;
@@ -27,7 +24,7 @@ class Game {
     objectHandler = new ObjectHandler(this.textureLoader, this.soundLoader);
     objectHandler.addPlayer(this.highscore);
     objectHandler.addFix();
-    background = new Background(textureLoader);
+    background = new Background(textureLoader, tileSize);
     mapHandler = new MapHandler(tileSize);
     graphicsEngine = new GraphicsEngine();
     userInterface = new UserInterface(this.textureLoader, this.highscore, this.objectHandler);
@@ -35,8 +32,9 @@ class Game {
     isPlaying = true;
   }
 
-  //Oproepen van objecten in de game zodat ze worden getekend
+  //Eerst worden alle updates uitgevoerd, voordat de draw wordt uitgevoerd
   void update() {
+    //Boolean voor het settings menu, zodat het de correcte tekst laat zien van return to game i.p.v. main menu
     inMainMenu = false;
 
     mapHandler.update();
@@ -46,15 +44,17 @@ class Game {
     graphicsEngine.update();
     userInterface.update();
 
-    //stuurt je naar het main menu als je op escape drukt
-    if (input.escapeDown() && timer.startTimer(200)) {
+    /* Als op escape wordt gedrukt ingame, wordt het spel op pauze gezet
+     De timer is bedoeld zodat er niet een glitch ontstaat van een oneindige pause menu loop */
+    if (input.escapeDown() && timer.startTimer(ESC_SELECT_TIMER)) {
       isPlaying = false;
     }
   }
 
   void draw() {
-    background(41, 29, 43);
+    background(BACKGROUND_COLOR);
 
+    //In het pauze menu is de achtergrond de game zelf, om resources te besparen worden de berekeningen voor de lighting engine stop gezet
     if (!isPlaying) {
       graphicsEngine.update();
     }
@@ -69,6 +69,7 @@ class Game {
   //-----------------------------Graphics engine---------------------------------
 
   class GraphicsEngine {
+    final int GE_WHITE_MASK = 255;
 
     Emitter emitterPlayer;
 
@@ -103,9 +104,12 @@ class Game {
     }
 
     void update() {
+      //Neemt de locatie van de speler
       ArrayList<Object> entityObjects = objectHandler.entities;
       Object playerEntity = entityObjects.get(0);
       playerPos.set(playerEntity.x, playerEntity.y);
+
+      //Updates de positie van de emitter en schiet de rays richting de muren
       emitterPlayer.update(playerPos.x, playerPos.y);
       emitterPlayer.cast(objectHandler.walls);
     }
@@ -116,7 +120,7 @@ class Game {
       floorLightMap.beginDraw();
       floorLightMap.clear();
       floorLightMap.background(0);
-      floorLightMap.shape(emitterPlayer.getShape(255));
+      floorLightMap.shape(emitterPlayer.getShape(GE_WHITE_MASK));
       floorLightMap.endDraw();
 
       //Bepaald de grote van het fakkel licht van de player dmv een png
@@ -196,26 +200,31 @@ class Game {
   }
 
   class Background {
-    //Path path;
-
-    Object[] backgrounds = new Object[170];
+    final int BG_AMOUNT = 170;
+    final int BG_COLS = 17;
+    final int BG_ROWS = 10;
+    
+    //De path objecten array voor een continuerende hergebruik van de objecten 
+    Path[] backgrounds = new Path[BG_AMOUNT];
 
     float x, y;
-    int cols = 17;
-    int rows = 10;
-    int amount = 170;
+    int cols = BG_COLS;
+    int rows = BG_ROWS;
+    int amount = BG_AMOUNT;
 
-    Background(TextureAssets sprites) {
+    Background(TextureAssets sprites, int tileSize) {
+      //Array wordt gevuld met path objecten zodat het hele scherm belegd is
       int k = 0;
       for (int i = 0; i < cols; i++) {
         for (int j = 0; j < rows; j++) {
-          backgrounds[k] = new Path(i * 128, j * 128 - OBJECT_Y_OFFSET, 128, 128, objectHandler, sprites, soundAssets);
+          backgrounds[k] = new Path(i * tileSize, j * tileSize - OBJECT_Y_OFFSET, tileSize, tileSize, objectHandler, sprites, soundAssets);
 
           k++;
         }
       }
     }
-
+    
+    //De update en movement worden eerst uitgevoerd voordat ze worden getekend 
     void update() {
       for (int i = 0; i < backgrounds.length; i++) {
         backgrounds[i].moveMap();

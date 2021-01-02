@@ -32,8 +32,8 @@ class Entity extends Object {
     slow = MINI_SPIDER_SLOW;
   }
 
-  //Nieuw collision system waarbij hij terug wordt gezet naar de oude positie
   void update() {
+    //Als het object zich buiten het scherm bevindt wordt hij verwijderd
     selfDestruct();
     bombDamage();
     movement();
@@ -54,9 +54,8 @@ class Entity extends Object {
   }
 
   void movement() {
-    //Timer voor basic willekeurig ronddwalen over speelveld elke twe seconden gaat hij andere kant op
-    //Zodra hij binnen 400 pixels van de player komt gaat hij achter de player aan
-    //Moet nog in dat hij om muren heen navigeert ipv tegenaanstoot en stil staat
+    /*Timer voor basic willekeurig ronddwalen over speelveld elke twe seconden gaat hij andere kant op
+     Zodra hij binnen 400 pixels van de player komt gaat hij achter de player aan */
     int passedTime = millis() - savedTime;
     if (dist(getPlayerX(), getPlayerY(), x, y) < 400) {
       hunt();
@@ -91,6 +90,7 @@ class Entity extends Object {
   }
 
   void bombDamage() {
+    //Eerst wordt gecheckt of de object zich in de explosie circle bevind, waarna vervolgens de health ervan wordt afgetrokken
     if (insideExplosion && !takenDamage) {
       soundAssets.getEnemyHit();
       health -= BOMB_DAMAGE;
@@ -106,9 +106,10 @@ class Entity extends Object {
       }
       if (entityId == EntityID.SPIDER_BOSS) {
         for (int i = 0; i < 6; i++) {
-          objectHandler.addSpider(x,y,w,h);
+          objectHandler.addSpider(x, y, w, h);
         }
       }
+      //Object wordt uit de list gehaald en verwijderd
       objectHandler.removeEntity(this);
     }
     if (!insideExplosion && takenDamage) {
@@ -125,22 +126,17 @@ class Entity extends Object {
       ((Player)playerEntity).gettingAttacked = true;
       //println("slash");
     }
-    
+
     if (intersection(playerEntity) && entityId == EntityID.MINI_SPIDER) {
       playerSpeed = slowAmount * playerSpeed;
     }
   }
 
-  //Method voor basic volgen van de player
-  //Moet nog in dat hij om muren heen navigeert (of je niet ziet achter de muren?)
-  //credits Jordy, Ruben
-
   void draw() {
-    fill(20);
-    rect(x, y, w, h);
   }
 }
 
+//Er moet voor collision detection minimaal twee objecten in de entity list zitten, dit is een lege entry, dat nooit verwijderd wordt
 class CollisionFix extends Object {
 
   CollisionFix(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {

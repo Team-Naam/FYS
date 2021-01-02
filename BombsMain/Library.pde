@@ -59,8 +59,8 @@ class InputHandler {
   }
 }
 
-/*Code credit Winand
- Random getal van -1 tot 1*/
+/* Code credit Winand
+ Random getal van -1 tot 1 */
 int randomOnes() {
   return (int) random(3) - 1;
 }
@@ -75,6 +75,7 @@ class Timer {
     timerName = Name;
   }
 
+  //Method de timer, slaat autmatisch af na de gegeven tijd
   boolean startTimer(int countDownTime) {
     int time = millis();
     if (start) {
@@ -146,9 +147,10 @@ class Ray {
   }
 }
 
-//Functie voor het inladen van de verschillende textures in een array
+//Functie voor het inladen van de verschillende textures in een twee dimensionale array
 PImage[][] loadSprites(String path, int tileSize) {
   PImage spriteBlock = loadImage(path);
+  
   PImage[][] sprites = new PImage[spriteBlock.width / tileSize][spriteBlock.height / tileSize];
   for (int x = 0; x < spriteBlock.width / tileSize; x ++) {
     for (int y = 0; y < spriteBlock.height / tileSize; y ++) {

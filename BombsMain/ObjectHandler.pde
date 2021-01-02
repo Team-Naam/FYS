@@ -3,16 +3,15 @@
 //Class voor het creëren en opslaan van de objecten
 class ObjectHandler {
 
-  float enemySpawnChance[][] = new float[6][2];
-  float itemSpawnChance[][] = new float[7][2];
+  //Twee dimensionale float arrays voor spawnrates
+  final float enemySpawnChance[][] = new float[6][2];
+  final float itemSpawnChance[][] = new float[7][2];
 
   int eSD = ENTITY_SIZE_DIVIDER;
 
+  //Twee object arraylists voor de game objecten, opgedeeld in muren en entiteiten
   ArrayList<Object> walls =  new ArrayList<Object>();
   ArrayList<Object> entities = new ArrayList<Object>();
-
-  Player player = null;
-  CollisionFix fix = null;
 
   TextureAssets sprites;
   SoundAssets soundAssets;
@@ -20,6 +19,8 @@ class ObjectHandler {
   ObjectHandler(TextureAssets sprites, SoundAssets soundAssets) {
     this.sprites = sprites;
     this.soundAssets = soundAssets;
+
+    //Vult de spawn rates met de values vanuit config
     for (int i = 0; i < enemySpawnChance.length; i++) {
       enemySpawnChance[i][0] = i;
     }
@@ -42,14 +43,19 @@ class ObjectHandler {
     itemSpawnChance[6][1] = COIN_DROP_CHANCE;
   }
 
-  void addEntity(float x, float y, int w, int h) {
-    x = x + 32;
-    y = y + 32;
+  //Test code
+  //void addEntity(float x, float y, int w, int h) {
+  //  x = x + 32;
+  //  y = y + 32;
 
-    Entity entity = new Entity(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites, soundAssets);
-    entities.add(entity);
-  }
+  //  Entity entity = new Entity(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites, soundAssets);
+  //  entities.add(entity);
+  //}
 
+  /* Geeft een cijfer dat gebruikt word om te bepalen welke enemy er spawnt
+   Neemt een random getal in en kijkt of dit kleiner of groter is dan spawnrates
+   Is het groter dan haalt hij de spawnrates eraf net zolang tot hij kleiner is 
+   Zodra hij kleiner is telt hij een op en returned dit */
   float getEnemy(float rand) {
     for (int i = 0; i < enemySpawnChance.length; i++) {
       if (rand < enemySpawnChance[i][1]) {
@@ -59,25 +65,22 @@ class ObjectHandler {
     }
     return 1;
   }
-  
-  void addBullet(float x, float y) {
-    Bullet bullet = new Bullet(x,y,10,10,this,sprites,soundAssets);
-    entities.add(bullet);
-  }
 
+  //Voegt enemy toe aan de entity object list 
   void addEnemy(float x, float y, int w, int h) {
     x = x + 64;
     y = y + 64;
 
+    //Telt alle spawnrates bij elkaar op
     int total = 0;
     for (int i = 0; i < enemySpawnChance.length; i++) { 
       total += enemySpawnChance[i][1];
     }
 
+    //Rand is alle opgetelde spawnrates maal een getal tussen 0 en 1 
     float rand = random(0, 1) * total;
+    //Rand wordt doorgegeven aan getEnemy om dit met het weighted system te vertalen naar een cijfer dat gelinkt is aan een vijand
     float enemy = getEnemy(rand);
-
-    //println(enemy);
 
     //Ghost 
     if (enemy == 1) {
@@ -111,24 +114,25 @@ class ObjectHandler {
     }
   }
 
-  void addBreakableObject(float x, float y, int w, int h) {
-    BreakableObject breakableObject = new BreakableObject(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD / eSD, this, sprites, soundAssets);
-    entities.add(breakableObject);
-  }
+  //Test code
+  //void addBreakableObject(float x, float y, int w, int h) {
+  //  BreakableObject breakableObject = new BreakableObject(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD / eSD, this, sprites, soundAssets);
+  //  entities.add(breakableObject);
+  //}
 
   void addSpider(float x, float y, int w, int h) {
     Spider spider = new Spider(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD / eSD, this, sprites, soundAssets);
     entities.add(spider);
   }
-    
+
   void addMiniSpider(float x, float y, int w, int h) {
     MiniSpider miniSpider = new MiniSpider(x, y - OBJECT_Y_OFFSET, w / eSD / eSD, h / eSD / eSD, this, sprites, soundAssets);
     entities.add(miniSpider);
   }
-  
+
   void addExplosiveSpider(float x, float y, int w, int h) {
     ExplosiveSpider explosiveSpider = new ExplosiveSpider(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites, soundAssets);
-      entities.add(explosiveSpider);
+    entities.add(explosiveSpider);
   }
 
   //Method voor het creëren van de muren, input lijkt me vanzelf sprekend
@@ -152,7 +156,7 @@ class ObjectHandler {
   void addPlayer(Highscore highscore) {
     Player player = new Player(PLAYER_X_SPAWN, PLAYER_Y_SPAWN, PLAYER_SIZE / eSD, PLAYER_SIZE, this, sprites, highscore, soundAssets);
     entities.add(player);
-    println("spawned");
+    //println("spawned");
   }
 
   void addFix() {
@@ -182,6 +186,10 @@ class ObjectHandler {
     entities.add(spiderBomb);
   }
 
+  /* Geeft een cijfer dat gebruikt word om te bepalen welke item er spawnt
+   Neemt een random getal in en kijkt of dit kleiner of groter is dan spawnrates
+   Is het groter dan haalt hij de spawnrates eraf net zolang tot hij kleiner is 
+   Zodra hij kleiner is telt hij een op en returned dit */
   float getItem(float rand) {
     for (int i = 0; i < itemSpawnChance.length; i++) {
       if (rand < itemSpawnChance[i][1]) {
@@ -192,16 +200,19 @@ class ObjectHandler {
     return 1;
   }
 
+  //Voegt enemy toe aan de entity object list 
   void addItem(float x, float y, int w, int h) {
+
+    //Telt alle spawnrates bij elkaar op
     int total = 0;
     for (int i = 0; i < itemSpawnChance.length; i++) { 
       total += itemSpawnChance[i][1];
     }
 
+    //Rand is alle opgetelde spawnrates maal een getal tussen 0 en 1 
     float rand = random(0, 1) * total;
+    //Rand wordt doorgegeven aan getItem om dit met het weighted system te vertalen naar een cijfer dat gelinkt is aan een item
     float item = getItem(rand);
-
-    //println(item);
 
     //Boots
     if (item == 1) {
@@ -250,30 +261,35 @@ class ObjectHandler {
     entities.add(movingWall);
   }
 
-  void addBreakableItem(float x, float y, int w, int h) {
-    int randomItem = (int)random(4);
+  //Bepaald een random object
+  void addBreakableObject(float x, float y, int w, int h) {
+    int randomObject = (int)random(4);
 
-    //println(randomItem);
-
-    if (randomItem == 1) {
+    if (randomObject == 1) {
       Corpse corpse = new Corpse(x, y - OBJECT_Y_OFFSET, w, h / eSD, this, sprites, soundAssets);
       entities.add(corpse);
     }
-    if (randomItem == 2) {
+    if (randomObject == 2) {
       Vases vases = new Vases(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites, soundAssets);
       entities.add(vases);
     }
-    if (randomItem == 3) {
+    if (randomObject == 3) {
       Backpack backpack = new Backpack(x, y - OBJECT_Y_OFFSET, w / eSD, h / eSD, this, sprites, soundAssets);
       entities.add(backpack);
     }
   }
 
-  //Method van verwijderen objecten uit array
+  void addBullet(float x, float y) {
+    Bullet bullet = new Bullet(x, y, 10, 10, this, sprites, soundAssets);
+    entities.add(bullet);
+  }
+
+  //Method voor verwijderen entity uit entities list
   void removeEntity(Object entry) {
     entities.remove(entry);
   }
 
+  //Method van verwijderen object uit walls list
   void removeWall(Object entry) {
     walls.remove(entry);
   }
@@ -299,7 +315,7 @@ class ObjectHandler {
     }
   }
 
-  //Draw method voor elk onderdeel in de list
+  //Draw voor elk onderdeel in de list en dropshadow voor de entities list
   void draw() {
     ArrayList<Object> entityObjects = entities;
     for (int i = 1; i < entityObjects.size(); i++) {
@@ -309,7 +325,7 @@ class ObjectHandler {
       entityObjects.get(i).dropShadow();
       entityObjects.get(i).draw();
     }
-    
+
     entityObjects.get(0).dropShadow();
     entityObjects.get(0).draw();
 

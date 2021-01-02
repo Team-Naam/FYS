@@ -3,7 +3,7 @@
 //Inladen en tijdelijk opslaan textures
 class TextureAssets {
 
-  //Array voor x en y positie in grid
+  //PImage array slaat spritesheet op als "serie" van losse sprites
   final PImage[][] sprites;
   final PImage[][] wallSprites;
   final PImage[][] itemsBombsUI;
@@ -19,8 +19,7 @@ class TextureAssets {
   final PImage logo;
   final PImage main_menu;
 
-
-  //Class neemt filepaths in en de groote van de gridtegels
+  //Laad alle images in vanaf het begin
   TextureAssets(int tileSize) {
     logo = loadImage("data/text/logo_highres.png");
     main_menu = loadImage("data/text/ui/main menu.png");
@@ -45,6 +44,7 @@ class TextureAssets {
     return main_menu;
   }
 
+  //Meeste methods hebben een row en column argument voor het bepalen van welke sprite moet worden gebruikt vanuit de array
   PImage getBackground(int row, int column) {
     return backgroundSprites[row][column];
   }
@@ -96,6 +96,7 @@ class TextureAssets {
   }
 }
 
+//Class voor het tekenen van een spritesheet animatie
 class SpriteSheetAnim {
 
   PImage[][] images;
@@ -105,6 +106,8 @@ class SpriteSheetAnim {
 
   boolean playing, playOnce, center;
 
+  /* Neemt een 2d pimage array in voor de frames, welke column de sprite animation te vinden is,
+   het aantal frames dat de animtion bevat en de afspeelsnelheid */
   SpriteSheetAnim(PImage[][] images_, int column_, int frames_, int fps) {
     this.images = images_;
     this.column = column_;
@@ -118,34 +121,41 @@ class SpriteSheetAnim {
     setFPS(fps);
   }
 
+  //Method voor bepalen afspeelsnelheid, kan dus altijd verandert worden, mid-animatie etc
   void setFPS(int fps) {
     this.fps = fps;
   }
 
-  void setSpeed(int fps) {
+  //Bepaald de absolute snelheid van de animatie (niet gebruiken buiten de class)
+  private void setSpeed(int fps) {
     speed = fps / (float)frameRate;
   }
 
+  //Veranderd de draw image functie naar center als de animtie vanuit midden moet afspelen van het object
   void setCenter() {
     center = true;
   }
 
+  //Zorgt ervoor dat animatie één keer afspeelt
   void playOnce() {
     index = 0;
     playOnce = true;
     playing = true;
   }
 
+  //Draait de animatie zolang het object bestaat
   void loop() {
     playing = true;
     playOnce = false;
   }
 
+  //Stopt het afspelen
   void stop() {
     playing = false;
     playOnce = false;
   }
 
+  //Start het afspelen 
   boolean isPlaying() {
     return playing;
   }
@@ -163,6 +173,7 @@ class SpriteSheetAnim {
     }
   }
 
+  //Eerst run de update, deze neemt de positie in en bepaald welke image getekend moet worden
   void update(float x_, float y_) {
     this.x = x_;
     this.y = y_;
@@ -185,6 +196,7 @@ class SpriteSheetAnim {
 }
 
 class SoundAssets {
+
   //--ITEM SOUND EFFECTS-------------------------------------------------------------------------
   SoundFile item_coin, item_heart, item_cloak, item_shield, item_sparkler, item_bluepotion, item_boots;
   SoundFile item_bluepotion_expired, item_boots_expired, item_cloak_expired, item_sparkler_expired, item_shield_broken;
@@ -202,17 +214,11 @@ class SoundAssets {
   //--BOSS SOUND EFFECTS-------------------------------------------------------------------------
   SoundFile mw_dies, mw_footsteps, mw_hit, mw_noise;
   SoundFile sq_dies, sq_footsteps, sq_hit, sq_noise;
-  //---------------------------------------------------------------------------------------------
-  Reverb roomRev;
-  LowPass lowPass;
-
-  final float room = 0.1;
-  final float damp = 0;
-  final float wet = 1;
 
   float rate, FX_VOLUME, MUSIC_VOLUME, MAIN_VOLUME, ENTITY_VOLUME, AMBIENT_VOLUME;
   float UNNORMALISED_FX_VOLUME, UNNORMALISED_MUSIC_VOLUME, UNNORMALISED_ENTITY_VOLUME, UNNORMALISED_AMBIENT_VOLUME;
 
+  //Laad all sounds van te voren in, neemt als argument de setup in van processing
   SoundAssets(PApplet setup) {
 
     //--ITEM SOUND EFFECTS-------------------------------------------------------------------------
@@ -267,22 +273,17 @@ class SoundAssets {
     sq_noise = new SoundFile(setup, "");
     //---------------------------------------------------------------------------------------------
 
-    roomRev = new Reverb(setup);
-    lowPass = new LowPass(setup);
-
-    roomRev.set(room, damp, wet);
-    lowPass.freq(500);
-
     rate = 1;
   }
 
+  //Updates de volume amplitudes via de settingsMenu class en serverhandler class, en normaliseerd de waardes naar de main volume
   void update() {
     MAIN_VOLUME = settingsMenu.mainVolumeComponent.updateVolume();
     UNNORMALISED_FX_VOLUME = settingsMenu.fxVolumeComponent.updateVolume();
     UNNORMALISED_MUSIC_VOLUME = settingsMenu.musicVolumeComponent.updateVolume();
     UNNORMALISED_ENTITY_VOLUME = settingsMenu.entityVolumeComponent.updateVolume();
     UNNORMALISED_AMBIENT_VOLUME = settingsMenu.ambientVolumeComponent.updateVolume();
-    
+
     serverHandler.updateSoundVol();
 
     FX_VOLUME = UNNORMALISED_FX_VOLUME * MAIN_VOLUME;
@@ -410,6 +411,7 @@ class SoundAssets {
   {
     bomb_landmine_exploded.play(1, FX_VOLUME);
   }
+
   //MENU SOUND EFFECTS------------------------------
   void getMenuHover() 
   {
@@ -423,6 +425,7 @@ class SoundAssets {
   {
     menu_goback.play(1, FX_VOLUME);
   }
+
   //BOSS SOUND EFFECTS------------------------------
   void getBossMWDies()
   {

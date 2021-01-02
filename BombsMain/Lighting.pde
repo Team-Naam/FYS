@@ -1,4 +1,5 @@
-//Code credit Winand Metz & Ole Neuman
+//Code credit Winand Metz
+
 //Class for moving shadow emitter
 class Emitter {
 
@@ -86,8 +87,7 @@ class Emitter {
           }
         }
       }
-      //Safe wall voor toevoegen closest aan de list met vertices
-      if (closest != null) { 
+      if (closest != null) { //Safe wall voor toevoegen closest aan de list met vertices
         lightVertices.add(closest);
       }
     }
@@ -97,6 +97,7 @@ class Emitter {
     sortList();
   }
 
+  //Code credit Ole Neuman
   void sortList() {
     while (lightVertices.size() > 0) {
       float biggestAngle = 0;
@@ -114,6 +115,7 @@ class Emitter {
     }
   }
 
+  //Code credit Ole Neuman
   float angleCalculationMagic(PVector vertex) {
     boolean aboveEmitter;
     boolean rightOfEmitter;
