@@ -4,14 +4,17 @@ class ServerHandler {
   ServerHandler() {
     myConnection = new MySQLConnection("verheur6", "od93cCRbyqVu5R1M", "jdbc:mysql://oege.ie.hva.nl/zverheur6");
 
-    setID();
+    setID(USERNAME, PASSWORD);
   }
 
   /* Code credit Winand Metz
    Set de ID van de speler voor gebruik in online functionaliteit
    ID 0 is gast speler zonder account */
-  void setID() {
-    userID = userId(USERNAME, PASSWORD);
+  void setID(String userName_, String passWord_) {
+    String userName = userName_;
+    String passWord = passWord_;
+
+    userID = userId(userName, passWord);
 
     if (userID == 0) {
       playAsGuest = true;
@@ -30,8 +33,11 @@ class ServerHandler {
   }
 
   /* Tijdelijke user account deletion method 
+   Zet eerst de userID op 0 voor guest account
    Neemt de username en password in en delete alle gerelateerde entries uit de database */
   void temporaryUserDeletion(String userName, String userPassword) {
+    setID("'&'", "'$'");
+
     String deleteUser = "DELETE FROM User WHERE userName = "+ userName +" AND userPassword = "+ userPassword +"; ";
     myConnection.updateQuery(deleteUser);
   }
