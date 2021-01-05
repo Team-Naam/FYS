@@ -10,6 +10,7 @@ InputHandler input;
 MainMenu mainMenu;
 GameOver gameOver;
 PauseMenu pauseMenu;
+AchievementMenu achievementMenu;
 HighscoreMenu highscoreMenu;
 SettingsMenu settingsMenu;
 TextureAssets textureAssets;
@@ -48,6 +49,7 @@ void setup() {
   gameOver = new GameOver(textureAssets);
   pauseMenu = new PauseMenu(textureAssets);
   highscoreMenu = new HighscoreMenu(textureAssets, serverHandler);
+  achievementMenu = new AchievementMenu(textureAssets, serverHandler);
 
   gameState = 0; //gameState for the main menu
 }
@@ -104,6 +106,8 @@ void instructionPicker() {
 
     // Achievements
   case 4:
+    achievementMenu.update();
+    achievementMenu.draw();
     break;
 
     // Settings
