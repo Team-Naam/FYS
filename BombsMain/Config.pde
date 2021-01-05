@@ -35,11 +35,6 @@ final int TIME_SCORE = 10;
 final int TIME_SCORE_TIMER = 1;
 final int HIGHSCORE_TABLE_LIMIT = 10;
 
-//Achievements
-final int PLAYTIMELIMIT = 1;
-final int GETMONEYLIMIT = 1;
-final int GETKILLSLIMIT = 1;
-
 //Coin
 final int COIN_SCORE = 100;
 
