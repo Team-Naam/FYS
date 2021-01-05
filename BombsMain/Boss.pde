@@ -63,7 +63,7 @@ class SpiderQueen extends Entity {
     }
   }
 
-//aanroepen spawn Mini Spiders
+  //aanroepen spawn Mini Spiders
   void spiderSpawnUpdate() {
     switch(currentSpiderSpawn) {
     case "spiderSpawn":
@@ -73,7 +73,6 @@ class SpiderQueen extends Entity {
             objectHandler.addMiniSpider(x, y, w, h);
             spawnedMiniSpider += 1;
             //spawn mini spiders (maak nog mini-spiders)
-            
           }
           //i += 1;
           spawnSpider = true;
@@ -111,7 +110,7 @@ class SpiderQueen extends Entity {
       break;
 
     case "explosiveBirth":
-    //2 explosivespider aanmaken
+      //2 explosivespider aanmaken
       if (explosiveBirthTimer.startTimer(birthTimer)) {
         for (int i = 0; i < 2; i++) {
           objectHandler.addExplosiveSpider(x, y, w, h);
@@ -124,7 +123,7 @@ class SpiderQueen extends Entity {
       break;
 
     case "seriousBirth":
-    //2 normale spiders aanmaken
+      //2 normale spiders aanmaken
       if (seriousBirthTimer.startTimer(birthTimer)) {
         for (int i = 0; i < 2; i++) {
           objectHandler.addSpider(x, y, w, h);
@@ -159,9 +158,9 @@ class SpiderQueen extends Entity {
     abilityCharge = false;
   }
 
-//aanroepen wat er voor webAttack allemaal moet gebeuren/aangeroepen (case switchen, timer starten...)
+  //aanroepen wat er voor webAttack allemaal moet gebeuren/aangeroepen (case switchen, timer starten...)
   void webAttack() {
-  
+
     println("web attack");
     velY = 0;
     velX = 0;
@@ -171,7 +170,7 @@ class SpiderQueen extends Entity {
     webAttackTimer.startTime = millis();
   }
 
-//aanroepen wat er voor explosiveBirth allemaal moet gebeuren/aangeroepen (case switchen, timer starten...)
+  //aanroepen wat er voor explosiveBirth allemaal moet gebeuren/aangeroepen (case switchen, timer starten...)
   void explosiveBirth() {
     println("explosive birth");
     velY = 0;
@@ -180,7 +179,7 @@ class SpiderQueen extends Entity {
     currentAttack = "explosiveBirth";
   }
 
-//aanroepen wat er voor seriousBirth allemaal moet gebeuren/aangeroepen (case switchen, timer starten...)
+  //aanroepen wat er voor seriousBirth allemaal moet gebeuren/aangeroepen (case switchen, timer starten...)
   void seriousBirth() {
     println("serious birth");
     velY = 0;
@@ -216,7 +215,7 @@ class Bullet extends Object {
     velX = dir_x * factor;
     velY = dir_y * factor;
   }
-   
+
   void checkCollision() {
     //checkt of de bullet met een wall collide.
     if (wallCollisionDetection()) {
@@ -331,15 +330,14 @@ class MovingWall extends Entity {
       currentAttack = (int)random (amountOfAttacks);
     }
   }
-  
-  boolean atRest(){
+
+  boolean atRest() {
     return topWall.atRest() && bottomWall.atRest();
   }
-  
-  boolean hasSplit(){
-   return topWall.hasSplit && bottomWall.hasSplit; 
+
+  boolean hasSplit() {
+    return topWall.hasSplit && bottomWall.hasSplit;
   }
-  
 }
 
 
