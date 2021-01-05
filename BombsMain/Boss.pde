@@ -493,7 +493,7 @@ class HalfWall extends Entity {
     switch(attackState) {
     case 0:
       Split(SLAM_SPLIT, WALL_BOSS_VEL);
-      if (wallBoss.hasSplit) attackState ++;
+      if (wallBoss.hasSplit()) attackState ++;
       break;
 
     case 1:
