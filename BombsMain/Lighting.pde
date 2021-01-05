@@ -115,7 +115,6 @@ class Emitter {
     }
   }
 
-  //Code credit Ole Neuman
   float angleCalculationMagic(PVector vertex) {
     boolean aboveEmitter;
     boolean rightOfEmitter;
@@ -158,6 +157,7 @@ class Emitter {
     return trueRadiansBetweenEmitterAndVertex;
   }
 
+  //Code credit Winand Metz
   //Maken van de lightpoly op basis van de sorted light vertices, neemt de grijswaarde in
   PShape getShape(int col) {
     lightPoly = createShape();
