@@ -320,13 +320,26 @@ class MovingWall extends Entity {
 
   @Override
     void movement() {
-    if (topWall.atRest() && bottomWall.atRest() && !attacking) {
+    if (atRest() && !attacking) {
       attacking = true;
       topWall.attackState = 0;
       bottomWall.attackState = 0;
-      currentAttack = 1;//(int)random (amountOfAttacks);
+      topWall.velX = WALL_BOSS_VEL;
+      topWall.velY = WALL_BOSS_VEL;
+      bottomWall.velX = WALL_BOSS_VEL;
+      bottomWall.velY = WALL_BOSS_VEL;
+      currentAttack = (int)random (amountOfAttacks);
     }
   }
+  
+  boolean atRest(){
+    return topWall.atRest() && bottomWall.atRest();
+  }
+  
+  boolean hasSplit(){
+   return topWall.hasSplit && bottomWall.hasSplit; 
+  }
+  
 }
 
 
@@ -482,7 +495,7 @@ class HalfWall extends Entity {
     switch(attackState) {
     case 0:
       Split(SLAM_SPLIT, WALL_BOSS_VEL);
-      if (hasSplit) attackState ++;
+      if (wallBoss.hasSplit) attackState ++;
       break;
 
     case 1:
@@ -504,7 +517,7 @@ class HalfWall extends Entity {
     case 4:
       wallBoss.stunned = false;
       toRestPos();
-      if (atRest()) attackState ++;
+      if (wallBoss.atRest()) attackState ++;
       break;
 
     case 5:
@@ -552,9 +565,9 @@ class HalfWall extends Entity {
         }
       }
 
-      int currentLength = objectHandler.walls.size() -NO_ESCAPE_BWALLS_AMOUNT;
+      int currentLength = objectHandler.walls.size();
       for (int i = 1; i < NO_ESCAPE_BWALLS_AMOUNT; i++) {
-        objectHandler.walls.get(currentLength +i).x -= velX /2;
+        objectHandler.walls.get(currentLength -i).x = x;
       }
       if (x < xRest - WALL_BOSS_BOX_LEFT) {
         currentLength = objectHandler.walls.size();
@@ -572,7 +585,7 @@ class HalfWall extends Entity {
     case 5:
       wallBoss.stunned = false;
       toRestPos();
-      if (atRest()) attackState ++;
+      if (wallBoss.atRest()) attackState ++;
       break;
     case 6: 
       wallBoss.attacking = false;
@@ -615,7 +628,7 @@ class HalfWall extends Entity {
       break;
     case 2: 
       toRestPos();
-      if (atRest()) {
+      if (wallBoss.atRest()) {
         wallBoss.invincible = false;
         attackState ++;
       }
