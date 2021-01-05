@@ -191,6 +191,150 @@ class GameOver {
   }
 }
 
+
+//code Credit Ruben
+class AchievementMenu {
+  TextureAssets sprites;
+  ServerHandler serverHandler;
+  Table achievement, unlocked, date, ID;
+  MenuBox[] boxArray = new MenuBox[4];
+  Timer timer;
+
+  int selected;
+
+  boolean justChanged;
+
+  AchievementMenu(TextureAssets textureLoader, ServerHandler serverHandler) {
+    this.sprites = textureLoader;
+    this.serverHandler = serverHandler;
+    timer = new Timer("AchievementSelected");
+    unlocked = serverHandler.getUnlocked();
+    ID = serverHandler.getUnlockedOrderedByID();
+    date = serverHandler.getUnlockedOrderedByDate();
+    achievement = unlocked;
+
+
+    for (int i = 0; i < boxArray.length; i++) {
+      boxArray[i] = new MenuBox(width/2 - 1400, 100*i  +200, 1100, 510, 30, textureLoader);
+    }
+
+    boxArray[0].boxText = "Unlocked Achievements";
+    boxArray[1].boxText = "Ordered By Achievement";
+    boxArray[2].boxText = "Ordered By Date";
+    boxArray[3].boxText = "Quit";
+
+
+    selected = 0;
+    justChanged = false;
+  }
+
+  void update() {
+    if (input.escapeDown()) {
+      toMainMenu();
+    }
+    if (input.xDown() && selected == 3 && timer.startTimer(200)) {
+      toMainMenu();
+    }
+    if (input.downDown() && !justChanged) {
+      selected++;
+      if (selected > 3 ) selected = 0;
+      updateSelected();
+      justChanged = true;
+    }
+
+    if (input.upDown() && !justChanged) {
+      selected --;
+      if (selected < 0) selected = 3;
+      updateSelected();
+      justChanged = true;
+    }
+
+    if (justChanged) {
+      if (timer.startTimer(100)) justChanged = false;
+    }
+  }
+
+  void draw() {
+    background(MENU_BACKGROUND_COLOUR);
+    noStroke();
+    image(sprites.getLogo(), 20, height - 131, 200, 111);
+
+    fill(20);
+    rect(width/2 - 500, 210, 450, 850, 100);
+    rect(width/2 -10, 210, 600, 850, 100);
+    rect(width/2 + 650, 210, 300, 850, 100); 
+
+    fill(255);
+    textSize(50);
+    text("achievements", width / 2 -425, 200);
+    text("description", width / 2 +155, 200);
+    text("date", width / 2 + 750, 200);
+
+    textSize(40);
+    for (int i = 0; i < achievement.getRowCount(); i++) {
+      TableRow row = achievement.getRow(i);
+      for (int j = 0; j < 3 /*row.getColumnCount()*/; j++) {
+
+        if (j == 0) {
+          textSize(40);
+          text(row.getString(j), width / 2 - 400, 300 + 60 * i);
+        }
+
+        if (j == 1) {
+          textSize(30);
+          text(row.getString(j), width / 2 + 10, 300 + 60 * i);
+   
+        }
+        textSize(40);
+        if (j == 2) {
+          text(row.getString(j), width / 2 + 700, 300 + 60 * i);
+        }
+        //text(row.getString(j), width / 2 -170 + 300 * j, 300 + 60 * i);
+      }
+    }
+
+    for (MenuBox menuBox : boxArray) {
+      menuBox.draw();
+    }
+  }
+
+  void updateSelected() {
+    switch(selected) {
+    case 0:
+      boxArray[0].selected = true;
+      boxArray[1].selected = false;
+      boxArray[2].selected = false;
+      boxArray[3].selected = false;
+      achievement = unlocked;
+      break;
+    case 1:
+      boxArray[0].selected = false;
+      boxArray[1].selected = true;
+      boxArray[2].selected = false;
+      boxArray[3].selected = false;
+      achievement = ID;
+      break;
+      case 2:
+      boxArray[0].selected = false;
+      boxArray[1].selected = false;
+      boxArray[2].selected = true;
+      boxArray[3].selected = false;
+      achievement = date;
+      break;
+      case 3:
+      boxArray[0].selected = false;
+      boxArray[1].selected = false;
+      boxArray[2].selected = false;
+      boxArray[3].selected = true;
+      achievement = unlocked;
+    default:
+      break;
+    }
+  }
+}
+
+
+//code credit Jordy
 class HighscoreMenu {
   TextureAssets sprites;
   ServerHandler serverHandler;
@@ -276,8 +420,8 @@ class HighscoreMenu {
       menuBox.draw();
     }
   }
-  
-  void updateSelected(){
+
+  void updateSelected() {
     switch(selected) {
     case 0:
       boxArray[0].selected = true;
