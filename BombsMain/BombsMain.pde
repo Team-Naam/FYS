@@ -56,6 +56,7 @@ void setup() {
 
 //Code credit Jordy Post
 void toMainMenu() {
+  //zet de gamestate naar de main menu en reset de game
   gameState = 0;
   game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets, serverHandler);
 

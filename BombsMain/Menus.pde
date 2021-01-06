@@ -368,6 +368,7 @@ class HighscoreMenu {
     if (input.escapeDown()) {
       toMainMenu();
     }
+    //verandered de geselecteerde menubox 
     if (input.downDown() && !justChanged) {
       selected ++;
       if (selected > 2) selected = 0;
@@ -381,7 +382,8 @@ class HighscoreMenu {
       updateSelected();
       justChanged = true;
     }
-
+    
+    //zorgt voor een cooldown van het switchen tussen tabbellen
     if (justChanged) {
       if (timer.startTimer(100)) justChanged = false;
     }
@@ -392,6 +394,7 @@ class HighscoreMenu {
     noStroke();
     image(sprites.getLogo(), 20, height - 131, 200, 111);
 
+    //tekent de achtergrond van de text
     fill(20);
     rect(width /2 - 250, 100, 550, 810);
 
@@ -409,16 +412,19 @@ class HighscoreMenu {
         text(row.getString(j), width / 2 -170 + 300 * j, 300 + 60 * i);
       }
     }
-
+    
+    //tekent de achtergrond van de text
     fill(20);
     rect(width /2 - 500, 100, 250, 410);
 
+    //tekent de menuboxes
     for (MenuBox menuBox : boxArray) {
       menuBox.draw();
     }
   }
 
   void updateSelected() {
+    //update welke box geselecteerd is en zet de tabel naar de geselecteerde tabel
     switch(selected) {
     case 0:
       boxArray[0].selected = true;
