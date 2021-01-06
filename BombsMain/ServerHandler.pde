@@ -203,8 +203,6 @@ class ServerHandler {
 
   //code credit Jordy
   void updateHighscores(int score) {
-    //temp userId word de userId van de ingelogde user
-    //int userId = 10;
     //de query
     String addScore = "INSERT INTO `Highscore`(`idUser`, `score`) VALUES ("+ userID + "," + score + ")";
     myConnection.updateQuery(addScore);
@@ -225,8 +223,6 @@ class ServerHandler {
   }
 
   Table getTopHighscoresUser(int highscoreTableLimit) {
-    //temp userId word de userId van de ingelogde user
-    //int userId = 10;
     //de query
     String selectScore = "SELECT userName, score FROM Highscore h INNER JOIN User u ON h.idUser = u.idUser WHERE h.idUser = " + userID + " ORDER BY score DESC LIMIT " + highscoreTableLimit;
 

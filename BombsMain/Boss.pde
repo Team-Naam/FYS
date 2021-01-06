@@ -265,7 +265,8 @@ class MovingWall extends Entity {
     stunned = false;
     invincible = true; 
     attacking = false;
-
+    
+    //maakt de bovenste en onderste helft van de boss die pas zichtbaar worden als de boss geactiveerd is
     topWall = new HalfWall(x, y, w, h /2, objectHandler, sprites, soundAssets, true, this);
     bottomWall = new HalfWall(x, y + h /2, w, h /2, objectHandler, sprites, soundAssets, false, this);
 
@@ -292,6 +293,7 @@ class MovingWall extends Entity {
   }
 
   @Override
+  //zodat de boss gedamaged wordt als hij in de explosie van een bom zit
     void bombDamage() {
     if (insideExplosion && !takenDamage) {
       if (!activated) {
@@ -300,6 +302,7 @@ class MovingWall extends Entity {
       takenDamage = true;
     }
     if (health <= 0) {
+      //zodat alles van de boss weg gaat als hij dood gaat
       objectHandler.removeEntity(this);
       objectHandler.removeEntity(topWall);
       objectHandler.removeEntity(bottomWall);
@@ -311,6 +314,7 @@ class MovingWall extends Entity {
   }
 
   void Activate() {
+    //activeerd de boss
     if (activateTimer.startTimer(WALL_BOSS_INIT_WAIT)) {
       activated = true;
       activating = false;
@@ -319,6 +323,7 @@ class MovingWall extends Entity {
 
   @Override
     void movement() {
+      //als de boss na een attack op de rust positie zit begint er een nieuwe willekeurige attack
     if (atRest() && !attacking) {
       attacking = true;
       topWall.attackState = 0;
@@ -331,19 +336,23 @@ class MovingWall extends Entity {
     }
   }
 
+  //geeft true als zowel de topwall als de bottomwall op de rustpositie zijn
   boolean atRest() {
     return topWall.atRest() && bottomWall.atRest();
   }
 
+  //geeft true als zowel de topwall als de bottomwall gesplit zijn
   boolean hasSplit() {
     return topWall.hasSplit && bottomWall.hasSplit;
   }
+  //deze twee bovenste waren nodig om de topwall en bottomwall gesynchroniseerd te houden
 }
 
 
 
 //-----------
-
+//een class waar alle code voor de topwall en de bottomwall in zit 
+//als je iets alleen met één van de delen wilt kan je de boolean top gebruiken
 class HalfWall extends Entity {
   boolean top;
   MovingWall wallBoss;
@@ -368,6 +377,7 @@ class HalfWall extends Entity {
 
     attackState = 0;
 
+    //geeft een andere rustpositie als het de bovenste helf is of de onderste
     if (top) {
       xRest = WALL_BOSS_X_REST;
       yRest = WALL_BOSS_Y_REST;
@@ -380,6 +390,7 @@ class HalfWall extends Entity {
   @Override
     void update() {
     selfDestruct();
+    //dit is de initialisatie 
     if (initializing) {
       if (wallBoss.activated) {
         if (!hasSplit) Split(WALL_BOSS_INNIT_SPLIT_DIST, WALL_BOSS_INNIT_SPLIT_VEL);
@@ -396,6 +407,7 @@ class HalfWall extends Entity {
         }
       }
     } else {
+      //dit gebeurt alleen als de boss geinitialiseerd is
       attack();
       movement();
     }
@@ -403,6 +415,7 @@ class HalfWall extends Entity {
   }
 
   @Override
+    //als halfwall gedamaged word door een bom gaat er health af bij de wallboss 
     void bombDamage() {
     if (insideExplosion && !wallBoss.takenDamage && !wallBoss.invincible) {
       wallBoss.health -= BOMB_DAMAGE;
@@ -416,6 +429,7 @@ class HalfWall extends Entity {
 
   @Override
     void draw() {
+      //tekent alleen als de wallboss geactiveerd is
     if (wallBoss.activated) {
       if (top) {
         stroke(5);
@@ -430,6 +444,7 @@ class HalfWall extends Entity {
   }
 
   void Split(float splitDist, float splitVel) {
+    //zorgt ervoor dat de twee delen een gegeven afstand en snelheid uit elkaar gaan 
     if (top) y -= splitVel;
     else y += splitVel;
     if (timer.startTimer(int(splitDist / splitVel))) {
@@ -439,6 +454,7 @@ class HalfWall extends Entity {
   }
 
   void combine() {
+    //zorgt dat de twee helfden bij elkaar komen op de rustpositie van de y-as
     if (dist(0, y, 0, yRest) < WALL_BOSS_VEL) {
       y = yRest;
     }
@@ -448,6 +464,7 @@ class HalfWall extends Entity {
   }
 
   void toRestPos() {
+    //zorgt ervoor dat de twee helfden naar de rustpositie gaan
     if (dist(x, y, xRest, yRest) < WALL_BOSS_RETURN_VEL) {
       x = xRest;
       y = yRest;
@@ -459,20 +476,25 @@ class HalfWall extends Entity {
   }
 
   boolean atRest() {
+    //kijkt of deze halfwall op de rustpositie is
     return (x == xRest && y == yRest);
   }
 
   boolean hasCombined() {
+    //kijkt of deze halfwall op de rustpositie van de y-as is
+    //wordt gebruikt om te kijken of de halfwall gecombineerd is 
     return (y == yRest);
   }
 
   boolean atPlayerX() {
+    //kijkt of de halfwall op de x van de player is player 
     return (x == player.x);
   }
 
 
   @Override
     void movement() {
+      //kijkt welke attack uitgevoerd moet worden
     if (wallBoss.attacking) {
       switch(wallBoss.currentAttack) {
       case 0:
@@ -489,6 +511,7 @@ class HalfWall extends Entity {
   }
 
   void duoSlam() {
+    //voert de duoslam attack uit iedere case is een andere fase van de attack
     attack = SLAM_DMG;
     switch(attackState) {
     case 0:
@@ -527,6 +550,7 @@ class HalfWall extends Entity {
   }
 
   void noEscape() {
+    //voert de noEscape attack uit iedere case is een andere fase van de attack
     attack = NO_ESCAPE_DMG;
     switch(attackState) {
     case 0: 
@@ -595,6 +619,7 @@ class HalfWall extends Entity {
   }
 
   void rollout() {
+    //voert de rollout attack uit iedere case is een andere fase van de attack
     attack = ROLLOUT_DMG;
     switch(attackState) {
     case 0: 
