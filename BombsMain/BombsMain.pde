@@ -12,6 +12,7 @@ GameOver gameOver;
 PauseMenu pauseMenu;
 HighscoreMenu highscoreMenu;
 SettingsMenu settingsMenu;
+StatisticsMenu statisticsMenu;
 TextureAssets textureAssets;
 SoundAssets soundAssets;
 ServerHandler serverHandler;
@@ -48,7 +49,7 @@ void setup() {
   gameOver = new GameOver(textureAssets);
   pauseMenu = new PauseMenu(textureAssets);
   highscoreMenu = new HighscoreMenu(textureAssets, serverHandler);
-
+  statisticsMenu = new StatisticsMenu(textureAssets, serverHandler);
   gameState = 0; //gameState for the main menu
 }
 
@@ -110,6 +111,12 @@ void instructionPicker() {
   case 5:
     settingsMenu.update();
     settingsMenu.draw();
+    break;
+
+    //Statistics
+  case 6:
+    statisticsMenu.update();
+    statisticsMenu.draw();
     break;
 
   default:

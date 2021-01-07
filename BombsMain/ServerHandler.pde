@@ -60,6 +60,11 @@ class ServerHandler {
     return myConnection.runQuery(getUserId);
   }
 
+  Table getStatistics() {
+    String getStatistics = "SELECT * FROM Player_Statistics";
+    return myConnection.runQuery(getStatistics);
+  }
+
   //code credit Jordy
   void updateHighscores(int score) {
     //temp userId word de userId van de ingelogde user

@@ -30,7 +30,7 @@ final color BOX_BASIC_INNER_COLOUR = #271FC5;
 final color BOX_HIGHLIGHTED_OUTER_COLOUR = #E4BB17;
 final color BOX_HIGHLIGHTED_INNER_COLOUR = #ED270F;
 final color BOX_TEXT_COLOUR = #FFFFFF;
-final int MENUBOX_AMOUNT = 5;
+final int MENUBOX_AMOUNT = 6;
 final int MENU_MOVE_COOLDOWN = 10;
 
 //HighScores
