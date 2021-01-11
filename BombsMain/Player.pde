@@ -26,7 +26,7 @@ class Player extends Object {
   int shield = PLAYER_SHIELD;
   float oldX, oldY;
   int bombCooldown = 0;
-  int bombSparklerCooldown = 0;
+  int bombSparklerCooldown = 30;
   int fps = 20;
 
   Player(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, Highscore highscore, SoundAssets soundAssets) {
@@ -125,6 +125,7 @@ class Player extends Object {
     if (!undefeatabaleBonus) {
       if (insideExplosion && !takenBombDamage && shieldBonus == true) {
         bombDamage = bombDamage - shieldProtection;
+        if (bombDamage < 0) bombDamage = 0;
         shield -= 1;
         health -= bombDamage;
         takenBombDamage = true;
@@ -145,6 +146,7 @@ class Player extends Object {
   void enemyDamage() {
     if (gettingAttacked && !takenEnemyDamage && shieldBonus == true) {
       attackDamage = attackDamage - shieldProtection;
+      if (attackDamage < 0) attackDamage = 0;
       shield -= 1;
       health -= attackDamage;
       takenEnemyDamage = true;
