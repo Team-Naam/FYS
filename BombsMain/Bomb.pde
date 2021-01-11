@@ -1,4 +1,5 @@
-//Code credit Alex Tarnòki, Ole Neuman, Ruben Verheul, Winand Metz //<>//
+//Code credit Alex Tarnòki, Ole Neuman, Ruben Verheul, Winand Metz
+
 
 class Bomb extends Object {
   SpriteSheetAnim explosionAnim;

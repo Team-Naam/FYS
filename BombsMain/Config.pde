@@ -70,6 +70,7 @@ final float SPIDER_SPAWN_CHANCE = 50;
 final float EXPLOSIVE_SPIDER_SPAWN_CHANCE = 10;
 final float MUMMY_SPAWN_CHANCE = 40;
 final float STONED_MUMMY_SPAWN_CHANCE = 13;
+final int KNOCKBACK_COUNT_DOWN = 14;
 
 //Ghost
 final int GHOST_HEALTH = 3;
