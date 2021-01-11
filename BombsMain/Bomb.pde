@@ -7,9 +7,8 @@ class Bomb extends Object {
   final int FPS = 12;
 
   int explosionStopTimer = EXPLOSION_STOP_TIMER;
-  int bombTimer = EXPLOSION_TIMER;
 
-  int startTime, bombType, explosionRadius;
+  int startTime, bombType, explosionRadius, bombTimer;
 
   Timer explosionTimer;
 
@@ -28,6 +27,7 @@ class Bomb extends Object {
     explosionTimer = new Timer ("explosionTimer");
     bombType = 1;
     explosionRadius = DYNAMITE_EXPLOSION_RADIUS;
+    bombTimer = DYNAMITE_EXPLOSION_TIMER;
   }
 
   //Wanneer dynamiet explodeerd kijk hij of er enemy in de blastradius zit en paast dit door naar de enemy class
@@ -121,6 +121,7 @@ class C4 extends Bomb
     bombActivated = false;
     bombType = 2;
     explosionRadius = CFOUR_EXPLOSION_RADIUS;
+    bombTimer = CFOUR_EXPLOSION_TIMER;
   }
 
   void draw() {
@@ -149,6 +150,7 @@ class Landmine extends Bomb {
     enemyOverlaps = false;
     bombType = 0;
     explosionRadius = LANDMINE_EXPLOSION_RADIUS;
+    bombTimer = LANDMINE_EXPLOSION_TIMER;
   }
 
   void draw() {
@@ -188,6 +190,7 @@ class SpiderBomb extends Bomb {
     startTime = millis();
     bombType = 1;
     explosionRadius = SPIDER_EXPLOSION_RADIUS;
+    bombTimer = SPIDER_EXPLOSION_TIMER;
   }
 
   //Wanneer dynamiet explodeerd kijk hij of er enemy in de blastradius zit en paast dit door naar de enemy class
