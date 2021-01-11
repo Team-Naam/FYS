@@ -6,18 +6,21 @@ class Entity extends Object {
   int attack;
   int roamingTimer;
   int savedTime;
-  int speedX;
-  int speedY;
-  int velX;
-  int velY;
+  float speedX;
+  float speedY;
+  float velX;
+  float velY;
   float oldX, oldY;
   float slowAmount;
   float slow;
+  float randomP1, randomN1, randomP2, randomN2;
   int spawnedMiniSpider;
+  int knockbackCountDown;
   boolean abilityCharge;
   boolean insideExplosion;
   boolean takenDamage;
   boolean touching;
+  boolean knockback;
 
   Entity(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, ObjectID.ENTITY, objectHandler, sprites, soundAssets);
@@ -25,6 +28,7 @@ class Entity extends Object {
     health = 1;
     attack = 1;
     roamingTimer = 1;
+    knockbackCountDown = KNOCKBACK_COUNT_DOWN;
     insideExplosion = false;
     takenDamage = false;
     touching = false;
@@ -57,7 +61,12 @@ class Entity extends Object {
     /*Timer voor basic willekeurig ronddwalen over speelveld elke twe seconden gaat hij andere kant op
      Zodra hij binnen 400 pixels van de player komt gaat hij achter de player aan */
     int passedTime = millis() - savedTime;
-    if (dist(getPlayerX(), getPlayerY(), x, y) < 400) {
+    float playerX = getPlayerX();
+    float playerY = getPlayerY();
+    float knockbackModifierX;
+    float knockbackModifierY;
+
+    if (dist(playerX, playerY, x, y) < PLAYER_DETECTION_DISTANCE) {
       hunt();
     } else {
       if (passedTime > roamingTimer) {
@@ -66,13 +75,30 @@ class Entity extends Object {
         savedTime= millis();
       }
     }
+    if (knockback) {
+      knockbackCountDown --;
+
+      if (x - playerX >= 0) knockbackModifierX = randomP1;
+      else knockbackModifierX = randomN1;
+      if (y - playerY >= 0) knockbackModifierY = randomP2;
+      else knockbackModifierY = randomN2;
+      println(knockbackModifierX);
+
+      speedX += (knockbackModifierX * knockbackCountDown);
+      speedY += (knockbackModifierY * knockbackCountDown);
+
+      if (knockbackCountDown == 0) {
+        knockbackCountDown = KNOCKBACK_COUNT_DOWN;
+        knockback = false;
+      }
+    }
   }
 
   void hunt() {
     float playerX = getPlayerX();
     float playerY = getPlayerY();
-    
-    
+
+
     if (cloakBonus == false && abilityCharge == false) {
       if (playerX > x) {
         speedX = velX;
@@ -86,7 +112,7 @@ class Entity extends Object {
       if (playerY > y) {
         speedY = velY;
       }
-      
+
       if (dist(playerX, 0, x, 0) < velX) {
         x = playerX;
         speedX = 0;
@@ -95,7 +121,7 @@ class Entity extends Object {
         y = playerY;
         speedY = 0;
       }
-    }   
+    }
   }
 
   void bombDamage() {
@@ -134,6 +160,11 @@ class Entity extends Object {
       ((Player)playerEntity).attackDamage = attack;
       ((Player)playerEntity).gettingAttacked = true;
       //println("slash");
+      knockback = true;
+      randomP1 = random(0.3, 1);
+      randomN1 = random(-1, -0.3);
+      randomP2 = random(0.3, 1);
+      randomN2 = random(-1, -0.3);
     }
 
     if (intersection(playerEntity) && entityId == EntityID.MINI_SPIDER) {
