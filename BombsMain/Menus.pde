@@ -180,7 +180,7 @@ class GameOver {
   void draw() {
     background(MENU_BACKGROUND_COLOUR);
     image(sprites.getLogo(), 20, height - 131, 200, 111);
-    fill(0);
+    fill(BOX_TEXT_COLOUR);
     textSize(50);
     text("GAME OVER", width / 2 -150, height / 4);
     textSize(40);

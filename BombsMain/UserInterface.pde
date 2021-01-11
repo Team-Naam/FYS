@@ -80,16 +80,16 @@ class UserInterface {
   void showScoreBoard()
   {
     //Pakt de Score bord uit Assets van kolom 1, rij 0 tm 3
-    image(textureAssets.getUserHud(0, 1), 0, height-240);
-    image(textureAssets.getUserHud(1, 1), 128, height-240);
-    image(textureAssets.getUserHud(2, 1), 256, height-240);
-    image(textureAssets.getUserHud(3, 1), 384, height-240);
+    image(textureAssets.getUserHud(0, 1), 0, 0);
+    image(textureAssets.getUserHud(1, 1), 128, 0);
+    image(textureAssets.getUserHud(2, 1), 256, 0);
+    image(textureAssets.getUserHud(3, 1), 384, 0);
 
     //Bijbehorende score text
     fill(255);
     textSize(30);
     //text("HighScore: ", 20, height-140);
-    text("Your Score: "+ highscore.score, 20, height-170);
+    text("Your Score: "+ highscore.score, 20, 70);
     noFill();
   }
 

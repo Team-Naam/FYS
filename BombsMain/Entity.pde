@@ -69,24 +69,33 @@ class Entity extends Object {
   }
 
   void hunt() {
+    float playerX = getPlayerX();
+    float playerY = getPlayerY();
+    
+    
     if (cloakBonus == false && abilityCharge == false) {
-      if (getPlayerX() > x && getPlayerY() > y) {
+      if (playerX > x) {
         speedX = velX;
-        speedY = velY;
       } 
-      if (getPlayerX() < x && getPlayerY() < y) {
+      if (playerX < x) {
         speedX = -velX;
+      } 
+      if (playerY < y) {
         speedY = -velY;
       } 
-      if (getPlayerX() > x && getPlayerY() < y) {
-        speedX = velX;
-        speedY = -velY;
-      } 
-      if (getPlayerX() < x && getPlayerY() > y) {
-        speedX = -velX;
+      if (playerY > y) {
         speedY = velY;
       }
-    }
+      
+      if (dist(playerX, 0, x, 0) < velX) {
+        x = playerX;
+        speedX = 0;
+      }
+      if (dist(0, playerY, 0, y) < velY) {
+        y = playerY;
+        speedY = 0;
+      }
+    }   
   }
 
   void bombDamage() {
