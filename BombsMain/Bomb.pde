@@ -9,9 +9,12 @@ class Bomb extends Object {
   int bombOpacity = BOMB_START_OPACITY;
   int startTime;
   int explosionOpacity = EXPLOSION_START_OPACITY;
-  int explosionRadius = EXPLOSION_START_RADIUS;
+  int explosionRadius = EXPLOSION_RADIUS;
+  int explosionStopTimer = EXPLOSION_STOP_TIMER;
+  Timer explosionTimer;
 
   boolean bombAnimation = false;
+  boolean bombActivated;
 
   Bomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, ObjectID.BOMB, objectHandler, sprites, soundAssets);
@@ -21,6 +24,8 @@ class Bomb extends Object {
     explosionAnim = new SpriteSheetAnim(sprites.explosion, 0, 12, FPS);
     explosionAnim.playOnce();
     explosionAnim.setCenter();
+    bombActivated = true;
+    explosionTimer = new Timer ("explosionTimer");
   }
 
   //Wanneer dynamiet explodeerd kijk hij of er enemy in de blastradius zit en paast dit door naar de enemy class
@@ -28,19 +33,15 @@ class Bomb extends Object {
   void update() {
     selfDestruct();
 
-    if (bombExploded()) {
+    if (bombExploded() && bombActivated) {
       bombAnimation = true;
-      
+
       explosionAnim.update(x, y);
 
       enemyDetection();
 
-      if (explosionRadius < 400) {
-        explosionRadius += 25;
-      }
-      if (explosionRadius >= 400) {
-        explosionOpacity -=6;
-        bombOpacity = 0;
+      if (explosionTimer.startTimer(explosionStopTimer)) {
+        explosionRadius = 0;
       }
     }
   }
@@ -55,6 +56,7 @@ class Bomb extends Object {
     if (explosionAnim.index > 11) {
       objectHandler.removeEntity(this);
     }
+    ellipse(x, y, explosionRadius, explosionRadius);
   }
 
   //Kijkt of object een enemy is
@@ -110,7 +112,6 @@ class Bomb extends Object {
 
 class C4 extends Bomb
 {
-  boolean bombActivated;
 
   C4(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
@@ -119,32 +120,12 @@ class C4 extends Bomb
   }
 
   void draw() {
-    fill(0, bombOpacity);
-    if (bombOpacity == 0) noStroke();
-    image(sprites.getBombItem(2, 0), x, y);
-    //rect(x, y, w, h);
-    fill(235, 109, 30, explosionOpacity);
-    noStroke();
-    circle(x + w, y + h, explosionRadius);
-    stroke(1);
-    if (explosionOpacity <= 0) {
-      objectHandler.removeEntity(this);
-    }
+    super.draw();
   }
 
   void update() {
-    selfDestruct();
-
-    if ( bombActivated) {
-      enemyDetection();
-      if (explosionRadius < 400) {
-        explosionRadius += 25;
-      }
-      if (explosionRadius >= 400) {
-        explosionOpacity -=5;
-        bombOpacity = 0;
-      }
-    }
+    super.update();
+    
     if (input.xDown())
     {
       bombActivated = true;
@@ -165,17 +146,7 @@ class Landmine extends Bomb
   }
 
   void draw() {
-    fill(0, bombOpacity);
-    if (bombOpacity == 0) noStroke();
-    image(sprites.getBombItem(0, 0), x, y);
-    //rect(x, y, w, h);
-    fill(235, 109, 30, explosionOpacity);
-    noStroke();
-    circle(x + w, y + h, explosionRadius);
-    stroke(1);
-    if (explosionOpacity <= 0) {
-      objectHandler.removeEntity(this);
-    }
+    super.draw();
   }
   void update() {
     selfDestruct();
@@ -230,7 +201,7 @@ class SpiderBomb extends Bomb {
   int bombOpacity = BOMB_START_OPACITY;
   int startTime;
   int explosionOpacity = EXPLOSION_START_OPACITY;
-  int explosionRadius = EXPLOSION_START_RADIUS;
+  int explosionRadius = EXPLOSION_RADIUS;
 
 
   SpiderBomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
@@ -242,31 +213,11 @@ class SpiderBomb extends Bomb {
   //Wanneer dynamiet explodeerd kijk hij of er enemy in de blastradius zit en paast dit door naar de enemy class
   //Explosie begint fel en neemt daarna af in opacity, wanneer deze nul is wordt hij verwijdert
   void update() {
-    selfDestruct();
-
-    if ( bombExploded()) {
-      playerDetection();
-      if (explosionRadius < 400) {
-        explosionRadius += 25;
-      }
-      if (explosionRadius >= 400) {
-        explosionOpacity -=5;
-        bombOpacity = 0;
-      }
-    }
+    super.update();
   }
 
   void draw() {
-    fill(0, bombOpacity);
-    if (bombOpacity == 0) noStroke();
-    rect(x, y, w, h);
-    fill(235, 109, 30, explosionOpacity);
-    noStroke();
-    circle(x + w, y + h, explosionRadius);
-    stroke(1);
-    if (explosionOpacity <= 0) {
-      objectHandler.removeEntity(this);
-    }
+    super.draw();
   }
 
   //Kijkt of object een player is
