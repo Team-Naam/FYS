@@ -192,6 +192,156 @@ class GameOver {
   }
 }
 
+
+//code Credit Ruben
+class AchievementMenu {
+  TextureAssets sprites;
+  ServerHandler serverHandler;
+  Table achievement, unlocked, date, ID;
+  MenuBox[] boxArray = new MenuBox[4];
+  Timer timer;
+
+  int selected;
+
+  boolean justChanged;
+
+  AchievementMenu(TextureAssets textureLoader, ServerHandler serverHandler) {
+    this.sprites = textureLoader;
+    this.serverHandler = serverHandler;
+    timer = new Timer("AchievementSelected");
+    unlocked = serverHandler.getUnlocked(); //krijgt alle unlocked achievements
+    ID = serverHandler.getUnlockedOrderedByID(); //krijgt alle unlocked achievements ordered op ID
+    date = serverHandler.getUnlockedOrderedByDate(); //krijgt alle unlocked achievements ordered op Date
+    achievement = unlocked;
+    //achievement is een variabele die veranderd om zo een andere serverHandler void aan te roepen
+
+
+    for (int i = 0; i < boxArray.length; i++) {
+      boxArray[i] = new MenuBox(width/2 - 1400, 100*i  +200, 1100, 510, 30, textureLoader);
+    }
+
+    boxArray[0].boxText = "Unlocked Achievements";
+    boxArray[1].boxText = "Ordered By Achievement";
+    boxArray[2].boxText = "Ordered By Date";
+    boxArray[3].boxText = "Quit";
+
+
+    selected = 0;
+    justChanged = false;
+  }
+
+  void update() {
+    if (input.escapeDown()) { //als je op ESC drukt ga je naar main menu
+      toMainMenu();
+    }
+    if (input.xDown() && selected == 3 && timer.startTimer(200)) { //als je X drukt op het kopje "quit" ga je naar main menu
+      toMainMenu();
+    }
+    if (input.downDown() && !justChanged) {
+      selected++;
+      if (selected > 3 ) selected = 0; //als je op de laatste tabje zit en je gaat verder, gaat hij naar het begin
+      updateSelected();
+      justChanged = true;
+    }
+
+    if (input.upDown() && !justChanged) { //als je op het eerste tabje zit en je gaat terug gaat hij naar het einde
+      selected --;
+      if (selected < 0) selected = 3;
+      updateSelected();
+      justChanged = true;
+    }
+
+    if (justChanged) {
+      if (timer.startTimer(100)) justChanged = false;
+    }
+  }
+
+  void draw() {
+    background(MENU_BACKGROUND_COLOUR);
+    noStroke();
+    image(sprites.getLogo(), 20, height - 131, 200, 111);
+
+    fill(20);
+    //De rectangles waar alle informatie wordt geschreven
+    rect(width/2 - 500, 210, 450, 850, 100);
+    rect(width/2 -10, 210, 600, 850, 100);
+    rect(width/2 + 650, 210, 300, 850, 100); 
+
+    fill(255);
+    textSize(50);
+    //de kopjes boven de rectangles
+    text("achievements", width / 2 -425, 200);
+    text("description", width / 2 +155, 200);
+    text("date", width / 2 + 750, 200);
+
+    textSize(40);
+    //de achievement wordt beschreven met deze text functie
+    for (int i = 0; i < achievement.getRowCount(); i++) {
+      TableRow row = achievement.getRow(i);
+      for (int j = 0; j < row.getColumnCount(); j++) {
+
+        if (j == 0) {
+          textSize(40);
+          text(row.getString(j), width / 2 - 400, 300 + 60 * i);
+        }
+
+        if (j == 1) {
+          textSize(30);
+          text(row.getString(j), width / 2 + 10, 300 + 60 * i);
+        }
+        textSize(40);
+        if (j == 2) {
+          text(row.getString(j), width / 2 + 700, 300 + 60 * i);
+        }
+
+        //text(row.getString(j), width / 2 -170 + 300 * j, 300 + 60 * i);
+      }
+    }
+
+
+    for (MenuBox menuBox : boxArray) {
+      menuBox.draw();
+    }
+  }
+
+
+  void updateSelected() { //void met cases en een switch om te kijken welke tab geselecteerd is, waarbij de achievement die wordt opgeroepen verandered wordt.
+    switch(selected) {
+    case 0:
+      boxArray[0].selected = true;
+      boxArray[1].selected = false;
+      boxArray[2].selected = false;
+      boxArray[3].selected = false;
+      achievement = unlocked;
+      break;
+    case 1:
+      boxArray[0].selected = false;
+      boxArray[1].selected = true;
+      boxArray[2].selected = false;
+      boxArray[3].selected = false;
+      achievement = ID;
+      break;
+    case 2:
+      boxArray[0].selected = false;
+      boxArray[1].selected = false;
+      boxArray[2].selected = true;
+      boxArray[3].selected = false;
+      achievement = date;
+      break;
+    case 3:
+      boxArray[0].selected = false;
+      boxArray[1].selected = false;
+      boxArray[2].selected = false;
+      boxArray[3].selected = true;
+      achievement = unlocked;
+    default:
+      break;
+    }
+  }
+}
+
+
+//code credit Jordy
 class HighscoreMenu {
   TextureAssets sprites;
   ServerHandler serverHandler;
@@ -228,6 +378,7 @@ class HighscoreMenu {
     if (input.escapeDown()) {
       toMainMenu();
     }
+    //verandered de geselecteerde menubox 
     if (input.downDown() && !justChanged) {
       selected ++;
       if (selected > 2) selected = 0;
@@ -241,7 +392,8 @@ class HighscoreMenu {
       updateSelected();
       justChanged = true;
     }
-
+    
+    //zorgt voor een cooldown van het switchen tussen tabbellen
     if (justChanged) {
       if (timer.startTimer(100)) justChanged = false;
     }
@@ -252,6 +404,7 @@ class HighscoreMenu {
     noStroke();
     image(sprites.getLogo(), 20, height - 131, 200, 111);
 
+    //tekent de achtergrond van de text
     fill(20);
     rect(width /2 - 250, 100, 550, 810);
 
@@ -269,16 +422,19 @@ class HighscoreMenu {
         text(row.getString(j), width / 2 -170 + 300 * j, 300 + 60 * i);
       }
     }
-
+    
+    //tekent de achtergrond van de text
     fill(20);
     rect(width /2 - 500, 100, 250, 410);
 
+    //tekent de menuboxes
     for (MenuBox menuBox : boxArray) {
       menuBox.draw();
     }
   }
 
   void updateSelected() {
+    //update welke box geselecteerd is en zet de tabel naar de geselecteerde tabel
     switch(selected) {
     case 0:
       boxArray[0].selected = true;

@@ -10,7 +10,6 @@ InputHandler input;
 MainMenu mainMenu;
 GameOver gameOver;
 PauseMenu pauseMenu;
-AchievementMenu achievementMenu;
 HighscoreMenu highscoreMenu;
 SettingsMenu settingsMenu;
 StatisticsMenu statisticsMenu;
@@ -51,14 +50,11 @@ void setup() {
   pauseMenu = new PauseMenu(textureAssets);
   highscoreMenu = new HighscoreMenu(textureAssets, serverHandler);
   statisticsMenu = new StatisticsMenu(textureAssets, serverHandler);
-  achievementMenu = new AchievementMenu(textureAssets, serverHandler);
-
   gameState = 0; //gameState for the main menu
 }
 
 //Code credit Jordy Post
 void toMainMenu() {
-  //zet de gamestate naar de main menu en reset de game
   gameState = 0;
   game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets, serverHandler);
 
@@ -109,8 +105,6 @@ void instructionPicker() {
 
     // Achievements
   case 4:
-    achievementMenu.update();
-    achievementMenu.draw();
     break;
 
     // Settings

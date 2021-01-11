@@ -153,6 +153,7 @@ class SMummy extends Mummy {
     }
     if (health <= 0) {
       objectHandler.removeEntity(this);
+      soundAssets.getEnemyDies();
     }
   }
 

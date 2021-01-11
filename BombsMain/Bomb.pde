@@ -30,7 +30,7 @@ class Bomb extends Object {
 
     if (bombExploded()) {
       bombAnimation = true;
-      
+      soundAssets.getDynamiteExploded();
       explosionAnim.update(x, y);
 
       enemyDetection();
@@ -134,8 +134,7 @@ class C4 extends Bomb
 
   void update() {
     selfDestruct();
-
-    if ( bombActivated) {
+    if (bombActivated) {
       enemyDetection();
       if (explosionRadius < 400) {
         explosionRadius += 25;
@@ -148,6 +147,7 @@ class C4 extends Bomb
     if (input.xDown())
     {
       bombActivated = true;
+      soundAssets.getC4Exploded();
     }
   }
 }
@@ -179,7 +179,6 @@ class Landmine extends Bomb
   }
   void update() {
     selfDestruct();
-
     if (enemyOverlaps == false)
     {
       enemyOverlapsLandmine();
@@ -201,6 +200,7 @@ class Landmine extends Bomb
       if ( !entity.equals(this) && entity.objectId == ObjectID.ENTITY ) {
         if (circleRectangleOverlap(entity.x, entity.y, entity.w, entity.h)) {
           enemyOverlaps = true;
+          soundAssets.getLandmineExploded();
         }
       }
     }
