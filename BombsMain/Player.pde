@@ -14,6 +14,8 @@ class Player extends Object {
   boolean gettingAttacked = false;
 
   int speedX, speedY, startTime, attackDamage;
+  int shieldProtection = SHIELD_PROTECTION;
+  int bombDamage = BOMB_DAMAGE;
   int speedBonusTimer = SPEED_BONUS_TIME;
   int undefeatabaleBonusTimer = UNDEFEATBALE_BONUS_TIME;
   int cloakBonusTimer = CLOACK_BONUS_TIME;
@@ -71,6 +73,9 @@ class Player extends Object {
     if (shield <= 0) {
       shieldBonus = false;
     }
+    if (shield > 0) {
+      shieldBonus = true;
+    }
 
     if (health <= 0 || x <= -128) {
       gameState = 2;
@@ -118,11 +123,18 @@ class Player extends Object {
 
   void bombDamage() {
     if (!undefeatabaleBonus) {
-      if (insideExplosion && !takenBombDamage) {
-        health -= BOMB_DAMAGE;
-        println("taking " + BOMB_DAMAGE + " damage");
+      if (insideExplosion && !takenBombDamage && shieldBonus == true) {
+        bombDamage = bombDamage - shieldProtection;
+        shield -= 1;
+        health -= bombDamage;
         takenBombDamage = true;
       }
+      if (insideExplosion && !takenBombDamage && shieldBonus == false) {
+        health -= bombDamage;
+        println("taking " + bombDamage + " damage");
+        takenBombDamage = true;
+      }
+      
       if (!insideExplosion && takenBombDamage) {
         takenBombDamage = false;
       }
@@ -131,7 +143,13 @@ class Player extends Object {
   }
 
   void enemyDamage() {
-    if (gettingAttacked && !takenEnemyDamage) {
+    if (gettingAttacked && !takenEnemyDamage && shieldBonus == true) {
+      attackDamage = attackDamage - shieldProtection;
+      shield -= 1;
+      health -= attackDamage;
+      takenEnemyDamage = true;
+    }
+    if (gettingAttacked && !takenEnemyDamage && shieldBonus == false) {
       health -= attackDamage;
       takenEnemyDamage = true;
     }
@@ -206,7 +224,6 @@ class Player extends Object {
         soundAssets.getShieldPickUp();
         println("thicc");
         shield += SHIELD_BONUS;
-        shieldBonus = true;
         objectHandler.removeEntity(item);
       }
 
