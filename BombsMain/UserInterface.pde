@@ -48,11 +48,13 @@ class UserInterface {
 
   void showHP()
   {
+    int hpBarLength = health * 20;
+    if (hpBarLength > PLAYER_HEALTH * 20) hpBarLength = PLAYER_HEALTH * 20;
     //Een rectangle voor HP \\\ Per extra opgepakte HP, wordt de lengte vd rectangle vergroot met de toegegeven waarde
     fill(255, 0, 0);
     stroke(200, 0, 0);
     strokeWeight(5);
-    rect(80, height-80, health * 20, 20);
+    rect(80, height-80, hpBarLength, 20);
     noFill();
     noStroke();
   }
