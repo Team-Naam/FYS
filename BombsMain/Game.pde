@@ -203,7 +203,7 @@ class Game {
     final int BG_AMOUNT = 170;
     final int BG_COLS = 17;
     final int BG_ROWS = 10;
-    
+
     //De path objecten array voor een continuerende hergebruik van de objecten 
     Path[] backgrounds = new Path[BG_AMOUNT];
 
@@ -223,7 +223,7 @@ class Game {
         }
       }
     }
-    
+
     //De update en movement worden eerst uitgevoerd voordat ze worden getekend 
     void update() {
       for (int i = 0; i < backgrounds.length; i++) {
@@ -245,7 +245,6 @@ class Game {
 //code credit Jordy
 class Highscore {
   int score, timeScore, timer;
-  Timer scoreTimer;
   boolean scoreAdded;
   ServerHandler serverHandler;
 
@@ -253,8 +252,7 @@ class Highscore {
     this.serverHandler = serverHandler;
     score = 0; 
     timeScore = TIME_SCORE;
-    timer = FRAMERATE * TIME_SCORE_TIMER;
-    scoreTimer = new Timer("scoreTimer");
+    timer = TIME_SCORE_TIMER;
     scoreAdded = false;
   }
 
@@ -262,8 +260,10 @@ class Highscore {
   void update() {
     switch(gameState) {
     case 1:
-      if (scoreTimer.startTimer(timer)) {
+      timer --;
+      if (timer == 0) {
         score += timeScore;
+        timer = TIME_SCORE_TIMER;
       }
       break;
     case 2:
