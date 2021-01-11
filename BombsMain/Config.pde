@@ -8,7 +8,6 @@ final String PASSWORD = "'fys20'";
 final float MAP_SCROLL_SPEED = 1; // was 1
 final float MAP_OFFSET = 0;
 final int LEVEL_AMOUNT = 3;
-final int FPS = 6;
 
 //!NIET VERANDEREN!
 final int TILE_SIZE = 128;
@@ -17,10 +16,13 @@ final int ESC_SELECT_TIMER = 200;
 
 //Graphics
 final int FRAMERATE = 60;
+
 final color BACKGROUND_COLOR = color(41, 29, 43);
+
 final int FLOOR_SHADOW_STRENGTH = 230; //Normaliter ligt de waarde van deze en ENVIROMENT_SHADOW_STRENGHT dicht bij elkaar
 final int ENVIROMENT_SHADOW_STRENGHT = 230;
 final int RAY_DISTANCE = 500;
+
 final int TEXT_RENDER_SIZE = 48;
 
 //Main Menu
@@ -30,6 +32,7 @@ final color BOX_BASIC_INNER_COLOUR = #271FC5;
 final color BOX_HIGHLIGHTED_OUTER_COLOUR = #E4BB17;
 final color BOX_HIGHLIGHTED_INNER_COLOUR = #ED270F;
 final color BOX_TEXT_COLOUR = #FFFFFF;
+
 final int MENUBOX_AMOUNT = 5;
 final int MENU_MOVE_COOLDOWN = 10;
 
@@ -44,6 +47,7 @@ final int COIN_SCORE = 100;
 //Player
 final int PLAYER_X_SPAWN = 256;
 final int PLAYER_Y_SPAWN = 476; //was 476
+
 final int PLAYER_HEALTH = 12; // was 12
 final int PLAYER_SPEED = 4;
 final int PLAYER_SHIELD = 0;
@@ -51,12 +55,18 @@ final int PLAYER_SHIELD = 0;
 final int PLAYER_SIZE = TILE_SIZE / 2;
 
 //Bombs
-final int EXPLOSION_TIMER = 2000;
+final int DYNAMITE_EXPLOSION_TIMER = 1800;
+final int CFOUR_EXPLOSION_TIMER = 500;
+final int LANDMINE_EXPLOSION_TIMER = 100;
+final int SPIDER_EXPLOSION_TIMER = 500;
+
 final int DYNAMITE_EXPLOSION_RADIUS = 275;
 final int CFOUR_EXPLOSION_RADIUS = 200;
 final int LANDMINE_EXPLOSION_RADIUS = 300;
 final int SPIDER_EXPLOSION_RADIUS = 150;
+
 final int EXPLOSION_STOP_TIMER = 50;
+
 final int BOMB_DAMAGE = 3;
 final int BOMB_SIZE = 32;
 final int BOMB_COOLDOWN_TIME = 60;
@@ -64,12 +74,14 @@ final int BOMB_COOLDOWN_TIME = 60;
 //Entities
 final int PLAYER_DETECTION_DISTANCE = 400;
 final int ENTITY_SIZE_DIVIDER = 2;
+
 final float GHOST_SPAWN_CHANCE = 30;
 final float POLTERGEIST_SPAWN_CHANCE = 7;
 final float SPIDER_SPAWN_CHANCE = 50;
 final float EXPLOSIVE_SPIDER_SPAWN_CHANCE = 10;
 final float MUMMY_SPAWN_CHANCE = 40;
 final float STONED_MUMMY_SPAWN_CHANCE = 13;
+
 final int KNOCKBACK_COUNT_DOWN = 14;
 
 //Ghost
@@ -120,18 +132,22 @@ final float MINI_SPIDER_SLOW = 0.25;
 final int SPIDERQUEEN_HEALTH = 12;
 final int SPIDERQUEEN_ATTACK = 1;
 final int SPIDERQUEEN_MOVEMENT = 2;
+
 final int ABILITY_TIMER = 10000; 
 final int BIRTH_TIMER = 5000;
 final int RECHARGE_TIMER = 5000;
 final int SPIDER_SPAWN_TIME = 10000;
+
 final int WEB_ATTACK_DELAY = 1000;
 final int WEBATTACK_RADIUS = 50;
+
 final float BULLET_SPEED = 8;
 final int BULLET_DAMAGE = 2;
 
 //Wall Boss
 final int WALL_BOSS_HP = 20;
 final int WALL_BOSS_VEL = 2;
+
 final float WALL_BOSS_INNIT_SPLIT_VEL = .1;
 final float WALL_BOSS_INNIT_SPLIT_DIST = 100;
 
@@ -150,18 +166,18 @@ final int WALL_BOSS_RETURN_VEL = 6;
 
 final int SLAM_DMG = 1;
 final int SLAM_SPLIT = 2500;
-final int SLAM_STUN_TIME = 3 *FRAMERATE;
+final int SLAM_STUN_TIME = 3 * FRAMERATE;
 
 final int NO_ESCAPE_DMG = 3;
-final int NO_ESCAPE_STUN_TIME = 2 *FRAMERATE;
-final int NO_ESCAPE_SPAWN_TIME = 2 *FRAMERATE;
+final int NO_ESCAPE_STUN_TIME = 2 * FRAMERATE;
+final int NO_ESCAPE_SPAWN_TIME = 2 * FRAMERATE;
 final int NO_ESCAPE_BWALLS_AMOUNT = 7;
 final float NO_ESCAPE_VEL_MODIFIER = 0.75;
 
 final int ROLLOUT_DMG = 2;
-final int ROLLOUT_CHARGE_TIME = 2 *FRAMERATE;
+final int ROLLOUT_CHARGE_TIME = 2 * FRAMERATE;
 final int ROLLOUT_VEL_MODIFIER = 2;
-final int ROLLOUT_STUN_TIME = 3 *FRAMERATE;
+final int ROLLOUT_STUN_TIME = 3 * FRAMERATE;
 
 //Items
 final float BOOTS_DROP_CHANCE = 5;
