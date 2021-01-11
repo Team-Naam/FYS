@@ -1,16 +1,15 @@
-//Code credit Alex Tarnòki, Ole Neuman //<>//
+//Code credit Alex Tarnòki, Ole Neuman, Ruben Verheul, Winand Metz //<>//
 
 class Bomb extends Object {
   SpriteSheetAnim explosionAnim;
 
   final int FPS = 12;
 
-  int bombTimer = EXPLOSION_TIMER;
-  int bombOpacity = BOMB_START_OPACITY;
-  int startTime;
-  int explosionOpacity = EXPLOSION_START_OPACITY;
-  int explosionRadius = EXPLOSION_RADIUS;
   int explosionStopTimer = EXPLOSION_STOP_TIMER;
+  int bombTimer = EXPLOSION_TIMER;
+
+  int startTime, bombType, explosionRadius;
+
   Timer explosionTimer;
 
   boolean bombAnimation = false;
@@ -26,6 +25,8 @@ class Bomb extends Object {
     explosionAnim.setCenter();
     bombActivated = true;
     explosionTimer = new Timer ("explosionTimer");
+    bombType = 1;
+    explosionRadius = DYNAMITE_EXPLOSION_RADIUS;
   }
 
   //Wanneer dynamiet explodeerd kijk hij of er enemy in de blastradius zit en paast dit door naar de enemy class
@@ -48,7 +49,7 @@ class Bomb extends Object {
 
   void draw() {
     if (!bombAnimation) {
-      image(sprites.getBombItem(1, 0), x, y);
+      image(sprites.getBombItem(bombType, 0), x, y);
     }
     if (bombAnimation) {
       explosionAnim.draw();
@@ -56,10 +57,10 @@ class Bomb extends Object {
     if (explosionAnim.index > 11) {
       objectHandler.removeEntity(this);
     }
-    ellipse(x, y, explosionRadius, explosionRadius);
+    //ellipse(x, y, explosionRadius, explosionRadius);
   }
 
-  //Kijkt of object een enemy is
+  //Kijkt of object een entity is
   void enemyDetection() {
     for (Object entity : objectHandler.entities) {
       if (!entity.equals(this) && entity.objectId == ObjectID.ENTITY ) {
@@ -117,6 +118,8 @@ class C4 extends Bomb
     super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.bombId = BombID.CFOUR;
     bombActivated = false;
+    bombType = 2;
+    explosionRadius = CFOUR_EXPLOSION_RADIUS;
   }
 
   void draw() {
@@ -125,7 +128,7 @@ class C4 extends Bomb
 
   void update() {
     super.update();
-    
+
     if (input.xDown())
     {
       bombActivated = true;
@@ -135,57 +138,39 @@ class C4 extends Bomb
 
 //-----------------------------Landmine---------------------------------
 
-class Landmine extends Bomb
-{
+class Landmine extends Bomb {
   boolean enemyOverlaps;
 
   Landmine(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.bombId = BombID.LANDMINE;
+    bombActivated = true;
     enemyOverlaps = false;
+    bombType = 0;
+    explosionRadius = LANDMINE_EXPLOSION_RADIUS;
   }
 
   void draw() {
     super.draw();
   }
+
   void update() {
     selfDestruct();
 
-    if (enemyOverlaps == false)
-    {
-      enemyOverlapsLandmine();
+    if (enemyOverlapsLandmine()) {
+      enemyOverlaps = true;
     }
+
     if (enemyOverlaps) {
-      enemyDetection();
-      if (explosionRadius < 400) {
-        explosionRadius += 25;
-      }
-      if (explosionRadius >= 400) {
-        explosionOpacity -=5;
-        bombOpacity = 0;
-      }
+      super.update();
     }
   }
 
-  void enemyOverlapsLandmine() {
+  boolean enemyOverlapsLandmine() {
     for (Object entity : objectHandler.entities) {
-      if ( !entity.equals(this) && entity.objectId == ObjectID.ENTITY ) {
-        if (circleRectangleOverlap(entity.x, entity.y, entity.w, entity.h)) {
-          enemyOverlaps = true;
-        }
+      if (!entity.equals(this) && entity.objectId == ObjectID.ENTITY) {
+        return intersection(entity);
       }
-    }
-  }
-
-  boolean rectRect(float r2x, float r2y, float r2w, float r2h) {
-
-    // are the sides of one rectangle touching the other?
-
-    if (x + w >= r2x &&    // r1 right edge past r2 left
-      x <= r2x + r2w &&    // r1 left edge past r2 right
-      y + h >= r2y &&    // r1 top edge past r2 bottom
-      y <= r2y + r2h) {    // r1 bottom edge past r2 top
-      return true;
     }
     return false;
   }
@@ -194,20 +179,14 @@ class Landmine extends Bomb
 //-----------------------------Spiderbombs---------------------------------
 
 //class voor de Bomb die de ExplosiveSpider maakt
-//code credit Alex Tarnoki, Ole Neuman, Ruben Verheul
 class SpiderBomb extends Bomb {
-
-  int bombTimer = EXPLOSION_TIMER;
-  int bombOpacity = BOMB_START_OPACITY;
-  int startTime;
-  int explosionOpacity = EXPLOSION_START_OPACITY;
-  int explosionRadius = EXPLOSION_RADIUS;
-
 
   SpiderBomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
     this.bombId = BombID.SPIDER_BOMB;
     startTime = millis();
+    bombType = 1;
+    explosionRadius = SPIDER_EXPLOSION_RADIUS;
   }
 
   //Wanneer dynamiet explodeerd kijk hij of er enemy in de blastradius zit en paast dit door naar de enemy class
@@ -218,40 +197,5 @@ class SpiderBomb extends Bomb {
 
   void draw() {
     super.draw();
-  }
-
-  //Kijkt of object een player is
-  void playerDetection() {
-    for (Object player : objectHandler.entities) {
-      if ( !player.equals(this) && player.objectId == ObjectID.PLAYER ) {
-        if (circleRectangleOverlap(player.x, player.y, player.w, player.h)) {
-          ((Player)player).insideExplosion = true;
-        }
-      }
-    }
-  }
-
-  //Kijk of de enemy in de circle zit van de blast radius
-  boolean circleRectangleOverlap(float rectX, float rectY, int rectW, int rectH) {
-    //println("bombX = " + x + ", bombY = " + y + ", explosionRadius = " + explosionRadius);
-    //println("enemyX = " + rectX + "enemyY = " + rectY);
-    float distanceX = abs(x - rectX - rectW / 4);
-    float distanceY = abs(y - rectY - rectH / 4);
-
-    if (distanceX > rectW / 2 + explosionRadius/2) return false; 
-    if (distanceY > rectH / 2 + explosionRadius/2) return false; 
-
-    if (distanceX <= rectW / 2) return true;  
-    if (distanceY <= rectH / 2) return true; 
-
-    float dx = distanceX-rectW / 2;
-    float dy = distanceY-rectH / 2;
-    return (dx*dx+dy*dy<=((explosionRadius/2)*(explosionRadius/2)));
-  }
-
-  //Explosie timer
-  boolean bombExploded() {
-    if ( millis() > startTime + bombTimer) return true;
-    return false;
   }
 }
