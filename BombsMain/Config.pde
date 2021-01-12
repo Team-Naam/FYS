@@ -48,7 +48,7 @@ final int COIN_SCORE = 100;
 final int PLAYER_X_SPAWN = 256;
 final int PLAYER_Y_SPAWN = 476; //was 476
 
-final int PLAYER_HEALTH = 12; // was 12
+final int PLAYER_HEALTH = 20;
 final int PLAYER_SPEED = 4;
 final int PLAYER_SHIELD = 0;
 //!NIET VERANDEREN!
@@ -86,25 +86,25 @@ final int KNOCKBACK_COUNT_DOWN = 14;
 
 //Ghost
 final int GHOST_HEALTH = 3;
-final int GHOST_ATTACK = 3;
+final int GHOST_ATTACK = 2;
 final int GHOST_ROAMING = 3000;
 final int GHOST_MOVEMENT_SPEED = 2;
 
 //Poltergeist
-final int POLTERGEIST_HEALTH = 4;
-final int POLTERGEIST_ATTACK = 3;
+final int POLTERGEIST_HEALTH = 3;
+final int POLTERGEIST_ATTACK = 2;
 final int POLTERGEIST_ROAMING = 3000;
 final int POLTERGEIST_MOVEMENT_SPEED = 2;
 
 //Mummy
-final int MUMMY_HEALTH = 8;
-final int MUMMY_ATTACK = 4;
+final int MUMMY_HEALTH = 6;
+final int MUMMY_ATTACK = 3;
 final int MUMMY_ROAMING = 2000;
 final int MUMMY_MOVEMENT_SPEED = 1;
 
 //SMummy
-final int SMUMMY_HEALTH = 8;
-final int SMUMMY_ATTACK = 4;
+final int SMUMMY_HEALTH = 9;
+final int SMUMMY_ATTACK = 3;
 final int SMUMMY_ROAMING = 2000;
 final int SMUMMY_MOVEMENT_SPEED = 1;
 final int SMUMMY_SHIELD = 2;
