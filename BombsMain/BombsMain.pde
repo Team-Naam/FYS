@@ -1,7 +1,9 @@
 /*  Project FYS BombRunner Winand Metz 500851135, Ole Neuman 500827044, 
  Ruben Verheul 500855129, Jordy Post 500846919, Alex Tarnòki 500798826 */
 
-//Code credit Winand Metz, Ole Neuman
+//Page code credit Winand Metz, Ole Neuman, Jordy Post
+
+//Code credit Winand Metz
 import samuelal.squelized.*;
 import processing.sound.*;
 
@@ -47,7 +49,7 @@ void setup() {
   soundAssets.update();
   game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets, serverHandler);
   mainMenu = new MainMenu(textureAssets, soundAssets);
-  gameOver = new GameOver(textureAssets);
+  gameOver = new GameOver(textureAssets, serverHandler);
   pauseMenu = new PauseMenu(textureAssets);
   highscoreMenu = new HighscoreMenu(textureAssets, serverHandler);
 //statisticsMenu = new StatisticsMenu(textureAssets, serverHandler);
@@ -70,6 +72,7 @@ void toMainMenu() {
 
 //-----------------------------Draw & Key functies---------------------------------
 
+//Code credit Ole Neuman
 void draw() {
   instructionPicker();
 }
@@ -132,6 +135,7 @@ void instructionPicker() {
   }
 }
 
+//Orginele bron workshops DLO
 void keyPressed() {  
   if (keyCode >= KEY_LIMIT) return;
   keysPressed[keyCode] = true;

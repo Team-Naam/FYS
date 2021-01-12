@@ -1,4 +1,4 @@
-//Code credit Winand Metz
+//Page code credit Winand Metz
 
 class Item extends Object {
 
@@ -15,6 +15,8 @@ class Item extends Object {
   }
 }
 
+//-----------------------------Boots---------------------------------
+
 class Boots extends Item {
 
   Boots(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
@@ -26,6 +28,8 @@ class Boots extends Item {
     image(sprites.getBombItem(4, 0), x, y);
   }
 }
+
+//-----------------------------Sparkler---------------------------------
 
 class Sparkler extends Item {
 
@@ -39,6 +43,8 @@ class Sparkler extends Item {
   }
 }
 
+//-----------------------------Blue Potion---------------------------------
+
 class BluePotion extends Item {
 
   BluePotion(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
@@ -50,6 +56,8 @@ class BluePotion extends Item {
     image(sprites.getBombItem(3, 0), x, y);
   }
 }
+
+//-----------------------------Shield---------------------------------
 
 class Shield extends Item {
 
@@ -63,6 +71,8 @@ class Shield extends Item {
   }
 }
 
+//-----------------------------Cloak---------------------------------
+
 class Cloak extends Item {
 
   Cloak(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
@@ -75,6 +85,8 @@ class Cloak extends Item {
   }
 }
 
+//-----------------------------Heart---------------------------------
+
 class Heart extends Item {
 
   Heart(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
@@ -86,6 +98,8 @@ class Heart extends Item {
     image(sprites.getBombItem(0, 2), x, y);
   }
 }
+
+//-----------------------------Coin---------------------------------
 
 class Coin extends Item {
   final int FPS = 6;

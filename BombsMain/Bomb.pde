@@ -1,15 +1,14 @@
-//Code credit Alex Tarnòki, Ole Neuman, Ruben Verheul, Winand Metz
+//Page code credit Ole Neuman, Ruben Verheul, Winand Metz
 
-
+//Code credit Winand Metz
 class Bomb extends Object {
   SpriteSheetAnim explosionAnim;
 
   final int FPS = 12;
 
   int explosionStopTimer = EXPLOSION_STOP_TIMER;
-  int bombTimer = EXPLOSION_TIMER;
 
-  int startTime, bombType, explosionRadius;
+  int startTime, bombType, explosionRadius, bombTimer;
 
   Timer explosionTimer;
 
@@ -28,6 +27,7 @@ class Bomb extends Object {
     explosionTimer = new Timer ("explosionTimer");
     bombType = 1;
     explosionRadius = DYNAMITE_EXPLOSION_RADIUS;
+    bombTimer = DYNAMITE_EXPLOSION_TIMER;
   }
 
   //Wanneer dynamiet explodeerd kijk hij of er enemy in de blastradius zit en paast dit door naar de enemy class
@@ -61,6 +61,7 @@ class Bomb extends Object {
     //ellipse(x, y, explosionRadius, explosionRadius);
   }
 
+  //Code credit Ole Neuman
   //Kijkt of object een entity is
   void enemyDetection() {
     for (Object entity : objectHandler.entities) {
@@ -112,6 +113,7 @@ class Bomb extends Object {
 
 //-----------------------------C4 bomb---------------------------------
 
+//Code credit Winand Metz
 class C4 extends Bomb
 {
 
@@ -121,6 +123,7 @@ class C4 extends Bomb
     bombActivated = false;
     bombType = 2;
     explosionRadius = CFOUR_EXPLOSION_RADIUS;
+    bombTimer = CFOUR_EXPLOSION_TIMER;
   }
 
   void draw() {
@@ -140,6 +143,7 @@ class C4 extends Bomb
 
 //-----------------------------Landmine---------------------------------
 
+//Code credit Winand Metz
 class Landmine extends Bomb {
   boolean enemyOverlaps;
 
@@ -150,6 +154,7 @@ class Landmine extends Bomb {
     enemyOverlaps = false;
     bombType = 0;
     explosionRadius = LANDMINE_EXPLOSION_RADIUS;
+    bombTimer = LANDMINE_EXPLOSION_TIMER;
   }
 
   void draw() {
@@ -181,7 +186,7 @@ class Landmine extends Bomb {
 
 //-----------------------------Spiderbombs---------------------------------
 
-//class voor de Bomb die de ExplosiveSpider maakt
+//Code credit Ruben Verheul
 class SpiderBomb extends Bomb {
 
   SpiderBomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
@@ -190,10 +195,9 @@ class SpiderBomb extends Bomb {
     startTime = millis();
     bombType = 1;
     explosionRadius = SPIDER_EXPLOSION_RADIUS;
+    bombTimer = SPIDER_EXPLOSION_TIMER;
   }
 
-  //Wanneer dynamiet explodeerd kijk hij of er enemy in de blastradius zit en paast dit door naar de enemy class
-  //Explosie begint fel en neemt daarna af in opacity, wanneer deze nul is wordt hij verwijdert
   void update() {
     super.update();
   }

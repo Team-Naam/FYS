@@ -1,4 +1,4 @@
-//Code credit Winand Metz
+//Page code credit Winand Metz
 
 class Wall extends Object {
   Ray leftRay;
@@ -462,10 +462,12 @@ class BreakableObject extends Entity {
   @Override
     void dropShadow() {
     noStroke();
-    fill(0, 112);
+    fill(0, 65);
     ellipse(newX + w / 2, newY + h * 0.9, w, w * 0.9);
   }
 }
+
+//-----------------------------Corpse---------------------------------
 
 class Corpse extends BreakableObject {
 
@@ -488,24 +490,25 @@ class Corpse extends BreakableObject {
   @Override
     void dropShadow() {
     noStroke();
-    fill(0, 112);
-    ellipse(x + w / 2, y + h * 0.9, w, w * 0.9);
+    fill(0, 65);
+    ellipse(x + w / 2, y + h * 0.5, w, w * 0.6);
   }
 
   void draw() {
-    fill(255);
-    rect(x, y + 24, w, h);
+    image(sprites.getCorpse(0,0), x, y);
   }
 }
+
+//-----------------------------Vases---------------------------------
 
 class Vases extends BreakableObject {
 
   Vases(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
     randomTexture = (int)random(9);
-    randomPosQ = random(1) * 80;
+    randomPosQ = random(1) * 64;
 
-    println(newX, newY);
+    //println(newX, newY);
   }
 
   @Override
@@ -528,8 +531,14 @@ class Backpack extends BreakableObject {
     randomPosQ = random(1) * 70;
   }
 
+  @Override
+    void dropShadow() {
+    noStroke();
+    fill(0, 112);
+    ellipse(newX + w * 0.51, newY + h * 0.7, w * 0.6, w * 0.5);
+  }
+
   void draw() {
-    fill(255);
-    rect(newX, newY, w, h);
+    image(sprites.getObject(1, 0), newX, newY);
   }
 }

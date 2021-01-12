@@ -1,3 +1,6 @@
+//Page code credit Alex Tarnòki, Winand Metz
+
+//Code credit Alex Tarnòki
 class UserInterface {
   TextureAssets assetLoader;
   Player player;
@@ -19,6 +22,7 @@ class UserInterface {
     this.highscore = highScore;
   }
 
+  //Code credit Winand metz 
   void update() {
     ArrayList<Object> entityObjects = objectHandler.entities;
     Object playerEntity = entityObjects.get(0);
@@ -31,6 +35,7 @@ class UserInterface {
     shieldBonus = ((Player)playerEntity).shieldBonus;
   }
 
+  //Code credit Alex Tarnòki
   void draw()
   {
     showHP();
@@ -48,11 +53,13 @@ class UserInterface {
 
   void showHP()
   {
+    int hpBarLength = health * 20;
+    if (hpBarLength > PLAYER_HEALTH * 20) hpBarLength = PLAYER_HEALTH * 20;
     //Een rectangle voor HP \\\ Per extra opgepakte HP, wordt de lengte vd rectangle vergroot met de toegegeven waarde
     fill(255, 0, 0);
     stroke(200, 0, 0);
     strokeWeight(5);
-    rect(80, height-80, health * 20, 20);
+    rect(80, height-80, hpBarLength, 20);
     noFill();
     noStroke();
   }
@@ -148,6 +155,7 @@ class UserInterface {
   //  }
   //}
 
+  //Code credit Winand Metz
   //Checkt of er een C4 geplaatst is door de speler
   boolean checkC4(ArrayList<Object> entityObjects) {
     for (Object c4 : entityObjects) {

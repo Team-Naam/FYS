@@ -1,4 +1,4 @@
-//Code credit Winand Metz
+//Page code credit credit Winand Metz
 
 //Enum ID's voor gebruik in bepaalde filter doeleindes b.v. is er collision, is het opblaasbaar 
 enum ObjectID {
@@ -16,6 +16,8 @@ enum BombID {
 enum EntityID {
   GHOST, MUMMY, SMUMMY, SPIDER, EXPLOSIVE_SPIDER, MINI_SPIDER, POLTERGEIST, SPIDER_BOSS, WALL_BOSS, HALF_WALL, BOBJECT
 }
+
+//-----------------------------Game Object---------------------------------
 
 //Basis class voor alle gameobjecten
 abstract class Object {

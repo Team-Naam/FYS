@@ -1,3 +1,5 @@
+//Page code credit Jordy Post, Winand Metz, Ruben Verheul
+
 class ServerHandler {
   MySQLConnection myConnection;
 
@@ -232,6 +234,15 @@ class ServerHandler {
     String selectScore = "SELECT userName, score FROM Highscore h INNER JOIN User u ON h.idUser = u.idUser WHERE h.idUser = " + userID + " ORDER BY score DESC LIMIT " + highscoreTableLimit;
 
     return myConnection.runQuery(selectScore);
+  }
+  
+  int getHighscoreUser() {
+    //de query
+    String highscoreUser = "SELECT MAX(score) FROM Highscore WHERE idUser = " + userID + ";";
+    Table highscoreTable = myConnection.runQuery(highscoreUser);
+    
+    
+    return highscoreTable.getInt(0, 0);
   }
 
   /* Code credit Winand Metz
