@@ -13,7 +13,7 @@ PauseMenu pauseMenu;
 AchievementMenu achievementMenu;
 HighscoreMenu highscoreMenu;
 SettingsMenu settingsMenu;
-StatisticsMenu statisticsMenu;
+//StatisticsMenu statisticsMenu;
 TextureAssets textureAssets;
 SoundAssets soundAssets;
 ServerHandler serverHandler;
@@ -50,7 +50,7 @@ void setup() {
   gameOver = new GameOver(textureAssets);
   pauseMenu = new PauseMenu(textureAssets);
   highscoreMenu = new HighscoreMenu(textureAssets, serverHandler);
-  statisticsMenu = new StatisticsMenu(textureAssets, serverHandler);
+//statisticsMenu = new StatisticsMenu(textureAssets, serverHandler);
   achievementMenu = new AchievementMenu(textureAssets, serverHandler);
 
   gameState = 0; //gameState for the main menu
@@ -120,10 +120,10 @@ void instructionPicker() {
     break;
 
     //Statistics
-  case 6:
-    statisticsMenu.update();
-    statisticsMenu.draw();
-    break;
+  //case 6:
+  //  statisticsMenu.update();
+  //  statisticsMenu.draw();
+  //  break;
 
   default:
     mainMenu.update();
