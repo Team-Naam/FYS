@@ -99,7 +99,6 @@ class TextureAssets {
 
 //Class voor het tekenen van een spritesheet animatie
 class SpriteSheetAnim {
-
   PImage[][] images;
 
   float x, y, index, speed;
