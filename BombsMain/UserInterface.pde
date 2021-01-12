@@ -2,6 +2,18 @@
 
 //Code credit Alex Tarnòki
 class UserInterface {
+  final color HP_COLOR_BASE = color(255, 0, 0);
+  final color HP_COLOR_LIGHT = color(200, 0, 0);
+  final int HP_BAR_SIZE = 80;
+  final int HP_BAR_HEIGHT = 20;
+  final int HP_LINE_WEIGHT = 5;
+
+  final int SHIELD_SIZE = 80;
+  final int SHIELD_WEIGHT = 5;
+  final color SHIELD_BAR_SEC_COLOR = color(0, 200, 200);
+  final color SHIELD_BAR_COLOR = color(0, 255, 255);
+
+
   TextureAssets assetLoader;
   Player player;
   Highscore highscore;
@@ -53,13 +65,13 @@ class UserInterface {
 
   void showHP()
   {
-    int hpBarLength = health * 20;
-    if (hpBarLength > PLAYER_HEALTH * 20) hpBarLength = PLAYER_HEALTH * 20;
+    int hpBarLength = health * HP_BAR_HEIGHT;
+    if (hpBarLength > PLAYER_HEALTH * HP_BAR_HEIGHT) hpBarLength = PLAYER_HEALTH * HP_BAR_HEIGHT;
     //Een rectangle voor HP \\\ Per extra opgepakte HP, wordt de lengte vd rectangle vergroot met de toegegeven waarde
-    fill(255, 0, 0);
-    stroke(200, 0, 0);
-    strokeWeight(5);
-    rect(80, height-80, hpBarLength, 20);
+    fill(HP_COLOR_BASE);
+    stroke(HP_COLOR_LIGHT);
+    strokeWeight(HP_LINE_WEIGHT);
+    rect(HP_BAR_SIZE, height - HP_BAR_SIZE, hpBarLength, HP_BAR_HEIGHT);
     noFill();
     noStroke();
   }
@@ -67,10 +79,11 @@ class UserInterface {
   void showShield()
   {
     //Een rectangle voor de shield \\\ Per extra opgepakte shield, wordt de lengte vd rectangle vergroot met toegegeven waarde
-    fill(0, 255, 255);
-    stroke(0, 200, 200);
-    strokeWeight(5);
-    rect(80, height-30, shield * 20, 15);
+    fill(SHIELD_BAR_COLOR);
+    stroke(SHIELD_BAR_SEC_COLOR);
+    strokeWeight(SHIELD_WEIGHT);
+
+    rect(SHIELD_SIZE, height - 30, shield * 20, 15);
     noFill();
     noStroke();
   }
