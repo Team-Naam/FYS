@@ -228,15 +228,6 @@ class ServerHandler {
 
     return myConnection.runQuery(selectScore);
   }
-  
-  int getHighscoreUser() {
-    //de query
-    String highscoreUser = "SELECT MAX(score) FROM Highscore WHERE idUser = " + userID + ";";
-    Table highscoreTable = myConnection.runQuery(highscoreUser);
-    
-    
-    return highscoreTable.getInt(0, 0);
-  }
 
   /* Code credit Winand Metz
    Updates de volume waardes in de database */
