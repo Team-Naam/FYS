@@ -124,6 +124,8 @@ class MenuBox {
   TextureAssets sprites;
   SpriteSheetAnim keyX;
 
+  final int SPRITE_COLUMN = 3;
+
   float posX, posY;
   int boxWidth, boxHeight, textSize;
 
@@ -135,7 +137,7 @@ class MenuBox {
 
   MenuBox(float positionX, float positionY, int Width, int Height, int size, TextureAssets textureLoader) {
     this.sprites = textureLoader;
-    keyX = new SpriteSheetAnim(sprites.itemsBombsUI, 3, 2, 6);
+    keyX = new SpriteSheetAnim(sprites.itemsBombsUI, SPRITE_COLUMN, ANTIMATED_BUTTON_FRAMES, ANIMATED_BUTTON_FPS);
     posX = positionX;
     posY = positionY;
     boxWidth = Width;
@@ -147,7 +149,7 @@ class MenuBox {
   }
 
   void update() {
-    keyX.update(posX, posY + 45);
+    keyX.update(posX + 20, posY + 40);
     if (selected) {
       textColour = BOX_TEXT_COLOUR;
     } else {
@@ -170,23 +172,33 @@ class MenuBox {
 
 //code credit Jordy
 class GameOver {
+  SpriteSheetAnim keyEsc;
   TextureAssets sprites;
   Highscore highscore;
 
+  final int SPRITE_COLUMN = 7;
+
   GameOver(TextureAssets textureLoader) {
     this.sprites = textureLoader;
+    keyEsc = new SpriteSheetAnim(sprites.itemsBombsUI, SPRITE_COLUMN, ANTIMATED_BUTTON_FRAMES, ANIMATED_BUTTON_FPS);
   }
 
   void update(Highscore highscore) {
     this.highscore = highscore;
+    keyEsc.update(700, 1000);
     if (input.escapeDown()) {
       toMainMenu();
     }
   }
 
   void draw() {
-    background(MENU_BACKGROUND_COLOUR);
+    background(#000000);
     image(sprites.getLogo(), 20, height - 131, 200, 111);
+
+    textSize(30);
+    text("Press ESC to return to main menu", 760, 1030);
+    keyEsc.draw();
+
     fill(BOX_TEXT_COLOUR);
     textSize(50);
     text("GAME OVER", width / 2 -150, height / 4);
@@ -195,14 +207,18 @@ class GameOver {
   }
 }
 
+//-----------------------------Achievement Screen---------------------------------
 
 //code Credit Ruben
 class AchievementMenu {
   TextureAssets sprites;
   ServerHandler serverHandler;
+
   Table achievement, unlocked, date, ID;
   MenuBox[] boxArray = new MenuBox[4];
   Timer timer;
+
+  final int SPRITE_COLUMN = 7;
 
   int selected;
 
@@ -216,17 +232,16 @@ class AchievementMenu {
     ID = serverHandler.getUnlockedOrderedByID(); //krijgt alle unlocked achievements ordered op ID
     date = serverHandler.getUnlockedOrderedByDate(); //krijgt alle unlocked achievements ordered op Date
     achievement = unlocked;
+
     //achievement is een variabele die veranderd om zo een andere serverHandler void aan te roepen
-
-
     for (int i = 0; i < boxArray.length; i++) {
-      boxArray[i] = new MenuBox(width/2 - 1400, 100*i  +200, 1100, 510, 30, textureLoader);
+      boxArray[i] = new MenuBox(width / 2 - 1400, 100 * i + 200, 1100, 510, 30, textureLoader);
     }
 
     boxArray[0].boxText = "Unlocked Achievements";
     boxArray[1].boxText = "Ordered By Achievement";
     boxArray[2].boxText = "Ordered By Date";
-    boxArray[3].boxText = "Quit";
+    boxArray[3].boxText = "Return to main menu";
 
 
     selected = 0;
@@ -263,6 +278,7 @@ class AchievementMenu {
     background(MENU_BACKGROUND_COLOUR);
     noStroke();
     image(sprites.getLogo(), 20, height - 131, 200, 111);
+
 
     fill(20);
     //De rectangles waar alle informatie wordt geschreven
@@ -396,7 +412,7 @@ class HighscoreMenu {
       updateSelected();
       justChanged = true;
     }
-    
+
     //zorgt voor een cooldown van het switchen tussen tabbellen
     if (justChanged) {
       if (timer.startTimer(100)) justChanged = false;
@@ -426,7 +442,7 @@ class HighscoreMenu {
         text(row.getString(j), width / 2 -170 + 300 * j, 300 + 60 * i);
       }
     }
-    
+
     //tekent de achtergrond van de text
     fill(20);
     rect(width /2 - 500, 100, 250, 410);
@@ -552,9 +568,6 @@ class PauseMenu {
   }
 
   void draw() {
-    fill(128);
-    rect(width / 2 - 200, height / 4, 400, 600);
-
     fill(0, 200);
     rect(0, 0, width, height);
 
@@ -724,7 +737,7 @@ class SettingsMenu {
       text("Settings saved!", width / 2 - 100, height - 200);
     }
   }
-  
+
   //-----------------------------Volume Button---------------------------------
 
   class VolumeButton {
@@ -785,7 +798,7 @@ class SettingsMenu {
       subtract.draw();
       add.draw();
     }
-    
+
     //-----------------------------Toggle Button---------------------------------
 
     class Toggle {
