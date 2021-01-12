@@ -13,7 +13,7 @@ class Bomb extends Object {
   Timer explosionTimer;
 
   boolean bombAnimation = false;
-  boolean bombActivated;
+  boolean bombActivated, bombSound;
 
   Bomb(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, ObjectID.BOMB, objectHandler, sprites, soundAssets);
@@ -24,6 +24,7 @@ class Bomb extends Object {
     explosionAnim.playOnce();
     explosionAnim.setCenter();
     bombActivated = true;
+    bombSound = true;
     explosionTimer = new Timer ("explosionTimer");
     bombType = 1;
     explosionRadius = DYNAMITE_EXPLOSION_RADIUS;
@@ -37,7 +38,11 @@ class Bomb extends Object {
 
     if (bombExploded() && bombActivated) {
       bombAnimation = true;
-      soundAssets.getDynamiteExploded();
+
+      if (bombSound) {
+        soundAssets.getDynamiteExploded();
+        bombSound = false;
+      }
       explosionAnim.update(x, y);
 
       enemyDetection();
@@ -136,7 +141,7 @@ class C4 extends Bomb
     if (input.xDown())
     {
       bombActivated = true;
-      soundAssets.getC4Exploded();
+      //soundAssets.getC4Exploded();
     }
   }
 }
@@ -163,10 +168,10 @@ class Landmine extends Bomb {
 
   void update() {
     selfDestruct();
-    
+
     if (enemyOverlapsLandmine()) {
       enemyOverlaps = true;
-      soundAssets.getLandmineExploded();
+      //soundAssets.getLandmineExploded();
     }
 
     if (enemyOverlaps) {

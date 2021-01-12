@@ -216,7 +216,19 @@ class SoundAssets {
   SoundFile mw_dies, mw_hit;
   SoundFile sq_dies, sq_hit;
 
-  float rate, FX_VOLUME, MUSIC_VOLUME, MAIN_VOLUME, ENTITY_VOLUME, AMBIENT_VOLUME;
+  //All credits go to: https://freesound.org/people/Osiruswaltz 
+  //Licensed under: CreativeCommons https://creativecommons.org/licenses/by/4.0/
+  SoundFile ambient_track;
+
+  //All credits go to: http://www.freesfx.co.uk 
+  //Licensed under: https://www.freesfx.co.uk/Page/4/End-User-License-Agreement
+  SoundFile main_menu;
+
+  SoundFile game_track1;
+  SoundFile game_track2;
+  SoundFile game_track3;
+
+  float FX_VOLUME, MUSIC_VOLUME, MAIN_VOLUME, ENTITY_VOLUME, AMBIENT_VOLUME;
   float UNNORMALISED_FX_VOLUME, UNNORMALISED_MUSIC_VOLUME, UNNORMALISED_ENTITY_VOLUME, UNNORMALISED_AMBIENT_VOLUME;
 
   //Laad all sounds van te voren in, neemt als argument de setup in van processing
@@ -262,7 +274,13 @@ class SoundAssets {
     sq_hit = new SoundFile(setup, "data/sound/enemy/hit.mp3");
     //---------------------------------------------------------------------------------------------
 
-    rate = 1;
+    main_menu = new SoundFile(setup, "data/sound/music/main menu.mp3");
+
+    ambient_track = new SoundFile(setup, "data/sound/music/ambient track.wav");
+
+    game_track1 = new SoundFile(setup, "data/sound/music/game track 1.mp3");
+    game_track2 = new SoundFile(setup, "data/sound/music/game track 2.mp3");
+    game_track3 = new SoundFile(setup, "data/sound/music/game track 3.mp3");
   }
 
   //Updates de volume amplitudes via de settingsMenu class en serverhandler class, en normaliseerd de waardes naar de main volume
@@ -284,126 +302,168 @@ class SoundAssets {
   //ITEM SOUND EFFECTS--------------------------------
   void getCoinPickUp() 
   {
-    item_coin.play(1, FX_VOLUME);
+    item_coin.play(SOUND_RATE, FX_VOLUME);
   }
   void getHeartPickUp()
   {
-    item_heart.play(1, FX_VOLUME);
+    item_heart.play(SOUND_RATE, FX_VOLUME);
   }
   void getCloakPickUp()
   {
-    item_cloak.play(1, FX_VOLUME);
+    item_cloak.play(SOUND_RATE, FX_VOLUME);
   }
   void getShieldPickUp() 
   {
-    item_shield.play(1, FX_VOLUME);
+    item_shield.play(SOUND_RATE, FX_VOLUME);
   }
   void getSparklerPickUp() 
   {
-    item_sparkler.play(1, FX_VOLUME);
+    item_sparkler.play(SOUND_RATE, FX_VOLUME);
   }
   void getBluePotionPickUp() 
   {
-    item_bluepotion.play(1, FX_VOLUME);
+    item_bluepotion.play(SOUND_RATE, FX_VOLUME);
   }
   void getBootsPickUp() 
   {
-    item_boots.play(1, FX_VOLUME);
+    item_boots.play(SOUND_RATE, FX_VOLUME);
   }
   void getItemExpired() 
   {
-    item_expired.play(1, FX_VOLUME);
+    item_expired.play(SOUND_RATE, FX_VOLUME);
   }
   void getShieldBroken()
   {
-    item_shield_broken.play(1, FX_VOLUME);
+    item_shield_broken.play(SOUND_RATE, FX_VOLUME);
   }
 
   //ENEMY SOUNDS EFFECTS----------------------------
   void getEnemyHit() 
   {
-    enemy_hit.play(1, FX_VOLUME);
+    enemy_hit.play(SOUND_RATE, ENTITY_VOLUME);
   }
   void getEnemyDies() 
   {
-    enemy_dies.play(1, FX_VOLUME);
+    enemy_dies.play(SOUND_RATE, ENTITY_VOLUME);
   }
   void getEnemyFootsteps() 
   {
-    enemy_footsteps.play(1, FX_VOLUME);
+    enemy_footsteps.play(SOUND_RATE, ENTITY_VOLUME);
   }
 
   //PLAYER SOUND EFFECTS----------------------------
   void getPlayerHit() 
   {
-    player_hit.play(1, FX_VOLUME);
+    player_hit.play(SOUND_RATE, ENTITY_VOLUME);
   }
   void getPlayerFootsteps() 
   {
-    player_footsteps.play(1, FX_VOLUME - 0.5);
+    player_footsteps.play(SOUND_RATE, ENTITY_VOLUME - 0.5);
   }
 
   //BOMB SOUND EFFECTS------------------------------
   void getBombPlaced() 
   {
-    bomb_placed.play(1, FX_VOLUME);
+    bomb_placed.play(SOUND_RATE, FX_VOLUME);
   }
   void getBombBreaksObject() 
   {
-    bomb_breaks_object.play(1, FX_VOLUME);
+    bomb_breaks_object.play(SOUND_RATE, FX_VOLUME);
   }
   void getC4Activated() 
   {
-    bomb_c4_activated.play(1, FX_VOLUME);
+    bomb_c4_activated.play(SOUND_RATE, FX_VOLUME);
   }
   void getC4Exploded() 
   {
-    bomb_c4_exploded.play(1, FX_VOLUME);
+    bomb_c4_exploded.play(SOUND_RATE, FX_VOLUME);
   }
   void getDynamiteSizzles() 
   {
-    bomb_dynamite_sizzles.play(1, FX_VOLUME);
+    bomb_dynamite_sizzles.play(SOUND_RATE, FX_VOLUME);
   }
   void getDynamiteExploded() 
   {
-    bomb_dynamite_exploded.play(1, FX_VOLUME);
+    bomb_dynamite_exploded.play(SOUND_RATE, FX_VOLUME);
   }
   void getLandmineTriggered() 
   {
-    bomb_landmine_triggered.play(1, FX_VOLUME);
+    bomb_landmine_triggered.play(SOUND_RATE, FX_VOLUME);
   }
   void getLandmineExploded() 
   {
-    bomb_landmine_exploded.play(1, FX_VOLUME);
+    bomb_landmine_exploded.play(SOUND_RATE, FX_VOLUME);
   }
 
   //MENU SOUND EFFECTS------------------------------
   void getMenuHover() 
   {
-    menu_hover.play(1, FX_VOLUME);
+    menu_hover.play(SOUND_RATE, FX_VOLUME);
   }
   void getMenuSelect() 
   {
-    menu_select.play(1, FX_VOLUME);
+    menu_select.play(SOUND_RATE, FX_VOLUME);
   }
 
   //BOSS SOUND EFFECTS------------------------------
   void getBossMWDies()
   {
-    mw_dies.play(1, FX_VOLUME);
+    mw_dies.play(SOUND_RATE, ENTITY_VOLUME);
   }
   void getBossMWHit()
   {
-    mw_hit.play(1, FX_VOLUME);
+    mw_hit.play(SOUND_RATE, ENTITY_VOLUME);
   }
 
   void getBossSQDies()
   {
-    sq_dies.play(1, FX_VOLUME);
+    sq_dies.play(SOUND_RATE, ENTITY_VOLUME);
   }
   void getBossSQHit()
   {
-    sq_hit.play(1, FX_VOLUME);
+    sq_hit.play(SOUND_RATE, ENTITY_VOLUME);
   }
   //-----------------------------------------------
+
+
+  //Code credit Winand Metz
+  void getMainMenuMusic() {
+    main_menu.play(1, MUSIC_VOLUME);
+  }
+
+  void stopMainMenuMusic() {
+    main_menu.stop();
+  }
+
+  void getAmbientTrack() {
+    ambient_track.play(SOUND_RATE, AMBIENT_VOLUME);
+  }
+
+  void stopGameMusicAmbient() {
+    ambient_track.stop();
+
+    if (game_track1.isPlaying()) {
+      game_track1.stop();
+    }
+    if (game_track2.isPlaying()) {
+      game_track2.stop();
+    }
+    if (game_track3.isPlaying()) {
+      game_track3.stop();
+    }
+  }
+
+  void getGameTrack() {
+    int rand = (int)random(2);
+
+    if (rand == 0) {
+      game_track1.play(SOUND_RATE, MUSIC_VOLUME);
+    }
+    if (rand == 1) {
+      game_track2.play(SOUND_RATE, MUSIC_VOLUME);
+    }
+    if (rand == 2) {
+      game_track3.play(SOUND_RATE, MUSIC_VOLUME);
+    }
+  }
 }

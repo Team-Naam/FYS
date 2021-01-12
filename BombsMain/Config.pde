@@ -15,6 +15,7 @@ final int OBJECT_Y_OFFSET = 100;
 final int ESC_SELECT_TIMER = 200;
 final int ANIMATED_BUTTON_FPS = 6;
 final int ANTIMATED_BUTTON_FRAMES = 2;
+final int SOUND_RATE = 1;
 
 //Graphics
 final int FRAMERATE = 60;

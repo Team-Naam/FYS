@@ -53,7 +53,9 @@ class MapHandler {
       if (mapEvent == false) {
         loadNormalMap(); 
         //println("Generating new map");
-      } else if ( mapPositionTracker <= -128) {
+      } 
+      
+      if (mapEvent == true && mapPositionTracker <= -128) {
         mapScrolling = false;
         fastforwardWidth = 1;
         spawnBoss();
@@ -62,7 +64,6 @@ class MapHandler {
       }
     }
   }
-
 
   void fastMapForward() {
     if (game.objectHandler.entities.get(0).x > width * fastforwardWidth) {
@@ -84,8 +85,8 @@ class MapHandler {
   void mapEventHandler() {
     //switch(numberOfMapsLoaded) {
     //}
-    if (mapEvent) {
-    }
+    //if (mapEvent) {
+    //}
 
     if (numberOfMapsLoaded % 5 == 0 && numberOfMapsLoaded != 0 && !mapEvent) {
       generateBossMap();
