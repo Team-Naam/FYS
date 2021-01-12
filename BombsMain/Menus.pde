@@ -99,7 +99,6 @@ class MainMenu {
       case 2:
         gameState = 4;
         break;
-
         // Settings
       case 3:
         gameState = 5;
@@ -584,6 +583,62 @@ class PauseMenu {
     }
   }
 }
+
+//-----------------------------Statistics Menu---------------------------------
+
+//class StatisticsMenu {
+//  TextureAssets sprites;
+//  ServerHandler serverHandler;
+//  Table statistics;
+//  MenuBox[] boxArray = new MenuBox[3];
+
+
+//  StatisticsMenu(TextureAssets textureLoader, ServerHandler serverHandler) {
+//    this.sprites = textureLoader;
+//    this.serverHandler = serverHandler;
+//    statistics = serverHandler.getStatistics();
+//  }
+
+//  void update() {
+//    if (input.escapeDown()) {
+//      toMainMenu();
+//    }
+//  }
+
+//  void draw() {
+//    textAlign(CENTER);
+//    background(MENU_BACKGROUND_COLOUR);
+//    noStroke();
+//    image(sprites.getLogo(), 20, height - 131, 200, 111);
+
+//    fill(20);
+//    rect(width * 0.25, 100, width * 0.50 + 200, 810);
+
+//    fill(255);
+//    //print de headers
+//    text("Player", width / 2 -400 + 0, 200);
+//    text("bombs", width / 2 -400 + 200, 200);
+//    text("kills", width / 2 -400 + 400, 200);
+//    text("deaths", width / 2 -400 + 600, 200);
+//    text("distance", width / 2 -400 + 800, 200);
+//    text("time", width / 2 -400 + 1000, 200);
+
+//    textSize(50);
+
+//    //print de table
+//    textSize(40);
+//    for (int i = 0; i < statistics.getRowCount(); i++) {
+//      TableRow row = statistics.getRow(i);
+//      for (int j = 0; j < row.getColumnCount(); j++) {
+//        text(row.getString(j), width / 2 -400 + 200 * j, 300 + 60 * i);
+//      }
+//    }
+//    textAlign(CORNER);
+
+//    //fill(20);
+//    //rect(width /2 - 500, 100, 250, 410);
+//  }
+//}
 
 //-----------------------------Settings Menu---------------------------------
 

@@ -37,7 +37,7 @@ class Bomb extends Object {
 
     if (bombExploded() && bombActivated) {
       bombAnimation = true;
-
+      soundAssets.getDynamiteExploded();
       explosionAnim.update(x, y);
 
       enemyDetection();
@@ -136,6 +136,7 @@ class C4 extends Bomb
     if (input.xDown())
     {
       bombActivated = true;
+      soundAssets.getC4Exploded();
     }
   }
 }
@@ -162,9 +163,10 @@ class Landmine extends Bomb {
 
   void update() {
     selfDestruct();
-
+    
     if (enemyOverlapsLandmine()) {
       enemyOverlaps = true;
+      soundAssets.getLandmineExploded();
     }
 
     if (enemyOverlaps) {

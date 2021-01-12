@@ -306,12 +306,14 @@ class MovingWall extends Entity {
         activating = true;
       }
       takenDamage = true;
+      soundAssets.getEnemyHit();
     }
     if (health <= 0) {
       //zodat alles van de boss weg gaat als hij dood gaat
       objectHandler.removeEntity(this);
       objectHandler.removeEntity(topWall);
       objectHandler.removeEntity(bottomWall);
+      soundAssets.getEnemyDies();
     }
     if (!insideExplosion && takenDamage) {
       takenDamage = false;

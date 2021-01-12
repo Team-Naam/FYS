@@ -62,6 +62,11 @@ class ServerHandler {
     return myConnection.runQuery(getUserId);
   }
 
+  Table getStatistics() {
+    String getStatistics = "SELECT * FROM Player_Statistics";
+    return myConnection.runQuery(getStatistics);
+  }
+
 
   //code credit Ruben
 

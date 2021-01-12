@@ -144,6 +144,7 @@ class Player extends Object {
         health -= bombDamage;
         //println("taking " + bombDamage + " damage");
         takenBombDamage = true;
+        soundAssets.getPlayerHit();
       }
 
       if (!insideExplosion && takenBombDamage) {
@@ -180,26 +181,31 @@ class Player extends Object {
         velX -= 2;
         velY -= 2;
         speedBonus = false;
+        soundAssets.getItemExpired();
       }
     }
     if (cloakBonus) {
       if (timer.startTimer(cloakBonusTimer)) {
         //println("now you see me");
         cloakBonus = false;
+        soundAssets.getItemExpired();
       }
     }
     if (undefeatabaleBonus) {
       if (timer.startTimer(undefeatabaleBonusTimer)) {
         undefeatabaleBonus = false;
+        soundAssets.getItemExpired();
       }
     }
     if (sparklerBonus) {
       if (timer.startTimer(sparklerBonusTimer)) {
         sparklerBonus = false;
+        soundAssets.getItemExpired();
       }
     }
     if (shieldBonus && shield == 0) {
       shieldBonus = false;
+      soundAssets.getShieldBroken();
     }
   }
 
