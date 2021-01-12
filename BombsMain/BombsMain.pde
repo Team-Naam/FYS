@@ -31,8 +31,8 @@ final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 
 void setup() {
-  fullScreen(P2D);
-  //size(1920, 1080, P2D);
+  //fullScreen(P2D);
+  size(1920, 1080, P2D);
   frameRate(FRAMERATE);
 
   final PFont MAIN_FONT = createFont("data/font/8bitlim.ttf", TEXT_RENDER_SIZE, true);

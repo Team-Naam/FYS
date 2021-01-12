@@ -11,7 +11,7 @@ class TextureAssets {
   final PImage[][] menusUserInterface;
   final PImage[][] entities;
   final PImage[][] vasesAndBackpacks;
-  //final PImage[][] corpses;
+  final PImage[][] corpses;
   final PImage[][] bWallSprites;
   //final PImage[][] rockSprites;
   final PImage[][] backgroundSprites;
@@ -34,7 +34,7 @@ class TextureAssets {
     backgroundSprites = loadSprites("data/text/floors/floors.png", tileSize);
     backgroundOverlays = loadSprites("data/text/floors/overlays.png", tileSize);
     explosion = loadSprites("data/text/effects/explosion.png", 256);
-    //corpses = loadSprites("data/text/objects/", tileSize);
+    corpses = loadSprites("data/text/objects/corpse.png", tileSize);
   }
 
   PImage getLogo() {
@@ -54,9 +54,9 @@ class TextureAssets {
     return backgroundOverlays[row][column];
   }
 
-  //PImage getCorpse(int row, int column) {
-  //  return corpses[row][column];
-  //}
+  PImage getCorpse(int row, int column) {
+    return corpses[row][column];
+  }
 
   PImage getObject(int row, int column) {
     return vasesAndBackpacks[row][column];
