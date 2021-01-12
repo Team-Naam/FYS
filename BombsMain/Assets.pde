@@ -19,6 +19,10 @@ class TextureAssets {
   final PImage[][] explosion;
   final PImage logo;
   final PImage main_menu;
+  int bombUISize = 32;
+  int entitySize = 64;
+  int vasesAndBackpacksSize = 64;
+  int explosionSize = 256;
 
   //Laad alle images in vanaf het begin
   TextureAssets(int tileSize) {
@@ -26,14 +30,14 @@ class TextureAssets {
     main_menu = loadImage("data/text/ui/main menu.png");
     sprites = loadSprites("data/text/textures.png", tileSize);
     wallSprites = loadSprites("data/text/walls/walls_spritesheet.png", tileSize);
-    itemsBombsUI = loadSprites("data/text/items/itemsBombsUI.png", 32);
+    itemsBombsUI = loadSprites("data/text/items/itemsBombsUI.png", bombUISize);
     menusUserInterface = loadSprites("data/text/ui/menu_ui.png", tileSize);
-    entities = loadSprites("data/text/entities/poltergeist_test_64.png", 64);
+    entities = loadSprites("data/text/entities/poltergeist_test_64.png", entitySize);
     bWallSprites = loadSprites("data/text/walls/broken_walls_spritesheet.png", tileSize);
-    vasesAndBackpacks = loadSprites("data/text/objects/backpacksAndVases.png", 64);
+    vasesAndBackpacks = loadSprites("data/text/objects/backpacksAndVases.png", vasesAndBackpacksSize);
     backgroundSprites = loadSprites("data/text/floors/floors.png", tileSize);
     backgroundOverlays = loadSprites("data/text/floors/overlays.png", tileSize);
-    explosion = loadSprites("data/text/effects/explosion.png", 256);
+    explosion = loadSprites("data/text/effects/explosion.png", explosionSize);
     corpses = loadSprites("data/text/objects/corpse.png", tileSize);
   }
 
@@ -103,6 +107,7 @@ class SpriteSheetAnim {
 
   float x, y, index, speed;
   int fps, column, frames;
+  int minusIndex = 1;
 
   boolean playing, playOnce, center;
 
@@ -177,6 +182,7 @@ class SpriteSheetAnim {
   void update(float x_, float y_) {
     this.x = x_;
     this.y = y_;
+    
 
     setSpeed(fps);
 
@@ -186,7 +192,7 @@ class SpriteSheetAnim {
       if (index >= frames) {
         if (playOnce) {
           playing = false;
-          index = frames - 1;
+          index = frames - minusIndex;
         } else {
           index -= frames;
         }
