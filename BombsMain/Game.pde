@@ -3,6 +3,7 @@
 //Code credit Winand Metz
 class Game {
   Timer timer;
+  Timer musicTimer;
   ObjectHandler objectHandler;
   MapHandler mapHandler;
   TextureAssets textureLoader;
@@ -14,6 +15,8 @@ class Game {
   ServerHandler serverHandler;
 
   final int width, height;
+
+  boolean playMusic, playAmbience;
 
   Game(int tileSize, int width, int height, TextureAssets textureAssets, SoundAssets soundAssets, ServerHandler databaseLoader) {
     this.width = width;
@@ -30,6 +33,8 @@ class Game {
     graphicsEngine = new GraphicsEngine();
     userInterface = new UserInterface(this.textureLoader, this.highscore, this.objectHandler);
     timer = new Timer("gameTimer");
+    playMusic();
+    musicTimer = new Timer("musicTimer");
     isPlaying = true;
   }
 
@@ -37,6 +42,16 @@ class Game {
   void update() {
     //Boolean voor het settings menu, zodat het de correcte tekst laat zien van return to game i.p.v. main menu
     inMainMenu = false;
+
+    if (!soundAssets.ambient_track.isPlaying() && !inMainMenu) {
+      playAmbience();
+    }
+
+    if (musicTimer.startTimer(240000)) {
+      playMusic();
+    }
+
+    soundAssets.stopMainMenuMusic();
 
     mapHandler.update();
     background.update();
@@ -55,6 +70,16 @@ class Game {
   void draw() {
     background(BACKGROUND_COLOR);
 
+    if (playAmbience) {
+      soundAssets.getAmbientTrack();
+      playAmbience = false;
+    }
+
+    if (playMusic) {
+      soundAssets.getGameTrack();
+      playMusic = false;
+    }
+
     //In het pauze menu is de achtergrond de game zelf, om resources te besparen worden de berekeningen voor de lighting engine stop gezet
     if (!isPlaying) {
       graphicsEngine.update();
@@ -65,6 +90,14 @@ class Game {
     objectHandler.draw();
     graphicsEngine.draw();
     userInterface.draw();
+  }
+
+  void playMusic() {
+    playMusic = true;
+  }
+
+  void playAmbience() {
+    playAmbience = true;
   }
 
   //-----------------------------Graphics engine---------------------------------

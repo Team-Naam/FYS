@@ -27,19 +27,24 @@ boolean escapePressed;
 boolean isPlaying;
 boolean inMainMenu;
 boolean playAsGuest;
+boolean loaded = false;
 
 final int KEY_LIMIT = 1024;
 boolean[] keysPressed = new boolean[KEY_LIMIT];
 
 void setup() {
-  fullScreen(P2D);
-  //size(1920, 1080, P2D);
+  //fullScreen(P2D);
+  size(1920, 1080, P2D);
   frameRate(FRAMERATE);
 
   final PFont MAIN_FONT = createFont("data/font/8bitlim.ttf", TEXT_RENDER_SIZE, true);
 
   textFont(MAIN_FONT);
 
+  thread("loadFiles");
+}
+
+void loadFiles() {
   input = new InputHandler();
   soundAssets = new SoundAssets(this);
   textureAssets = new TextureAssets(TILE_SIZE);
@@ -52,10 +57,14 @@ void setup() {
   gameOver = new GameOver(textureAssets, serverHandler);
   pauseMenu = new PauseMenu(textureAssets);
   highscoreMenu = new HighscoreMenu(textureAssets, serverHandler);
-//statisticsMenu = new StatisticsMenu(textureAssets, serverHandler);
+  //statisticsMenu = new StatisticsMenu(textureAssets, serverHandler);
   achievementMenu = new AchievementMenu(textureAssets, serverHandler);
 
   gameState = 0; //gameState for the main menu
+
+  synchronized(this) {
+    loaded = true;
+  }
 }
 
 //Code credit Jordy Post
@@ -68,13 +77,23 @@ void toMainMenu() {
   highscoreMenu.topHighscores = serverHandler.getTopHighscores(HIGHSCORE_TABLE_LIMIT);
   highscoreMenu.topPlayers = serverHandler.getTopPlayers(HIGHSCORE_TABLE_LIMIT);
   highscoreMenu.topHighscoresUser = serverHandler.getTopHighscoresUser(HIGHSCORE_TABLE_LIMIT);
+  
+  mainMenu.playMusic();
+  soundAssets.stopGameMusicAmbient();
 }
 
 //-----------------------------Draw & Key functies---------------------------------
 
 //Code credit Ole Neuman
-void draw() {
-  instructionPicker();
+synchronized void draw() {
+  if (!loaded) {
+    background(0);
+    textSize(50);
+    fill(255);
+    text("Loading...", width/2 - textWidth("Loading...")/2, height/2 - 25);
+  } else {
+    instructionPicker();
+  }
 }
 
 //This method calls certain other methods based on the current gameState
@@ -123,10 +142,10 @@ void instructionPicker() {
     break;
 
     //Statistics
-  //case 6:
-  //  statisticsMenu.update();
-  //  statisticsMenu.draw();
-  //  break;
+    //case 6:
+    //  statisticsMenu.update();
+    //  statisticsMenu.draw();
+    //  break;
 
   default:
     mainMenu.update();
