@@ -189,6 +189,7 @@ final float SHIELD_DROP_CHANCE = 10;
 final float CLOAK_DROP_CHANCE = 3;
 final float HEART_DROP_CHANCE = 13;
 final float COIN_DROP_CHANCE = 60;
+final int ADD_ITEM_SIZE = 64;
 
 //Power ups
 final int SPEED_BONUS_TIME = 4000;
@@ -200,3 +201,8 @@ final int SPEED_BONUS = 2;
 final int SHIELD_PROTECTION = 2;
 final int BOMB_SPARKLER_BONUS = 15;
 final int HEALTH_BOOST = 2;
+
+//Math
+final int NORMAL_DIVIDING = 2;
+final int MINUS_OR_PLUS_ONE = 1;
+final int MINUS_OR_PLUS_FIVE = 5;

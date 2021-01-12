@@ -7,6 +7,7 @@ class Wall extends Object {
   Ray downRay;
 
   boolean leftCon, rightCon, upCon, downCon;
+  
 
   Wall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, ObjectID.WALL, objectHandler, sprites, soundAssets);
@@ -31,13 +32,13 @@ class Wall extends Object {
     lo = new PVector(x, y + h);
 
     //Vector voor bepalen van het middelpunt 
-    or = new PVector((lb.x + rb.x) / 2, (lb.y + lo.y) / 2);
+    or = new PVector((lb.x + rb.x) / NORMAL_DIVIDING, (lb.y + lo.y) / NORMAL_DIVIDING);
 
     //Vectors voor het einde van de connectie controle rays 
-    left = new PVector(x - 5, (lb.y + lo.y) / 2);
-    right = new PVector(x + w + 5, (lb.y + lo.y) / 2);
-    up = new PVector((lb.x + rb.x) / 2 - 1, y - 5);
-    down = new PVector((lb.x + rb.x) / 2 + 1, y + h + 5);
+    left = new PVector(x - MINUS_OR_PLUS_FIVE, (lb.y + lo.y) / NORMAL_DIVIDING);
+    right = new PVector(x + w + MINUS_OR_PLUS_FIVE, (lb.y + lo.y) / NORMAL_DIVIDING);
+    up = new PVector((lb.x + rb.x) / NORMAL_DIVIDING - MINUS_OR_PLUS_ONE, y - MINUS_OR_PLUS_FIVE);
+    down = new PVector((lb.x + rb.x) / NORMAL_DIVIDING + MINUS_OR_PLUS_ONE, y + h + MINUS_OR_PLUS_FIVE);
 
     /* Dit deel van de code schiet vier rays, één naar boven, beneden, links en rechts
      Hiermee wordt gecheckt of de objecten andere objecten aanraken en zet, als het zo is, de connection booleans op true
@@ -165,13 +166,13 @@ class Rock extends Object {
     lo = new PVector(x, y + h);
 
     //Vector voor bepalen van het middelpunt 
-    or = new PVector((lb.x + rb.x) / 2, (lb.y + lo.y) / 2);
+    or = new PVector((lb.x + rb.x) / NORMAL_DIVIDING, (lb.y + lo.y) / NORMAL_DIVIDING);
 
     //Vectors voor het einde van de connectie controle rays 
-    left = new PVector(x - 5, (lb.y + lo.y) / 2);
-    right = new PVector(x + w + 5, (lb.y + lo.y) / 2);
-    up = new PVector((lb.x + rb.x) / 2 - 1, y - 5);
-    down = new PVector((lb.x + rb.x) / 2 + 1, y + h + 5);
+    left = new PVector(x - MINUS_OR_PLUS_FIVE, (lb.y + lo.y) / NORMAL_DIVIDING);
+    right = new PVector(x + w + MINUS_OR_PLUS_FIVE, (lb.y + lo.y) / NORMAL_DIVIDING);
+    up = new PVector((lb.x + rb.x) / NORMAL_DIVIDING - MINUS_OR_PLUS_ONE, y - MINUS_OR_PLUS_FIVE);
+    down = new PVector((lb.x + rb.x) / NORMAL_DIVIDING + MINUS_OR_PLUS_ONE, y + h + MINUS_OR_PLUS_FIVE);
   }
 
   void draw() {
@@ -187,6 +188,10 @@ class Path extends Object {
   Ray upRay;
 
   int randomOverlayX, randomOverlayY;
+  int rayOverlayRandomMin = 0;
+  int rayOverlayRandomMax = 2;
+  int pathLimit = -128;
+  int respawnPoint = 2048;
 
   boolean leftCon, rightCon, upCon;
 
@@ -194,14 +199,14 @@ class Path extends Object {
     super(x, y, w, h, ObjectID.PATH, objectHandler, sprites, soundAssets);
 
     //Bepaald een random overlay x en y waarde, dit wordt later gebruikt in draw
-    randomOverlayX = (int)random(0, 2);
-    randomOverlayY = (int)random(0, 2);
+    randomOverlayX = (int)random(rayOverlayRandomMin, rayOverlayRandomMax);
+    randomOverlayY = (int)random(rayOverlayRandomMin, rayOverlayRandomMax);
   }
 
   void update() {
     //Als het path object zich links buiten het scherm bevind, wordt deze terug gezet naar de rechterkant
-    if (x < -128) {
-      x = 2048;
+    if (x < -pathLimit) {
+      x = respawnPoint;
     }
 
     //Connectie booleans
@@ -216,12 +221,12 @@ class Path extends Object {
     lo = new PVector(x, y + h);
 
     //Vector voor bepalen van het middelpunt 
-    or = new PVector((lb.x + rb.x) / 2, (lb.y + lo.y) / 2);
+    or = new PVector((lb.x + rb.x) / NORMAL_DIVIDING, (lb.y + lo.y) / NORMAL_DIVIDING);
 
     //Vectors voor het einde van de connectie controle rays 
-    left = new PVector(x - 5, (lb.y + lo.y) / 2);
-    right = new PVector(x + w + 5, (lb.y + lo.y) / 2);
-    up = new PVector((lb.x + rb.x) / 2 - 1, y - 5);
+    left = new PVector(x - MINUS_OR_PLUS_FIVE, (lb.y + lo.y) / NORMAL_DIVIDING);
+    right = new PVector(x + w + MINUS_OR_PLUS_FIVE, (lb.y + lo.y) / NORMAL_DIVIDING);
+    up = new PVector((lb.x + rb.x) / NORMAL_DIVIDING - MINUS_OR_PLUS_ONE, y - MINUS_OR_PLUS_FIVE);
 
     /* Dit deel van de code schiet drie rays, één naar boven, links en rechts
      Hiermee wordt gecheckt of de objecten andere objecten aanraken en zet, als het zo is, de connection booleans op true
@@ -307,6 +312,7 @@ class BreakableWall extends Entity {
   Ray downRay;
 
   boolean leftCon, rightCon, upCon, downCon;
+  int originLimit = 138;
 
   BreakableWall(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
@@ -332,13 +338,13 @@ class BreakableWall extends Entity {
     lo = new PVector(x, y + h);
 
     //Vector voor bepalen van het middelpunt 
-    or = new PVector((lb.x + rb.x) / 2, (lb.y + lo.y) / 2);
+    or = new PVector((lb.x + rb.x) / NORMAL_DIVIDING, (lb.y + lo.y) / NORMAL_DIVIDING);
 
     //Vectors voor het einde van de connectie controle rays 
-    left = new PVector(x - 5, (lb.y + lo.y) / 2);
-    right = new PVector(x + w + 5, (lb.y + lo.y) / 2);
-    up = new PVector((lb.x + rb.x) / 2 - 1, y - 5);
-    down = new PVector((lb.x + rb.x) / 2 + 1, y + h + 5);
+    left = new PVector(x - MINUS_OR_PLUS_FIVE, (lb.y + lo.y) / NORMAL_DIVIDING);
+    right = new PVector(x + w + MINUS_OR_PLUS_FIVE, (lb.y + lo.y) / NORMAL_DIVIDING);
+    up = new PVector((lb.x + rb.x) / NORMAL_DIVIDING - MINUS_OR_PLUS_ONE, y - MINUS_OR_PLUS_FIVE);
+    down = new PVector((lb.x + rb.x) / NORMAL_DIVIDING + MINUS_OR_PLUS_ONE, y + h + MINUS_OR_PLUS_FIVE);
 
     /* Dit deel van de code schiet vier rays, één naar boven, beneden, links en rechts
      Hiermee wordt gecheckt of de objecten andere objecten aanraken en zet, als het zo is, de connection booleans op true
@@ -346,7 +352,7 @@ class BreakableWall extends Entity {
      Er zitten optimasation tweaks in, waaronder dat er alleen wordt gecheckt als de origins binnen een distance zitten van 138, of te wel direct naaste objecten */
     for (Object wallObject : objectHandler.walls) {
       if (wallObject.objectId == ObjectID.WALL || wallObject.objectId == ObjectID.ROCK || wallObject.objectId == ObjectID.BBLOCK) {
-        if (dist(or.x, or.y, wallObject.or.x, wallObject.or.y) < 138) {
+        if (dist(or.x, or.y, wallObject.or.x, wallObject.or.y) < originLimit) {
 
           leftRay = new Ray(or, left.x, left.y);
           rightRay = new Ray(or, right.x, right.y);
@@ -401,7 +407,7 @@ class BreakableWall extends Entity {
     }
     if (health <= 0) {
       //addItem wordt aangeroepen met de x en y van de muur
-      objectHandler.addItem(x, y, 64, 64);
+      objectHandler.addItem(x, y, ADD_ITEM_SIZE, ADD_ITEM_SIZE);
       //Object wordt uit de list gehaald en verwijderd
       objectHandler.removeWall(this);
     }
@@ -424,6 +430,7 @@ class BreakableObject extends Entity {
 
   int randomTexture;
   float randomPosQ, newX, newY;
+  float widthHeightMultiplier = 0.9;
 
   BreakableObject(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
@@ -452,7 +459,7 @@ class BreakableObject extends Entity {
     }
     if (health <= 0) {
       //addItem wordt aangeroepen met de x en y van de muur
-      objectHandler.addItem(newX, newY, 64, 64);
+      objectHandler.addItem(newX, newY, ADD_ITEM_SIZE, ADD_ITEM_SIZE);
       //Object wordt uit de list gehaald en verwijderd
       objectHandler.removeEntity(this);
     }
@@ -463,13 +470,16 @@ class BreakableObject extends Entity {
     void dropShadow() {
     noStroke();
     fill(0, 65);
-    ellipse(newX + w / 2, newY + h * 0.9, w, w * 0.9);
+    ellipse(newX + w / NORMAL_DIVIDING, newY + h * widthHeightMultiplier, w, w * widthHeightMultiplier);
   }
 }
 
 //-----------------------------Corpse---------------------------------
 
 class Corpse extends BreakableObject {
+  float ellipseMultiplierOne = 0.5;
+  float ellipseMultiplierTwo = 0.6;
+  
 
   Corpse(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
@@ -482,7 +492,7 @@ class Corpse extends BreakableObject {
       insideExplosion = false;
     }
     if (health <= 0) {
-      objectHandler.addItem(x, y, 64, 64);
+      objectHandler.addItem(x, y, ADD_ITEM_SIZE, ADD_ITEM_SIZE);
       objectHandler.removeEntity(this);
     }
   }
@@ -491,7 +501,7 @@ class Corpse extends BreakableObject {
     void dropShadow() {
     noStroke();
     fill(0, 65);
-    ellipse(x + w / 2, y + h * 0.5, w, w * 0.6);
+    ellipse(x + w / NORMAL_DIVIDING, y + h * ellipseMultiplierOne, w, w * ellipseMultiplierOne);
   }
 
   void draw() {
@@ -502,11 +512,16 @@ class Corpse extends BreakableObject {
 //-----------------------------Vases---------------------------------
 
 class Vases extends BreakableObject {
+  int textureRandom = 9;
+  int randomQPos = 1;
+  int multiplierOne = 64;
+  float multiplierTwo = 0.7;
+  float multiplierThree = 0.9;
 
   Vases(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
-    randomTexture = (int)random(9);
-    randomPosQ = random(1) * 64;
+    randomTexture = (int)random(textureRandom);
+    randomPosQ = random(randomQPos) * multiplierOne;
 
     //println(newX, newY);
   }
@@ -515,7 +530,7 @@ class Vases extends BreakableObject {
     void dropShadow() {
     noStroke();
     fill(0, 112);
-    ellipse(newX + w / 2, newY + h * 0.7, w, w * 0.9);
+    ellipse(newX + w / NORMAL_DIVIDING, newY + h * multiplierTwo, w, w * multiplierThree);
   }
 
   void draw() {
@@ -524,18 +539,25 @@ class Vases extends BreakableObject {
 }
 
 class Backpack extends BreakableObject {
+  int textureRandom = 9;
+  int randomQpos = 1;
+  int multiplierOne = 70;
+  float multiplierTwo = 0.51;
+  float multiplierThree = 0.7;
+  float multiplierFour = 0.6;
+  float multiplierFive = 0.5;
 
   Backpack(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
-    randomTexture = (int)random(9);
-    randomPosQ = random(1) * 70;
+    randomTexture = (int)random(textureRandom);
+    randomPosQ = random(randomQpos) * multiplierOne;
   }
 
   @Override
     void dropShadow() {
     noStroke();
     fill(0, 112);
-    ellipse(newX + w * 0.51, newY + h * 0.7, w * 0.6, w * 0.5);
+    ellipse(newX + w * multiplierTwo, newY + h * multiplierThree, w * multiplierFour, w * multiplierFive);
   }
 
   void draw() {
