@@ -1,3 +1,5 @@
+//Page code credit Ole Neuman, Winand Metz, Jordy Post, Ruben Verheul
+
 //Code credit Ole Neuman
 class MainMenu {
 
@@ -115,6 +117,9 @@ class MainMenu {
   }
 }
 
+//-----------------------------Menu Buttons---------------------------------
+
+//Code credit Ole Neuman
 class MenuBox {
   TextureAssets sprites;
   SpriteSheetAnim keyX;
@@ -160,6 +165,8 @@ class MenuBox {
     }
   }
 }
+
+//-----------------------------Game Over Screen---------------------------------
 
 //code credit Jordy
 class GameOver {
@@ -336,6 +343,7 @@ class AchievementMenu {
   }
 }
 
+//-----------------------------Highscore Menu---------------------------------
 
 //code credit Jordy
 class HighscoreMenu {
@@ -454,6 +462,8 @@ class HighscoreMenu {
   }
 }
 
+//-----------------------------Pause Menu---------------------------------
+
 //Code credit Winand Metz
 class PauseMenu {
   MenuBox[] boxArray = new MenuBox[3];
@@ -553,6 +563,8 @@ class PauseMenu {
     }
   }
 }
+
+//-----------------------------Settings Menu---------------------------------
 
 //Code credit Winand Metz
 class SettingsMenu {
@@ -712,6 +724,8 @@ class SettingsMenu {
       text("Settings saved!", width / 2 - 100, height - 200);
     }
   }
+  
+  //-----------------------------Volume Button---------------------------------
 
   class VolumeButton {
     Toggle subtract;
@@ -771,6 +785,8 @@ class SettingsMenu {
       subtract.draw();
       add.draw();
     }
+    
+    //-----------------------------Toggle Button---------------------------------
 
     class Toggle {
       final int TOGGLE_COOLDOWN = 6;

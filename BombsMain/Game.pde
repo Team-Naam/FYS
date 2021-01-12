@@ -1,5 +1,6 @@
-//Code credit Winand Metz
+//Page code credit Winand Metz, Jordy Post
 
+//Code credit Winand Metz
 class Game {
   Timer timer;
   ObjectHandler objectHandler;
@@ -199,6 +200,8 @@ class Game {
     }
   }
 
+  //-----------------------------Paths & Background---------------------------------
+
   class Background {
     final int BG_AMOUNT = 170;
     final int BG_COLS = 17;
@@ -242,7 +245,7 @@ class Game {
 
 //-----------------------------Highscore---------------------------------
 
-//code credit Jordy
+//Code credit Jordy Post
 class Highscore {
   int score, timeScore, timer;
   boolean scoreAdded;

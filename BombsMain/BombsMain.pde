@@ -1,7 +1,9 @@
 /*  Project FYS BombRunner Winand Metz 500851135, Ole Neuman 500827044, 
  Ruben Verheul 500855129, Jordy Post 500846919, Alex Tarnòki 500798826 */
 
-//Code credit Winand Metz, Ole Neuman
+//Page code credit Winand Metz, Ole Neuman, Jordy Post
+
+//Code credit Winand Metz
 import samuelal.squelized.*;
 import processing.sound.*;
 
@@ -68,6 +70,7 @@ void toMainMenu() {
 
 //-----------------------------Draw & Key functies---------------------------------
 
+//Code credit Ole Neuman
 void draw() {
   instructionPicker();
 }
@@ -124,6 +127,7 @@ void instructionPicker() {
   }
 }
 
+//Orginele bron workshops DLO
 void keyPressed() {  
   if (keyCode >= KEY_LIMIT) return;
   keysPressed[keyCode] = true;

@@ -1,4 +1,4 @@
-//Code credit Winand Metz
+//Page code credit Winand Metz, Ruben Verheul, Alex Tarnòki, Ole Neuman, Jordy Post
 
 //Temp login
 final String USERNAME = "'winand'";
@@ -196,3 +196,5 @@ final int BOMB_BONUS_TIME = 2000;
 final int SHIELD_BONUS = 1;
 final int SPEED_BONUS = 2;
 final int SHIELD_PROTECTION = 2;
+final int BOMB_SPARKLER_BONUS = 15;
+final int HEALTH_BOOST = 2;

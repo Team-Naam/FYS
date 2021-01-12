@@ -1,5 +1,6 @@
-//Code credit Winand Metz
+//Page code credit Winand Metz, Ole Neuman
 
+//Code credit Winand Metz
 //Class for moving shadow emitter
 class Emitter {
 
