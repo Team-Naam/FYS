@@ -107,6 +107,7 @@ class SpriteSheetAnim {
 
   float x, y, index, speed;
   int fps, column, frames;
+  int minusIndex = 1;
 
   boolean playing, playOnce, center;
 
@@ -178,10 +179,10 @@ class SpriteSheetAnim {
   }
 
   //Eerst run de update, deze neemt de positie in en bepaald welke image getekend moet worden
-  void update(float x_, float y_, int minusIndex) {
+  void update(float x_, float y_) {
     this.x = x_;
     this.y = y_;
-    minusIndex = 1;
+    
 
     setSpeed(fps);
 
