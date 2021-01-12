@@ -11,6 +11,7 @@ class MainMenu {
 
   int boxSelected;
   int moveCooldown;
+  boolean playMusic;
 
   PImage logo;
 
@@ -28,6 +29,7 @@ class MainMenu {
     boxArray[4].boxText = "Quit";
 
     boxSelected = 0;
+    playMusic = true;
 
     moveCooldown = 0;
 
@@ -35,8 +37,14 @@ class MainMenu {
     this.soundAssets = soundAssets;
   }
 
-  void draw() {
+  void draw() {    
     background(MENU_BACKGROUND_COLOUR);
+
+    if (playMusic) {
+      soundAssets.getMainMenuMusic();
+      playMusic = false;
+    }
+
     image(sprites.getMenuBackground(), 0, 0);
     image(sprites.getLogo(), 20, height - 131, 200, 111);
 
@@ -58,6 +66,10 @@ class MainMenu {
 
   void update() {
     inMainMenu = true;
+
+    if (!soundAssets.main_menu.isPlaying()) {
+      playMusic();
+    }
 
     for (MenuBox menuBox : boxArray) {
       menuBox.selected = false;
@@ -113,6 +125,11 @@ class MainMenu {
         gameState = 1;
       }
     }
+  }
+
+  //Code credit Winand Metz
+  void playMusic() {
+    playMusic = true;
   }
 }
 
@@ -189,7 +206,7 @@ class GameOver {
     this.highscore = highscore;
     bestScore = serverHandler.getHighscoreUser();
     keyEsc.update(700, 1000);
-    
+
     if (input.escapeDown()) {
       toMainMenu();
     }
@@ -204,10 +221,10 @@ class GameOver {
     keyEsc.draw();
 
     fill(BOX_TEXT_COLOUR);
-    
+
     textSize(50);
     text("GAME OVER", width / 2 -150, height / 4);
-    
+
     textSize(40);
     text("SCORE: " + highscore.score, width / 2 -125, height / 4 + 100);
     text("BEST: " + bestScore, width / 2 -125, height / 4 + 150);
@@ -224,8 +241,6 @@ class AchievementMenu {
   Table achievement, unlocked, date, ID;
   MenuBox[] boxArray = new MenuBox[4];
   Timer timer;
-
-  final int SPRITE_COLUMN = 7;
 
   int selected;
 
@@ -368,13 +383,16 @@ class AchievementMenu {
 
 //-----------------------------Highscore Menu---------------------------------
 
-//code credit Jordy
+//Code credit Jordy
 class HighscoreMenu {
+  SpriteSheetAnim keyEsc;
   TextureAssets sprites;
   ServerHandler serverHandler;
   Table highscores, topHighscores, topPlayers, topHighscoresUser;
   MenuBox[] boxArray = new MenuBox[3];
   Timer timer;
+
+  final int SPRITE_COLUMN = 7;
 
   int selected;
 
@@ -399,9 +417,12 @@ class HighscoreMenu {
 
     selected = 0;
     justChanged = false;
+    keyEsc = new SpriteSheetAnim(sprites.itemsBombsUI, SPRITE_COLUMN, ANTIMATED_BUTTON_FRAMES, ANIMATED_BUTTON_FPS);
   }
 
   void update() {
+    keyEsc.update(700, 1000);
+
     if (input.escapeDown()) {
       toMainMenu();
     }
@@ -458,6 +479,10 @@ class HighscoreMenu {
     for (MenuBox menuBox : boxArray) {
       menuBox.draw();
     }
+
+    textSize(30);
+    text("Press ESC to return to main menu", 760, 1030);
+    keyEsc.draw();
   }
 
   void updateSelected() {
