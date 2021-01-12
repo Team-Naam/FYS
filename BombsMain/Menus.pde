@@ -168,14 +168,14 @@ class GameOver {
   ServerHandler serverHandler;
   int bestScore;
 
-  GameOver(TextureAssets textureLoader, ServerHandler serverHandler) {
+  GameOver(TextureAssets textureLoader) {
     this.sprites = textureLoader;
     this.serverHandler = serverHandler;
-    bestScore = serverHandler.getHighscoreUser();
   }
 
   void update(Highscore highscore) {
     this.highscore = highscore;
+    bestScore = serverHandler.getHighscoreUser();
     if (input.escapeDown()) {
       toMainMenu();
     }
