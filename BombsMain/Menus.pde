@@ -165,9 +165,13 @@ class MenuBox {
 class GameOver {
   TextureAssets sprites;
   Highscore highscore;
+  ServerHandler serverHandler;
+  int bestScore;
 
-  GameOver(TextureAssets textureLoader) {
+  GameOver(TextureAssets textureLoader, ServerHandler serverHandler) {
     this.sprites = textureLoader;
+    this.serverHandler = serverHandler;
+    bestScore = serverHandler.getHighscoreUser();
   }
 
   void update(Highscore highscore) {
@@ -181,10 +185,13 @@ class GameOver {
     background(MENU_BACKGROUND_COLOUR);
     image(sprites.getLogo(), 20, height - 131, 200, 111);
     fill(BOX_TEXT_COLOUR);
+    
     textSize(50);
     text("GAME OVER", width / 2 -150, height / 4);
+    
     textSize(40);
     text("SCORE: " + highscore.score, width / 2 -125, height / 4 + 100);
+    text("BEST: " + bestScore, width / 2 -125, height / 4 + 150);
   }
 }
 
