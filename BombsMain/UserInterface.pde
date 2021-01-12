@@ -1,3 +1,6 @@
+//Page code credit Alex Tarnòki, Winand Metz
+
+//Code credit Alex Tarnòki
 class UserInterface {
   TextureAssets assetLoader;
   Player player;
@@ -19,6 +22,7 @@ class UserInterface {
     this.highscore = highScore;
   }
 
+  //Code credit Winand metz 
   void update() {
     ArrayList<Object> entityObjects = objectHandler.entities;
     Object playerEntity = entityObjects.get(0);
@@ -31,6 +35,7 @@ class UserInterface {
     shieldBonus = ((Player)playerEntity).shieldBonus;
   }
 
+  //Code credit Alex Tarnòki
   void draw()
   {
     showHP();
@@ -150,6 +155,7 @@ class UserInterface {
   //  }
   //}
 
+  //Code credit Winand Metz
   //Checkt of er een C4 geplaatst is door de speler
   boolean checkC4(ArrayList<Object> entityObjects) {
     for (Object c4 : entityObjects) {

@@ -1,3 +1,5 @@
+//Page code credit Ole Neuman, Winand Metz, Jordy Post, Ruben Verheul
+
 //Code credit Ole Neuman
 class MainMenu {
 
@@ -115,9 +117,14 @@ class MainMenu {
   }
 }
 
+//-----------------------------Menu Buttons---------------------------------
+
+//Code credit Ole Neuman
 class MenuBox {
   TextureAssets sprites;
   SpriteSheetAnim keyX;
+
+  final int SPRITE_COLUMN = 3;
 
   float posX, posY;
   int boxWidth, boxHeight, textSize;
@@ -130,7 +137,7 @@ class MenuBox {
 
   MenuBox(float positionX, float positionY, int Width, int Height, int size, TextureAssets textureLoader) {
     this.sprites = textureLoader;
-    keyX = new SpriteSheetAnim(sprites.itemsBombsUI, 3, 2, 6);
+    keyX = new SpriteSheetAnim(sprites.itemsBombsUI, SPRITE_COLUMN, ANTIMATED_BUTTON_FRAMES, ANIMATED_BUTTON_FPS);
     posX = positionX;
     posY = positionY;
     boxWidth = Width;
@@ -142,7 +149,7 @@ class MenuBox {
   }
 
   void update() {
-    keyX.update(posX, posY + 45);
+    keyX.update(posX + 20, posY + 40);
     if (selected) {
       textColour = BOX_TEXT_COLOUR;
     } else {
@@ -161,29 +168,42 @@ class MenuBox {
   }
 }
 
+//-----------------------------Game Over Screen---------------------------------
+
 //code credit Jordy
 class GameOver {
+  SpriteSheetAnim keyEsc;
   TextureAssets sprites;
   Highscore highscore;
   ServerHandler serverHandler;
   int bestScore;
 
-  GameOver(TextureAssets textureLoader) {
+  final int SPRITE_COLUMN = 7;
+
+  GameOver(TextureAssets textureLoader, ServerHandler serverHandler) {
     this.sprites = textureLoader;
     this.serverHandler = serverHandler;
+    keyEsc = new SpriteSheetAnim(sprites.itemsBombsUI, SPRITE_COLUMN, ANTIMATED_BUTTON_FRAMES, ANIMATED_BUTTON_FPS);
   }
 
   void update(Highscore highscore) {
     this.highscore = highscore;
     bestScore = serverHandler.getHighscoreUser();
+    keyEsc.update(700, 1000);
+    
     if (input.escapeDown()) {
       toMainMenu();
     }
   }
 
   void draw() {
-    background(MENU_BACKGROUND_COLOUR);
+    background(#000000);
     image(sprites.getLogo(), 20, height - 131, 200, 111);
+
+    textSize(30);
+    text("Press ESC to return to main menu", 760, 1030);
+    keyEsc.draw();
+
     fill(BOX_TEXT_COLOUR);
     
     textSize(50);
@@ -195,14 +215,18 @@ class GameOver {
   }
 }
 
+//-----------------------------Achievement Screen---------------------------------
 
 //code Credit Ruben
 class AchievementMenu {
   TextureAssets sprites;
   ServerHandler serverHandler;
+
   Table achievement, unlocked, date, ID;
   MenuBox[] boxArray = new MenuBox[4];
   Timer timer;
+
+  final int SPRITE_COLUMN = 7;
 
   int selected;
 
@@ -212,20 +236,20 @@ class AchievementMenu {
     this.sprites = textureLoader;
     this.serverHandler = serverHandler;
     timer = new Timer("AchievementSelected");
-    unlocked = serverHandler.getUnlocked();
-    ID = serverHandler.getUnlockedOrderedByID();
-    date = serverHandler.getUnlockedOrderedByDate();
+    unlocked = serverHandler.getUnlocked(); //krijgt alle unlocked achievements
+    ID = serverHandler.getUnlockedOrderedByID(); //krijgt alle unlocked achievements ordered op ID
+    date = serverHandler.getUnlockedOrderedByDate(); //krijgt alle unlocked achievements ordered op Date
     achievement = unlocked;
 
-
+    //achievement is een variabele die veranderd om zo een andere serverHandler void aan te roepen
     for (int i = 0; i < boxArray.length; i++) {
-      boxArray[i] = new MenuBox(width/2 - 1400, 100*i  +200, 1100, 510, 30, textureLoader);
+      boxArray[i] = new MenuBox(width / 2 - 1400, 100 * i + 200, 1100, 510, 30, textureLoader);
     }
 
     boxArray[0].boxText = "Unlocked Achievements";
     boxArray[1].boxText = "Ordered By Achievement";
     boxArray[2].boxText = "Ordered By Date";
-    boxArray[3].boxText = "Quit";
+    boxArray[3].boxText = "Return to main menu";
 
 
     selected = 0;
@@ -233,20 +257,20 @@ class AchievementMenu {
   }
 
   void update() {
-    if (input.escapeDown()) {
+    if (input.escapeDown()) { //als je op ESC drukt ga je naar main menu
       toMainMenu();
     }
-    if (input.xDown() && selected == 3 && timer.startTimer(200)) {
+    if (input.xDown() && selected == 3 && timer.startTimer(200)) { //als je X drukt op het kopje "quit" ga je naar main menu
       toMainMenu();
     }
     if (input.downDown() && !justChanged) {
       selected++;
-      if (selected > 3 ) selected = 0;
+      if (selected > 3 ) selected = 0; //als je op de laatste tabje zit en je gaat verder, gaat hij naar het begin
       updateSelected();
       justChanged = true;
     }
 
-    if (input.upDown() && !justChanged) {
+    if (input.upDown() && !justChanged) { //als je op het eerste tabje zit en je gaat terug gaat hij naar het einde
       selected --;
       if (selected < 0) selected = 3;
       updateSelected();
@@ -263,21 +287,25 @@ class AchievementMenu {
     noStroke();
     image(sprites.getLogo(), 20, height - 131, 200, 111);
 
+
     fill(20);
+    //De rectangles waar alle informatie wordt geschreven
     rect(width/2 - 500, 210, 450, 850, 100);
     rect(width/2 -10, 210, 600, 850, 100);
     rect(width/2 + 650, 210, 300, 850, 100); 
 
     fill(255);
     textSize(50);
+    //de kopjes boven de rectangles
     text("achievements", width / 2 -425, 200);
     text("description", width / 2 +155, 200);
     text("date", width / 2 + 750, 200);
 
     textSize(40);
+    //de achievement wordt beschreven met deze text functie
     for (int i = 0; i < achievement.getRowCount(); i++) {
       TableRow row = achievement.getRow(i);
-      for (int j = 0; j < 3 /*row.getColumnCount()*/; j++) {
+      for (int j = 0; j < row.getColumnCount(); j++) {
 
         if (j == 0) {
           textSize(40);
@@ -287,22 +315,24 @@ class AchievementMenu {
         if (j == 1) {
           textSize(30);
           text(row.getString(j), width / 2 + 10, 300 + 60 * i);
-   
         }
         textSize(40);
         if (j == 2) {
           text(row.getString(j), width / 2 + 700, 300 + 60 * i);
         }
+
         //text(row.getString(j), width / 2 -170 + 300 * j, 300 + 60 * i);
       }
     }
+
 
     for (MenuBox menuBox : boxArray) {
       menuBox.draw();
     }
   }
 
-  void updateSelected() {
+
+  void updateSelected() { //void met cases en een switch om te kijken welke tab geselecteerd is, waarbij de achievement die wordt opgeroepen verandered wordt.
     switch(selected) {
     case 0:
       boxArray[0].selected = true;
@@ -318,14 +348,14 @@ class AchievementMenu {
       boxArray[3].selected = false;
       achievement = ID;
       break;
-      case 2:
+    case 2:
       boxArray[0].selected = false;
       boxArray[1].selected = false;
       boxArray[2].selected = true;
       boxArray[3].selected = false;
       achievement = date;
       break;
-      case 3:
+    case 3:
       boxArray[0].selected = false;
       boxArray[1].selected = false;
       boxArray[2].selected = false;
@@ -337,6 +367,7 @@ class AchievementMenu {
   }
 }
 
+//-----------------------------Highscore Menu---------------------------------
 
 //code credit Jordy
 class HighscoreMenu {
@@ -389,7 +420,7 @@ class HighscoreMenu {
       updateSelected();
       justChanged = true;
     }
-    
+
     //zorgt voor een cooldown van het switchen tussen tabbellen
     if (justChanged) {
       if (timer.startTimer(100)) justChanged = false;
@@ -419,7 +450,7 @@ class HighscoreMenu {
         text(row.getString(j), width / 2 -170 + 300 * j, 300 + 60 * i);
       }
     }
-    
+
     //tekent de achtergrond van de text
     fill(20);
     rect(width /2 - 500, 100, 250, 410);
@@ -454,6 +485,8 @@ class HighscoreMenu {
     }
   }
 }
+
+//-----------------------------Pause Menu---------------------------------
 
 //Code credit Winand Metz
 class PauseMenu {
@@ -543,9 +576,6 @@ class PauseMenu {
   }
 
   void draw() {
-    fill(128);
-    rect(width / 2 - 200, height / 4, 400, 600);
-
     fill(0, 200);
     rect(0, 0, width, height);
 
@@ -554,6 +584,8 @@ class PauseMenu {
     }
   }
 }
+
+//-----------------------------Settings Menu---------------------------------
 
 //Code credit Winand Metz
 class SettingsMenu {
@@ -714,6 +746,8 @@ class SettingsMenu {
     }
   }
 
+  //-----------------------------Volume Button---------------------------------
+
   class VolumeButton {
     Toggle subtract;
     Toggle add;
@@ -772,6 +806,8 @@ class SettingsMenu {
       subtract.draw();
       add.draw();
     }
+
+    //-----------------------------Toggle Button---------------------------------
 
     class Toggle {
       final int TOGGLE_COOLDOWN = 6;

@@ -1,5 +1,6 @@
-//Code credit Jordy Post, Winand Metz, Ruben Verheul, Ole Neuman 
+//Page code credit Jordy Post, Winand Metz, Ruben Verheul, Ole Neuman 
 
+//Code credit Jordy Post
 class Entity extends Object {
 
   int health;
@@ -36,6 +37,7 @@ class Entity extends Object {
     slow = MINI_SPIDER_SLOW;
   }
 
+  //Code credit Winand Metz
   void update() {
     //Als het object zich buiten het scherm bevindt wordt hij verwijderd
     selfDestruct();
@@ -57,6 +59,7 @@ class Entity extends Object {
     slowAmount = slow * spawnedMiniSpider;
   }
 
+  //Code credit Winand Metz
   void movement() {
     /*Timer voor basic willekeurig ronddwalen over speelveld elke twe seconden gaat hij andere kant op
      Zodra hij binnen 400 pixels van de player komt gaat hij achter de player aan */
@@ -75,6 +78,8 @@ class Entity extends Object {
         savedTime= millis();
       }
     }
+
+    //Code credit Jordy Post
     if (knockback) {
       knockbackCountDown --;
 
@@ -82,7 +87,7 @@ class Entity extends Object {
       else knockbackModifierX = randomN1;
       if (y - playerY >= 0) knockbackModifierY = randomP2;
       else knockbackModifierY = randomN2;
-      println(knockbackModifierX);
+      //println(knockbackModifierX);
 
       speedX += (knockbackModifierX * knockbackCountDown);
       speedY += (knockbackModifierY * knockbackCountDown);
@@ -94,10 +99,10 @@ class Entity extends Object {
     }
   }
 
+  //Code credit Jordy Post
   void hunt() {
     float playerX = getPlayerX();
     float playerY = getPlayerY();
-
 
     if (cloakBonus == false && abilityCharge == false) {
       if (playerX > x) {
@@ -124,6 +129,7 @@ class Entity extends Object {
     }
   }
 
+  //Code credit Winand Metz, Ruben Verheul, Ole Neuman
   void bombDamage() {
     //Eerst wordt gecheckt of de object zich in de explosie circle bevind, waarna vervolgens de health ervan wordt afgetrokken
     if (insideExplosion && !takenDamage) {
@@ -153,6 +159,7 @@ class Entity extends Object {
     insideExplosion = false;
   }
 
+  //Code credit Ruben Verheul 
   void attack() {
     ArrayList<Object> entityObjects = objectHandler.entities;
     Object playerEntity = entityObjects.get(0);
@@ -160,6 +167,7 @@ class Entity extends Object {
       ((Player)playerEntity).attackDamage = attack;
       ((Player)playerEntity).gettingAttacked = true;
       //println("slash");
+
       knockback = true;
       randomP1 = random(0.3, 1);
       randomN1 = random(-1, -0.3);
@@ -176,6 +184,7 @@ class Entity extends Object {
   }
 }
 
+//Code credit Winand Metz
 //Er moet voor collision detection minimaal twee objecten in de entity list zitten, dit is een lege entry, dat nooit verwijderd wordt
 class CollisionFix extends Object {
 

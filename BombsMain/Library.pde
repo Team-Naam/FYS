@@ -1,3 +1,5 @@
+//Page code credit Ole Neuman, Winand Metz
+
 /* Vanuit hier kun je methods gebruiken die geschreven zijn voor het project en op meerdere manieren gebruikt kunnen worden.
  Als je iets toevoegd, zet je credit erbij en een uitleg
  */
@@ -59,11 +61,15 @@ class InputHandler {
   }
 }
 
+//-----------------------------Randoms---------------------------------
+
 /* Code credit Winand
  Random getal van -1 tot 1 */
 int randomOnes() {
   return (int) random(3) - 1;
 }
+
+//-----------------------------Timer---------------------------------
 
 class Timer {
 
@@ -93,6 +99,8 @@ class Timer {
     return false;
   }
 }
+
+//-----------------------------Intersection Rays---------------------------------
 
 class Ray {
 
@@ -146,6 +154,8 @@ class Ray {
     }
   }
 }
+
+//-----------------------------Sprite Loading---------------------------------
 
 //Functie voor het inladen van de verschillende textures in een twee dimensionale array
 PImage[][] loadSprites(String path, int tileSize) {

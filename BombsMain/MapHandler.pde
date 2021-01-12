@@ -1,5 +1,6 @@
-//Code Credit Ole Neuman 
+//Page code credit Ole Neuman, Winand Metz
 
+//Code credit Ole Neuman
 import java.util.Queue;
 import java.util.ArrayDeque;
 
@@ -162,6 +163,7 @@ class MapHandler {
   }
 }
 
+//-----------------------------Maploader---------------------------------
 
 /* Code credit Winand Metz
  Het bepalen van de plaatsing van objecten in het level dmv aflezen pixel colorcodes(android graphics color) en dit omzetten in een grid van 15 bij 8

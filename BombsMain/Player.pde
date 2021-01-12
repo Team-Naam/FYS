@@ -1,4 +1,4 @@
-//Code credit Ruben Verheul, Winand Metz, Ole Neuman
+//Page code credit Ruben Verheul, Winand Metz, Ole Neuman
 
 class Player extends Object {
   Timer timer;
@@ -13,19 +13,25 @@ class Player extends Object {
   boolean takenEnemyDamage = false;
   boolean gettingAttacked = false;
 
-  int speedX, speedY, startTime, attackDamage;
+  int shieldProtection = SHIELD_PROTECTION;
+  int bombDamage = BOMB_DAMAGE;
   int speedBonusTimer = SPEED_BONUS_TIME;
   int undefeatabaleBonusTimer = UNDEFEATBALE_BONUS_TIME;
   int cloakBonusTimer = CLOACK_BONUS_TIME;
   int sparklerBonusTimer = BOMB_BONUS_TIME;
-  float velX = playerSpeed;
-  float velY = playerSpeed;
+  int bombSparklerCooldown = BOMB_SPARKLER_BONUS;
   int health = PLAYER_HEALTH;
   int shield = PLAYER_SHIELD;
-  float oldX, oldY;
+
   int bombCooldown = 0;
-  int bombSparklerCooldown = 0;
   int fps = 20;
+
+  int speedX, speedY, startTime, attackDamage;
+
+  float velX = playerSpeed;
+  float velY = playerSpeed;
+
+  float oldX, oldY;
 
   Player(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, Highscore highscore, SoundAssets soundAssets) {
     super(x, y, w, h, ObjectID.PLAYER, objectHandler, sprites, soundAssets);
@@ -33,6 +39,7 @@ class Player extends Object {
     this.highscore = highscore;
   }
 
+  //Code credit Winand Metz 
   void update() {
     playerControls();
 
@@ -68,8 +75,12 @@ class Player extends Object {
     bombDamage();
     enemyDamage();
 
+    //Code credit Ruben Verheul
     if (shield <= 0) {
       shieldBonus = false;
+    }
+    if (shield > 0) {
+      shieldBonus = true;
     }
 
     if (health <= 0 || x <= -128) {
@@ -79,6 +90,7 @@ class Player extends Object {
     if (bombCooldown > 0) bombCooldown--;
   }
 
+  //Code credit Ole Neuman
   void playerControls() {
     speedX = 0;
     speedY = 0;
@@ -95,10 +107,12 @@ class Player extends Object {
       speedY += velY;
     }
 
+    //Code credit Ruben Verheul
     if (sparklerBonus) {
       bombCooldown = bombSparklerCooldown;
     }
 
+    //Code credit Ole Neuman
     if (input.zDown() && bombCooldown == 0) {
       objectHandler.addBomb(x + w / 4, y + h / 4, BOMB_SIZE, BOMB_SIZE);
       bombCooldown = BOMB_COOLDOWN_TIME;
@@ -116,13 +130,22 @@ class Player extends Object {
     }
   }
 
+  //Code credit Ruben Verheul
   void bombDamage() {
     if (!undefeatabaleBonus) {
-      if (insideExplosion && !takenBombDamage) {
-        health -= BOMB_DAMAGE;
-        println("taking " + BOMB_DAMAGE + " damage");
+      if (insideExplosion && !takenBombDamage && shieldBonus == true) {
+        bombDamage = bombDamage - shieldProtection;
+        if (bombDamage < 0) bombDamage = 0;
+        shield -= 1;
+        health -= bombDamage;
         takenBombDamage = true;
       }
+      if (insideExplosion && !takenBombDamage && shieldBonus == false) {
+        health -= bombDamage;
+        //println("taking " + bombDamage + " damage");
+        takenBombDamage = true;
+      }
+
       if (!insideExplosion && takenBombDamage) {
         takenBombDamage = false;
       }
@@ -130,8 +153,16 @@ class Player extends Object {
     }
   }
 
+  //Code credit 
   void enemyDamage() {
-    if (gettingAttacked && !takenEnemyDamage) {
+    if (gettingAttacked && !takenEnemyDamage && shieldBonus == true) {
+      attackDamage = attackDamage - shieldProtection;
+      if (attackDamage < 0) attackDamage = 0;
+      shield -= 1;
+      health -= attackDamage;
+      takenEnemyDamage = true;
+    }
+    if (gettingAttacked && !takenEnemyDamage && shieldBonus == false) {
       health -= attackDamage;
       takenEnemyDamage = true;
     }
@@ -141,10 +172,11 @@ class Player extends Object {
     gettingAttacked = false;
   }
 
+  //Code credit Ruben Verheul
   void powerUps() {
     if (speedBonus) {
       if (timer.startTimer(speedBonusTimer)) {
-        println("ANTIWOOSH");
+        //println("ANTIWOOSH");
         velX -= 2;
         velY -= 2;
         speedBonus = false;
@@ -152,7 +184,7 @@ class Player extends Object {
     }
     if (cloakBonus) {
       if (timer.startTimer(cloakBonusTimer)) {
-        println("now you see me");
+        //println("now you see me");
         cloakBonus = false;
       }
     }
@@ -171,6 +203,7 @@ class Player extends Object {
     }
   }
 
+  //Code credit Ruben Verheul
   void powerUpDetection() {
     ArrayList<Object> objects = objectHandler.entities;
     for (int i = 0; i < objects.size(); i++) {
@@ -178,7 +211,7 @@ class Player extends Object {
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.BOOTS) {
         soundAssets.getBootsPickUp();
         if (!speedBonus) {
-          println("NYOOM");
+          //println("NYOOM");
           velX += SPEED_BONUS;
           velY += SPEED_BONUS;
           speedBonus = true;
@@ -197,42 +230,42 @@ class Player extends Object {
 
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.HEART) {
         soundAssets.getHeartPickUp();
-        println("heart goes boom boom");
-        health += 1;
+        //println("heart goes boom boom");
+        health += HEALTH_BOOST;
         objectHandler.removeEntity(item);
       }
 
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.SHIELD) {
         soundAssets.getShieldPickUp();
-        println("thicc");
+        //println("thicc");
         shield += SHIELD_BONUS;
-        shieldBonus = true;
         objectHandler.removeEntity(item);
       }
 
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.BPOTION) {
         soundAssets.getBluePotionPickUp();
-        println("me goes not boom boom");
+        //println("me goes not boom boom");
         undefeatabaleBonus = true;
         objectHandler.removeEntity(item);
       }
 
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.SPARKLER) {
         soundAssets.getSparklerPickUp();
-        println("kaboom? Yes Rico, kaboom");
+        //println("kaboom? Yes Rico, kaboom");
         sparklerBonus = true;
         objectHandler.removeEntity(item);
       }
 
       if (!item.equals(this) && intersection(item) && item.itemId == ItemID.CLOAK) {
         soundAssets.getCloakPickUp();
-        println("now you dont");
+        //println("now you dont");
         cloakBonus = true;
         objectHandler.removeEntity(item);
       }
     }
   }
 
+  //Code credit Winand Metz
   @Override
     //De dropshadow (zie Object class) is voor de player anders
     void dropShadow() {

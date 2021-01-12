@@ -1,5 +1,6 @@
-//Code credit Jordy Post, Winand Metz, Ruben Verheul
+//Page code credit Jordy Post, Winand Metz, Ruben Verheul
 
+//Code credit Jordy Post
 class Ghost extends Entity {
 
   Ghost(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
@@ -82,7 +83,7 @@ class Poltergeist extends Entity {
       undefeatabaleBonus = false;
       speedBonus = false;
       sparklerBonus = false;
-      println("slash");
+      //println("slash");
     }
   }
 
@@ -93,6 +94,7 @@ class Poltergeist extends Entity {
 
 //-----------------------------Mummy---------------------------------
 
+//Code credit Jordy Post
 class Mummy extends Entity {
 
   Mummy(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
@@ -107,8 +109,7 @@ class Mummy extends Entity {
     velY = MUMMY_MOVEMENT_SPEED;
   }
 
-  @Override
-    void update() {
+  void update() {
     super.update();
   }
 
@@ -133,8 +134,7 @@ class SMummy extends Mummy {
     attack = SMUMMY_ATTACK;
   }
 
-  @Override
-    void update() {
+  void update() {
     super.update();
   }
 
@@ -142,7 +142,7 @@ class SMummy extends Mummy {
   @Override
     void bombDamage() {
     if (insideExplosion) {
-      println(insideExplosion);
+      //println(insideExplosion);
       if (shield <= 0) {
         health -= BOMB_DAMAGE;
         insideExplosion = false;
@@ -163,6 +163,7 @@ class SMummy extends Mummy {
 
 //-----------------------------Spider---------------------------------
 
+//Code credit Ruben Verheul
 class Spider extends Entity {
 
   Spider(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
@@ -176,8 +177,7 @@ class Spider extends Entity {
     velY = SPIDER_MOVEMENT_SPEED ;
   }
 
-  @Override
-    void update() {
+  void update() {
     super.update();
   }
 
@@ -188,9 +188,8 @@ class Spider extends Entity {
 
 //-----------------------------Special spider---------------------------------
 
+//Code credit Ruben Verheul
 class ExplosiveSpider extends Entity {
-
-
 
   ExplosiveSpider(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
     super(x, y, w, h, objectHandler, sprites, soundAssets);
@@ -203,8 +202,7 @@ class ExplosiveSpider extends Entity {
     velY = EXPLOSIVE_SPIDER_MOVEMENT_SPEED;
   }
 
-  @Override
-    void update() {
+  void update() {
     super.update();
   }
 
@@ -213,10 +211,9 @@ class ExplosiveSpider extends Entity {
   }
 }
 
-
 //-----------------------------Mini spider---------------------------------
 
-
+//Code credit Ruben Verheul
 class MiniSpider extends Entity {
 
   MiniSpider(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
@@ -229,9 +226,8 @@ class MiniSpider extends Entity {
     velX = MINI_SPIDER_MOVEMENT_SPEED;
     velY = MINI_SPIDER_MOVEMENT_SPEED;
   }
-  
-  @Override
-    void update() {
+
+  void update() {
     super.update();
   }
 

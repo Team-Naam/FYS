@@ -1,3 +1,5 @@
+//Page code credit Jordy Post, Winand Metz, Ruben Verheul
+
 class ServerHandler {
   MySQLConnection myConnection;
 
