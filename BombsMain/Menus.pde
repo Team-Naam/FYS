@@ -175,17 +175,22 @@ class GameOver {
   SpriteSheetAnim keyEsc;
   TextureAssets sprites;
   Highscore highscore;
+  ServerHandler serverHandler;
+  int bestScore;
 
   final int SPRITE_COLUMN = 7;
 
-  GameOver(TextureAssets textureLoader) {
+  GameOver(TextureAssets textureLoader, ServerHandler serverHandler) {
     this.sprites = textureLoader;
+    this.serverHandler = serverHandler;
     keyEsc = new SpriteSheetAnim(sprites.itemsBombsUI, SPRITE_COLUMN, ANTIMATED_BUTTON_FRAMES, ANIMATED_BUTTON_FPS);
   }
 
   void update(Highscore highscore) {
     this.highscore = highscore;
+    bestScore = serverHandler.getHighscoreUser();
     keyEsc.update(700, 1000);
+    
     if (input.escapeDown()) {
       toMainMenu();
     }
@@ -200,10 +205,13 @@ class GameOver {
     keyEsc.draw();
 
     fill(BOX_TEXT_COLOUR);
+    
     textSize(50);
     text("GAME OVER", width / 2 -150, height / 4);
+    
     textSize(40);
     text("SCORE: " + highscore.score, width / 2 -125, height / 4 + 100);
+    text("BEST: " + bestScore, width / 2 -125, height / 4 + 150);
   }
 }
 
