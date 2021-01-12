@@ -1,5 +1,6 @@
-//Code credit Winand Metz
+//Page code credit Winand Metz, Alex Tarnòki
 
+//Code credit Winand Metz
 //Inladen en tijdelijk opslaan textures
 class TextureAssets {
 
@@ -29,7 +30,7 @@ class TextureAssets {
     menusUserInterface = loadSprites("data/text/ui/menu_ui.png", tileSize);
     entities = loadSprites("data/text/entities/poltergeist_test_64.png", 64);
     bWallSprites = loadSprites("data/text/walls/broken_walls_spritesheet.png", tileSize);
-    vasesAndBackpacks = loadSprites("data/text/objects/vases1.png", 64);
+    vasesAndBackpacks = loadSprites("data/text/objects/backpacksAndVases.png", 64);
     backgroundSprites = loadSprites("data/text/floors/floors.png", tileSize);
     backgroundOverlays = loadSprites("data/text/floors/overlays.png", tileSize);
     explosion = loadSprites("data/text/effects/explosion.png", 256);
@@ -195,6 +196,7 @@ class SpriteSheetAnim {
   }
 }
 
+//Code credit Alex Tarnòki
 class SoundAssets {
 
   //--ITEM SOUND EFFECTS-------------------------------------------------------------------------

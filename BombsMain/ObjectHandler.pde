@@ -1,4 +1,4 @@
-//Code credit Winand Metz
+//Page code credit Winand Metz
 
 //Class voor het creëren en opslaan van de objecten
 class ObjectHandler {

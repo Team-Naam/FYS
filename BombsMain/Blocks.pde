@@ -1,4 +1,4 @@
-//Code credit Winand Metz
+//Page code credit Winand Metz
 
 class Wall extends Object {
   Ray leftRay;
@@ -467,6 +467,8 @@ class BreakableObject extends Entity {
   }
 }
 
+//-----------------------------Corpse---------------------------------
+
 class Corpse extends BreakableObject {
 
   Corpse(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
@@ -498,6 +500,8 @@ class Corpse extends BreakableObject {
   }
 }
 
+//-----------------------------Vases---------------------------------
+
 class Vases extends BreakableObject {
 
   Vases(float x, float y, int w, int h, ObjectHandler objectHandler, TextureAssets sprites, SoundAssets soundAssets) {
@@ -505,7 +509,7 @@ class Vases extends BreakableObject {
     randomTexture = (int)random(9);
     randomPosQ = random(1) * 80;
 
-    println(newX, newY);
+    //println(newX, newY);
   }
 
   @Override
@@ -528,8 +532,14 @@ class Backpack extends BreakableObject {
     randomPosQ = random(1) * 70;
   }
 
+  @Override
+    void dropShadow() {
+    noStroke();
+    fill(0, 112);
+    ellipse(newX + w * 0.51, newY + h * 0.7, w * 0.6, w * 0.5);
+  }
+
   void draw() {
-    fill(255);
-    rect(newX, newY, w, h);
+    image(sprites.getObject(1, 0), newX, newY);
   }
 }

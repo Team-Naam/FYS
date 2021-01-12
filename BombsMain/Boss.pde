@@ -1,3 +1,6 @@
+//Page code credit Ruben Verheul, Jordy Post
+
+//Code credit Ruben Verheul
 class SpiderQueen extends Entity {
 
   String currentAttack, currentSpiderSpawn;
@@ -48,14 +51,14 @@ class SpiderQueen extends Entity {
     if (abilityCharge == false) {
       //wanneer de timer evenlang is als de aangegeven timer (pickTimer op abilityTimer), lees dan de regels onder.
       if (pickTimer.startTimer(abilityTimer)) {
-        println("i read this");
+        //println("i read this");
         abilityCharge();
         abilityCharge = true;
       }
     }
     //als een mini spider gespawnt is, reset hij de spiderSpawnTimer/switched hij de case naar spiderSpawn
     if (spawnSpider == true) {
-      println("spiderSpawn");
+      //println("spiderSpawn");
       currentSpiderSpawn = "spiderSpawn";
       spiderSpawnTimer.startTime = 0;
       spiderSpawnTimer.startTime = millis();
@@ -93,7 +96,7 @@ class SpiderQueen extends Entity {
         objectHandler.addBullet(x, y);
         amountWebsShot += 1;
         //attackTimer.startTime = millis();
-        println(amountWebsShot);
+        //println(amountWebsShot);
         if (amountWebsShot >= 5) {
           doneShooting = true;
         }
@@ -102,7 +105,7 @@ class SpiderQueen extends Entity {
         if (attackTimer.startTimer(5000)) {
           velX = SPIDERQUEEN_MOVEMENT;
           velY = SPIDERQUEEN_MOVEMENT;
-          println("hi");
+          //println("hi");
           currentAttack = "";
           abilityCharge = false;
         }
@@ -143,7 +146,7 @@ class SpiderQueen extends Entity {
 
   void abilityCharge() {
     //een random picker tussen de verschillende abilities
-    println("i read this aswell");
+    //println("i read this aswell");
     abilityPicker = random(30);
     //random ability kiezer
     if (abilityPicker <= 10 && abilityPicker >= 0) {
@@ -161,7 +164,7 @@ class SpiderQueen extends Entity {
   //aanroepen wat er voor webAttack allemaal moet gebeuren/aangeroepen (case switchen, timer starten...)
   void webAttack() {
 
-    println("web attack");
+    //println("web attack");
     velY = 0;
     velX = 0;
     currentAttack = "webAttack";
@@ -172,7 +175,7 @@ class SpiderQueen extends Entity {
 
   //aanroepen wat er voor explosiveBirth allemaal moet gebeuren/aangeroepen (case switchen, timer starten...)
   void explosiveBirth() {
-    println("explosive birth");
+    //println("explosive birth");
     velY = 0;
     velX = 0;
     explosiveBirthTimer.startTime = millis();
@@ -181,7 +184,7 @@ class SpiderQueen extends Entity {
 
   //aanroepen wat er voor seriousBirth allemaal moet gebeuren/aangeroepen (case switchen, timer starten...)
   void seriousBirth() {
-    println("serious birth");
+    //println("serious birth");
     velY = 0;
     velX = 0;
     seriousBirthTimer.startTime = millis();
@@ -193,6 +196,8 @@ class SpiderQueen extends Entity {
     rect(x, y, w, h);
   }
 }
+
+//-----------------------------Bullets---------------------------------
 
 //class voor de bullets die de SpiderQueen schiet, extends uit de Object class
 class Bullet extends Object {
@@ -240,7 +245,8 @@ class Bullet extends Object {
   }
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//-----------------------------Moving wall---------------------------------
+
 //code credit Jordy
 class MovingWall extends Entity {
 
@@ -265,7 +271,7 @@ class MovingWall extends Entity {
     stunned = false;
     invincible = true; 
     attacking = false;
-    
+
     //maakt de bovenste en onderste helft van de boss die pas zichtbaar worden als de boss geactiveerd is
     topWall = new HalfWall(x, y, w, h /2, objectHandler, sprites, soundAssets, true, this);
     bottomWall = new HalfWall(x, y + h /2, w, h /2, objectHandler, sprites, soundAssets, false, this);
@@ -293,7 +299,7 @@ class MovingWall extends Entity {
   }
 
   @Override
-  //zodat de boss gedamaged wordt als hij in de explosie van een bom zit
+    //zodat de boss gedamaged wordt als hij in de explosie van een bom zit
     void bombDamage() {
     if (insideExplosion && !takenDamage) {
       if (!activated) {
@@ -323,7 +329,7 @@ class MovingWall extends Entity {
 
   @Override
     void movement() {
-      //als de boss na een attack op de rust positie zit begint er een nieuwe willekeurige attack
+    //als de boss na een attack op de rust positie zit begint er een nieuwe willekeurige attack
     if (atRest() && !attacking) {
       attacking = true;
       topWall.attackState = 0;
@@ -350,7 +356,8 @@ class MovingWall extends Entity {
 
 
 
-//-----------
+//-----------------------------Half Wall---------------------------------
+
 //een class waar alle code voor de topwall en de bottomwall in zit 
 //als je iets alleen met één van de delen wilt kan je de boolean top gebruiken
 class HalfWall extends Entity {
@@ -429,7 +436,7 @@ class HalfWall extends Entity {
 
   @Override
     void draw() {
-      //tekent alleen als de wallboss geactiveerd is
+    //tekent alleen als de wallboss geactiveerd is
     if (wallBoss.activated) {
       if (top) {
         stroke(5);
@@ -494,7 +501,7 @@ class HalfWall extends Entity {
 
   @Override
     void movement() {
-      //kijkt welke attack uitgevoerd moet worden
+    //kijkt welke attack uitgevoerd moet worden
     if (wallBoss.attacking) {
       switch(wallBoss.currentAttack) {
       case 0:
