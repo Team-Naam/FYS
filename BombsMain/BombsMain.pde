@@ -46,7 +46,7 @@ void setup() {
   soundAssets.update();
   game = new Game(TILE_SIZE, width, height, textureAssets, soundAssets, serverHandler);
   mainMenu = new MainMenu(textureAssets, soundAssets);
-  gameOver = new GameOver(textureAssets);
+  gameOver = new GameOver(textureAssets, serverHandler);
   pauseMenu = new PauseMenu(textureAssets);
   highscoreMenu = new HighscoreMenu(textureAssets, serverHandler);
   achievementMenu = new AchievementMenu(textureAssets, serverHandler);
